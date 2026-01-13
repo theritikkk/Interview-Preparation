@@ -71,6 +71,13 @@ This is the *industry's most trusted system design course* with over 140,000 lea
 
 *Study approach:* Complete the entire course systematically. For each system design case study, practice drawing the architecture on a whiteboard/paper without looking. Focus on understanding trade-offs (consistency vs availability, SQL vs NoSQL, etc.). Practice explaining your design decisions out loud.[21][18][19]
 
+
+Design:
+- URL shortener
+- Chat app
+- Instagram feed
+- Rate limiter
+
 ## Interview Practice Community
 
 *Recommended:* NeetCode Discord + Pramp for Mock Interviews
