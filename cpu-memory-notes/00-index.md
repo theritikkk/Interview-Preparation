@@ -33,12 +33,13 @@ flowchart TD
 
 | # | File | Book sections | Core content |
 |---|---|---|---|
-| 1 | `01-ram-hardware.md` | Ch1-2 | Northbridge/Southbridge, integrated memory controllers -> NUMA, SRAM vs. DRAM cell design, RAS/CAS address multiplexing, `w-x-y-z-T` timing notation, DDR1/2/3 generations |
-| 2 | `02-cpu-caches.md` | Ch3 | Why caches exist, cache line structure, direct-mapped/fully-associative/set-associative trade-offs, write-through vs. write-back, MESI protocol and RFOs, measured bandwidth across architectures |
-| 3 | `03-virtual-memory-and-numa.md` | Ch4-5 | Multi-level page tables, why TLBs exist, ASID tagging, huge pages, NUMA hardware topologies, `/proc/PID/numa_maps`, measured remote-access latency penalties |
-| 4 | `04-cache-optimization-and-prefetching.md` | Ch6.1-6.3 | Non-temporal stores, the full matrix-multiplication optimization progression (transpose -> blocking -> vectorization), `pahole` and struct layout, hardware/software prefetching |
-| 5 | `05-multithread-and-numa-programming.md` | Ch6.4-6.5 | False sharing (measured 390-1147% overhead), CAS vs. native atomics, the x86 `lock` prefix trick, thread affinity, NUMA memory policy (`MPOL_*`) |
-| 6 | `06-tools-and-upcoming-technology.md` | Ch7-8 | `oprofile` (CPI-based profiling), `Cachegrind` (cache simulation), transactional memory (LT/LTX/ST/COMMIT/VALIDATE), DDR3 latency trade-offs |
+| 1 | `ch01-ram-hardware.md` | Ch1-2 | Northbridge/Southbridge, integrated memory controllers -> NUMA, SRAM vs. DRAM cell design, RAS/CAS address multiplexing, `w-x-y-z-T` timing notation, DDR1/2/3 generations |
+| 2 | `ch02-cpu-caches.md` | Ch3 | Why caches exist, cache line structure, direct-mapped/fully-associative/set-associative trade-offs, write-through vs. write-back, MESI protocol and RFOs, measured bandwidth across architectures |
+| 3 | `ch03-virtual-memory-and-numa.md` | Ch4-5 | Multi-level page tables, why TLBs exist, ASID tagging, huge pages, NUMA hardware topologies, `/proc/PID/numa_maps`, measured remote-access latency penalties |
+| 4 | `ch04-cache-optimization-and-prefetching.md` | Ch6.1-6.3 | Non-temporal stores, the full matrix-multiplication optimization progression (transpose -> blocking -> vectorization), `pahole` and struct layout, hardware/software prefetching |
+| 5 | `ch05-multithread-and-numa-programming.md` | Ch6.4-6.5 | False sharing (measured 390-1147% overhead), CAS vs. native atomics, the x86 `lock` prefix trick, thread affinity, NUMA memory policy (`MPOL_*`) |
+| 6 | `ch06-tools-and-upcoming-technology.md` | Ch7-8 | `oprofile` (CPI-based profiling), `Cachegrind` (cache simulation), transactional memory (LT/LTX/ST/COMMIT/VALIDATE), DDR3 latency trade-offs |
+| 7 | `ch07-modern-ai-datacenter-memory.md` | *(current-technology companion, not in the original book)* | The AI "memory wall" and roofline model, HBM3E/HBM4 architecture (TSVs, base die, interposer, CoWoS), HBM vs. GDDR vs. DDR/LPDDR trade-offs, CXL memory pooling/disaggregation for AI inference (KV cache) |
 
 ---
 
