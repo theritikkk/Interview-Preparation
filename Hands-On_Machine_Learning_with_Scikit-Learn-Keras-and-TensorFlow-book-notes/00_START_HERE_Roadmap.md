@@ -32,8 +32,13 @@ ML_Notes/
 │   ├── 18_reinforcement_learning.md
 │   └── 19_training_deploying_at_scale.md
 ├── ml_project_checklist.md         ← printable checklist for any real project (Appendix B)
-└── glossary_cheatsheet.md          ← every key term & formula in one place, for fast revision
+├── glossary_cheatsheet.md          ← every key term & formula in one place, for fast revision
+└── code/                           ← one runnable Jupyter notebook per chapter (see code/README.md)
+    ├── part1_fundamentals/
+    └── part2_deep_learning/
 ```
+
+📓 **Each chapter has a matching notebook in `code/`** — the same workflow, but as code you actually run, not just read. See `code/README.md` for setup instructions (Google Colab is the easiest way to start, no installation needed).
 
 Every chapter file follows the **same skeleton**, so once you know the pattern you can navigate any file instantly:
 
