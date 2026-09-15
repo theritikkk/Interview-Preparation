@@ -16,7 +16,7 @@ flowchart TD
     Zones --> Buddy["Buddy allocator\ntakes over"]
 ```
 
-⭐ **NUMA topology (directly connecting to `cpumemory-detailed/03-virtual-memory-and-numa.md`) is discovered from ACPI tables, not guessed:**
+⭐ **NUMA topology (directly connecting to `../ch03-virtual-memory-and-numa.md`) is discovered from ACPI tables, not guessed:**
 - **SRAT (System/Static Resource Affinity Table)** — tells the kernel which physical address ranges belong to which NUMA node.
 - **SLIT (System Locality Information Table)** — gives the actual **distance matrix** between nodes (this is where the "NUMA factor" numbers from the cpumemory notes ultimately come from, in machine-readable form).
 
