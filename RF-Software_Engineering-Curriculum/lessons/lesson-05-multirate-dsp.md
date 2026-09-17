@@ -127,4 +127,4 @@ Extend §8's code: decimate the same two-tone signal by $M=4$ instead of $M=2$, 
 
 ---
 
-← [Lesson 4](lesson-04-convolution-fir-filters.md) · [Table of Contents](../README.md)
+← [Lesson 4](lesson-04-convolution-fir-filters.md) · [Table of Contents](../README.md)  ·  [Lesson 6 →](lesson-06-correlation-matched-filter.md)
