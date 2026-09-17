@@ -128,4 +128,4 @@ Before moving to Lesson 2 (sampling, DTFT, and the FFT), answer these:
 
 ---
 
-← [16. Glossary](../16-glossary.md) · [Table of Contents](../README.md)
+← [16. Glossary](../16-glossary.md) · [Table of Contents](../README.md) · [Lesson 2 →](lesson-02-sampling-theorem-and-aliasing.md)
