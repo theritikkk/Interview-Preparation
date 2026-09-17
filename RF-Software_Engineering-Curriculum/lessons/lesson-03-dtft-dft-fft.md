@@ -176,5 +176,5 @@ By hand: compute the 4-point DFT of $x = [1, 1, 1, 1]$ (a constant/DC signal). P
 
 ---
 
-← [Lesson 2](lesson-02-sampling-theorem-and-aliasing.md) · [Table of Contents](../README.md) 
-· [Lesson 4](lesson-04-convolution-fir-filters.md) →
+[← Lesson 2](lesson-02-sampling-theorem-and-aliasing.md) · [Table of Contents](../README.md) 
+· [Lesson 4 →](lesson-04-convolution-fir-filters.md)
