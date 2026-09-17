@@ -145,6 +145,4 @@ Using the code in §9, build a 21-tap low-pass filter at $f_c = 0.15$ with a rec
 
 ---
 
-← [Lesson 3](lesson-03-dtft-dft-fft.md)
-
-[Table of Contents](../README.md)
+[← Lesson 3](lesson-03-dtft-dft-fft.md)  ·   [Table of Contents](../README.md)  ·  [Lesson 5 →](lesson-05-multirate-dsp.md)
