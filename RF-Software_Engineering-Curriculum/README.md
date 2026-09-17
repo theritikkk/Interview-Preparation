@@ -32,6 +32,8 @@ A living roadmap from backend/systems engineering to job-readiness for **PHY, ba
 - [Lesson 1 — Complex Numbers, Phasors, and Why Radio Needs Two Dimensions](lessons/lesson-01-complex-numbers-and-phasors.md) *(Stage 0)*
 - [Lesson 2 — The Sampling Theorem: Nyquist, Aliasing, and Why Complex Baseband Is Cheaper](lessons/lesson-02-sampling-theorem-and-aliasing.md) *(Stage 1)*
 - [Lesson 3 — The DTFT, the DFT, and the FFT](lessons/lesson-03-dtft-dft-fft.md) *(Stage 1)*
+- [Lesson 4 — Convolution, Impulse Response, and Your First FIR Filter](lessons/lesson-04-convolution-fir-filters.md) *(Stage 1→2)*
+- [Lesson 5 — Multirate DSP: Decimation, Interpolation, and Why You Always Filter First](lessons/lesson-05-multirate-dsp.md) *(Stage 2)*
 
 ---
 
