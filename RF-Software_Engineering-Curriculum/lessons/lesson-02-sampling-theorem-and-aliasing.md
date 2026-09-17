@@ -123,4 +123,4 @@ Using the `aliased_freq` function from §8: at $f_s = 44{,}100$ Hz (standard aud
 
 ---
 
-← [Lesson 1](lesson-01-complex-numbers-and-phasors.md) · [Table of Contents](../README.md) · [Lesson 3 →](lesson-03-dtft-dft-fft.md)
+[← Lesson 1](lesson-01-complex-numbers-and-phasors.md) · [Table of Contents](../README.md) · [Lesson 3 →](lesson-03-dtft-dft-fft.md)
