@@ -1,4 +1,6 @@
-[← Table of Contents](../README.md) · [← Lesson 2](lesson-02-sampling-theorem-and-aliasing.md)
+[← Table of Contents](../README.md) 
+ 
+[← Lesson 2](lesson-02-sampling-theorem-and-aliasing.md)
 
 ---
 
@@ -34,9 +36,44 @@ Two things worth actually deriving, not memorizing:
 
 **The DFT *is* the DTFT, sampled.** Plug $\omega = 2\pi k/N$ into the DTFT formula and restrict the (now infinite) sum to $n=0,\dots,N-1$: you get exactly the DFT formula. This means computing a DFT implicitly treats your finite block of samples as one period of an infinitely repeating (periodic) signal — the DFT doesn't know your block has edges. Keep that in your back pocket; it resurfaces in §11 and again when we get to OFDM's cyclic prefix later in this curriculum.
 
-**Why FFT beats naive DFT — the core Cooley–Tukey idea.** A direct DFT computes N outputs, each a sum of N terms: $O(N^2)$. Cooley–Tukey's insight: split $x[n]$ into even-indexed and odd-indexed samples, and notice that an N-point DFT can be built from **two** $N/2$-point DFTs plus $O(N)$ combining work (a "butterfly"):
-$$X[k] = E[k] + e^{-j2\pi k/N}\,O[k]$$
-where $E[k]$ is the $N/2$-point DFT of the even samples and $O[k]$ of the odd samples (both reused, via periodicity, for $k$ and $k+N/2$). Apply this split recursively ($N/2 \to N/4 \to \dots$) and the total work collapses from $O(N^2)$ to $O(N\log N)$. This recursive halving is *why* power-of-2 lengths (256, 1024, 4096...) are the natural, fastest FFT sizes — the split only lands evenly when $N$ is a power of 2. That's the answer Lesson 2 §14 deferred.
+**Why FFT beats naive DFT — the core Cooley–Tukey idea, derived in full.**
+
+Define the twiddle factor base $W_N = e^{-j2\pi/N}$, so $X[k] = \sum_{n=0}^{N-1} x[n]\,W_N^{nk}$. Assume $N$ is even. Split the sum into even/odd indexed samples, substituting $n=2m$ and $n=2m+1$ ($m=0,\dots,N/2-1$):
+
+$$X[k] = \sum_{m=0}^{N/2-1} x[2m]\,W_N^{2mk} + \sum_{m=0}^{N/2-1} x[2m+1]\,W_N^{(2m+1)k}$$
+
+The key simplification: $W_N^{2mk} = e^{-j2\pi(2mk)/N} = e^{-j2\pi mk/(N/2)} = W_{N/2}^{mk}$ — an $N$-point twiddle factor, squared, collapses to an $N/2$-point twiddle factor. So:
+
+$$X[k] = \underbrace{\sum_{m=0}^{N/2-1} x[2m]\,W_{N/2}^{mk}}_{E[k]} + W_N^k \underbrace{\sum_{m=0}^{N/2-1} x[2m+1]\,W_{N/2}^{mk}}_{O[k]} = E[k] + W_N^k\,O[k]$$
+
+$E[k]$ and $O[k]$ are $N/2$-point DFTs, so they're only defined for $k=0,\dots,N/2-1$ and are periodic with period $N/2$. For the upper half of the output ($k=0,\dots,N/2-1$), use $W_N^{k+N/2} = W_N^k \cdot e^{-j\pi} = -W_N^k$:
+
+$$X[k] = E[k] + W_N^k O[k] \qquad\qquad X[k+N/2] = E[k] - W_N^k O[k]$$
+
+**This is the butterfly**: one complex multiply ($W_N^k \cdot O[k]$), reused with a plus and a minus to produce two outputs. That reuse is the entire source of the speedup. Let $T(N)$ be the multiply cost of computing an $N$-point DFT this way: $T(N) = 2T(N/2) + N/2$, which unrolls to $T(N) = \tfrac{N}{2}\log_2 N$. At $N=1024$: naive needs $1{,}048{,}576$ multiplies, this needs $5{,}120$ — about 205× fewer, and the ratio grows with $N$. This recursive halving is *why* power-of-2 lengths are the natural, fastest FFT sizes — the split only lands evenly when $N$ is a power of 2. That's the answer Lesson 2 §14 deferred.
+
+**Two implementation-relevant details.** First, recursively splitting even/odd re-sorts the input into **bit-reversed order** (e.g. for $N=8$: $0,4,2,6,1,5,3,7$ — each index with its bits reversed) — this is why real FFT implementations do an explicit bit-reversal permutation pass before running butterflies in-place. Second, there's a further symmetry $W_N^{k+N/4} = -j\,W_N^k$ (a quarter-turn is just a 90° rotation of the same twiddle value): combined with the half-turn symmetry above, only one quarter of the unit circle's twiddle factors ever need to be stored — real, memory-conscious embedded DSP implementations exploit exactly this. What you just derived is **decimation-in-time (DIT)** — splitting on the *input* index. The dual algorithm, **decimation-in-frequency (DIF)**, splits on the *output* index instead (twiddle multiply before the split, natural input order, bit-reversed output) — same complexity, mirror-image structure; most production FFT libraries (including the ones used in SDR/RAN codebases) support both.
+
+```python
+import numpy as np
+
+def fft_recursive(x):
+    x = np.asarray(x, dtype=complex)
+    N = len(x)
+    if N == 1:
+        return x
+    assert N % 2 == 0, "length must be a power of 2 for this simple version"
+    even = fft_recursive(x[0::2])          # E[k], N/2-point DFT
+    odd  = fft_recursive(x[1::2])          # O[k], N/2-point DFT
+    twiddles = np.exp(-2j*np.pi*np.arange(N//2)/N)   # W_N^k for k=0..N/2-1
+    t = twiddles * odd                     # W_N^k * O[k], computed once
+    return np.concatenate([even + t, even - t])       # the butterfly, both halves
+
+x = np.random.randn(16) + 1j*np.random.randn(16)
+print(np.max(np.abs(fft_recursive(x) - np.fft.fft(x))))   # should be ~0
+```
+
+*Check your understanding: why does DIT need input bit-reversal but produce natural-order output, while DIF is exactly the reverse? Reason from where the split happens (on $n$ vs. on $k$).*
 
 ### 6. Visualization
 
