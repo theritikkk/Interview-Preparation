@@ -260,5 +260,8 @@ Bonus, because they cost whole problems:
 | `23_INTERACTIVE_AND_IO.md` | Flushing, query budgets, adaptive judges, custom fast reader, output precision |
 | `24_FLOATING_POINT_AND_RANDOM.md` | Precision limits, EPS choice, avoiding floats, `mt19937`, Zobrist hashing |
 | `25_DSU_TEMPLATE.md` | DSU with all variants and applications |
+| `26_ADVANCED_GRAPH_ALGORITHMS.md` | SCC (Tarjan's & Kosaraju's), bridges & articulation points, 2-SAT, Eulerian paths |
+| `27_ADVANCED_STRINGS_AND_STRUCTURES.md` | Manacher's, Aho-Corasick, heavy-light decomposition, centroid decomposition, convex hull trick, Li Chao tree |
+| `28_FLOWS_AND_MATCHING.md` | Dinic's max flow, Kuhn's bipartite matching, König's theorem, flow modeling patterns |
 
 **Revision cadence:** before every contest read `00`, `18`, and the 5-minute block of `17`. Weekly rotate `02`, `06`, `15`, `14`. Monthly `12`, `13`. After every contest, append to `18`.
