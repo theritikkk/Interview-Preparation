@@ -34,6 +34,10 @@ A living roadmap from backend/systems engineering to job-readiness for **PHY, ba
 - [Lesson 3 — The DTFT, the DFT, and the FFT](lessons/lesson-03-dtft-dft-fft.md) *(Stage 1)*
 - [Lesson 4 — Convolution, Impulse Response, and Your First FIR Filter](lessons/lesson-04-convolution-fir-filters.md) *(Stage 1→2)*
 - [Lesson 5 — Multirate DSP: Decimation, Interpolation, and Why You Always Filter First](lessons/lesson-05-multirate-dsp.md) *(Stage 2)*
+- [Lesson 6 — Correlation and the Matched Filter](lessons/lesson-06-correlation-matched-filter.md) *(Stage 2)*
+- [Lesson 7 — AWGN, Eb/N0, and Your First BER Curve (BPSK)](lessons/lesson-07-awgn-bpsk-ber.md) *(Stage 3)*
+- [Lesson 8 — QPSK and M-ary QAM: The Spectral Efficiency Trade-off](lessons/lesson-08-qpsk-mqam.md) *(Stage 3)*
+- [Lesson 9 — Pulse Shaping: Root-Raised-Cosine Filtering and the Nyquist ISI Criterion](lessons/lesson-09-pulse-shaping-rrc.md) *(Stage 3)*
 
 ---
 
