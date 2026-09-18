@@ -188,7 +188,7 @@ Decompose the tree into vertical chains so that any root-to-node path crosses **
 
 **Use when:** path updates *and* path queries on a tree with updates. If there are no updates, LCA + prefix sums from the root is far simpler.
 
-Keep it as a template; don't try to write it from memory in a contest.
+Keep it as a template; don't try to write it from memory in a contest. Full code in `27_ADVANCED_STRINGS_AND_STRUCTURES.md`, alongside centroid decomposition (also full code there — this file only gives the centroid-finding function above).
 
 ---
 
