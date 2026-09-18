@@ -300,6 +300,55 @@ Mat mpow(Mat A, ll e) {
 
 Fibonacci: `[[1,1],[1,0]]^n` gives `F(n)` in position `[0][1]`.
 
+### General k-th order linear recurrence — the companion matrix
+
+**The gap the 2×2 Fibonacci example doesn't show:** how to build the matrix for an *arbitrary* order-k recurrence, not just order 2.
+
+For `a_n = c_1·a_{n-1} + c_2·a_{n-2} + … + c_k·a_{n-k}` with known base cases `a_0 … a_{k-1}`:
+
+**State vector** `S_n = (a_n, a_{n-1}, …, a_{n-k+1})^T` — the last k terms, newest first.
+
+**Companion matrix** (k×k): row 0 holds the coefficients, every other row shifts the state down by one.
+```
+        c_1  c_2  c_3  ...  c_{k-1}  c_k
+         1    0    0   ...    0       0
+M   =    0    1    0   ...    0       0
+         0    0    1   ...    0       0
+              ...
+         0    0    0   ...    1       0
+```
+so that `S_n = M · S_{n-1}` — row 0 recomputes `a_n` from the recurrence, and every row below just copies the previous row's entry down by one, sliding the window.
+
+```cpp
+const int K = /* recurrence order */;
+using Mat = array<array<ll, K>, K>;
+
+Mat buildCompanion(const array<ll, K>& c) {    // c[0..K-1] = c_1 .. c_K
+    Mat M{};
+    for (int j = 0; j < K; j++) M[0][j] = c[j] % MOD;
+    for (int i = 1; i < K; i++) M[i][i-1] = 1;
+    return M;
+}
+
+// a[0..K-1] = known base cases a_0 .. a_{K-1}
+ll nthTerm(const array<ll, K>& c, const array<ll, K>& a, ll n) {
+    if (n < K) return a[n];
+    Mat M = buildCompanion(c);
+    Mat Mp = mpow(M, n - (K - 1));              // S_{K-1} = (a_{K-1}, ..., a_0), newest first
+    array<ll, K> S0{};
+    for (int i = 0; i < K; i++) S0[i] = a[K - 1 - i];
+    ll res = 0;
+    for (int j = 0; j < K; j++) res = (res + Mp[0][j] * S0[j]) % MOD;
+    return res;
+}
+```
+**Complexity:** O(K³ log n) — identical to the 2×2 case, just with K set to the recurrence's actual order.
+
+**Use when:** "tribonacci"-style recurrences (k=3), linear recurrences that fall out of a DP with a small, fixed window (`dp[n]` depends on `dp[n-1..n-k]` linearly), or counting walks of length n in a graph with k ≤ ~50 states (there `M` is the graph's adjacency matrix directly, not a companion matrix, and `mpow(M, n)[i][j]` = number of walks of length n from i to j).
+
+**Trap:** `K` must be a compile-time constant for the `array<array<ll,K>,K>` template — if the order varies across test cases, switch to `vector<vector<ll>>` (same code, K³ cost is the same either way, just a slower constant factor from the extra indirection).
+**Trap:** indexing `S0` — the state vector is newest-first (`a_{K-1}, a_{K-2}, …, a_0`), so `S0[i] = a[K-1-i]`, not `a[i]`. This is the line most likely to be transcribed backwards under time pressure.
+
 ---
 
 ## Memory hooks
