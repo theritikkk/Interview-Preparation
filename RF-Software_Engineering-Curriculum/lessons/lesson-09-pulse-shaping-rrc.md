@@ -142,4 +142,4 @@ Using §8's code, generate an eye diagram: reshape `rx_mf` (noiseless, correctly
 
 ---
 
-← [Lesson 8](lesson-08-qpsk-mqam.md) · [Table of Contents](../README.md)  ·  [Lesson 10 →](lesson-10-multipath-fading.md)
+[← Lesson 8](lesson-08-qpsk-mqam.md) · [Table of Contents](../README.md) · [Lesson 10 →](lesson-10-multipath-fading.md)
