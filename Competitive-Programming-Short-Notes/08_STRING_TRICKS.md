@@ -266,7 +266,9 @@ for (int c = 0; c < n; c++) {
 ```
 **Trap:** you need **both** the odd-length and even-length passes. Forgetting the even case is the standard bug.
 
-**Manacher** gives all palindromic radii in O(n) — keep it as a template, don't memorize it.
+**Manacher** gives all palindromic radii in O(n) — keep it as a template, don't memorize it. Full code in `27_ADVANCED_STRINGS_AND_STRUCTURES.md`.
+
+**Aho-Corasick** generalizes both the Trie above and KMP to matching many patterns against one text in a single O(n) pass — also in `27_ADVANCED_STRINGS_AND_STRUCTURES.md`.
 
 ---
 
