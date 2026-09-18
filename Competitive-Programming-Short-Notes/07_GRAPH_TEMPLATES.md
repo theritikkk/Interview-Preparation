@@ -21,6 +21,10 @@
 | Bipartite check | BFS 2-coloring | O(n + m) |
 | Shortest path on a grid | BFS with dx/dy | O(rows·cols) |
 | Tree path queries | LCA / binary lifting | O(n log n) build |
+| Strongly connected components | Tarjan's / Kosaraju's — `26_ADVANCED_GRAPH_ALGORITHMS.md` | O(n + m) |
+| Critical edges / vertices | Bridges / articulation points — `26_ADVANCED_GRAPH_ALGORITHMS.md` | O(n + m) |
+| Boolean satisfiability, 2 states per variable | 2-SAT — `26_ADVANCED_GRAPH_ALGORITHMS.md` | O(n + m) |
+| Bipartite matching / max flow | Kuhn's / Dinic's — `28_FLOWS_AND_MATCHING.md` | O(V·E) / O(E√V) |
 
 ---
 
