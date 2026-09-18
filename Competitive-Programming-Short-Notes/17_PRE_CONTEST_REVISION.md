@@ -228,6 +228,13 @@ Trying to write these from memory under time pressure costs more than the 30 sec
 - **Custom hash / splitmix64 constants**
 - **Fast custom reader**
 - **Stress-test bash script**
+- **Tarjan's / Kosaraju's SCC** — the topological-order direction is easy to get backwards from memory
+- **2-SAT** implication-graph construction and the assignment-extraction comparison
+- **Bridges / articulation points** — the strict-`>` vs `>=` distinction between the two
+- **Aho-Corasick** build step
+- **Centroid decomposition** skeleton and its inclusion-exclusion step
+- **Convex hull trick** and **Li Chao tree**
+- **Dinic's max flow** and **Kuhn's bipartite matching**
 
 **The distinction that matters:** memorize *semantics and reasoning*, template *implementations*. You need to know **that** `lower_bound` returns the first `>= x` in order to think; you do **not** need to know the exact loop body of a lazy segment tree in order to think.
 
