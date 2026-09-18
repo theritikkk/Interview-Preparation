@@ -38,6 +38,7 @@ A living roadmap from backend/systems engineering to job-readiness for **PHY, ba
 - [Lesson 7 — AWGN, Eb/N0, and Your First BER Curve (BPSK)](lessons/lesson-07-awgn-bpsk-ber.md) *(Stage 3)*
 - [Lesson 8 — QPSK and M-ary QAM: The Spectral Efficiency Trade-off](lessons/lesson-08-qpsk-mqam.md) *(Stage 3)*
 - [Lesson 9 — Pulse Shaping: Root-Raised-Cosine Filtering and the Nyquist ISI Criterion](lessons/lesson-09-pulse-shaping-rrc.md) *(Stage 3)*
+- [Lesson 10 — Multipath and Fading: The Real Wireless Channel](lessons/lesson-10-multipath-fading.md) *(Stage 4)*
 
 ---
 
