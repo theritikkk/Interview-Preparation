@@ -282,7 +282,7 @@ Any DP is shortest-path-on-a-DAG in disguise. If your transitions form a DAG, to
 | Rolling array | O(n·m) memory | O(m) | dp[i] depends only on dp[i−1] |
 | Prefix sums over dp | O(n²) | O(n) | transition is a contiguous range sum |
 | Monotonic deque | O(n·k) | O(n) | transition is a sliding-window min/max |
-| Convex hull trick | O(n²) | O(n log n) | transition is `min(a[j]·x + b[j])` |
+| Convex hull trick | O(n²) | O(n log n) | transition is `min(a[j]·x + b[j])` — code in `27_ADVANCED_STRINGS_AND_STRUCTURES.md` |
 | Divide & conquer opt | O(n²k) | O(nk log n) | opt[i] is monotonic |
 | Knuth opt | O(n³) | O(n²) | quadrangle inequality |
 | SOS DP | O(3ⁿ) | O(2ⁿ·n) | sum over all submasks |
