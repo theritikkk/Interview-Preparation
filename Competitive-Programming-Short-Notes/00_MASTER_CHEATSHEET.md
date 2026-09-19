@@ -263,5 +263,8 @@ Bonus, because they cost whole problems:
 | `26_ADVANCED_GRAPH_ALGORITHMS.md` | SCC (Tarjan's & Kosaraju's), bridges & articulation points, 2-SAT, Eulerian paths |
 | `27_ADVANCED_STRINGS_AND_STRUCTURES.md` | Manacher's, Aho-Corasick, heavy-light decomposition, centroid decomposition, convex hull trick, Li Chao tree |
 | `28_FLOWS_AND_MATCHING.md` | Dinic's max flow, Kuhn's bipartite matching, König's theorem, flow modeling patterns |
+| `29_POLYNOMIAL_AND_ADVANCED_NUMBER_THEORY.md` | FFT, NTT, Pollard's rho, Möbius function & inversion, discrete log (BSGS) |
+| `30_SUFFIX_STRUCTURES_AND_PERSISTENCE.md` | Suffix array + Kasai's LCP, suffix automaton, persistent segment tree, offline LCA via Tarjan's + DSU |
+| `31_EXAMPLE_PROBLEMS_BY_TECHNIQUE.md` | 27 original practice problems, one per major technique, for recognition drilling |
 
 **Revision cadence:** before every contest read `00`, `18`, and the 5-minute block of `17`. Weekly rotate `02`, `06`, `15`, `14`. Monthly `12`, `13`. After every contest, append to `18`.
