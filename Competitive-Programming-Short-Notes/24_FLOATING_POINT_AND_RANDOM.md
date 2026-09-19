@@ -213,7 +213,7 @@ Collision probability per comparison ≈ 2^-64. Also used for hashing tree shape
 - **Random pivot** in quickselect / quicksort to defeat adversarial input.
 - **Shuffle before a greedy or a heuristic** to avoid worst-case input order.
 - **Random sampling:** "does some element appear more than n/2 times?" — sample 30 random elements; if one is the majority you'll almost certainly hit it (failure probability 2^-30).
-- **Pollard's rho** factorization uses a random polynomial.
+- **Pollard's rho** factorization uses a random polynomial — full code in `29_POLYNOMIAL_AND_ADVANCED_NUMBER_THEORY.md`.
 
 ### 5. Breaking ties / randomized restarts
 
