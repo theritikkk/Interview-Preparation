@@ -241,6 +241,10 @@ Trying to write these from memory under time pressure costs more than the 30 sec
 - **Suffix automaton** (the most fiddly template in the whole handbook — stress-test it)
 - **Persistent segment tree**
 - **Aliens trick / Lagrangian relaxation** for DP
+- **Implicit treap** (split/merge/reverse-range)
+- **Chtholly tree / ODT**
+- **Virtual tree construction**
+- **Difference constraints graph construction** (the direction of the edge is the part worth double-checking, not the whole template)
 
 **The distinction that matters:** memorize *semantics and reasoning*, template *implementations*. You need to know **that** `lower_bound` returns the first `>= x` in order to think; you do **not** need to know the exact loop body of a lazy segment tree in order to think.
 
