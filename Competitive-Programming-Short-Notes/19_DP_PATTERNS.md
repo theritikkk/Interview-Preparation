@@ -287,6 +287,7 @@ Any DP is shortest-path-on-a-DAG in disguise. If your transitions form a DAG, to
 | Knuth opt | O(n³) | O(n²) | quadrangle inequality |
 | SOS DP | O(3ⁿ) | O(2ⁿ·n) | sum over all submasks |
 | Bitset | O(n·S) | O(n·S/64) | boolean DP |
+| Aliens trick | O(n·k) | O(n log C) | "exactly k" constraint, convex cost — see below |
 
 The top three cover 95% of contest needs. The bottom four are Div1 territory — know the names so you can recognize the shape, keep templates.
 
@@ -296,6 +297,33 @@ The top three cover 95% of contest needs. The bottom four are Div1 territory —
 pre[i] = pre[i-1] + dp[i];
 dp[i] = pre[i-1] - pre[max(0, i-k-1)];
 ```
+
+### Aliens trick (Lagrangian relaxation)
+
+**Recognition:** the DP wants **exactly k** of something (exactly k partitions, exactly k items chosen) and the *unconstrained* version — any number allowed — is an easy, fast DP whose (best score) vs (count used) relationship is convex.
+
+**The idea:** stop forcing "exactly k" directly. Instead, charge a penalty `λ` per unit used, run the cheap unconstrained DP, and binary search `λ` until the unconstrained optimum happens to use exactly k units. Then undo the penalty.
+
+```cpp
+// solveUnconstrained(lambda) runs the ordinary DP but subtracts `lambda` from the score
+// every time a "unit" is used, and returns {best_score, units_used_at_the_optimum}
+pair<ll,int> solveUnconstrained(ll lambda);
+
+ll aliensTrick(int k) {
+    ll lo = -1e9, hi = 1e9, bestLambda = 0;
+    while (lo <= hi) {
+        ll mid = lo + (hi - lo) / 2;
+        auto [score, cnt] = solveUnconstrained(mid);
+        if (cnt >= k) { bestLambda = mid; lo = mid + 1; }   // direction depends on convex vs concave — check on samples
+        else hi = mid - 1;
+    }
+    auto [score, cnt] = solveUnconstrained(bestLambda);
+    return score + (ll)k * bestLambda;                      // undo the penalty
+}
+```
+**Complexity:** O(log(value range)) binary-search iterations, each costing one pass of the cheap unconstrained DP — turns an O(n·k) DP into O(n log C).
+**Trap:** only valid when the score-vs-count curve is genuinely convex (or concave) — verify against a brute force on small cases before trusting it; there's no compile-time or runtime signal that it's silently wrong on a non-convex cost structure.
+**Trap:** ties in `cnt` at the chosen `λ` need a consistent tie-break inside `solveUnconstrained` (e.g. always prefer fewer units on a tie) or the reconstructed count can drift from k.
 
 ---
 
