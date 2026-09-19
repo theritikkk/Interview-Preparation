@@ -564,6 +564,33 @@ Mat mpow(Mat A, ll e) {
 
 ---
 
+## Meet in the middle (subset sum, n ≤ ~40)
+
+```cpp
+bool subsetSumExists(vector<ll>& a, ll target) {
+    int n = a.size(), h = n / 2, rest = n - h;
+    vector<ll> sumsA, sumsB;
+    for (int mask = 0; mask < (1 << h); mask++) {
+        ll s = 0;
+        for (int i = 0; i < h; i++) if (mask >> i & 1) s += a[i];
+        sumsA.push_back(s);
+    }
+    for (int mask = 0; mask < (1 << rest); mask++) {
+        ll s = 0;
+        for (int i = 0; i < rest; i++) if (mask >> i & 1) s += a[h + i];
+        sumsB.push_back(s);
+    }
+    sort(sumsB.begin(), sumsB.end());
+    for (ll s : sumsA)
+        if (binary_search(sumsB.begin(), sumsB.end(), target - s)) return true;
+    return false;
+}
+```
+**Complexity:** O(2^(n/2) · n) — enumerate each half in O(2^(n/2)·n/2), sort one half, binary search from the other.
+**Variant — count pairs with sum ≤ T instead of checking existence:** sort both halves and two-pointer across them instead of binary-searching per element.
+
+---
+
 ## LCA (binary lifting)
 
 ```cpp
