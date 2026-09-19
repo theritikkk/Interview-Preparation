@@ -131,4 +131,4 @@ Using §8's code, run the sweep at a lower per-attempt SNR (e.g., $-3$ dB) and a
 
 ---
 
-[← Lesson 19](lesson-19-lte-cell-search.md) · [Table of Contents](../README.md) · [Lesson 21 →](lesson-21.md)
+[← Lesson 19](lesson-19-lte-cell-search.md) · [Table of Contents](../README.md) · [Lesson 21 →](lesson-21-rlc-pdcp-rrc.md)
