@@ -39,6 +39,13 @@ A living roadmap from backend/systems engineering to job-readiness for **PHY, ba
 - [Lesson 8 — QPSK and M-ary QAM: The Spectral Efficiency Trade-off](lessons/lesson-08-qpsk-mqam.md) *(Stage 3)*
 - [Lesson 9 — Pulse Shaping: Root-Raised-Cosine Filtering and the Nyquist ISI Criterion](lessons/lesson-09-pulse-shaping-rrc.md) *(Stage 3)*
 - [Lesson 10 — Multipath and Fading: The Real Wireless Channel](lessons/lesson-10-multipath-fading.md) *(Stage 4)*
+- [Lesson 11 — Channel Estimation and Equalization](lessons/lesson-11-channel-estimation-equalization.md) *(Stage 4)*
+- [Lesson 12 — OFDM: The Complete Transmitter and Receiver](lessons/lesson-12-ofdm-transceiver.md) *(Stage 4)*
+- [Lesson 13 — Timing Offset and Carrier Frequency Offset (CFO)](lessons/lesson-13-timing-cfo.md) *(Stage 4)*
+- [Lesson 14 — MIMO: Spatial Multiplexing and Diversity](lessons/lesson-14-mimo.md) *(Stage 4)*
+- [Lesson 15 — Real IQ Data: DC Offset, IQ Imbalance, and the Jump from Simulation to Hardware](lessons/lesson-15-real-iq-dc-offset-iq-imbalance.md) *(Stage 5)*
+- [Lesson 16 — GNU Radio: Flowgraphs, the Scheduler, and Decoding Real FM](lessons/lesson-16-gnu-radio-fm-demod.md) *(Stage 5)*
+- [Lesson 17 — Recorded IQ Datasets: File Formats, SigMF, and Decoding ADS-B](lessons/lesson-17-recorded-iq-adsb.md) *(Stage 5)*
 
 ---
 
