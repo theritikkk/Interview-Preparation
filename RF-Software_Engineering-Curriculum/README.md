@@ -48,6 +48,9 @@ A living roadmap from backend/systems engineering to job-readiness for **PHY, ba
 - [Lesson 17 — Recorded IQ Datasets: File Formats, SigMF, and Decoding ADS-B](lessons/lesson-17-recorded-iq-adsb.md) *(Stage 5)*
 - [Lesson 18 — Cellular Fundamentals: Cells, Duplexing, and Why OFDMA Won](lessons/lesson-18-cellular-fundamentals.md) *(Stage 6)*
 - [Lesson 19 — LTE: The Resource Grid, PSS/SSS Cell Search, and PBCH](lessons/lesson-19-lte-cell-search.md) *(Stage 7)*
+- [Lesson 20 — PDCCH, PDSCH, and HARQ](lessons/lesson-20-pdcch-pdsch-harq.md) *(Stage 7)*
+- [Lesson 21 — RLC, PDCP, and RRC: What Moves Between Layers, and Why Each One Exists](lessons/lesson-21-rlc-pdcp-rrc.md) *(Stage 7)*
+- [Lesson 22 — From Python to C++: Memory Layout, std::complex, and Why "Compiled" Doesn't Automatically Mean "Fast"](lessons/lesson-22-cpp-memory-layout.md) *(Stage 9/10)*
 
 ---
 
