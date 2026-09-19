@@ -235,6 +235,12 @@ Trying to write these from memory under time pressure costs more than the 30 sec
 - **Centroid decomposition** skeleton and its inclusion-exclusion step
 - **Convex hull trick** and **Li Chao tree**
 - **Dinic's max flow** and **Kuhn's bipartite matching**
+- **FFT / NTT** for polynomial multiplication
+- **Pollard's rho**
+- **Suffix array construction** and **Kasai's LCP**
+- **Suffix automaton** (the most fiddly template in the whole handbook — stress-test it)
+- **Persistent segment tree**
+- **Aliens trick / Lagrangian relaxation** for DP
 
 **The distinction that matters:** memorize *semantics and reasoning*, template *implementations*. You need to know **that** `lower_bound` returns the first `>= x` in order to think; you do **not** need to know the exact loop body of a lazy segment tree in order to think.
 
