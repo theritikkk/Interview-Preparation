@@ -241,10 +241,10 @@ Bonus, because they cost whole problems:
 | `04_MODULAR_ARITHMETIC.md` | Negative `%`, binpow, Fermat inverse, `fact`/`invFact`, non-prime moduli, `Mint` |
 | `05_BIT_MANIPULATION.md` | `x&(x-1)` vs `x&-x`, builtins and their UB, submask enumeration (3ⁿ), XOR properties, `bitset` |
 | `06_PREFIX_BINARY_SEARCH_TRICKS.md` | Prefix/difference arrays 1D & 2D, two pointers and when they fail, binary search templates, ternary search, coordinate compression, sweep line, intervals |
-| `07_GRAPH_TEMPLATES.md` | BFS/DFS, topo sort, Dijkstra + its 5 traps, 0-1 BFS, Bellman–Ford, Floyd, bipartite, Kruskal |
+| `07_GRAPH_TEMPLATES.md` | BFS/DFS, topo sort, Dijkstra + its 5 traps, 0-1 BFS, Bellman–Ford, difference constraints, Floyd, bipartite, Kruskal, functional graphs |
 | `08_STRING_TRICKS.md` | Char arithmetic, frequency arrays, `getline` traps, SSO, Z-function, KMP + the period trick, safe rolling hash, Trie, palindromes |
 | `09_COMBINATORICS.md` | Identities, stars and bars, inclusion–exclusion, pigeonhole, Catalan, derangements, counting by contribution |
-| `10_ADVANCED_DATA_STRUCTURES.md` | Fenwick (all variants), segment trees, lazy propagation, sparse table, sqrt decomposition, Mo's, binary trie |
+| `10_ADVANCED_DATA_STRUCTURES.md` | Fenwick (all variants), segment trees, lazy propagation, sparse table, sqrt decomposition, Mo's, binary trie, implicit treap, Chtholly tree |
 | `11_COMPLEXITY_MEMORY.md` | Ops/sec, the N→complexity table, the sum-of-n trap, container overheads, DP sizing ritual |
 | `12_CPP_PERFORMANCE.md` | Cache hierarchy, row-major order, vector growth, stack vs heap, branch prediction, why arrays beat hash maps |
 | `13_QUANT_CPP_INTERVIEW.md` | ~30 Q&A in short/deep/common-wrong-answer format: containers, vector internals, iterator invalidation, RAII, move semantics, UB, `inline`, `constexpr`, SSO |
@@ -253,7 +253,7 @@ Bonus, because they cost whole problems:
 | `16_MICRO_TEMPLATES.md` | Every copy-paste template in one place |
 | `17_PRE_CONTEST_REVISION.md` | 5 / 15 / 30-minute revision blocks, memorize-cold vs keep-templates |
 | `18_THINGS_I_ALWAYS_FORGET.md` | **Yours.** Seeded, then append your own failure after every contest |
-| `19_DP_PATTERNS.md` | State design, knapsack directions, LIS, interval/bitmask/digit/tree DP, optimizations, memory sizing |
+| `19_DP_PATTERNS.md` | State design, knapsack directions, LIS, interval/bitmask/digit/tree DP, 2D Kadane, aliens trick, optimizations, memory sizing |
 | `20_TREES.md` | Subtree sizes, diameter, LCA, Euler tour, rerooting, small-to-large, centroid, HLD |
 | `21_GAME_THEORY.md` | Win/lose positions, Nim, Sprague–Grundy, variants, recognition checklist |
 | `22_GEOMETRY_BASICS.md` | Stay-in-integers, cross product, shoelace, Pick's theorem, segment intersection, convex hull, angle sorting |
@@ -261,7 +261,7 @@ Bonus, because they cost whole problems:
 | `24_FLOATING_POINT_AND_RANDOM.md` | Precision limits, EPS choice, avoiding floats, `mt19937`, Zobrist hashing |
 | `25_DSU_TEMPLATE.md` | DSU with all variants and applications |
 | `26_ADVANCED_GRAPH_ALGORITHMS.md` | SCC (Tarjan's & Kosaraju's), bridges & articulation points, 2-SAT, Eulerian paths |
-| `27_ADVANCED_STRINGS_AND_STRUCTURES.md` | Manacher's, Aho-Corasick, heavy-light decomposition, centroid decomposition, convex hull trick, Li Chao tree |
+| `27_ADVANCED_STRINGS_AND_STRUCTURES.md` | Manacher's, Aho-Corasick, heavy-light decomposition, centroid decomposition, virtual tree, convex hull trick, Li Chao tree |
 | `28_FLOWS_AND_MATCHING.md` | Dinic's max flow, Kuhn's bipartite matching, König's theorem, flow modeling patterns |
 | `29_POLYNOMIAL_AND_ADVANCED_NUMBER_THEORY.md` | FFT, NTT, Pollard's rho, Möbius function & inversion, discrete log (BSGS) |
 | `30_SUFFIX_STRUCTURES_AND_PERSISTENCE.md` | Suffix array + Kasai's LCP, suffix automaton, persistent segment tree, offline LCA via Tarjan's + DSU |
