@@ -86,7 +86,7 @@ bool isPrimeMR(u64 n) {
 }
 ```
 **These 12 bases are deterministic for all n < 2^64.** Needs a 64-bit compiler (`__int128`).
-**Use when:** n > 1e12 and you need primality, or Pollard-rho factorization.
+**Use when:** n > 1e12 and you need primality, or Pollard-rho factorization (full code in `29_POLYNOMIAL_AND_ADVANCED_NUMBER_THEORY.md`).
 
 ---
 
