@@ -128,6 +128,32 @@ for (int i = 1; i < n; i++) {
 ```
 **Trap:** initialize with `a[0]`, not 0 — otherwise an all-negative array returns 0.
 
+### 2D Kadane — maximum sum submatrix
+
+**Recognition:** "maximum sum rectangle/submatrix", `R, C` small enough that `O(R²·C)` fits (roughly `R, C ≤ ~500–2000`).
+
+```cpp
+ll maxSubmatrixSum(vector<vector<ll>>& a) {
+    int R = a.size(), C = a[0].size();
+    ll best = LLONG_MIN;
+    for (int top = 0; top < R; top++) {
+        vector<ll> colSum(C, 0);
+        for (int bottom = top; bottom < R; bottom++) {
+            for (int c = 0; c < C; c++) colSum[c] += a[bottom][c];
+            ll cur = colSum[0], localBest = colSum[0];               // 1D Kadane on the collapsed row
+            for (int c = 1; c < C; c++) {
+                cur = max(colSum[c], cur + colSum[c]);
+                localBest = max(localBest, cur);
+            }
+            best = max(best, localBest);
+        }
+    }
+    return best;
+}
+```
+**The idea:** fix a pair of rows `(top, bottom)`, collapse every column between them into one running sum, then run ordinary 1D Kadane across that collapsed row. Every pair of rows is tried, so every possible submatrix is covered.
+**Complexity:** O(R² · C) — O(R²) row-pairs, each an O(C) Kadane pass.
+
 ### House robber / no two adjacent
 
 ```cpp
