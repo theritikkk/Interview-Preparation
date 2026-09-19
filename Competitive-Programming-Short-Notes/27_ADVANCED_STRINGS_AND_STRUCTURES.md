@@ -190,6 +190,39 @@ void decompose(int u) {
 
 ---
 
+## Virtual tree (auxiliary tree)
+
+**Recognition:** multiple queries, each naming a small subset of "important" nodes in a large fixed tree (with the **sum of subset sizes across all queries** bounded, e.g. `Σk ≤ 2·10^5`, even though `n` itself is large) — and for each query you need a tree DP or computation that would cost O(n) if run on the whole tree.
+
+**The idea:** build the smallest tree that contains the `k` marked nodes plus every pairwise LCA needed to connect them, with each virtual edge representing a compressed path in the real tree. This virtual tree has only O(k) nodes, so a DP restricted to it costs O(k) instead of O(n) — and building it costs only O(k log k) despite considering a tree of size n.
+
+**The key fact that makes O(k log k) possible:** you do **not** need all `C(k,2)` pairwise LCAs — only the LCAs of **consecutive** marked nodes after sorting by Euler-tour entry time (`tin[]`, from `20_TREES.md`) are ever needed as extra junction nodes.
+
+```cpp
+vector<int> nodes = markedNodes;
+sort(nodes.begin(), nodes.end(), [](int a, int b){ return tin[a] < tin[b]; });
+int k = nodes.size();
+for (int i = 0; i + 1 < k; i++) nodes.push_back(lca(nodes[i], nodes[i+1]));   // consecutive LCAs only
+sort(nodes.begin(), nodes.end(), [](int a, int b){ return tin[a] < tin[b]; });
+nodes.erase(unique(nodes.begin(), nodes.end()), nodes.end());
+
+vector<int> stk = {nodes[0]};
+vector<pair<int,int>> virtualEdges;
+bool isAncestor(int u, int v) { return tin[u] <= tin[v] && tout[v] <= tout[u]; }   // from 20_TREES.md
+
+for (int i = 1; i < (int)nodes.size(); i++) {
+    int u = nodes[i];
+    while (!isAncestor(stk.back(), u)) stk.pop_back();
+    virtualEdges.push_back({stk.back(), u});
+    stk.push_back(u);
+}
+```
+**Complexity:** O(k log k) — dominated by the two sorts and `k` LCA queries (O(log n) each via binary lifting, `20_TREES.md`).
+**Use when:** the same large tree is queried many times, each query only caring about a small, different subset of nodes, and a per-query O(n) DP is too slow in aggregate but a per-query O(k log k) build + O(k) DP fits the sum-of-k bound.
+**Trap:** this is one of the fiddlier constructions in this handbook — the "consecutive LCAs are sufficient" step and the stack-based edge-building step both have off-by-one/ordering traps that only show up on specific tree shapes. Stress-test against a brute-force O(n) DP on small random trees before trusting it.
+
+---
+
 ## Convex hull trick (CHT) — monotonic case
 
 **Use when:** DP transitions of the shape `dp[i] = min_j (m_j · x_i + b_j)` (or `max`), turning an O(n²) DP into O(n) or O(n log n). See the DP optimization table in `19_DP_PATTERNS.md`.
