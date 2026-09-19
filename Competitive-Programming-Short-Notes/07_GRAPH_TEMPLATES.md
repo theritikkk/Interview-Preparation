@@ -223,6 +223,22 @@ for (auto [w, u, v] : edges)
 
 **SPFA** (queue-based Bellman–Ford) is O(n·m) worst case and there are anti-SPFA tests on Codeforces. Don't rely on it.
 
+### Difference constraints — solving systems of inequalities via shortest paths
+
+**Recognition:** a problem gives constraints of the shape `x_i − x_j ≤ w` between variables and asks whether a valid assignment exists (and possibly wants one).
+
+**The construction:** each constraint `x_i − x_j ≤ w` becomes a directed edge `j → i` with weight `w` — this is exactly the shortest-path relaxation condition `dist[i] ≤ dist[j] + w`. Add one virtual source node with a 0-weight edge to every variable (so the graph is connected and Bellman–Ford has somewhere to start).
+
+```cpp
+// constraint x_i - x_j <= w   =>   addEdge(j, i, w)
+// then add edges (source -> every variable, weight 0), and run Bellman-Ford from source
+```
+
+Run Bellman–Ford from the source: a **negative cycle means the system is infeasible**; otherwise `x_i := dist[i]` is a valid assignment satisfying every constraint simultaneously (Bellman–Ford's convergence guarantee `dist[i] ≤ dist[j] + w` for every edge is *precisely* the constraint being satisfied).
+
+**Trap:** the constraint direction is easy to flip. `x_i − x_j ≤ w` is "i minus j", so the edge goes **from j to i** — write out one tiny example (two variables, two constraints) and check `dist[]` actually satisfies them before trusting the direction under contest pressure.
+**Complexity:** O(n·m), same as ordinary Bellman–Ford — the only change is the graph construction, not the algorithm.
+
 ---
 
 ## Floyd–Warshall
