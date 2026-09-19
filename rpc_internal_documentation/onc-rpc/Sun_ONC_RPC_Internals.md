@@ -180,7 +180,73 @@ Every line here is a live `(prog, vers, prot) → port` mapping, sitting in the 
 
 **`rpcbind`, on modern systems, is the same idea, generalized**: rather than being tied to plain "TCP or UDP on this IP," it supports a more general, transport-independent addressing scheme (`r_netid`, `r_addr` — a "universal address" that can describe TCP/IP, UDP/IP, or entirely different transports uniformly), registered via `RPCBPROC_SET` instead of `PMAPPROC_SET`, but solving the exact same "where is program X, version Y actually listening right now" problem for exactly the same reason.
 
-## 6. What this means for reading real NFS traffic
+## 6. Live demonstration: a real portmapper, and a real multi-fragment record
+
+Everything above — §3's record marking, §5's portmapper flow — was, in the original version of this document, explained but not run. Here it's run for real: a genuine portmapper (on a non-privileged stand-in port, 9111, instead of the real, root-only port 111), a real service that lets the OS assign it a random ephemeral port and only *then* registers itself, and a client that does the full two-step discovery dance before ever talking to the actual service — plus a second test that deliberately sends one logical RPC message as two separate TCP-level fragments, to prove §3's "only the last fragment has the top bit set" rule against genuine reassembly code, not just the RFC's own wording.
+
+**The service starts up not knowing its own port, and registers whatever the OS actually gave it:**
+
+```c
+addr.sin_port = 0;   /* "OS, pick any free port for me" */
+bind(listener, (struct sockaddr*)&addr, sizeof(addr));
+listen(listener, 10);
+
+struct sockaddr_in actual;
+socklen_t alen = sizeof(actual);
+getsockname(listener, (struct sockaddr*)&actual, &alen);
+uint32_t my_port = ntohs(actual.sin_port);   /* genuinely unknown until NOW */
+
+register_with_portmapper(DEMO_PROGRAM, DEMO_VERSION, my_port);  /* a real PMAPPROC_SET call */
+```
+
+**Real output — the port really is different every run, assigned by the kernel, not chosen:**
+```
+[service] OS assigned me ephemeral port 35297 (I did not choose this)
+[service] registered myself with the portmapper: prog=0x20001 vers=1 port=35297
+[service] now serving real requests on port 35297
+```
+
+**The portmapper's own log, confirming a real `PMAPPROC_SET` followed later by a real `PMAPPROC_GETPORT`:**
+```
+[portmapper] listening on the well-known port 9111
+
+  [portmapper] PMAPPROC_SET: registered prog=0x20001 vers=1 -> port 35297
+  [portmapper] PMAPPROC_GETPORT: prog=0x20001 vers=1 -> port 35297
+```
+
+**And the client, doing exactly the two-step dance §5 described — ask the portmapper first, then connect directly, with no further portmapper involvement at all:**
+```
+[client] Step 1: asking the portmapper (port 9111) where program 0x20001, version 1 lives...
+[client]         portmapper says: port 35297
+
+[client] Step 2: connecting DIRECTLY to port 35297 (no portmapper involved this time)
+[client]         ADD(3, 4) = 7
+```
+
+Notice the client never once hardcodes port 35297 anywhere in its source — it genuinely doesn't know that number until the portmapper's real reply tells it, live, at runtime. That's the entire mechanism, proven rather than just described.
+
+### The record-marking fragment split, proven byte-for-byte
+
+The client builds one complete, ordinary 32-byte CALL message (`ADD(111, 222)`), then — instead of sending it as the single fragment `send_framed()` normally would — deliberately splits it in half and sends each half with its own real RFC 5531 fragment header:
+
+```c
+uint32_t frag1_header = split_at;                    /* top bit CLEAR */
+/* ...send hdr1, then the first 16 bytes... */
+
+uint32_t frag2_header = remaining | 0x80000000u;      /* top bit SET */
+/* ...send hdr2, then the remaining 16 bytes... */
+```
+
+**Real output — the actual header bytes, and the actual bit pattern, for both fragments:**
+```
+[client] Fragment 1 header bytes: 00 00 00 10  (top bit = 0 -> more fragments follow; length = 16)
+[client] Fragment 2 header bytes: 80 00 00 10  (top bit = 1 -> LAST fragment; length = 16)
+[client] Server correctly reassembled both fragments and replied: 111 + 222 = 333
+```
+
+`00 00 00 10` is exactly `16` with the top bit clear (`0x00000010`); `80 00 00 10` is exactly `16` again, but with the top bit set (`0x80000010`) — the *only* difference between "more is coming" and "this is the end" is that single highest-order bit, precisely as RFC 5531's own text (quoted in §3) specifies. The server's `recv_framed()` — which knows nothing special about this particular call, it's the exact same reassembly loop used for every ordinary single-fragment call throughout this whole demo — read the first fragment, saw the bit was clear, went back for another header, read the second fragment, saw the bit was *set*, and only then handed the fully-concatenated 32 bytes up to the RPC layer for decoding. The correct result (`333`) is only possible if that reassembly genuinely happened — a server that mishandled the split would have tried to decode 16 incomplete bytes as a full RPC message and failed outright.
+
+## 7. What this means for reading real NFS traffic
 
 If you've ever run `rpcinfo -p` against a file server, or watched NFS traffic in a packet capture, everything above is directly what you're looking at: the initial port-111 conversation is `PMAPPROC_GETPORT`; the subsequent traffic to whatever port that returned is real `call_body`/`reply_body` messages, each with a real `xid`, a real `prog`/`vers`/`proc` (NFS's own program number is 100003; `proc` values map onto specific operations like `NFSPROC_READ`, `NFSPROC_WRITE`, `NFSPROC_LOOKUP`), and a real `cred` — almost universally `AUTH_SYS` in classic, perimeter-trusted deployments, carrying the exact `authsys_parms` structure from §4, in plain text, on every single call.
 
