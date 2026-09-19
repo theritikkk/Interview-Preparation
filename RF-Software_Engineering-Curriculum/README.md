@@ -46,6 +46,8 @@ A living roadmap from backend/systems engineering to job-readiness for **PHY, ba
 - [Lesson 15 — Real IQ Data: DC Offset, IQ Imbalance, and the Jump from Simulation to Hardware](lessons/lesson-15-real-iq-dc-offset-iq-imbalance.md) *(Stage 5)*
 - [Lesson 16 — GNU Radio: Flowgraphs, the Scheduler, and Decoding Real FM](lessons/lesson-16-gnu-radio-fm-demod.md) *(Stage 5)*
 - [Lesson 17 — Recorded IQ Datasets: File Formats, SigMF, and Decoding ADS-B](lessons/lesson-17-recorded-iq-adsb.md) *(Stage 5)*
+- [Lesson 18 — Cellular Fundamentals: Cells, Duplexing, and Why OFDMA Won](lessons/lesson-18-cellular-fundamentals.md) *(Stage 6)*
+- [Lesson 19 — LTE: The Resource Grid, PSS/SSS Cell Search, and PBCH](lessons/lesson-19-lte-cell-search.md) *(Stage 7)*
 
 ---
 
