@@ -321,3 +321,48 @@ bool connected = (used == n - 1);
 | grid BFS | rows·cols | `int` |
 
 **Default habit: weighted graph → `long long` distances.** The cost of being wrong is a WA on test 30.
+
+---
+
+## Functional graphs (successor graphs)
+
+Every node has **exactly one** outgoing edge, `next[u]`. Each connected component looks like the Greek letter ρ — a tail of nodes leading into a cycle. Comes up in "apply this transformation repeatedly" problems, permutation cycle decomposition, and "teleporter" problems. This is a distinct graph shape from a tree — it can (and generally does) contain cycles, which is exactly what a tree can't.
+
+### k-th successor via binary lifting
+
+```cpp
+const int LOG = 60;                        // enough for k up to ~1e18
+int up[LOG][MAXN];
+
+void buildLifting(int n, vector<int>& nxt) {
+    for (int u = 0; u < n; u++) up[0][u] = nxt[u];
+    for (int k = 1; k < LOG; k++)
+        for (int u = 0; u < n; u++)
+            up[k][u] = up[k-1][ up[k-1][u] ];
+}
+int kthSuccessor(int u, ll k) {
+    for (int b = 0; b < LOG; b++)
+        if (k >> b & 1) u = up[b][u];
+    return u;
+}
+```
+**Complexity:** O(n log k) build, O(log k) per query. Same doubling idea as LCA binary lifting (`20_TREES.md`), but simpler — one successor pointer per node instead of a parent pointer, and it's valid even with cycles.
+
+### Cycle detection (tail + cycle length)
+
+```cpp
+vector<int> visitTime(n, -1);            // shared across all components — never reset between them
+vector<int> order;
+int t = 0, u = start;
+while (visitTime[u] == -1) {
+    visitTime[u] = t++;
+    order.push_back(u);
+    u = nxt[u];
+}
+int cycleStart = visitTime[u];            // u is the first REPEATED node — the cycle's entry point
+int cycleLen   = t - cycleStart;
+int tailLen    = cycleStart;
+```
+**Use when:** "after k steps from x, where do you end up" with k far too large to simulate — walk the tail explicitly (at most `tailLen` steps), then once inside the cycle reduce the remaining step count mod `cycleLen`. Also answers "does iterating f from x ever return to x" and permutation cycle-length problems directly.
+**Complexity:** O(n) total across an entire graph, as long as `visitTime` is one shared array and each node is only ever walked once (run this once per still-unvisited starting node).
+**Trap:** a single walk from one `start` only discovers the cycle reachable from that node — for whole-graph cycle analysis, iterate over every node and skip ones already visited.
