@@ -1,0 +1,60 @@
+131   12:40:48.954347 execve("./onc_client", ["./onc_client"], 0x7ffc4a8c42f0 /* 22 vars */) = 0
+131   12:40:48.955053 brk(NULL)         = 0x564ae199b000
+131   12:40:48.955520 mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f9f4dab9000
+131   12:40:48.955542 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+131   12:40:48.955568 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+131   12:40:48.955589 fstat(3, {st_mode=S_IFREG|0644, st_size=50215, ...}) = 0
+131   12:40:48.955603 mmap(NULL, 50215, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f9f4daac000
+131   12:40:48.955615 close(3)          = 0
+131   12:40:48.955629 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+131   12:40:48.955641 read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\220\243\2\0\0\0\0\0"..., 832) = 832
+131   12:40:48.955654 pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+131   12:40:48.955664 fstat(3, {st_mode=S_IFREG|0755, st_size=2125328, ...}) = 0
+131   12:40:48.955675 pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+131   12:40:48.955685 mmap(NULL, 2170256, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f9f4d800000
+131   12:40:48.955696 mmap(0x7f9f4d828000, 1605632, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000) = 0x7f9f4d828000
+131   12:40:48.955751 mmap(0x7f9f4d9b0000, 323584, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1b0000) = 0x7f9f4d9b0000
+131   12:40:48.955767 mmap(0x7f9f4d9ff000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1fe000) = 0x7f9f4d9ff000
+131   12:40:48.955784 mmap(0x7f9f4da05000, 52624, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f9f4da05000
+131   12:40:48.955804 close(3)          = 0
+131   12:40:48.955821 mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f9f4daa9000
+131   12:40:48.955843 arch_prctl(ARCH_SET_FS, 0x7f9f4daa9740) = 0
+131   12:40:48.955853 set_tid_address(0x7f9f4daa9a10) = 131
+131   12:40:48.955862 set_robust_list(0x7f9f4daa9a20, 24) = 0
+131   12:40:48.955872 rseq(0x7f9f4daaa060, 0x20, 0, 0x53053053) = 0
+131   12:40:48.955929 mprotect(0x7f9f4d9ff000, 16384, PROT_READ) = 0
+131   12:40:48.955951 mprotect(0x564ab59ee000, 4096, PROT_READ) = 0
+131   12:40:48.955968 mprotect(0x7f9f4daf9000, 8192, PROT_READ) = 0
+131   12:40:48.955990 prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+131   12:40:48.956010 munmap(0x7f9f4daac000, 50215) = 0
+131   12:40:48.956038 socket(AF_INET, SOCK_STREAM, IPPROTO_IP) = 3
+131   12:40:48.956081 connect(3, {sa_family=AF_INET, sin_port=htons(9111), sin_addr=inet_addr("127.0.0.1")}, 16) = 0
+131   12:40:48.956210 fstat(1, {st_mode=S_IFREG|0644, st_size=0, ...}) = 0
+131   12:40:48.956252 getrandom("\xa9\x1e\x85\xbb\x63\xdd\xde\xbc", 8, GRND_NONBLOCK) = 8
+131   12:40:48.956281 brk(NULL)         = 0x564ae199b000
+131   12:40:48.956295 brk(0x564ae19bc000) = 0x564ae19bc000
+131   12:40:48.956314 sendto(3, "\200\0\0 ", 4, 0, NULL, 0) = 4
+131   12:40:48.956435 sendto(3, "\0\0\0\7\0\0\0\0\0\1\206\240\0\0\0\2\0\0\0\3\0\0\0\10\0\2\0\1\0\0\0\1", 32, 0, NULL, 0) = 32
+131   12:40:48.956474 recvfrom(3, "\200\0\0\24", 4, 0, NULL, NULL) = 4
+131   12:40:48.956551 recvfrom(3, "\0\0\0\7\0\0\0\1\0\0\0\0\0\0\0\4\0\0\354\377", 20, 0, NULL, NULL) = 20
+131   12:40:48.956593 close(3)          = 0
+131   12:40:48.956636 socket(AF_INET, SOCK_STREAM, IPPROTO_IP) = 3
+131   12:40:48.956661 connect(3, {sa_family=AF_INET, sin_port=htons(60671), sin_addr=inet_addr("127.0.0.1")}, 16) = 0
+131   12:40:48.956779 sendto(3, "\200\0\0 ", 4, 0, NULL, 0) = 4
+131   12:40:48.956802 sendto(3, "\0\0\0\10\0\0\0\0\0\2\0\1\0\0\0\1\0\0\0\1\0\0\0\10\0\0\0\3\0\0\0\4", 32, 0, NULL, 0) = 32
+131   12:40:48.956819 recvfrom(3, "\200\0\0\24", 4, 0, NULL, NULL) = 4
+131   12:40:48.956926 recvfrom(3, "\0\0\0\10\0\0\0\1\0\0\0\0\0\0\0\4\0\0\0\7", 20, 0, NULL, NULL) = 20
+131   12:40:48.956962 close(3)          = 0
+131   12:40:48.957003 socket(AF_INET, SOCK_STREAM, IPPROTO_IP) = 3
+131   12:40:48.957031 connect(3, {sa_family=AF_INET, sin_port=htons(60671), sin_addr=inet_addr("127.0.0.1")}, 16) = 0
+131   12:40:48.957078 sendto(3, "\0\0\0\20", 4, 0, NULL, 0) = 4
+131   12:40:48.957113 sendto(3, "\0\0\0c\0\0\0\0\0\2\0\1\0\0\0\1", 16, 0, NULL, 0) = 16
+131   12:40:48.957152 clock_nanosleep(CLOCK_REALTIME, 0, {tv_sec=0, tv_nsec=200000000}, NULL) = 0
+131   12:40:49.157407 sendto(3, "\200\0\0\20", 4, 0, NULL, 0) = 4
+131   12:40:49.157580 sendto(3, "\0\0\0\1\0\0\0\10\0\0\0o\0\0\0\336", 16, 0, NULL, 0) = 16
+131   12:40:49.157615 recvfrom(3, "\200\0\0\24", 4, 0, NULL, NULL) = 4
+131   12:40:49.157665 recvfrom(3, "\0\0\0c\0\0\0\1\0\0\0\0\0\0\0\4\0\0\1M", 20, 0, NULL, NULL) = 20
+131   12:40:49.157814 close(3)          = 0
+131   12:40:49.157909 write(1, "[client] Step 1: asking the port"..., 771) = 771
+131   12:40:49.157960 exit_group(0)     = ?
+131   12:40:49.158067 +++ exited with 0 +++
