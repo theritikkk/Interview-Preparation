@@ -160,9 +160,9 @@ High Address
 |  (not directly accessible   |     accessible while in kernel mode
 |   from user mode)           |
 +-----------------------------+  0xffff800000000000 (approx.)
-|                             |
+|                              |
 |      (non-canonical gap)    |
-|                             |
+|                              |
 +-----------------------------+  0x00007fffffffffff (approx.)
 |      Stack                  |  <- grows downward
 +-----------------------------+
@@ -453,11 +453,11 @@ This section is the clearest, most concrete illustration in Chapter 1 of why the
 - A fourth number (e.g., the `.1` in `2.6.30.1`) denotes a **stable point release** -- critical bug fixes, often back-ported from the next release-in-development.
 
 ```
-                           2 . 6 . 30  .  1
-                           |   |    |     |
-                    major -+   |    |     |
-                    minor -----+    |     |
-                    revision -------+     |
+                          2 . 6 . 30 . 1
+                          |   |    |    |
+                    major -+  |    |    |
+                    minor ----+    |    |
+                    revision ------+    |
                     stable ---------------+
 ```
 
