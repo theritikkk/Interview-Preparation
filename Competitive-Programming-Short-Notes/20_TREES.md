@@ -102,7 +102,7 @@ int lca(int a, int b) {
 
 **Trap:** the second loop goes **downward from LOG−1** and only jumps when the ancestors **differ**. Jumping when they're equal overshoots past the LCA.
 
-**Alternatives:** Euler tour + sparse table (O(1) query, O(n log n) build); offline Tarjan with DSU (O(n α)).
+**Alternatives:** Euler tour + sparse table (O(1) query, O(n log n) build); offline Tarjan with DSU (O(n α) — full code in `30_SUFFIX_STRUCTURES_AND_PERSISTENCE.md`).
 
 ---
 
