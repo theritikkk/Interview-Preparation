@@ -198,7 +198,7 @@ Fermat breaks. Options:
 | MOD | Prime? | Note |
 |---|---|---|
 | `1e9 + 7` | yes | the default |
-| `998244353` | yes | `= 119·2^23 + 1`, primitive root 3 → NTT-friendly |
+| `998244353` | yes | `= 119·2^23 + 1`, primitive root 3 → NTT-friendly, actual NTT code in `29_POLYNOMIAL_AND_ADVANCED_NUMBER_THEORY.md` |
 | `1e9 + 9` | yes | second modulus for double hashing |
 | `1e9` | **no** | `= 2^9 · 5^9` — Fermat fails |
 | `2^61 - 1` | yes | for hashing; needs `__int128` |
