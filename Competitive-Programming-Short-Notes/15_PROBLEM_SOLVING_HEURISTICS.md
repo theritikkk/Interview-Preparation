@@ -135,7 +135,7 @@ Sorting is free at n ≤ 1e5 and turns "for every pair" into "for every adjacent
 
 ### Bonus: meet in the middle
 
-**Trigger:** `n ≤ 40` with a subset-sum shape. Split into two halves of 20, enumerate 2^20 each, sort one half, binary search from the other. O(2^(n/2) · n/2).
+**Trigger:** `n ≤ 40` with a subset-sum shape. Split into two halves of 20, enumerate 2^20 each, sort one half, binary search from the other. O(2^(n/2) · n/2). Full code in `16_MICRO_TEMPLATES.md`.
 
 ---
 
