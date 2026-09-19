@@ -287,6 +287,109 @@ Convenient but ~2–3× slower than a BIT for the same job. Use it when the valu
 
 ---
 
+## Implicit treap — array with O(log n) insert / erase / reverse-range
+
+**Recognition:** the problem needs an array-like sequence supporting insert/erase **anywhere** and range operations (like reversing a subrange) that a plain segment tree can't express — segment trees are indexed by a fixed position, and "insert in the middle" or "reverse this range" don't fit that shape cleanly.
+
+**The idea:** a treap (randomized BST) where the "key" is **implicit** — a node's position is just the size of its left subtree, not a stored value — so splitting/merging by *position* instead of by *key* gives array-like insert/erase/slice, all in expected O(log n) thanks to the random priorities keeping the tree balanced.
+
+```cpp
+mt19937 treapRng(chrono::steady_clock::now().time_since_epoch().count());
+
+struct Node {
+    int prior, size;
+    ll val;
+    bool rev = false;
+    Node *l = nullptr, *r = nullptr;
+    Node(ll v) : prior((int)treapRng()), size(1), val(v) {}
+};
+using pNode = Node*;
+
+int getSize(pNode t) { return t ? t->size : 0; }
+void pull(pNode t) { if (t) t->size = getSize(t->l) + getSize(t->r) + 1; }
+
+void push(pNode t) {
+    if (t && t->rev) {
+        t->rev = false;
+        swap(t->l, t->r);
+        if (t->l) t->l->rev ^= true;
+        if (t->r) t->r->rev ^= true;
+    }
+}
+
+void split(pNode t, int k, pNode& l, pNode& r) {      // l gets the first k elements (0-indexed count)
+    if (!t) { l = r = nullptr; return; }
+    push(t);
+    if (getSize(t->l) < k) {
+        split(t->r, k - getSize(t->l) - 1, t->r, r);
+        l = t;
+    } else {
+        split(t->l, k, l, t->l);
+        r = t;
+    }
+    pull(t);
+}
+pNode merge(pNode l, pNode r) {
+    if (!l || !r) return l ? l : r;
+    push(l); push(r);
+    if (l->prior > r->prior) { l->r = merge(l->r, r); pull(l); return l; }
+    else                     { r->l = merge(l, r->l); pull(r); return r; }
+}
+
+void reverseRange(pNode& root, int l, int r) {         // reverse [l, r], 0-indexed inclusive
+    pNode a, b, c;
+    split(root, l, a, b);
+    split(b, r - l + 1, b, c);
+    b->rev ^= true;
+    root = merge(merge(a, b), c);
+}
+void insertAt(pNode& root, int pos, ll val) {
+    pNode a, b;
+    split(root, pos, a, b);
+    root = merge(merge(a, new Node(val)), b);
+}
+void eraseAt(pNode& root, int pos) {
+    pNode a, b, c;
+    split(root, pos, a, b);
+    split(b, 1, b, c);
+    root = merge(a, c);                                 // the size-1 middle piece is discarded
+}
+```
+**Complexity:** O(log n) expected per operation — "expected" because it relies on random priorities; an adversary can't defeat it the way a naive unbalanced BST could be.
+**Extending it:** add a `sum` field alongside `val`, update it in `pull()`, and you get range-sum queries that stay correct across reverses for free — that combination (range reverse *and* range aggregate) is the main reason to reach for this over a segment tree.
+**Trap:** seed the priority generator with `mt19937` + `chrono` (`24_FLOATING_POINT_AND_RANDOM.md`), not `rand()` — a weak or fixed-seed generator undermines the balance guarantee the whole structure depends on.
+
+---
+
+## Chtholly tree (Old Driver Tree / ODT)
+
+**Recognition:** the problem does **range-assign** operations ("set every element in `[l,r]` to `v`") mixed with range queries, **and explicitly states the data is randomly generated** — that phrase is the actual signal; without it, this technique can be adversarially defeated into O(n) per operation.
+
+**The idea:** store the array as a `map<int, ll>` mapping *segment start → value*, so runs of equal consecutive values collapse into a single entry. A range-assign wipes out every boundary strictly inside `[l, r]` and replaces the whole range with one new entry — under random data, assigns tend to merge far more segments than they create, keeping the total segment count low on average.
+
+```cpp
+map<int, ll> tree;                    // tree[l] = value of the segment starting at l
+
+auto split(int pos) {                 // ensure a boundary exists exactly at pos; return iterator to it
+    auto it = tree.upper_bound(pos);
+    --it;
+    if (it->first == pos) return it;
+    ll val = it->second;
+    tree[pos] = val;                  // creates the new boundary; does not change any value
+    return tree.find(pos);
+}
+void assign(int l, int r, ll val) {   // set every element in [l, r] to val
+    auto itr = split(r + 1);
+    auto itl = split(l);
+    tree.erase(itl, itr);             // collapse everything strictly inside [l, r] into nothing
+    tree[l] = val;                    // ...and replace it with one segment
+}
+```
+**Complexity:** amortized fast under the random-data guarantee (each `assign` typically removes more segments than any operation ever creates, so the total segment count stays bounded); **genuinely bad worst case** on adversarial input (alternating values that never merge) — this is not a drop-in replacement for a real lazy segment tree when the "random data" guarantee isn't explicitly stated.
+**Use when:** exactly that phrase appears in the statement alongside range-assign. Otherwise, use a proper lazy segment tree (`10_ADVANCED_DATA_STRUCTURES.md`, the lazy propagation section above).
+
+---
+
 ## Memory budget
 
 | Structure | Memory for n = 2e5 |
