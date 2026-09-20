@@ -54,6 +54,9 @@ A living roadmap from backend/systems engineering to job-readiness for **PHY, ba
 - [Lesson 23 — A Real-Time FIR Filter in C++: Ring Buffers and Why the Hot Path Must Never Allocate](lessons/lesson-23-cpp-fir-ring-buffer.md) *(Stage 9/10)*
 - [Lesson 24 — Multithreading and Lock-Free Structures: Passing Samples Between Threads Safely](lessons/lesson-24-multithreading-lockfree.md) *(Stage 9/10)*
 - [Lesson 25 — Fixed-Point Arithmetic: Q-Format, Overflow, and the 6.02B+1.76 dB Rule](lessons/lesson-25-fixed-point-arithmetic.md) *(Stage 9/10)*
+- [Lesson 26 — SIMD Intrinsics: Hand-Vectorizing a DSP Kernel with AVX2](lessons/lesson-26-simd-avx2.md) *(Stage 9/10)*
+- [Lesson 27 — Profiling: Measuring Where Time Actually Goes, Instead of Guessing](lessons/lesson-27-profiling-amdahl.md) *(Stage 9/10)*
+- [Lesson 28 — 5G NR: Numerologies, the Flexible Resource Grid, and SSB](lessons/lesson-28-nr-numerology-ssb.md) *(Stage 8)*
 
 ---
 
