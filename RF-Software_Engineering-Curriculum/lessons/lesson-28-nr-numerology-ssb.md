@@ -115,4 +115,4 @@ Extend §8's table to include an approximate CP duration (using LTE's normal-CP 
 
 ---
 
-[← Lesson 27](lesson-27-profiling-amdahl.md) · [Table of Contents](../README.md)
+[← Lesson 27](lesson-27-profiling-amdahl.md) · [Table of Contents](../README.md) · [Lesson 29 →](lesson-29-nr-dmrs-coreset.md)
