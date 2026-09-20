@@ -57,6 +57,8 @@ A living roadmap from backend/systems engineering to job-readiness for **PHY, ba
 - [Lesson 26 — SIMD Intrinsics: Hand-Vectorizing a DSP Kernel with AVX2](lessons/lesson-26-simd-avx2.md) *(Stage 9/10)*
 - [Lesson 27 — Profiling: Measuring Where Time Actually Goes, Instead of Guessing](lessons/lesson-27-profiling-amdahl.md) *(Stage 9/10)*
 - [Lesson 28 — 5G NR: Numerologies, the Flexible Resource Grid, and SSB](lessons/lesson-28-nr-numerology-ssb.md) *(Stage 8)*
+- [Lesson 29 — 5G NR: DMRS Channel Estimation and PDCCH's CORESET](lessons/lesson-29-nr-dmrs-coreset.md) *(Stage 8)*
+- [Lesson 30 — PRACH: Random Access, and Zadoff-Chu Reused for Timing Advance](lessons/lesson-30-prach-timing-advance.md) *(Stage 8)*
 
 ---
 
