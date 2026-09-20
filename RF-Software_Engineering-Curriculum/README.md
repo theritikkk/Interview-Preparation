@@ -51,6 +51,9 @@ A living roadmap from backend/systems engineering to job-readiness for **PHY, ba
 - [Lesson 20 — PDCCH, PDSCH, and HARQ](lessons/lesson-20-pdcch-pdsch-harq.md) *(Stage 7)*
 - [Lesson 21 — RLC, PDCP, and RRC: What Moves Between Layers, and Why Each One Exists](lessons/lesson-21-rlc-pdcp-rrc.md) *(Stage 7)*
 - [Lesson 22 — From Python to C++: Memory Layout, std::complex, and Why "Compiled" Doesn't Automatically Mean "Fast"](lessons/lesson-22-cpp-memory-layout.md) *(Stage 9/10)*
+- [Lesson 23 — A Real-Time FIR Filter in C++: Ring Buffers and Why the Hot Path Must Never Allocate](lessons/lesson-23-cpp-fir-ring-buffer.md) *(Stage 9/10)*
+- [Lesson 24 — Multithreading and Lock-Free Structures: Passing Samples Between Threads Safely](lessons/lesson-24-multithreading-lockfree.md) *(Stage 9/10)*
+- [Lesson 25 — Fixed-Point Arithmetic: Q-Format, Overflow, and the 6.02B+1.76 dB Rule](lessons/lesson-25-fixed-point-arithmetic.md) *(Stage 9/10)*
 
 ---
 
