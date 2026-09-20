@@ -1,0 +1,14 @@
+[client] Step 1: asking the portmapper (port 9111) where program 0x20001, version 1 lives...
+[client]         portmapper says: port 49269
+
+[client] Step 2: connecting DIRECTLY to port 49269 (no portmapper involved this time)
+[client]         ADD(3, 4) = 7
+
+[client] ---- Now: a real multi-fragment record-marking test ----
+[client] Sending ONE logical RPC call, split across TWO TCP-level
+[client] fragments, each with its own record-marking header,
+[client] exactly as RFC 5531 section 11 allows.
+
+[client] Fragment 1 header bytes: 00 00 00 10  (top bit = 0 -> more fragments follow; length = 16)
+[client] Fragment 2 header bytes: 80 00 00 10  (top bit = 1 -> LAST fragment; length = 16)
+[client] Server correctly reassembled both fragments and replied: 111 + 222 = 333

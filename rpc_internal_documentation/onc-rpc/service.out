@@ -1,0 +1,6 @@
+[service] OS assigned me ephemeral port 49269 (I did not choose this)
+[service] registered myself with the portmapper: prog=0x20001 vers=1 port=49269
+[service] now serving real requests on port 49269
+
+  [service] real call arrived DIRECTLY on my ephemeral port: ADD(3, 4)
+  [service] real call arrived DIRECTLY on my ephemeral port: ADD(111, 222)

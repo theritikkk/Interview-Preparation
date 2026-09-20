@@ -1,0 +1,4 @@
+[portmapper] listening on the well-known port 9111
+
+  [portmapper] PMAPPROC_SET: registered prog=0x20001 vers=1 -> port 49269
+  [portmapper] PMAPPROC_GETPORT: prog=0x20001 vers=1 -> port 49269
