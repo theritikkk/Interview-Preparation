@@ -94,6 +94,60 @@
 **Related concepts:** kernel-space, privilege level.
 **Introduced:** Chapter 1.
 
+### `.config`
+**Definition:** The file, at the root of the kernel source tree, recording every `CONFIG_*` symbol's value (`y` = built-in, `m` = module, unset = excluded) — the single artifact that determines what a given kernel build actually contains.
+**Why it matters:** `CONFIG_*` symbols are consumed directly by `#ifdef`s in the source, so the *same* source tree compiles to genuinely different code depending on this one file.
+**Related concepts:** `make menuconfig`/`oldconfig`, Kbuild.
+**Introduced:** Chapter 2.
+
+### GNU C
+**Definition:** The C dialect the kernel is actually written in — ISO C99 plus GCC-specific language extensions (inline functions, inline assembly, branch annotation, and more), rather than strict ANSI/ISO C alone.
+**Why it matters:** Explains why kernel code sometimes looks unfamiliar even to an experienced C programmer, and why the kernel has historically been tied to GCC (with Clang/LLVM as a modern, fully-supported alternative).
+**Related concepts:** inline function, `likely()`/`unlikely()`, inline assembly.
+**Introduced:** Chapter 2.
+
+### Inline Function
+**Definition:** A function (declared `static inline`) whose body is copied directly into each call site at compile time, rather than reached via a normal call/return sequence.
+**Why it matters:** Eliminates call overhead for small, hot functions, and is explicitly preferred over complex macros because inline functions get real C type-checking.
+**Related concepts:** GNU C, macro.
+**Introduced:** Chapter 2.
+
+### `likely()` / `unlikely()`
+**Definition:** GCC branch-prediction hint macros telling the compiler (and, transitively, the CPU) which direction a conditional branch is overwhelmingly expected to go.
+**Why it matters:** Correctly used, they improve performance by reducing branch mispredictions; incorrectly used, they actively *hurt* performance rather than merely failing to help.
+**Related concepts:** GNU C, branch prediction.
+**Introduced:** Chapter 2.
+
+### `MAINTAINERS`
+**Definition:** A top-level file in the kernel source tree listing who maintains each subsystem/file pattern, and which mailing list/git tree it belongs to.
+**Why it matters:** The real, practical mechanism kernel contributors use to find out who to email/CC for a given patch — queryable via `scripts/get_maintainer.pl`.
+**Related concepts:** LKML, subsystem maintainer.
+**Introduced:** Chapter 2.
+
+### Oops
+**Definition:** A major kernel error, logged with a stack trace and register dump, resulting from an illegal kernel-level memory access — the kernel-space analog of a user-space `SIGSEGV`, but with no more-privileged layer to catch and cleanly contain it.
+**Why it matters:** Illustrates precisely why "no memory protection" (Ch.2) is dangerous, and is a concept developed further into full kernel-debugging practice in Chapter 18.
+**Related concepts:** panic, memory protection.
+**Introduced:** Chapter 2; detailed: Chapter 18.
+
+### Panic
+**Definition:** A more severe kernel failure than an oops — typically unrecoverable, halting or restarting the system.
+**Why it matters:** The more severe endpoint of the same "no memory protection" risk an oops represents.
+**Related concepts:** oops.
+**Introduced:** Chapter 2; detailed: Chapter 18.
+
+### `printk()`
+**Definition:** The kernel's analog of `printf()` — formats a string identically, but writes it into the kernel log buffer (readable via `dmesg`/`syslog`) rather than to a file descriptor, optionally prefixed with a priority-level macro like `KERN_ERR`.
+**Why it matters:** The kernel's primary logging/diagnostic mechanism, used constantly throughout kernel code and in this course's own examples.
+**Related concepts:** `pr_err()`/`pr_info()`/etc. (modern convenience wrappers), `dmesg`.
+**Introduced:** Chapter 2.
+
+### `System.map`
+**Definition:** A plain-text file, produced by the kernel build, mapping every kernel symbol (function/global variable name) to its address in the compiled image.
+**Why it matters:** Lets debugging tools translate a raw crash-report memory address back into a human-readable function name.
+**Related concepts:** oops, kernel debugging (Ch.18).
+**Introduced:** Chapter 2.
+
 ---
 
 *(This glossary will grow substantially starting with Chapter 3 — `task_struct`, `jiffies`, `runqueue`, `spinlock`, `mutex`, `bio`, `inode`, `dentry`, `softirq`, `tasklet`, `workqueue`, `kobject`, `sysfs`, `VMA`, `page cache`, `slab`, and more, exactly as anticipated in the course's original plan — each will be added as its introducing chapter is written.)*
