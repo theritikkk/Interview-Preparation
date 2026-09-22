@@ -59,6 +59,11 @@ A living roadmap from backend/systems engineering to job-readiness for **PHY, ba
 - [Lesson 28 — 5G NR: Numerologies, the Flexible Resource Grid, and SSB](lessons/lesson-28-nr-numerology-ssb.md) *(Stage 8)*
 - [Lesson 29 — 5G NR: DMRS Channel Estimation and PDCCH's CORESET](lessons/lesson-29-nr-dmrs-coreset.md) *(Stage 8)*
 - [Lesson 30 — PRACH: Random Access, and Zadoff-Chu Reused for Timing Advance](lessons/lesson-30-prach-timing-advance.md) *(Stage 8)*
+- [Lesson 31 — Building the Pipeline: A Scoped LTE PSS/SSS/PBCH Receiver in C++](lessons/lesson-31-lte-pss-sss-pbch-pipeline.md) *(Stage 9, Project 7)*
+- [Lesson 32 — Generalizing to NR SSB: Where the Pipeline's Contracts Hold, and Where a Hidden Assumption Breaks](lessons/lesson-32-nr-ssb-msequence.md) *(Stage 9, Project 8)*
+- [Lesson 33 — NR's Protocol Stack: SDAP and RRC_INACTIVE](lessons/lesson-33-nr-sdap-rrc-inactive.md) *(Stage 11)*
+- [Lesson 34 — A Real Debugging Investigation: Systematic Root-Cause Elimination](lessons/lesson-34-debugging-methodology.md) *(Stage 12)*
+- [Lesson 35 — Hardware-in-the-Loop Testing and Test Vectors](lessons/lesson-35-hil-testing-test-vectors.md) *(Stage 12)*
 
 ---
 
