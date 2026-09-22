@@ -24,3 +24,40 @@ Terraform's **state file** records what infrastructure it believes exists (mappi
 - State = Terraform's record of reality; `plan` = diff; `apply` = execute the diff.
 - Remote state + locking = required for safe team/multi-runner use, prevents concurrent-apply corruption.
 - Modules = reusable, parameterized infrastructure patterns — directly explains why Hermes needed 18 of them rather than one monolithic config.
+
+---
+
+## Cluster 2: Providers, Resources, Variables — The Basic Building Blocks
+
+### What is it?
+A **provider** is a plugin that lets Terraform talk to a specific platform's API (`aws`, `google`, `azurerm`) — it's what translates your declarative config into actual API calls. A **resource** is a single infrastructure object you're declaring (one Lambda function, one DynamoDB table). A **variable** parameterizes a config so the same code can be reused across environments/instances without duplication (exactly what makes a module reusable, per Cluster 1's modules discussion).
+
+### How does it work?
+```hcl
+provider "aws" { region = var.aws_region }
+
+variable "table_name" {
+  type    = string
+  default = "events"
+}
+
+resource "aws_dynamodb_table" "event_store" {
+  name         = var.table_name
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "pk"
+  attribute { name = "pk", type = "S" }
+}
+
+output "table_arn" { value = aws_dynamodb_table.event_store.arn }   # exposes a value for other modules/configs to use
+```
+
+### Interview Questions
+- **L1:** "A provider is the plugin connecting Terraform to a platform's API; a resource declares one specific infrastructure object; variables parameterize config for reuse across environments — outputs expose values for other modules or configs to consume."
+- **L2:** explain why declaring the same logical resource (e.g., a DynamoDB table) as a **module with variables** rather than **copy-pasted resource blocks per environment** matters specifically for consistency: a bug fix or a tagging-policy change made once in the module automatically applies everywhere it's used, versus needing to be manually propagated to every copy-pasted instance — directly the same "why 18 modules, not 18 hand-copied configs" argument from `13_PROJECT_DEEP_DIVES/HERMES.md`.
+- **L3:** explain `output` values' role in a multi-module setup: a resource's ID/ARN generated in one module (e.g., a DynamoDB table's ARN) often needs to be referenced by another module (e.g., an IAM policy granting a Lambda access to that specific table) — `output` is how a value crosses that module boundary cleanly, rather than hardcoding IDs across modules.
+
+### Quick Revision (Full File)
+- State = Terraform's record of reality; `plan` = diff; `apply` = execute the diff.
+- Remote state + locking = required for safe team/multi-runner use, prevents concurrent-apply corruption.
+- Modules = reusable, parameterized infrastructure patterns — directly explains why Hermes needed 18 of them rather than one monolithic config.
+- Provider = platform API plugin. Resource = one declared infrastructure object. Variable = parameterization enabling reuse. Output = how a value crosses a module boundary cleanly.

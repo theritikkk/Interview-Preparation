@@ -49,3 +49,30 @@ Given an async Express route handler that throws inside an `await`ed call with n
 - Middleware order matters: parsing → auth → validation → route handler → error handler (last).
 - Error middleware is identified by exactly 4 parameters.
 - Async route handlers need explicit error forwarding (`try/catch` + `next(err)`) in Express 4.
+
+---
+
+## Cluster 3: File Uploads
+
+### What is it?
+File uploads typically arrive as `multipart/form-data`, which needs a dedicated parser (e.g., `multer`) rather than `express.json()` — the request body isn't JSON, it's a multi-part binary encoding of one or more files plus form fields.
+
+### How does it work?
+```js
+const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 5 * 1024 * 1024 } });
+app.post('/upload', upload.single('file'), (req, res) => {
+    // req.file has the uploaded file's buffer/metadata; req.body has other form fields
+    res.json({ filename: req.file.originalname, size: req.file.size });
+});
+```
+
+### Interview Questions
+- **L1:** "File uploads arrive as multipart/form-data and need a dedicated parser (like multer) rather than the standard JSON body parser; always set a file-size limit to avoid a single request exhausting server memory."
+- **L2:** explain why routing the upload *directly to storage* (a pre-signed S3-style URL, per `11_SYSTEM_DESIGN/COMMON_DESIGNS.md`'s file-upload design) is usually preferred over uploading through your own API server for anything beyond small files: your server becomes a bandwidth bottleneck and memory-pressure point for every uploaded byte if it's the middleman, versus the client uploading directly to storage and your server only issuing a short-lived, scoped upload URL.
+- **L3:** explain the security implications of accepting file uploads at all: validate file type by actually inspecting content (magic bytes), not just the client-supplied filename extension or `Content-Type` header (both are trivially spoofable) — and never execute or directly serve an uploaded file from a path an attacker could predict or control, to avoid it being used as a vector for stored XSS or, in the worst case, remote code execution if the upload path is web-servable and the server can be tricked into executing it.
+
+### Quick Revision (Full File)
+- Middleware order matters: parsing → auth → validation → route handler → error handler (last).
+- Error middleware is identified by exactly 4 parameters.
+- Async route handlers need explicit error forwarding (`try/catch` + `next(err)`) in Express 4.
+- File uploads need a dedicated multipart parser, a file-size limit, and content-based (not extension-based) type validation. Prefer direct-to-storage uploads over routing large files through your own API server.

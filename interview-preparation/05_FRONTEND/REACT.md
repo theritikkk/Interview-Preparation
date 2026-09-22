@@ -60,3 +60,47 @@ A controlled input's value is driven entirely by React state (`value={state}` + 
 - Stale closures: an effect/callback capturing an old value because it wasn't listed as a dependency.
 - `key` prop must be stable per logical item, not array index, when the list can reorder.
 - Controlled inputs by default; uncontrolled for simple, ref-read-only cases.
+
+---
+
+## Cluster 4: Redux (State Management Library)
+
+### What is it?
+Redux centralizes application state in a single store, updated only through a strict, predictable cycle: components **dispatch** an **action** (a plain object describing what happened, e.g., `{ type: 'task/added', payload: task }`); a **reducer** (a pure function — same input always produces the same output, no side effects) computes the new state from the old state + the action; components **subscribe** (via `useSelector`) to the pieces of state they need and re-render only when *that* piece changes.
+
+### How does it work?
+```js
+// Reducer — MUST be pure: no mutation, no side effects, same input → same output every time
+function tasksReducer(state = [], action) {
+    switch (action.type) {
+        case 'task/added':
+            return [...state, action.payload];        // new array, never mutate `state` directly
+        case 'task/removed':
+            return state.filter(t => t.id !== action.payload.id);
+        default:
+            return state;
+    }
+}
+
+// Component
+const tasks = useSelector(state => state.tasks);       // re-renders ONLY when state.tasks changes
+const dispatch = useDispatch();
+dispatch({ type: 'task/added', payload: newTask });
+```
+
+### Interview Questions
+- **L1:** "Redux centralizes state in one store; components dispatch plain-object actions describing what happened, pure reducer functions compute new state from the old state plus the action, and components subscribe via selectors to only the state slices they need, minimizing re-renders."
+- **L2:** explain *why* reducers must be pure functions specifically: predictability (the same action sequence always produces the same final state, making bugs reproducible) and enabling features built on that guarantee — like Redux DevTools' time-travel debugging, which literally replays actions against the reducer to reconstruct past states, something impossible if reducers had side effects or depended on anything outside their inputs.
+- **L3:** explain how Redux's selector-based subscription model (`useSelector`) solves the exact Context re-render problem named in Cluster 3 — a component subscribed to `state.tasks` via a selector does *not* re-render when an unrelated slice of state (e.g., `state.user`) changes, unlike a plain Context consumer, which re-renders on *any* change to the Context value regardless of which part it actually reads. This precise mechanism — selector-based, slice-level subscription — is the concrete technical reason Redux (or similar libraries) outperforms Context for larger, frequently-updated global state.
+- **L4 (if asked to compare with your own architecture):** note the structural echo: Redux's action → reducer → new-state cycle is a small-scale, client-side version of Event Sourcing's command → event → derived-state pattern (`07_DISTRIBUTED_SYSTEMS/EVENT_DRIVEN.md`) — both enforce that state changes happen through an explicit, auditable, replayable sequence rather than arbitrary mutation. Drawing this connection explicitly is a strong, memorable answer if a system-design-minded interviewer asks you to compare frontend and backend state-management philosophies.
+
+### DO NOT SAY THIS
+"Redux and Context solve the same problem, just use whichever." — They overlap for *simple* shared state, but Context lacks Redux's selector-based partial-subscription model — for state that changes frequently and is read by many components each caring about different slices, that difference has real, measurable performance consequences, not just stylistic ones.
+
+### Quick Revision (Full File)
+- `useEffect` dependency array: `[]` = once on mount; omitted = every render; `[x]` = when `x` changes.
+- Stale closures: an effect/callback capturing an old value because it wasn't listed as a dependency.
+- `key` prop must be stable per logical item, not array index, when the list can reorder.
+- Controlled inputs by default; uncontrolled for simple, ref-read-only cases.
+- Redux: action (what happened) → pure reducer (computes new state) → selector-based subscription (re-render only on the relevant slice). Reducer purity enables time-travel debugging and predictable, reproducible state changes.
+- Redux's action/reducer cycle is structurally the same idea as Event Sourcing's command/event pattern — a strong cross-domain connection to draw if asked.

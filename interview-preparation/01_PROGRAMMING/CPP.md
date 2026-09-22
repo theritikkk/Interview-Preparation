@@ -71,8 +71,61 @@ The STL (Standard Template Library) gives you generic containers (`vector`, `map
 ### Coding/Debugging Exercise
 Given code that erases elements from a `vector` while iterating over it with a range-based for loop, explain why it's undefined behavior and fix it using the erase-remove idiom or iterator-returned-by-erase.
 
+## Cluster 4: References vs. Pointers, Iterators
+
+### What is it?
+A **reference** is an alias for an existing variable — it must be bound at declaration, can never be null, and can never be reseated to refer to something else afterward. A **pointer** is a variable holding an address — it can be null, reassigned, and supports pointer arithmetic. An **iterator** is a generalized "position" abstraction over a container (like a smart pointer into a sequence), letting algorithms work uniformly across `vector`, `list`, `map`, etc. without knowing the container's internal layout.
+
+### How does it work?
+```cpp
+int x = 5;
+int& ref = x;      // must bind now; ref IS x, forever — no null, no rebinding
+ref = 10;           // x is now 10
+
+int* ptr = &x;      // can be null, can be reassigned to point elsewhere
+ptr = nullptr;       // valid — ref could never do this
+
+std::vector<int> v = {1, 2, 3};
+for (auto it = v.begin(); it != v.end(); ++it) {   // iterator — works identically for list, set, map
+    std::cout << *it;
+}
+```
+
+### Interview Questions
+- **L1:** "A reference is a non-null, non-reseatable alias bound at declaration; a pointer is a reassignable, nullable address holding variable — references are generally preferred when null/reassignment isn't needed, since they're safer by construction."
+- **L2:** explain *why* you'd still choose a pointer over a reference in specific cases: representing "optionally points to nothing" (a null pointer, pre-`std::optional`), or needing to rebind to a different object later (a reference can't do either) — the choice should be deliberate, not just "references are always better."
+- **L3:** explain iterator invalidation precisely (echoing the `vector` erase example elsewhere in this file): different containers have different invalidation rules — `vector` insertion can invalidate *all* iterators/pointers/references if it reallocates; `list`/`map` insertion invalidates none except iterators to erased elements — knowing this container-specific behavior, not just "iterators can be invalidated" vaguely, is what separates a strong answer.
+
+---
+
+## Cluster 5: RAII-Style Locking — `std::mutex`, `lock_guard`, `unique_lock`
+
+### What is it?
+C++ applies the same RAII principle from Cluster 1 to locking: `std::lock_guard` acquires a mutex on construction and releases it on destruction (scope exit) — so a lock is never accidentally left held, even if an exception is thrown mid-scope. `std::unique_lock` is the more flexible sibling — supports deferred locking, manual unlock/relock, and is required by `std::condition_variable::wait()`.
+
+### How does it work?
+```cpp
+std::mutex mtx;
+void increment(int& counter) {
+    std::lock_guard<std::mutex> lock(mtx);   // acquired here
+    counter++;
+}                                              // released here automatically, even on exception — no manual unlock()
+
+void withCondVar(std::condition_variable& cv, std::mutex& mtx, bool& ready) {
+    std::unique_lock<std::mutex> lock(mtx);   // unique_lock — required here, lock_guard can't do this
+    cv.wait(lock, [&]{ return ready; });       // releases the lock while waiting, reacquires on wake
+}
+```
+
+### Interview Questions
+- **L1:** "`lock_guard` acquires a mutex on construction and releases it on destruction — RAII applied to locking, guaranteeing release even on an exception. `unique_lock` adds flexibility (deferred lock, manual unlock, condition-variable compatibility) at a small extra overhead."
+- **L2:** explain why manual `mtx.lock()` / `mtx.unlock()` (without RAII) is a real, common bug source: any early return, exception, or `break` between lock and unlock leaves the mutex held forever, deadlocking every other thread waiting on it — `lock_guard`/`unique_lock` eliminate this entire bug class structurally, the same argument as RAII for memory (Cluster 1), applied to locks instead.
+- **L3:** connect directly to your own systems background: this is the traditional, lock-based alternative to NetSight's lock-free approach (`01_PROGRAMMING/C.md` Cluster 2) — `lock_guard`/`unique_lock` are the *correct*, idiomatic way to use mutexes in C++ when you do need them, versus C's more manual `pthread_mutex_lock`/`unlock` pairing, which carries the exact "forgot to unlock on an early return" risk that RAII locking exists to eliminate.
+
 ### Quick Revision
 - RAII: resource lifetime tied to object scope — automatic, exception-safe cleanup.
 - `unique_ptr`: exclusive ownership. `shared_ptr`: refcounted, can leak via cycles. `weak_ptr`: breaks cycles.
 - Virtual functions: runtime dispatch via vtable; always give polymorphic base classes a virtual destructor.
 - Templates: compile-time generics, zero runtime overhead, but code bloat from multiple instantiations.
+- References: non-null, non-reseatable, bound once. Pointers: nullable, reassignable. Iterator invalidation rules are container-specific — know `vector`'s (can invalidate everything) vs `list`/`map`'s (narrower) behavior.
+- `lock_guard`/`unique_lock`: RAII for mutexes — eliminates the "forgot to unlock" bug class the same way smart pointers eliminate "forgot to free."

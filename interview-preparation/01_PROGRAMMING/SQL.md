@@ -79,9 +79,37 @@ CREATE INDEX idx_tasks_status_runat ON tasks (status, run_at);  -- composite ind
 ### Comparison With Alternatives
 B-tree (range queries, equality, sorting) vs. hash index (equality only, no range support) vs. GIN/GiST (full-text search, arrays, JSON in Postgres) — pick based on the query pattern, not by default habit.
 
+## Cluster 4: Normalization & Denormalization (SQL-Level View)
+
+Theory and the Hermes-connection are in `03_CS_FUNDAMENTALS/DBMS.md` Cluster 1 — this is the same concept from the query-writing side: what normalized vs. denormalized schemas actually look like and cost in SQL.
+
+### How does it work?
+```sql
+-- Unnormalized: customer info repeated on every order row — update anomaly waiting to happen
+CREATE TABLE orders_bad (
+    order_id INT, customer_name TEXT, customer_email TEXT, item TEXT, amount DECIMAL
+);
+
+-- Normalized (3NF): customer info lives once, referenced by foreign key
+CREATE TABLE customers (customer_id INT PRIMARY KEY, name TEXT, email TEXT);
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY, customer_id INT REFERENCES customers(customer_id),
+    item TEXT, amount DECIMAL
+);
+
+-- Querying normalized data costs a JOIN:
+SELECT o.item, o.amount, c.name FROM orders o JOIN customers c ON o.customer_id = c.customer_id;
+```
+
+### Interview Questions
+- **L1:** "A normalized schema avoids repeating data (fixing update anomalies) at the cost of needing joins to reassemble it at query time; a denormalized schema repeats data deliberately to avoid those joins, at the cost of update complexity and storage."
+- **L2:** explain precisely when denormalizing a specific table is the right SQL-level call: a read-heavy reporting table that's rebuilt periodically (not updated in place) is a much safer place to denormalize than a table with frequent, scattered updates — because the update-anomaly risk that normalization protects against is far less relevant when the data isn't updated in place at all.
+- **L3:** connect back to `03_CS_FUNDAMENTALS/DBMS.md`'s framing of Hermes's read models as denormalization-as-CQRS: even within a single relational database, a materialized view or a deliberately denormalized reporting table is doing the *same conceptual job* as one of Hermes's DynamoDB read models — pre-shaping data for a specific query pattern instead of computing it fresh via joins every time.
+
 ### Quick Revision
 - WHERE filters rows before grouping; HAVING filters groups after.
 - MVCC (Postgres): readers don't block writers via snapshot isolation.
 - `FOR UPDATE SKIP LOCKED` is the standard pattern for safe concurrent task-claiming — verify this is actually what your scheduler does before claiming it.
 - Composite index column order matters — leftmost-prefix rule.
 - `EXPLAIN ANALYZE` is your first move diagnosing a slow query.
+- Normalized: no repeated data, needs joins to reassemble. Denormalized: repeated data, no joins needed, riskier on frequent in-place updates — safest to denormalize read-heavy, rebuilt-not-updated tables.

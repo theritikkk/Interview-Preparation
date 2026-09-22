@@ -42,3 +42,42 @@ Docker's default **bridge network** lets containers on the same network reach ea
 - Layer caching rewards ordering rarely-changing instructions (dependency install) before frequently-changing ones (source copy).
 - Multi-stage builds: smaller, leaner, more secure final images by discarding build-time-only content.
 - Containers reach each other by service name over a shared Docker network; volumes persist data across container restarts.
+
+---
+
+## Cluster 3: Security & Resource Limits
+
+### What is it?
+By default, a container's main process runs as **root** inside the container — if an attacker exploits the application, they get root *inside the container*, which is a meaningfully worse starting position for further escalation than a non-root user would be. **Resource limits** (`--memory`, `--cpus`, or their Docker Compose/Kubernetes equivalents) cap what a single container can consume, preventing one runaway container from starving every other container on the same host.
+
+### How does it work?
+```dockerfile
+FROM node:20-slim
+RUN addgroup --system app && adduser --system --ingroup app app
+USER app                              # drop root — subsequent instructions and CMD run as this user
+COPY --chown=app:app . .
+CMD ["node", "index.js"]
+```
+```yaml
+# docker-compose.yml resource limits
+services:
+  worker:
+    deploy:
+      resources:
+        limits: { memory: 512M, cpus: '0.5' }
+```
+
+### Interview Questions
+- **L1:** "Containers run as root by default, which is a real security risk — set a non-root `USER` in the Dockerfile. Resource limits (memory/CPU) prevent one container from starving others on the shared host."
+- **L2:** explain what happens when a container exceeds its memory limit: the kernel's OOM killer terminates the container's process — a hard stop, not graceful degradation — which is exactly why memory limits need to be set thoughtfully based on real observed usage (from your Prometheus metrics, per `10_OBSERVABILITY/PROMETHEUS.md`), not guessed arbitrarily.
+- **L3 — 🔴 directly relevant to your Task Scheduler's 3 worker replicas:** explain why per-container resource limits matter specifically in a multi-container deployment on shared hardware: without limits, one worker replica under unusually heavy load (a burst of large tasks) could starve CPU/memory from its sibling replicas and the coordinator, turning a localized load spike into a system-wide degradation — exactly the kind of cascading failure a well-designed resource-limit policy prevents.
+
+### DO NOT SAY THIS
+"Running as root inside a container is fine because it's isolated from the host anyway." — Container isolation (namespaces, cgroups) is real but not absolute — container-escape vulnerabilities have existed, and even without one, root-inside-container is unnecessary exposure for essentially zero benefit in the overwhelming majority of application containers; non-root is close to a free security improvement.
+
+### Quick Revision (Full File)
+- Layer caching rewards ordering rarely-changing instructions (dependency install) before frequently-changing ones (source copy).
+- Multi-stage builds: smaller, leaner, more secure final images by discarding build-time-only content.
+- Containers reach each other by service name over a shared Docker network; volumes persist data across container restarts.
+- Set a non-root `USER` — root-inside-container is unnecessary exposure with essentially no upside.
+- Resource limits prevent one container from starving others on shared hardware; exceeding a memory limit triggers a hard OOM kill, not graceful degradation — size limits from real observed metrics.

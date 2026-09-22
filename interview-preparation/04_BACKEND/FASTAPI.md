@@ -43,3 +43,41 @@ app.dependency_overrides[get_db] = lambda: fake_session
 - `Depends()` + `dependency_overrides` = FastAPI's DI-for-testability pattern.
 - `yield`-based dependencies guarantee cleanup runs after the response.
 - `BackgroundTasks` ≠ a task queue — no persistence, no retries; contrast directly with your Task Scheduler's RabbitMQ-based design if asked.
+
+---
+
+## Cluster 3: Middleware & Custom Validation
+
+### What is it?
+FastAPI (via Starlette) middleware wraps every request/response, useful for cross-cutting concerns (CORS, request logging, timing) that apply globally rather than per-route. Pydantic **validators** let you express validation rules beyond basic type-checking — custom logic that runs as part of the same automatic validation Pydantic already does for types.
+
+### How does it work?
+```python
+@app.middleware("http")
+async def add_process_time(request: Request, call_next):
+    start = time.time()
+    response = await call_next(request)               # runs the rest of the pipeline
+    response.headers["X-Process-Time"] = str(time.time() - start)
+    return response
+
+from pydantic import BaseModel, field_validator
+class TaskCreate(BaseModel):
+    priority: int
+    @field_validator('priority')
+    @classmethod
+    def priority_in_range(cls, v):
+        if not (1 <= v <= 5):
+            raise ValueError('priority must be between 1 and 5')   # becomes an automatic 422 response
+        return v
+```
+
+### Interview Questions
+- **L1:** "Middleware wraps every request/response for cross-cutting concerns like logging or timing; Pydantic validators extend the automatic type-based validation with custom business rules, and a validation failure automatically becomes a structured 422 response — no manual error handling needed."
+- **L2:** explain why middleware is the right place for concerns like request timing/logging but the *wrong* place for business-logic validation (like the priority-range check) — middleware runs for every route indiscriminately, while Pydantic validators are scoped precisely to the model/field they validate, keeping business rules colocated with the data they constrain rather than scattered across a global middleware function.
+- **L3:** connect to `04_BACKEND/EXPRESS.md`'s middleware discussion: this is the same architectural pattern (cross-cutting concerns as a wrapping layer around route handlers) implemented via Starlette's ASGI middleware protocol instead of Express's callback-chain — recognizing this as "the same pattern, different framework" is a stronger answer than describing FastAPI middleware as if it were a wholly novel concept.
+
+### Quick Revision (Full File)
+- `Depends()` + `dependency_overrides` = FastAPI's DI-for-testability pattern.
+- `yield`-based dependencies guarantee cleanup runs after the response.
+- `BackgroundTasks` ≠ a task queue — no persistence, no retries; contrast directly with your Task Scheduler's RabbitMQ-based design if asked.
+- Middleware: cross-cutting concerns, applies to every route. Pydantic validators: field/model-scoped business rules, colocated with the data they constrain — don't conflate the two roles.
