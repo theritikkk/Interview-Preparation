@@ -63,8 +63,54 @@ ES Modules (`import`/`export`) are statically analyzed (imports resolved at pars
 - **L1:** "ESM is static and tree-shakeable; CommonJS is dynamic and resolved at runtime — Node.js supports both, with `.mjs`/`type: module` or `.cjs` controlling which."
 - **L2:** explain a circular-`require` gotcha in CommonJS (you can get a partially-populated `module.exports` object) versus how ESM handles the same case (live bindings, generally more resilient but still order-sensitive).
 
+## Cluster 4: Promises & Async/Await
+
+### What is it?
+A Promise represents a value that will exist eventually — it's always in one of three states: **pending**, **fulfilled** (resolved with a value), or **rejected** (failed with a reason), and once settled (fulfilled or rejected), it can never change state again. `async`/`await` is syntax sugar over Promises — an `async` function always returns a Promise, and `await` pauses that function (without blocking the thread — other code can still run) until the awaited Promise settles.
+
+### How does it work?
+```js
+function fetchUser(id) {
+    return fetch(`/users/${id}`)
+        .then(res => res.json())
+        .catch(err => { console.error(err); throw err; });  // re-throw to propagate, or swallow to recover
+}
+
+// Same logic, async/await — reads top-to-bottom instead of chained
+async function fetchUser(id) {
+    try {
+        const res = await fetch(`/users/${id}`);
+        return await res.json();
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+}
+
+// Combinators
+await Promise.all([p1, p2, p3]);        // waits for ALL; rejects immediately if ANY rejects
+await Promise.allSettled([p1, p2, p3]); // waits for ALL, never short-circuits — get every result/error
+await Promise.race([p1, p2, p3]);       // settles as soon as the FIRST one settles (fulfilled or rejected)
+```
+
+### Interview Questions
+- **L1:** "A Promise is pending/fulfilled/rejected, settling exactly once; async/await is sugar over Promises — await pauses the async function without blocking the thread, letting other code run while waiting."
+- **L2:** explain why an unhandled Promise rejection is a real, checkable bug class — a rejected Promise with no `.catch()` (or no surrounding `try/catch` if awaited) doesn't necessarily crash synchronously the way a thrown exception would, but modern Node/browsers will log an "unhandled promise rejection" warning, and in newer Node versions can actually crash the process — never leave a Promise chain uncaught in production code.
+- **L3:** explain `Promise.all` vs `Promise.allSettled` precisely, and when each is correct: `Promise.all` is right when *any* failure should abort the whole operation (e.g., you need all N results to proceed meaningfully); `Promise.allSettled` is right when you want every result regardless of individual failures (e.g., sending notifications to N users — one failing shouldn't stop the others, and you want to know which ones failed) — directly relevant to a Hermes-style fan-out scenario where multiple independent downstream calls happen from one event.
+
+### DO NOT SAY THIS
+"`await` blocks the thread until the Promise resolves." — It does not block the JS thread at all; it pauses only the current `async` function's execution, yielding control back to the event loop so other code (other requests, other callbacks) can run in the meantime — this is the entire point of async/await over a genuinely blocking call.
+
+### Common Mistakes
+- Forgetting `await` on an async call inside another async function — silently gets a Promise object instead of the resolved value, often not erroring immediately but producing confusing downstream bugs.
+- Using `Promise.all` when one failure shouldn't abort the others — should have been `allSettled`.
+- Sequential `await`s for independent operations that could run concurrently: `const a = await fetchA(); const b = await fetchB();` needlessly serializes two independent calls — `const [a, b] = await Promise.all([fetchA(), fetchB()]);` runs them concurrently instead, a common, easy performance win worth mentioning proactively.
+
 ### Quick Revision
 - Sync code → all microtasks → next macrotask, always in that order.
 - Closures: inner function + captured outer variables, alive as long as referenced.
 - Arrow functions: no own `this` — inherits from enclosing scope. Regular functions: `this` depends on call site.
 - ESM: static/tree-shakeable. CommonJS: dynamic/runtime-resolved.
+- Promise: pending → fulfilled/rejected, settles once. `await` pauses the async function only, never blocks the thread.
+- `Promise.all` (abort on first failure) vs `Promise.allSettled` (get every result regardless) — pick based on whether one failure should cancel the rest.
+- Independent `await`s in sequence needlessly serialize — use `Promise.all` to run them concurrently instead.

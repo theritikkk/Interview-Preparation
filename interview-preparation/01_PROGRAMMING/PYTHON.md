@@ -119,8 +119,58 @@ async def create_task(task: TaskCreate):   # Pydantic validates the request body
 - **L2:** explain dependency injection in FastAPI (`Depends()`) for things like DB sessions or auth — reused across endpoints without repeating setup code.
 - **L3:** explain why `async def` endpoints matter specifically for I/O-bound handlers (don't block the event loop) but using a blocking call inside one (e.g., a synchronous DB driver) defeats the purpose entirely — a real, common production bug.
 
+## Cluster 5: Core Data Structures — Lists, Tuples, Dicts, Sets
+
+### What is it?
+**List:** ordered, mutable, O(1) index access, O(1) amortized append, O(n) insert/delete at arbitrary position. **Tuple:** ordered, *immutable* — hashable (usable as a dict key) precisely because it can't change after creation, unlike a list. **Dict:** insertion-ordered (guaranteed since Python 3.7) hash map, O(1) average lookup/insert/delete. **Set:** unordered, O(1) average membership test — the right structure specifically when you need fast "is X present" checks or set algebra (union/intersection/difference), not when order matters.
+
+### How does it work?
+```python
+point = (3, 4)              # tuple — immutable, hashable
+cache = {point: "value"}    # works — tuple can be a dict key
+# cache = {[3, 4]: "value"} # TypeError — list is unhashable, can't be a dict key
+
+seen = set()
+if x not in seen:           # O(1) average — vs O(n) for `x not in some_list`
+    seen.add(x)
+```
+
+### Interview Questions
+- **L1:** "Lists are mutable and ordered; tuples are immutable (and therefore hashable, usable as dict keys); dicts are ordered hash maps with O(1) average operations; sets give O(1) average membership testing and set algebra."
+- **L2:** explain precisely why a list can't be a dict key: dict keys must be hashable, and hashability requires immutability (a mutable object's hash would need to change if its contents changed, breaking the hash table's internal bucket placement) — this is the same underlying contract as Java's `equals()`/`hashCode()` requirement (`01_PROGRAMMING/JAVA.md` Cluster 2), just enforced differently.
+- **L3:** explain when list membership testing (`x in my_list`, O(n)) silently becomes a performance bug at scale, and why swapping to a set (`x in my_set`, O(1) average) is often a simple, high-leverage fix — a good, concrete example of recognizing an algorithmic pattern (`02_DSA/PATTERNS.md`'s hashing cluster) inside ordinary application code, not just in a DSA interview.
+
+---
+
+## Cluster 6: Exception Handling
+
+### What is it?
+`try`/`except`/`else`/`finally`: the `try` block runs the risky code; `except` catches specified exception types; `else` runs only if `try` succeeded with no exception (a specific, often-forgotten clause); `finally` always runs, exception or not — for cleanup.
+
+### How does it work?
+```python
+try:
+    result = risky_operation()
+except ValueError as e:
+    raise ServiceError("operation failed") from e   # exception chaining — preserves the original cause
+else:
+    log_success(result)     # only runs if NO exception was raised
+finally:
+    cleanup()                # ALWAYS runs — exception or not, even if except/else themselves raise
+```
+
+### Interview Questions
+- **L1:** "try runs the risky code, except catches specific exception types, else runs only on success, finally always runs — for guaranteed cleanup regardless of outcome."
+- **L2:** explain the purpose of `else` specifically, since it's the most commonly forgotten clause: it lets you distinguish "code that might raise the exception you're catching" from "code that should only run after confirmed success" — without it, success-only code placed at the end of `try` would also be covered by the `except`, potentially masking a *different* exception raised by that success-only code as if it came from the risky operation.
+- **L3:** explain `raise ... from ...` (exception chaining) precisely — same underlying idea as Java's exception-chaining constructor (`01_PROGRAMMING/JAVA.md` Cluster 7): the new exception's `__cause__` attribute preserves the original, so a traceback shows the full causal chain instead of losing context; contrast with a bare `except: raise NewException(...)` with no `from`, which still shows *both* exceptions in the traceback (as "context") but doesn't mark the relationship as explicitly as `from` does.
+
+### DO NOT SAY THIS
+"A bare `except:` (with no exception type) is a safe way to catch everything." — It also catches things you almost never actually want to catch (`KeyboardInterrupt`, `SystemExit`), silently swallowing a user's Ctrl-C or masking a genuine bug; `except Exception:` (not bare `except:`) is the correct "catch broadly but sanely" pattern when you really do need one.
+
 ### Quick Revision
 - Python passes object references by value — mutability of the object determines visible side effects.
 - Mutable default arguments are created once — classic bug.
 - GIL: one thread executes bytecode at a time — fine for I/O concurrency, not CPU parallelism.
 - FastAPI + Pydantic: type hints → automatic validation + docs.
+- Tuples are hashable (immutable) and can be dict keys; lists can't. Sets give O(1) average membership — a common fix for an O(n) list-membership performance bug.
+- `else` in try/except runs only on success — distinguishes "risky code" from "success-only code" so the latter's exceptions aren't masked. `raise ... from ...` preserves the causal chain.
