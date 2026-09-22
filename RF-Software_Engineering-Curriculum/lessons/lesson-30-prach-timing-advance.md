@@ -126,4 +126,4 @@ Extend §9's sweep into a full report: for `N_cs` values of 10, 20, 40, and 80, 
 
 ---
 
-← [Lesson 29](lesson-29-nr-dmrs-coreset.md) · [Table of Contents](../README.md) · [Lesson 31 →](lesson-31-lte-pss-sss-pbch-pipeline.md)
+[← Lesson 29](lesson-29-nr-dmrs-coreset.md) · [Table of Contents](../README.md) · [Lesson 31 →](lesson-31-lte-pss-sss-pbch-pipeline.md)
