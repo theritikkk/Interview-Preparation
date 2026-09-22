@@ -64,6 +64,8 @@ A living roadmap from backend/systems engineering to job-readiness for **PHY, ba
 - [Lesson 33 — NR's Protocol Stack: SDAP and RRC_INACTIVE](lessons/lesson-33-nr-sdap-rrc-inactive.md) *(Stage 11)*
 - [Lesson 34 — A Real Debugging Investigation: Systematic Root-Cause Elimination](lessons/lesson-34-debugging-methodology.md) *(Stage 12)*
 - [Lesson 35 — Hardware-in-the-Loop Testing and Test Vectors](lessons/lesson-35-hil-testing-test-vectors.md) *(Stage 12)*
+- [Lesson 36 — Latency and Throughput: Measuring Real-Time Correctness](lessons/lesson-36-latency-throughput.md) *(Stage 12)*
+- [Lesson 37 — Memory-Safety Tooling: AddressSanitizer](lessons/lesson-37-address-sanitizer.md) *(Stage 12)*
 
 ---
 
