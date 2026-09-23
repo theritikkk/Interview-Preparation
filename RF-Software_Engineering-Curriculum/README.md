@@ -66,6 +66,7 @@ A living roadmap from backend/systems engineering to job-readiness for **PHY, ba
 - [Lesson 35 — Hardware-in-the-Loop Testing and Test Vectors](lessons/lesson-35-hil-testing-test-vectors.md) *(Stage 12)*
 - [Lesson 36 — Latency and Throughput: Measuring Real-Time Correctness](lessons/lesson-36-latency-throughput.md) *(Stage 12)*
 - [Lesson 37 — Memory-Safety Tooling: AddressSanitizer](lessons/lesson-37-address-sanitizer.md) *(Stage 12)*
+- [Lesson 38 — Multi-Layer Protocol Trace Analysis: Diagnosing a Real Field Failure](lessons/lesson-38-multilayer-trace-analysis.md) *(Stage 12, Project 10)*
 
 ---
 
