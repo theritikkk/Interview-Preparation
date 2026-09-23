@@ -129,4 +129,4 @@ Run §8's two bugs, unprotected, 20 times each, and record how often (if ever) e
 
 ---
 
-[← Lesson 36](lesson-36-latency-throughput.md) · [Table of Contents](../README.md)
+[← Lesson 36](lesson-36-latency-throughput.md) · [Table of Contents](../README.md) · [Lesson 38 →](lesson-38-multilayer-trace-analysis.md)
