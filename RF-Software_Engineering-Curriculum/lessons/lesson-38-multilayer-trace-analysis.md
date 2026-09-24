@@ -149,4 +149,4 @@ Extend §8's `find_cross_layer_anomaly` to automatically check §5 step 5's conf
 
 ---
 
-[← Lesson 37](lesson-37-address-sanitizer.md) · [Table of Contents](../README.md)
+[← Lesson 37](lesson-37-address-sanitizer.md) · [Table of Contents](../README.md) · [Lesson 39 →](lesson-39-conformance-interop-testing.md)
