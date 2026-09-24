@@ -129,4 +129,4 @@ Populate §8's tool with 10–15 real questions pulled from across Lessons 1–3
 
 ---
 
-← [Lesson 39](lesson-39-conformance-interop-testing.md) · [Table of Contents](../README.md)
+[← Lesson 39](lesson-39-conformance-interop-testing.md) · [Table of Contents](../README.md) · [Lesson 41 →](lesson-41-convolutional-viterbi.md)

@@ -67,6 +67,9 @@ A living roadmap from backend/systems engineering to job-readiness for **PHY, ba
 - [Lesson 36 — Latency and Throughput: Measuring Real-Time Correctness](lessons/lesson-36-latency-throughput.md) *(Stage 12)*
 - [Lesson 37 — Memory-Safety Tooling: AddressSanitizer](lessons/lesson-37-address-sanitizer.md) *(Stage 12)*
 - [Lesson 38 — Multi-Layer Protocol Trace Analysis: Diagnosing a Real Field Failure](lessons/lesson-38-multilayer-trace-analysis.md) *(Stage 12, Project 10)*
+- [Lesson 39 — Conformance and Interoperability Testing](lessons/lesson-39-conformance-interop-testing.md) *(Stage 12)*
+- [Lesson 40 — Interview Synthesis: Building a Real Question Bank from Lessons 1–39](lessons/lesson-40-interview-synthesis.md) *(Stage 15)*
+- [Lesson 41 — Convolutional Codes and Viterbi Decoding](lessons/lesson-41-convolutional-viterbi.md) *(Stage 3)*
 
 ---
 
