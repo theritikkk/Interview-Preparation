@@ -70,6 +70,7 @@ A living roadmap from backend/systems engineering to job-readiness for **PHY, ba
 - [Lesson 39 — Conformance and Interoperability Testing](lessons/lesson-39-conformance-interop-testing.md) *(Stage 12)*
 - [Lesson 40 — Interview Synthesis: Building a Real Question Bank from Lessons 1–39](lessons/lesson-40-interview-synthesis.md) *(Stage 15)*
 - [Lesson 41 — Convolutional Codes and Viterbi Decoding](lessons/lesson-41-convolutional-viterbi.md) *(Stage 3)*
+- [Lesson 42 — Transmit-Capable SDR: PA Nonlinearity, PAPR, and Legal Realities](lessons/lesson-42-pa-nonlinearity-papr-legal.md) *(Stage 5)*
 
 ---
 
