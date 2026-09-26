@@ -153,4 +153,4 @@ Run §9's experiment across a sweep of $E_b/N_0$ values, plot coded and uncoded 
 
 ---
 
-[← Lesson 40](lesson-40-interview-synthesis.md) · [Table of Contents](../README.md) · [Lesson 42 →](lesson-41-convolutional-viterbi.md)
+[← Lesson 40](lesson-40-interview-synthesis.md) · [Table of Contents](../README.md) · [Lesson 42 →](lesson-42-pa-nonlinearity-papr-legal.md)
