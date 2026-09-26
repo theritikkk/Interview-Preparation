@@ -3,17 +3,17 @@
 ## Layer map for this file
 
 ```
-┌──────────────────────────────────────────────┐
-│ 1. BOOK: the boot sector's own hex dump and   │
-│    its little-endian magic number (§2.2,      │
+┌────────────────────────────────────────────────┐
+│ 1. BOOK: the boot sector's own hex dump and    │
+│    its little-endian magic number (§2.2,       │
 │    §2.4)                                       │
-├──────────────────────────────────────────────┤
-│ 2. SUPPORTING: base conversion, two's         │
+├────────────────────────────────────────────────┤
+│ 2. SUPPORTING: base conversion, two's          │
 │    complement, ASCII                           │
-├──────────────────────────────────────────────┤
+├────────────────────────────────────────────────┤
 │ 3. MODERN: xxd/gdb hex conventions, network    │
 │    byte order, UTF-8                           │
-└──────────────────────────────────────────────┘
+└────────────────────────────────────────────────┘
 ```
 
 Book coverage: **Full** for hex, binary, and endianness (§2.2, §2.4).

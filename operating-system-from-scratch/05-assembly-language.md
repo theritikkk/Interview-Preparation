@@ -3,18 +3,18 @@
 ## Layer map for this file
 
 ```
-┌──────────────────────────────────────────────┐
-│ 1. BOOK: §3.3–3.4 in full, the richest        │
-│    section of the draft — four Questions      │
-│    preserved as real exercises                │
-├──────────────────────────────────────────────┤
+┌────────────────────────────────────────────────┐
+│ 1. BOOK: §3.3–3.4 in full, the richest         │
+│    section of the draft — four Questions       │
+│    preserved as real exercises                 │
+├────────────────────────────────────────────────┤
 │ 2. SUPPORTING: the flags register as implicit  │
 │    state, the stack as overflow storage,       │
 │    "a function call IS call+ret+stack"         │
-├──────────────────────────────────────────────┤
+├────────────────────────────────────────────────┤
 │ 3. MODERN: System V ABI, compiler-generated    │
 │    cmp/jump/call, pusha/popa's removal, ROP    │
-└──────────────────────────────────────────────┘
+└────────────────────────────────────────────────┘
 ```
 
 Book coverage: **Full**. Correction note: an earlier version of this

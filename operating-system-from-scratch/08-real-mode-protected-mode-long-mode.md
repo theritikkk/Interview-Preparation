@@ -3,19 +3,19 @@
 ## Layer map for this file
 
 ```
-┌──────────────────────────────────────────────┐
-│ 1. BOOK: real mode's limits (§3.2), why BIOS  │
-│    stops working (§4.1), the GDT (§4.2–4.3),  │
-│    the full switch sequence (§4.4–4.5)        │
-├──────────────────────────────────────────────┤
+┌────────────────────────────────────────────────┐
+│ 1. BOOK: real mode's limits (§3.2), why BIOS   │
+│    stops working (§4.1), the GDT (§4.2–4.3),   │
+│    the full switch sequence (§4.4–4.5)         │
+├────────────────────────────────────────────────┤
 │ 2. SUPPORTING: privilege rings, the null-      │
 │    descriptor-as-safety-net pattern, why       │
 │    pipelining forces a far jump                │
-├──────────────────────────────────────────────┤
+├────────────────────────────────────────────────┤
 │ 3. MODERN: long mode's real requirements, and  │
 │    why most of this GDT ceremony is vestigial  │
 │    on a modern 64-bit Linux box                │
-└──────────────────────────────────────────────┘
+└────────────────────────────────────────────────┘
 ```
 
 Book coverage: **Full** for real/protected mode (all of Ch.4). **None**

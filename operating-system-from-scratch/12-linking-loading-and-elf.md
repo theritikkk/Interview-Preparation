@@ -3,18 +3,18 @@
 ## Layer map for this file
 
 ```
-┌──────────────────────────────────────────────┐
-│ 1. BOOK: the exact bug that shows why entry-  │
-│    point position can't be assumed, and the   │
-│    kernel_entry.asm fix (§5.2.1–5.2.3)        │
-├──────────────────────────────────────────────┤
-│ 2. SUPPORTING: what the linker actually does  │
-│    to symbols; ELF sections vs. segments       │
-├──────────────────────────────────────────────┤
-│ 3. MODERN: every hosted C program has its own  │
-│    "kernel_entry.asm" — it's called _start,    │
-│    and it runs before main(), even today       │
-└──────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────┐
+│ 1. BOOK: the exact bug that shows why entry-    │
+│    point position can't be assumed, and the     │
+│    kernel_entry.asm fix (§5.2.1–5.2.3)          │
+├─────────────────────────────────────────────────┤
+│ 2. SUPPORTING: what the linker actually does    │
+│    to symbols; ELF sections vs. segments        │
+├─────────────────────────────────────────────────┤
+│ 3. MODERN: every hosted C program has its own   │
+│    "kernel_entry.asm" — it's called _start,     │
+│    and it runs before main(), even today        │
+└─────────────────────────────────────────────────┘
 ```
 
 Book coverage: **Full** (§5.2.1–5.2.3). This file does not repeat

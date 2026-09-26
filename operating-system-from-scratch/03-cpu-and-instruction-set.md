@@ -3,17 +3,17 @@
 ## Layer map for this file
 
 ```
-┌──────────────────────────────────────────────┐
-│ 1. BOOK: four registers, ah/al splitting, the │
-│    book's own "Hello" decoded byte by byte    │
-│    (§3.3.2–3.3.3)                              │
-├──────────────────────────────────────────────┤
-│ 2. SUPPORTING: ISA as contract, opcode+operand │
-│    anatomy, register categories                │
-├──────────────────────────────────────────────┤
-│ 3. MODERN: x86-64 registers, Intel vs. AT&T    │
-│    syntax, System V ABI, Linux syscalls        │
-└──────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────┐
+│ 1. BOOK: four registers, ah/al splitting, the   │
+│    book's own "Hello" decoded byte by byte      │
+│    (§3.3.2–3.3.3)                               │
+├─────────────────────────────────────────────────┤
+│ 2. SUPPORTING: ISA as contract, opcode+operand  │
+│    anatomy, register categories                 │
+├─────────────────────────────────────────────────┤
+│ 3. MODERN: x86-64 registers, Intel vs. AT&T     │
+│    syntax, System V ABI, Linux syscalls         │
+└─────────────────────────────────────────────────┘
 ```
 
 Book coverage: **Seed** (§3.3.2). Note: this course covers CPU/ISA

@@ -3,18 +3,18 @@
 ## Layer map for this file
 
 ```
-┌──────────────────────────────────────────────┐
-│ 1. BOOK: x86 as the explicit target (Ch.1),   │
-│    and §3.2's own backward-compatibility      │
-│    argument for real-mode boot                │
-├──────────────────────────────────────────────┤
+┌────────────────────────────────────────────────┐
+│ 1. BOOK: x86 as the explicit target (Ch.1),    │
+│    and §3.2's own backward-compatibility       │
+│    argument for real-mode boot                 │
+├────────────────────────────────────────────────┤
 │ 2. SUPPORTING: the 8086→x86-64 lineage, why    │
 │    backward compatibility is x86's defining    │
 │    design philosophy                           │
-├──────────────────────────────────────────────┤
+├────────────────────────────────────────────────┤
 │ 3. MODERN: x86-64/AMD64/Intel64 naming, ARM64  │
 │    and RISC-V as contrasting philosophies      │
-└──────────────────────────────────────────────┘
+└────────────────────────────────────────────────┘
 ```
 
 Book coverage: **Seed** — stronger than it first looks. Chapter 1

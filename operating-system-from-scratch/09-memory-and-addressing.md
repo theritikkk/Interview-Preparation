@@ -3,17 +3,17 @@
 ## Layer map for this file
 
 ```
-┌──────────────────────────────────────────────┐
-│ 1. BOOK: real-mode segment:offset in full     │
-│    (§3.6.1) — including a third, proper       │
+┌────────────────────────────────────────────────┐
+│ 1. BOOK: real-mode segment:offset in full      │
+│    (§3.6.1) — including a third, proper        │
 │    resolution of file 05's puzzle              │
-├──────────────────────────────────────────────┤
+├────────────────────────────────────────────────┤
 │ 2. SUPPORTING: logical vs. linear vs. physical │
 │    address as precise, distinct terms          │
-├──────────────────────────────────────────────┤
+├────────────────────────────────────────────────┤
 │ 3. MODERN: paging collapses this whole story   │
 │    into one step; the A20 line                 │
-└──────────────────────────────────────────────┘
+└────────────────────────────────────────────────┘
 ```
 
 Book coverage: **Full** for real-mode addressing. This file does

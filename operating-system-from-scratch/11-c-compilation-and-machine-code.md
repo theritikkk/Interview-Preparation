@@ -3,18 +3,18 @@
 ## Layer map for this file
 
 ```
-┌──────────────────────────────────────────────┐
-│ 1. BOOK: compiler → object file → linker →    │
-│    raw binary, using the book's own basic.c   │
-│    (§5.1.1)                                    │
-├──────────────────────────────────────────────┤
-│ 2. SUPPORTING: the pipeline's real stages,     │
-│    relative vs. absolute addresses,            │
-│    -ffreestanding as standardized C terms      │
-├──────────────────────────────────────────────┤
-│ 3. MODERN: raw-binary extraction still ships   │
+┌─────────────────────────────────────────────────┐
+│ 1. BOOK: compiler → object file → linker →      │
+│    raw binary, using the book's own basic.c     │
+│    (§5.1.1)                                     │
+├─────────────────────────────────────────────────┤
+│ 2. SUPPORTING: the pipeline's real stages,      │
+│    relative vs. absolute addresses,             │
+│    -ffreestanding as standardized C terms       │
+├─────────────────────────────────────────────────┤
+│ 3. MODERN: raw-binary extraction still ships    │
 │    real bootloaders; Compiler Explorer          │
-└──────────────────────────────────────────────┘
+└─────────────────────────────────────────────────┘
 ```
 
 Book coverage: **Full** (§5.1.1). Sequencing note: file `10` already

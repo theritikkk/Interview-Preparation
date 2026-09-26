@@ -3,17 +3,17 @@
 ## Layer map for this file
 
 ```
-┌──────────────────────────────────────────────┐
-│ 1. BOOK: three real C→assembly disassemblies  │
-│    (§5.1.2–5.1.4) — local variables, stack-   │
-│    based argument passing, pointers            │
-├──────────────────────────────────────────────┤
-│ 2. SUPPORTING: calling conventions formalized, │
-│    the heap (which the book never builds)      │
-├──────────────────────────────────────────────┤
-│ 3. MODERN: System V AMD64's register-based     │
-│    passing, frame-pointer omission, canaries   │
-└──────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────┐
+│ 1. BOOK: three real C→assembly disassemblies    │
+│    (§5.1.2–5.1.4) — local variables, stack-     │
+│    based argument passing, pointers             │
+├─────────────────────────────────────────────────┤
+│ 2. SUPPORTING: calling conventions formalized,  │
+│    the heap (which the book never builds)       │
+├─────────────────────────────────────────────────┤
+│ 3. MODERN: System V AMD64's register-based      │
+│    passing, frame-pointer omission, canaries    │
+└─────────────────────────────────────────────────┘
 ```
 
 Book coverage: **Full**, for genuinely new content — file `05` already

@@ -3,18 +3,18 @@
 ## Layer map for this file
 
 ```
-┌──────────────────────────────────────────────┐
-│ 1. BOOK: how BIOS finds a sector (§2.1), the  │
-│    magic number and infinite loop (§2.2), CPU │
-│    emulation with Bochs/QEMU (§2.3)           │
-├──────────────────────────────────────────────┤
+┌────────────────────────────────────────────────┐
+│ 1. BOOK: how BIOS finds a sector (§2.1), the   │
+│    magic number and infinite loop (§2.2), CPU  │
+│    emulation with Bochs/QEMU (§2.3)            │
+├────────────────────────────────────────────────┤
 │ 2. SUPPORTING: firmware as a concept, magic    │
 │    numbers as a general pattern, the MBR       │
 │    partition table the book's example skips    │
-├──────────────────────────────────────────────┤
+├────────────────────────────────────────────────┤
 │ 3. MODERN: QEMU+KVM blurring the book's        │
-│    emulation/virtualization line                │
-└──────────────────────────────────────────────┘
+│    emulation/virtualization line               │
+└────────────────────────────────────────────────┘
 ```
 
 Book coverage: **Full**. This is the payoff file — you boot your own

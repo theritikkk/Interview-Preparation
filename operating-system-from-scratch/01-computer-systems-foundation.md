@@ -3,15 +3,15 @@
 ## Layer map for this file
 
 ```
-┌──────────────────────────────────────────────┐
+┌───────────────────────────────────────────────┐
 │ 1. BOOK: Blundell's five stated goals (Ch.1)  │
 │    — including the one the draft breaks       │
-├──────────────────────────────────────────────┤
-│ 2. SUPPORTING: the abstraction stack, the      │
-│    hardware/software boundary                  │
-├──────────────────────────────────────────────┤
-│ 3. MODERN: same shape, 2026 mechanisms         │
-└──────────────────────────────────────────────┘
+├───────────────────────────────────────────────┤
+│ 2. SUPPORTING: the abstraction stack, the     │
+│    hardware/software boundary                 │
+├───────────────────────────────────────────────┤
+│ 3. MODERN: same shape, 2026 mechanisms        │
+└───────────────────────────────────────────────┘
 ```
 
 Book coverage: **Seed** — Chapter 1 is a short motivating intro, not

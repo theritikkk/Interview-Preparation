@@ -3,18 +3,18 @@
 ## Layer map for this file
 
 ```
-┌──────────────────────────────────────────────┐
-│ 1. BOOK: BIOS is already fully covered (file  │
-│    06). The one new seed: the book's own      │
-│    kernel loader (§5.2.2, built in file 13)   │
-│    is a real two-stage bootloader in miniature│
-├──────────────────────────────────────────────┤
+┌────────────────────────────────────────────────┐
+│ 1. BOOK: BIOS is already fully covered (file   │
+│    06). The one new seed: the book's own       │
+│    kernel loader (§5.2.2, built in file 13)    │
+│    is a real two-stage bootloader in miniature │
+├────────────────────────────────────────────────┤
 │ 2. SUPPORTING: why bootloaders need stages,    │
 │    GRUB's stage structure, initramfs           │
-├──────────────────────────────────────────────┤
+├────────────────────────────────────────────────┤
 │ 3. MODERN: UEFI and GPT as genuinely different │
 │    protocols, not a version bump               │
-└──────────────────────────────────────────────┘
+└────────────────────────────────────────────────┘
 ```
 
 Book coverage: **Seed/None**. BIOS needs no re-teaching. UEFI, GPT,
