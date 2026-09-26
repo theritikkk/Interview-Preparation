@@ -71,6 +71,8 @@ A living roadmap from backend/systems engineering to job-readiness for **PHY, ba
 - [Lesson 40 — Interview Synthesis: Building a Real Question Bank from Lessons 1–39](lessons/lesson-40-interview-synthesis.md) *(Stage 15)*
 - [Lesson 41 — Convolutional Codes and Viterbi Decoding](lessons/lesson-41-convolutional-viterbi.md) *(Stage 3)*
 - [Lesson 42 — Transmit-Capable SDR: PA Nonlinearity, PAPR, and Legal Realities](lessons/lesson-42-pa-nonlinearity-papr-legal.md) *(Stage 5)*
+- [Lesson 43 — Portfolio Packaging: GitHub Structure, READMEs, Resume Bullets](lessons/lesson-43-portfolio-packaging.md) *(Stage 14)*
+- [Lesson 44 — Polar Codes: Channel Polarization and Successive Cancellation Decoding](lessons/lesson-44-polar-codes.md) *(Stage 3/8)*
 
 ---
 
