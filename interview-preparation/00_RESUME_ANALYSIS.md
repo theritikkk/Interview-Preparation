@@ -1,5 +1,7 @@
 # Resume Analysis — Ritik Raj
 
+✅ **Verification update:** Hermes, the Distributed Task Scheduler, and NetSight have all been checked directly against their actual source code (uploaded repos). Every `NEEDS VERIFICATION` flag below for those three projects has been resolved — some confirmed as originally guessed, several corrected to what the code actually does. See `13_PROJECT_DEEP_DIVES/` for the verified versions; the flags below are kept as a historical record of what was originally uncertain, not as open questions anymore. A fourth project, **WebChat**, was also uploaded — it does not appear on the resume text below at all; see the master index for its status.
+
 Source: resume PDF as uploaded. B.Tech Information Technology, Maharaja Surajmal Institute of Technology, New Delhi (2023–2027), CGPA 8.6/10. Targeting internships and entry-level SWE roles.
 
 This document is the complete inventory the rest of the knowledge base is built from. Nothing here is invented — every line traces back to a specific resume statement. Items the resume doesn't explain are explicitly marked.

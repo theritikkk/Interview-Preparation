@@ -41,7 +41,7 @@ NetSight's ring buffer and memory pool exist specifically to avoid `malloc`/`fre
 > **Q: How do you know NetSight doesn't leak memory?**
 > A: We ran Valgrind leak checks in the test suite and a 60-minute endurance test showing under 0.2% memory growth.
 > **Follow-up: 0.2% growth isn't 0% — how do you know that's not a slow leak?**
-> A: [`NEEDS VERIFICATION`] — you need an honest answer here: was RSS measured at fixed intervals and does it plateau, or does it grow linearly the whole 60 minutes? A plateau after warm-up (e.g., pool pre-allocation, buffer growth to steady-state) is *not* a leak; linear unbounded growth *is*. Check your own data before claiming which one it was.
+> A: **Verified against actual test data (`VALIDATION.md`):** RSS went from 316.16 MB at T0 to 316.66 MB at T60 (+500kB, 0.16% variance) — but critically, growth **plateaued** between T30 and T60 (+60kB in the final 30 minutes, versus +440kB in the first 30). A plateau shape is real evidence against a continuous leak — a genuine slow leak would keep growing roughly linearly across the full hour, not flatten out. This is a fully verified, quotable answer, not a hedge.
 > **Trap: "Valgrind confirms there's no leak."**
 > Correct response: Valgrind confirms no leaks **in the code paths your test suite actually exercised**. It cannot prove the absence of leaks in untested paths. Say this precisely — overclaiming what a static/dynamic analysis tool proves is a classic "sounds confident, is wrong" answer.
 
@@ -97,7 +97,7 @@ This is a **Treiber stack** — exactly the structure your resume names as your 
 ### Interview Questions
 - **L1:** "Lock-free code uses atomic CPU instructions like compare-and-swap instead of mutexes, so threads never block each other."
 - **L2:** add memory ordering — `memory_order_seq_cst` vs. `memory_order_acquire/release` vs. `memory_order_relaxed`, and why weaker orderings are faster but easier to get wrong.
-- **L3:** explain the **ABA problem** precisely: thread A reads value A from a location, gets preempted, another thread changes A→B→A, and when A resumes, its CAS succeeds even though the world changed underneath it. Then explain your specific mitigation — `NEEDS VERIFICATION`: does your Treiber stack use tagged pointers, hazard pointers, or epoch-based reclamation? If you don't have one, that's an honest gap to acknowledge, not to paper over.
+- **L3:** explain the **ABA problem** precisely: thread A reads value A from a location, gets preempted, another thread changes A→B→A, and when A resumes, its CAS succeeds even though the world changed underneath it. **Verified against your actual NetSight code:** `mempool.c`'s free-list push/pop is a plain `atomic_compare_exchange` on a raw pointer — no tagged pointers, no generation counter, no hazard pointers. The honest, correct answer if asked is that there is **no explicit ABA mitigation** in this implementation, with the defensible justification that it's a bounded, internal-only pool (blocks are recycled solely within this system, never exposed externally), which narrows the practical risk window without formally eliminating it. See `13_PROJECT_DEEP_DIVES/NETSIGHT.md` for the full framing — do not claim tagged pointers or hazard pointers in an interview, since the code doesn't have them.
 
 ### Follow-up Chain
 > **Q: Why lock-free instead of a mutex here?**

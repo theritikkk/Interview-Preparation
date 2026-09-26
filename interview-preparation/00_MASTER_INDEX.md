@@ -3,7 +3,20 @@
 
 This is the control document for your interview-prep knowledge base. It tracks what exists, what's next, and the rules this whole project follows.
 
-**Status: Complete (Phases 0-16, ~82 files). Worked DSA problems (`02_DSA/`) are now included alongside the pattern-recognition map. Nothing is left pending.**
+**Status: Complete (Phases 0-16, ~82 files) and verified. Hermes, Distributed Task Scheduler, and NetSight source code has been checked directly against every project deep-dive file — see the "Verification Pass" note below. A fourth uploaded project, WebChat, is not part of this knowledge base yet (not on the resume) — flagged for your decision.**
+
+## ⚠️ Verification Pass Against Real Source Code
+
+All three resume projects' actual repositories were checked line-by-line against the claims in `13_PROJECT_DEEP_DIVES/`. Highlights, good and bad:
+- **NetSight**: two real corrections. The flow table uses a `pthread_rwlock`, not lock-free CAS like the ring buffer and memory pool — your resume's "lock-free... to process traffic without locks or blocking" oversells the flow table specifically. And the Treiber stack has **no** ABA-problem mitigation (no tags, no hazard pointers) — worth knowing so you don't claim one that isn't there.
+- **Distributed Task Scheduler**: the idempotency mechanism was actually `execution_id`-based (not `FOR UPDATE SKIP LOCKED` as originally guessed), and the real load test used a bash/curl loop, not k6 — but every single resume number (10,000 tasks, 8,562 peak, ~7m46s drain) is fully verified against 52 timestamped screenshots in the repo. Also found: `Benchmark.md` in your repo contradicts this evidence (frames it as a hypothetical future test) — worth fixing for repo hygiene.
+- **Hermes**: the six read models are now known by name (execution, workflow, asset, tenant, metrics, audit) — this was the single highest-risk unknown in the whole knowledge base, and it's closed. Also found: your own repo already has `INTERVIEW_GUIDE.md`, `DECISIONS.md`, `TRADE_OFFS.md`, and `EVIDENCE.md` — read those directly, they're more authoritative than anything reconstructed secondhand.
+
+Full detail in each project's `13_PROJECT_DEEP_DIVES/` file.
+
+## WebChat — Built, But Not Currently On Your Resume
+
+`13_PROJECT_DEEP_DIVES/WEBCHAT.md` now exists, verified the same way as the other three (real-time chat platform: gateway/auth/messages/chat/uploads/message-worker services, PostgreSQL + MongoDB + Redis + Elasticsearch + S3, WebRTC, Kubernetes HPA). It resolves five of your "listed but not demonstrated" skill gaps (MongoDB, Redis, Elasticsearch, WebRTC, Kubernetes) — but it still isn't on your resume. Decide when you're ready whether to add it; the file is there either way.
 
 Why phase-by-phase, not all at once: you asked for ~16 folders of deep, interview-grade notes across DSA, systems, three genuinely advanced projects, cloud, and behavioral prep. Trying to produce all of that in a single pass would force a choice between "enormous and unreadable" or "shallow and useless." Neither helps you. Instead, each phase becomes its own reviewable deliverable.
 
