@@ -125,4 +125,4 @@ Extend §8/§9's experiment across several base erasure probabilities $\varepsil
 
 ---
 
-[← Lesson 43](lesson-43-portfolio-packaging.md) · [Table of Contents](../README.md) · [Lesson 45 →](lesson-44-polar-codes.md)
+[← Lesson 43](lesson-43-portfolio-packaging.md) · [Table of Contents](../README.md) · [Lesson 45 →](lesson-45-ldpc-codes.md)

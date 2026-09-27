@@ -73,6 +73,7 @@ A living roadmap from backend/systems engineering to job-readiness for **PHY, ba
 - [Lesson 42 — Transmit-Capable SDR: PA Nonlinearity, PAPR, and Legal Realities](lessons/lesson-42-pa-nonlinearity-papr-legal.md) *(Stage 5)*
 - [Lesson 43 — Portfolio Packaging: GitHub Structure, READMEs, Resume Bullets](lessons/lesson-43-portfolio-packaging.md) *(Stage 14)*
 - [Lesson 44 — Polar Codes: Channel Polarization and Successive Cancellation Decoding](lessons/lesson-44-polar-codes.md) *(Stage 3/8)*
+- [Lesson 45 — LDPC Codes: Belief Propagation and NR's Actual Data-Channel Code](lessons/lesson-45-ldpc-codes.md) *(Stage 3/8)*
 
 ---
 
