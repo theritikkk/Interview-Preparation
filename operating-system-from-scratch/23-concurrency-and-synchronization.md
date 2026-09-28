@@ -3,16 +3,16 @@
 ## Layer map for this file
 
 ```
-┌──────────────────────────────────────────────┐
-│ 1. BOOK: none. One unnamed seed: the `cli` in │
-│    file 08's mode switch is a critical        │
-│    section — the book just never calls it one │
-├──────────────────────────────────────────────┤
-│ 2. CORE CONCEPT: races, atomicity, critical    │
-│    sections, spinlocks vs. mutexes, deadlock   │
-├──────────────────────────────────────────────┤
-│ 3. MODERN: Linux locks, futex, sanitizers      │
-└──────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────┐
+│ 1. BOOK: none. One unnamed seed: the `cli` in    │
+│    file 08's mode switch is a critical           │
+│    section — the book just never calls it one    │
+├──────────────────────────────────────────────────┤
+│ 2. CORE CONCEPT: races, atomicity, critical.     │
+│    sections, spinlocks vs. mutexes, deadlock     │
+├──────────────────────────────────────────────────┤
+│ 3. MODERN: Linux locks, futex, sanitizers        │
+└──────────────────────────────────────────────────┘
 ```
 
 Book coverage: **None.** The book's kernel is one flow of execution,

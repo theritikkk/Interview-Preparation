@@ -144,4 +144,4 @@ Implement both the exact tanh-rule check-node update and the min-sum approximati
 
 ---
 
-[← Lesson 44](lesson-44-polar-codes.md) · [Table of Contents](../README.md)
+[← Lesson 44](lesson-44-polar-codes.md) · [Table of Contents](../README.md) · [Lesson 46 →](lesson-46-beamforming-mrt.md)
