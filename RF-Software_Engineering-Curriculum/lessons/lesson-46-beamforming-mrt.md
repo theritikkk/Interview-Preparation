@@ -118,4 +118,4 @@ Extend §8's code to a multi-receive-antenna case ($N_t\times N_r$, not just $N_
 
 ---
 
-[← Lesson 45](lesson-45-ldpc-codes.md) · [Table of Contents](../README.md)
+[← Lesson 45](lesson-45-ldpc-codes.md) · [Table of Contents](../README.md) · [Lesson 47 →](lesson-47-beam-management.md)
