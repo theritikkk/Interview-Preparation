@@ -152,9 +152,9 @@ Both are real inodes — you can `open()` them, get a perfectly ordinary fd and 
 
 > **Try this**
 > ```
-> ls -l /proc/self/fd
+> ls -l /proc/$$/fd
 > ```
-> Run inside your own shell — shows every fd your *current shell process* has open right now, each a symlink to what it actually points at. Expect to see fd 0/1/2 pointing at your PTY slave. Full `/proc` exploration: file 33.
+> `$$` is your shell's own PID, expanded by the shell itself before anything runs (file 04) — so this shows every fd your *current shell process* has open right now, each a symlink to what it actually points at. Expect to see fd 0/1/2 pointing at your PTY slave. (`/proc/self` would instead show *this `ls` process's own* fds, not your shell's — file 33 explains precisely why.) Full `/proc` exploration: file 33.
 
 > **Try this**
 > Run `cat somefile.txt` in one terminal, and while it's still resolvable (or use `sleep 100 < somefile.txt` to keep it open longer), inspect it from another:
