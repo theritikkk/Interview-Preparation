@@ -1,0 +1,28 @@
+04:45:48.736 [N1] started as FOLLOWER, term=0, log_len=0
+04:45:49.246 [N1] ELECTION TIMEOUT -> CANDIDATE, term 1 (my last log: idx=0 term=0)
+04:45:49.251 [N1] vote GRANTED by N4 (2/5 votes, need 3)
+04:45:49.252 [N1] vote GRANTED by N3 (3/5 votes, need 3)
+04:45:49.252 [N1] *** became LEADER for term 1 *** (appended no-op at idx 1)
+04:45:49.273 [N1] COMMIT idx=1 (3/5 replicas)
+04:45:49.322 [N1] client SET x=1 appended at idx 2 (term 1), waiting for majority
+04:45:49.374 [N1] COMMIT idx=2 (3/5 replicas)
+04:45:49.374 [N1] APPLY idx=2 x=1
+04:45:49.383 [N1] client SET y=2 appended at idx 3 (term 1), waiting for majority
+04:45:49.474 [N1] COMMIT idx=3 (3/5 replicas)
+04:45:49.474 [N1] APPLY idx=3 y=2
+04:45:49.485 [N1] client SET x=3 appended at idx 4 (term 1), waiting for majority
+04:45:49.575 [N1] COMMIT idx=4 (3/5 replicas)
+04:45:49.575 [N1] APPLY idx=4 x=3
+04:45:49.589 [N1] !!! PARTITION: dropping all traffic with [3, 4, 5]
+04:45:49.642 [N1] client SET z=stuck appended at idx 5 (term 1), waiting for majority
+04:45:52.865 [N1] !!! HEAL: network restored
+04:45:52.895 [N1] -> FOLLOWER (term 2): N4 replied with higher term 2 (I was a stale leader)
+04:45:52.915 [N1] ELECTION TIMEOUT -> CANDIDATE, term 3 (my last log: idx=5 term=1)
+04:45:52.918 [N1] vote GRANTED by N2 (2/5 votes, need 3)
+04:45:52.935 [N1] -> FOLLOWER (term 4): saw higher term 4 in RequestVote from N3
+04:45:52.937 [N1] RequestVote from N3 term 4 -> GRANTED
+04:45:53.158 [N1] LOG CONFLICT at idx 5: truncating my entries [t1:z=stuck] to match leader N3
+04:45:53.160 [N1] APPLY idx=6 z=committed_by_new_leader
+04:45:53.160 [N1] APPLY idx=7 x=99
+04:45:54.438 [N1] -> FOLLOWER (term 5): saw higher term 5 in RequestVote from N4
+04:45:54.441 [N1] RequestVote from N4 term 5 -> GRANTED

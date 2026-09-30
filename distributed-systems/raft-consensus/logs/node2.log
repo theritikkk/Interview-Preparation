@@ -1,0 +1,17 @@
+04:45:48.738 [N2] started as FOLLOWER, term=0, log_len=0
+04:45:49.251 [N2] -> FOLLOWER (term 1): saw higher term 1 in RequestVote from N1
+04:45:49.253 [N2] RequestVote from N1 term 1 -> GRANTED
+04:45:49.474 [N2] APPLY idx=2 x=1
+04:45:49.575 [N2] APPLY idx=3 y=2
+04:45:49.589 [N2] !!! PARTITION: dropping all traffic with [3, 4, 5]
+04:45:49.674 [N2] APPLY idx=4 x=3
+04:45:52.866 [N2] !!! HEAL: network restored
+04:45:52.916 [N2] -> FOLLOWER (term 3): saw higher term 3 in RequestVote from N1
+04:45:52.918 [N2] RequestVote from N1 term 3 -> GRANTED
+04:45:52.934 [N2] -> FOLLOWER (term 4): saw higher term 4 in RequestVote from N3
+04:45:52.937 [N2] RequestVote from N3 term 4 -> GRANTED
+04:45:53.158 [N2] LOG CONFLICT at idx 5: truncating my entries [t1:z=stuck] to match leader N3
+04:45:53.160 [N2] APPLY idx=6 z=committed_by_new_leader
+04:45:53.160 [N2] APPLY idx=7 x=99
+04:45:54.436 [N2] -> FOLLOWER (term 5): saw higher term 5 in RequestVote from N4
+04:45:54.441 [N2] RequestVote from N4 term 5 -> GRANTED

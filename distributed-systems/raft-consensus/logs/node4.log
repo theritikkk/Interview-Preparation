@@ -1,0 +1,21 @@
+04:45:48.737 [N4] started as FOLLOWER, term=0, log_len=0
+04:45:49.249 [N4] -> FOLLOWER (term 1): saw higher term 1 in RequestVote from N1
+04:45:49.251 [N4] RequestVote from N1 term 1 -> GRANTED
+04:45:49.474 [N4] APPLY idx=2 x=1
+04:45:49.575 [N4] APPLY idx=3 y=2
+04:45:49.590 [N4] !!! PARTITION: dropping all traffic with [1, 2]
+04:45:50.213 [N4] -> FOLLOWER (term 2): saw higher term 2 in RequestVote from N3
+04:45:50.215 [N4] RequestVote from N3 term 2 -> GRANTED
+04:45:50.335 [N4] APPLY idx=4 x=3
+04:45:52.855 [N4] APPLY idx=6 z=committed_by_new_leader
+04:45:52.866 [N4] !!! HEAL: network restored
+04:45:52.916 [N4] -> FOLLOWER (term 3): saw higher term 3 in RequestVote from N1
+04:45:52.918 [N4] RequestVote from N1 term 3 -> DENIED
+04:45:52.935 [N4] -> FOLLOWER (term 4): saw higher term 4 in RequestVote from N3
+04:45:52.939 [N4] RequestVote from N3 term 4 -> GRANTED
+04:45:52.957 [N4] APPLY idx=7 x=99
+04:45:54.434 [N4] ELECTION TIMEOUT -> CANDIDATE, term 5 (my last log: idx=8 term=4)
+04:45:54.440 [N4] vote GRANTED by N5 (2/5 votes, need 3)
+04:45:54.440 [N4] vote GRANTED by N3 (3/5 votes, need 3)
+04:45:54.441 [N4] *** became LEADER for term 5 *** (appended no-op at idx 9)
+04:45:54.460 [N4] COMMIT idx=9 (3/5 replicas)

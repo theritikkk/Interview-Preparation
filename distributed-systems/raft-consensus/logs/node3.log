@@ -1,0 +1,34 @@
+04:45:48.740 [N3] started as FOLLOWER, term=0, log_len=0
+04:45:49.249 [N3] -> FOLLOWER (term 1): saw higher term 1 in RequestVote from N1
+04:45:49.252 [N3] RequestVote from N1 term 1 -> GRANTED
+04:45:49.474 [N3] APPLY idx=2 x=1
+04:45:49.575 [N3] APPLY idx=3 y=2
+04:45:49.590 [N3] !!! PARTITION: dropping all traffic with [1, 2]
+04:45:50.211 [N3] ELECTION TIMEOUT -> CANDIDATE, term 2 (my last log: idx=4 term=1)
+04:45:50.215 [N3] vote GRANTED by N5 (2/5 votes, need 3)
+04:45:50.215 [N3] vote GRANTED by N4 (3/5 votes, need 3)
+04:45:50.216 [N3] *** became LEADER for term 2 *** (appended no-op at idx 5)
+04:45:50.235 [N3] COMMIT idx=5 (3/5 replicas)
+04:45:50.235 [N3] APPLY idx=4 x=3
+04:45:52.660 [N3] client SET z=committed_by_new_leader appended at idx 6 (term 2), waiting for majority
+04:45:52.754 [N3] COMMIT idx=6 (3/5 replicas)
+04:45:52.754 [N3] APPLY idx=6 z=committed_by_new_leader
+04:45:52.762 [N3] client SET x=99 appended at idx 7 (term 2), waiting for majority
+04:45:52.855 [N3] COMMIT idx=7 (3/5 replicas)
+04:45:52.855 [N3] APPLY idx=7 x=99
+04:45:52.866 [N3] !!! HEAL: network restored
+04:45:52.916 [N3] -> FOLLOWER (term 3): saw higher term 3 in RequestVote from N1
+04:45:52.918 [N3] RequestVote from N1 term 3 -> DENIED
+04:45:52.934 [N3] ELECTION TIMEOUT -> CANDIDATE, term 4 (my last log: idx=7 term=2)
+04:45:52.938 [N3] vote GRANTED by N2 (2/5 votes, need 3)
+04:45:52.938 [N3] vote GRANTED by N1 (3/5 votes, need 3)
+04:45:52.939 [N3] *** became LEADER for term 4 *** (appended no-op at idx 8)
+04:45:52.957 [N3] COMMIT idx=8 (3/5 replicas)
+04:45:54.199 [N3] started as FOLLOWER, term=4, log_len=8 (recovered from disk)
+04:45:54.437 [N3] -> FOLLOWER (term 5): saw higher term 5 in RequestVote from N4
+04:45:54.440 [N3] RequestVote from N4 term 5 -> GRANTED
+04:45:54.459 [N3] APPLY idx=2 x=1
+04:45:54.459 [N3] APPLY idx=3 y=2
+04:45:54.459 [N3] APPLY idx=4 x=3
+04:45:54.459 [N3] APPLY idx=6 z=committed_by_new_leader
+04:45:54.459 [N3] APPLY idx=7 x=99

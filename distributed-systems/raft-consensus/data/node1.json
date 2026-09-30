@@ -1,0 +1,1 @@
+{"current_term": 5, "voted_for": 4, "log": [{"term": 1, "cmd": null}, {"term": 1, "cmd": ["x", "1"]}, {"term": 1, "cmd": ["y", "2"]}, {"term": 1, "cmd": ["x", "3"]}, {"term": 2, "cmd": null}, {"term": 2, "cmd": ["z", "committed_by_new_leader"]}, {"term": 2, "cmd": ["x", "99"]}, {"term": 4, "cmd": null}, {"term": 5, "cmd": null}]}
