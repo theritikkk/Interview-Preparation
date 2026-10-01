@@ -1,0 +1,89 @@
+ritikraj@Ritiks-MacBook-Air raft-consensus % python3 driver.py
+
+==============================================================================
+1. STARTING 5 REAL OS PROCESSES (nodes 1-5)
+==============================================================================
+  started N1 (pid 60327) listening on port 7101
+  started N2 (pid 60328) listening on port 7102
+  started N3 (pid 60329) listening on port 7103
+  started N4 (pid 60330) listening on port 7104
+  started N5 (pid 60331) listening on port 7105
+
+  Leader elected: N4, term 1
+  N1: follower  term=1   leader=N4 commit=0   kv={} blocked=[]
+  N2: follower  term=1   leader=N4 commit=0   kv={} blocked=[]
+  N3: follower  term=1   leader=N4 commit=0   kv={} blocked=[]
+  N4: leader    term=1   leader=N4 commit=1   kv={} blocked=[]
+  N5: follower  term=1   leader=N4 commit=0   kv={} blocked=[]
+
+==============================================================================
+2. CLIENT WRITES (through the real leader, real majority replication)
+==============================================================================
+  SET x=1 -> {'ok': True, 'index': 2, 'term': 1}
+  SET y=2 -> {'ok': True, 'index': 3, 'term': 1}
+  SET x=3 -> {'ok': True, 'index': 4, 'term': 1}
+  N1: follower  term=1   leader=N4 commit=3   kv={'x': '1', 'y': '2'} blocked=[]
+  N2: follower  term=1   leader=N4 commit=3   kv={'x': '1', 'y': '2'} blocked=[]
+  N3: follower  term=1   leader=N4 commit=3   kv={'x': '1', 'y': '2'} blocked=[]
+  N4: leader    term=1   leader=N4 commit=4   kv={'x': '3', 'y': '2'} blocked=[]
+  N5: follower  term=1   leader=N4 commit=3   kv={'x': '1', 'y': '2'} blocked=[]
+
+==============================================================================
+3. SIMULATING A REAL NETWORK PARTITION
+==============================================================================
+  Partition: {N4,N1} (old leader's side, MINORITY) <-X-> {N2,N3,N5} (MAJORITY)
+  (every node's outbound/inbound traffic to the other side is now silently dropped)
+
+  Old leader N4, still believing it's leader, tries a write into the minority side:
+  SET z=stuck (sent to old leader N4) -> {'ok': False, 'error': 'timeout_not_committed', 'index': 5}
+  (it can't reach a majority to commit -- this call BLOCKS until COMMIT_WAIT_S, then times out)
+
+  Meanwhile, the MAJORITY side (N2,N3,N5) elected its OWN new leader:
+  New leader: N2, term 2  (strictly greater than old leader's term 1)
+
+  Client writes now go through the NEW leader, and DO commit (majority is reachable):
+  SET z=committed_by_new_leader -> {'ok': True, 'index': 6, 'term': 2}
+  SET x=99 -> {'ok': True, 'index': 7, 'term': 2}
+
+  Full cluster status DURING the partition (two leaders exist -- but only one can commit):
+  N1: follower  term=1   leader=N4 commit=4   kv={'x': '3', 'y': '2'} blocked=[2, 3, 5]
+  N2: leader    term=2   leader=N2 commit=7   kv={'x': '99', 'y': '2', 'z': 'committed_by_new_leader'} blocked=[1, 4]
+  N3: follower  term=2   leader=N2 commit=6   kv={'x': '3', 'y': '2', 'z': 'committed_by_new_leader'} blocked=[1, 4]
+  N4: leader    term=1   leader=N4 commit=4   kv={'x': '3', 'y': '2'} blocked=[2, 3, 5]
+  N5: follower  term=2   leader=N2 commit=6   kv={'x': '3', 'y': '2', 'z': 'committed_by_new_leader'} blocked=[1, 4]
+
+==============================================================================
+4. HEALING THE PARTITION
+==============================================================================
+  network restored for all 5 nodes
+  N1: follower  term=2   leader=N2 commit=7   kv={'x': '99', 'y': '2', 'z': 'committed_by_new_leader'} blocked=[]
+  N2: leader    term=2   leader=N2 commit=7   kv={'x': '99', 'y': '2', 'z': 'committed_by_new_leader'} blocked=[]
+  N3: follower  term=2   leader=N2 commit=7   kv={'x': '99', 'y': '2', 'z': 'committed_by_new_leader'} blocked=[]
+  N4: follower  term=2   leader=N2 commit=7   kv={'x': '99', 'y': '2', 'z': 'committed_by_new_leader'} blocked=[]
+  N5: follower  term=2   leader=N2 commit=7   kv={'x': '99', 'y': '2', 'z': 'committed_by_new_leader'} blocked=[]
+
+  (the old leader N4 must have stepped down the moment it saw the new, higher term --
+   check logs/node4.log for the exact 'become_follower' line)
+
+==============================================================================
+5. CRASH + RESTART: does the log survive on disk?
+==============================================================================
+  N2 BEFORE kill -9: state=leader term=2 log=['t1:noop', 't1:x=1', 't1:y=2', 't1:x=3', 't2:noop', 't2:z=committed_by_new_leader', 't2:x=99']
+  N2 killed with SIGKILL (no graceful shutdown, no chance to flush anything NEW)
+  N2 AFTER restart:  state=follower term=3 log=['t1:noop', 't1:x=1', 't1:y=2', 't1:x=3', 't2:noop', 't2:z=committed_by_new_leader', 't2:x=99', 't3:noop']
+  (log and term recovered from data/node2.json on disk -- fsync'd before every reply, per Raft's rule)
+
+==============================================================================
+6. FINAL CLUSTER STATE -- every reachable node converges on the same committed KV state
+==============================================================================
+  N1: follower  term=3   leader=N5 commit=8   kv={'x': '99', 'y': '2', 'z': 'committed_by_new_leader'} blocked=[]
+  N2: follower  term=3   leader=N5 commit=8   kv={'x': '99', 'y': '2', 'z': 'committed_by_new_leader'} blocked=[]
+  N3: follower  term=3   leader=N5 commit=8   kv={'x': '99', 'y': '2', 'z': 'committed_by_new_leader'} blocked=[]
+  N4: follower  term=3   leader=N5 commit=8   kv={'x': '99', 'y': '2', 'z': 'committed_by_new_leader'} blocked=[]
+  N5: leader    term=3   leader=N5 commit=8   kv={'x': '99', 'y': '2', 'z': 'committed_by_new_leader'} blocked=[]
+
+==============================================================================
+cleanup
+==============================================================================
+  all node processes killed
+ritikraj@Ritiks-MacBook-Air raft-consensus % 

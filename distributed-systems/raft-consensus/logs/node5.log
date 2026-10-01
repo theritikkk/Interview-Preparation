@@ -1,18 +1,17 @@
-04:45:48.741 [N5] started as FOLLOWER, term=0, log_len=0
-04:45:49.250 [N5] -> FOLLOWER (term 1): saw higher term 1 in RequestVote from N1
-04:45:49.252 [N5] RequestVote from N1 term 1 -> GRANTED
-04:45:49.474 [N5] APPLY idx=2 x=1
-04:45:49.575 [N5] APPLY idx=3 y=2
-04:45:49.590 [N5] !!! PARTITION: dropping all traffic with [1, 2]
-04:45:50.213 [N5] -> FOLLOWER (term 2): saw higher term 2 in RequestVote from N3
-04:45:50.215 [N5] RequestVote from N3 term 2 -> GRANTED
-04:45:50.335 [N5] APPLY idx=4 x=3
-04:45:52.855 [N5] APPLY idx=6 z=committed_by_new_leader
-04:45:52.867 [N5] !!! HEAL: network restored
-04:45:52.917 [N5] -> FOLLOWER (term 3): saw higher term 3 in RequestVote from N1
-04:45:52.917 [N5] RequestVote from N1 term 3 -> DENIED
-04:45:52.935 [N5] -> FOLLOWER (term 4): saw higher term 4 in RequestVote from N3
-04:45:52.937 [N5] RequestVote from N3 term 4 -> GRANTED
-04:45:52.957 [N5] APPLY idx=7 x=99
-04:45:54.438 [N5] -> FOLLOWER (term 5): saw higher term 5 in RequestVote from N4
-04:45:54.440 [N5] RequestVote from N4 term 5 -> GRANTED
+11:37:08.570 [N5] started as FOLLOWER, term=0, log_len=0
+11:37:09.211 [N5] -> FOLLOWER (term 1): saw higher term 1 in RequestVote from N4
+11:37:09.212 [N5] RequestVote from N4 term 1 -> GRANTED
+11:37:09.483 [N5] APPLY idx=2 x=1
+11:37:09.585 [N5] APPLY idx=3 y=2
+11:37:09.599 [N5] !!! PARTITION: dropping all traffic with [1, 4]
+11:37:10.344 [N5] -> FOLLOWER (term 2): saw higher term 2 in RequestVote from N2
+11:37:10.345 [N5] RequestVote from N2 term 2 -> GRANTED
+11:37:10.476 [N5] APPLY idx=4 x=3
+11:37:12.860 [N5] APPLY idx=6 z=committed_by_new_leader
+11:37:12.890 [N5] !!! HEAL: network restored
+11:37:12.971 [N5] APPLY idx=7 x=99
+11:37:14.439 [N5] ELECTION TIMEOUT -> CANDIDATE, term 3 (my last log: idx=7 term=2)
+11:37:14.452 [N5] vote GRANTED by N3 (2/5 votes, need 3)
+11:37:14.453 [N5] vote GRANTED by N1 (3/5 votes, need 3)
+11:37:14.453 [N5] *** became LEADER for term 3 *** (appended no-op at idx 8)
+11:37:14.465 [N5] COMMIT idx=8 (3/5 replicas)
