@@ -38,17 +38,17 @@ every content file (01 through 38, and the relevant appendices) is
 built around it:
 
 ```
-┌──────────────────────────────────────────────┐
-│ 1. WHAT THE BOOK ACTUALLY TEACHES             │
-│    Nick Blundell's original material          │
-├──────────────────────────────────────────────┤
-│ 2. WHAT YOU NEED TO KNOW TO UNDERSTAND IT     │
-│    Supporting computer-systems knowledge       │
-├──────────────────────────────────────────────┤
-│ 3. WHERE THIS LEADS IN MODERN SYSTEMS         │
-│    Linux / x86-64 / UEFI / VMs / containers    │
-│    eBPF / networking / performance / etc.      │
-└──────────────────────────────────────────────┘
+┌───────────────────────────────────────────────────┐
+│ 1. WHAT THE BOOK ACTUALLY TEACHES                 │
+│    Nick Blundell's original material              │
+├───────────────────────────────────────────────────┤
+│ 2. WHAT YOU NEED TO KNOW TO UNDERSTAND IT         │
+│    Supporting computer-systems knowledge          │
+├───────────────────────────────────────────────────┤
+│ 3. WHERE THIS LEADS IN MODERN SYSTEMS             │
+│    Linux / x86-64 / UEFI / VMs / containers       │
+│    eBPF / networking / performance / etc.         │
+└───────────────────────────────────────────────────┘
 ```
 
 **Layer 1 is a factual claim, not a teaching convenience.** If
@@ -195,6 +195,40 @@ constructed, clearly-labeled material.
 - [x] `00-course-roadmap.md`
 - [x] `01`–`11` — rewritten with embedded diagrams (`images/`) and a
       corrected stack-growth example in file `05`
+- [x] `12-linking-loading-and-elf.md`
+- [x] `13-kernel-entry-and-kernel-architecture.md`
+- [x] `14-interrupts-exceptions-and-traps.md` — first BEYOND-THE-BOOK-
+      majority file (book's §6.3 is a stub)
+- [x] `15-device-io-and-dma.md`
+- [x] `16-device-drivers.md` — screen driver Full, keyboard/disk Stub
+- [x] `17-storage-and-block-io.md` — CHS/BIOS Full, hard-disk driver Stub
+- [x] `18-filesystems.md` — entirely BEYOND THE BOOK (§6.6 is a stub)
+- [x] `19-processes-and-threads.md` — entirely BEYOND THE BOOK (§7.1 is a stub)
+- [x] `20-scheduling-and-context-switching.md` — entirely BEYOND THE BOOK (§7.2 is a stub)
+- [x] `21-system-calls-and-user-kernel-boundary.md` — not in book at all;
+      collects breadcrumbs from files 03/08/10
+- [x] `22-virtual-memory.md` — not in book (flat unpaged model only);
+      ties off threads from files 08/09/10/19/21
+- [x] `23-concurrency-and-synchronization.md` — not in book; one unnamed
+      seed (file 08's `cli`)
+- [x] `24-multiprocessor-and-smp-systems.md` — not in book; SMP is outside
+      the capstone's scope
+- [x] `25-linux-kernel-architecture.md` — bridge chapter; the Rosetta
+      table mapping every toy-OS piece to its Linux counterpart
+- [x] `26-linux-source-code-navigation.md` — a skill file: grep, ctags,
+      elixir.bootlin.com, tracing read() end to end
+- [x] `27-kernel-debugging.md` — book's print_hex (§3.5, Question 5
+      unfinished) through GDB/printk/ftrace/kdump
+- [x] `28-virtualization.md` — VMX root/non-root, VM exits, EPT nested
+      on file 22's page tables
+- [x] `29-containers-and-namespaces.md` — not in book; contrasted
+      directly against file 28's VM isolation
+- [x] `30-networking-from-hardware-to-socket.md` — pays off file 01's
+      "hardware event flows up" diagram in full
+- [x] `31-security-and-protection.md` — collects six breadcrumbs
+      (files 05/08/10/12/15/21/22) into one arms-race narrative
+- [x] `32-performance-and-observability.md` — sampling profiler as file
+      14's interrupt repurposed; USE method; flame graphs
 - [ ] everything else — generated one file at a time on request
 
 ## Diagrams
