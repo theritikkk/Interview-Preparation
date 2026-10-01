@@ -3,16 +3,16 @@
 ## Layer map for this file
 
 ```
-┌─────────────────────────────────────────────────┐
-│ 1. BOOK: none — foreshadowed three times        │
-│    (files 21, 30, 32) and never explained       │
-├─────────────────────────────────────────────────┤
-│ 2. CORE CONCEPT: the verifier, JIT compilation, │
-│    maps — what actually makes this safe         │
-├─────────────────────────────────────────────────┤
-│ 3. MODERN: bpftrace, Cilium, seccomp-bpf,       │
-│    sched_ext                                    │
-└─────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────┐
+│ 1. BOOK: none — foreshadowed three times         │
+│    (files 21, 30, 32) and never explained        │
+├──────────────────────────────────────────────────┤
+│ 2. CORE CONCEPT: the verifier, JIT compilation,  │
+│    maps — what actually makes this safe          │
+├──────────────────────────────────────────────────┤
+│ 3. MODERN: bpftrace, Cilium, seccomp-bpf,        │
+│    sched_ext                                     │
+└──────────────────────────────────────────────────┘
 ```
 
 Book coverage: **None.** Three earlier files named a tool from this
