@@ -120,9 +120,9 @@ for x in $(echo "a,b,c"); do echo "[$x]"; done
 
 > **Try this**
 > ```
-> cat /proc/self/environ | tr '\0' '\n'
+> cat /proc/$$/environ | tr '\0' '\n'
 > ```
-> Your own shell's environment exactly as the kernel stores it — note it's **NUL-separated**, not newline-separated, hence the `tr`. A direct preview of file 33's `/proc` exploration.
+> `$$` is your shell's own PID (file 04) — this shows *your shell's* environment exactly as the kernel stores it, note it's **NUL-separated**, not newline-separated, hence the `tr`. (`/proc/self/environ` would instead show this `cat` process's own environment, not your shell's — file 33 explains precisely why.) A direct preview of file 33's `/proc` exploration.
 
 ---
 
