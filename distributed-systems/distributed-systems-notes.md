@@ -176,7 +176,7 @@ flowchart LR
         C2["Node C"]
     end
     A1 -.same node.-> A2
-    note["N=3, W=2, R=2 → W+R=4 > 3\nEvery possible read pair must include A or B\n→ overlap guaranteed"]
+    note["N=3, W=2, R=2 → W+R=4 > 3 \nEvery possible read pair must include A or B\n→ overlap guaranteed"]
 ```
 
 ---
