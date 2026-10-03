@@ -1,0 +1,52 @@
+<svg width="720" height="440" viewBox="0 0 720 440" xmlns="http://www.w3.org/2000/svg" role="img" font-family="Arial, Helvetica, sans-serif">
+  <title>From Kubernetes pod down to raw kernel identifiers</title>
+  <desc>Kubernetes schedules pods; a container runtime like Docker or containerd turns each pod's containers into Linux namespaces and cgroups; the kernel itself has no unified container identifier, only a PID-namespace inum and a UTS nodename. A BPF tool run from the host sees every container's events mixed together and must reconstruct groupings itself from those low-level identifiers, which is exactly the gap orchestration tools like kubectl-trace fill.</desc>
+  <rect width="720" height="440" fill="#ffffff"/>
+  <text x="360" y="26" text-anchor="middle" font-size="14" font-weight="bold" fill="#2C2C2A">Kubernetes down to the kernel: where the container ID disappears (Ch. 15)</text>
+
+  <defs>
+    <marker id="arrowK" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#73726c"/>
+    </marker>
+  </defs>
+
+  <!-- Kubernetes layer -->
+  <rect x="60" y="46" width="600" height="56" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="1.5"/>
+  <text x="130" y="80" text-anchor="middle" font-size="12" font-weight="bold" fill="#3C3489">Kubernetes</text>
+  <text x="430" y="80" text-anchor="middle" font-size="10" fill="#3C3489">schedules Pods across nodes; knows "pod X has 3 containers" — a user-space concept only</text>
+  <line x1="360" y1="102" x2="360" y2="122" stroke="#73726c" stroke-width="1.5" marker-end="url(#arrowK)"/>
+
+  <!-- Container runtime layer -->
+  <rect x="60" y="124" width="600" height="56" rx="8" fill="#E6F1FB" stroke="#378ADD" stroke-width="1.5"/>
+  <text x="130" y="158" text-anchor="middle" font-size="12" font-weight="bold" fill="#0C447C">Container runtime</text>
+  <text x="430" y="158" text-anchor="middle" font-size="10" fill="#0C447C">Docker / containerd — translates each container into namespaces + cgroups on the node</text>
+  <line x1="360" y1="180" x2="360" y2="200" stroke="#73726c" stroke-width="1.5" marker-end="url(#arrowK)"/>
+
+  <!-- Kernel layer: namespaces + cgroups -->
+  <rect x="60" y="202" width="290" height="100" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1.5"/>
+  <text x="205" y="224" text-anchor="middle" font-size="12" font-weight="bold" fill="#085041">Namespaces</text>
+  <text x="80" y="244" font-size="9" fill="#085041">pid_ns_for_children-&gt;ns.inum</text>
+  <text x="80" y="260" font-size="9" fill="#085041">— stable, unique per container</text>
+  <text x="80" y="280" font-size="9" fill="#085041">uts_ns-&gt;name.nodename</text>
+  <text x="80" y="296" font-size="9" fill="#085041">— human-readable, if set by runtime</text>
+
+  <rect x="370" y="202" width="290" height="100" rx="8" fill="#FAECE7" stroke="#D85A30" stroke-width="1.5"/>
+  <text x="515" y="224" text-anchor="middle" font-size="12" font-weight="bold" fill="#712B13">cgroups</text>
+  <text x="390" y="244" font-size="9" fill="#712B13">cpu, memory, blkio, pids limits</text>
+  <text x="390" y="260" font-size="9" fill="#712B13">— what the container can use</text>
+  <text x="390" y="280" font-size="9" fill="#712B13">no cgroup field names "container"</text>
+  <text x="390" y="296" font-size="9" fill="#712B13">either — it's just a cgroup path</text>
+
+  <line x1="205" y1="302" x2="300" y2="330" stroke="#73726c" stroke-width="1.5" marker-end="url(#arrowK)"/>
+  <line x1="515" y1="302" x2="420" y2="330" stroke="#73726c" stroke-width="1.5" marker-end="url(#arrowK)"/>
+
+  <!-- no unified ID -->
+  <rect x="210" y="332" width="300" height="50" rx="8" fill="#FCEBEB" stroke="#E24B4A" stroke-width="1.5"/>
+  <text x="360" y="353" text-anchor="middle" font-size="11" font-weight="bold" fill="#791F1F">No single kernel-space "container ID"</text>
+  <text x="360" y="370" text-anchor="middle" font-size="10" fill="#791F1F">a container is only ever this combination</text>
+
+  <line x1="360" y1="382" x2="360" y2="400" stroke="#73726c" stroke-width="1.5" marker-end="url(#arrowK)"/>
+
+  <rect x="110" y="402" width="500" height="30" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="1"/>
+  <text x="360" y="422" text-anchor="middle" font-size="10" fill="#2C2C2A">kubectl-trace reconstructs "$container_pid" itself — the kernel never hands it one</text>
+</svg>

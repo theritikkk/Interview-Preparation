@@ -1,0 +1,74 @@
+<svg width="720" height="420" viewBox="0 0 720 420" xmlns="http://www.w3.org/2000/svg" role="img" font-family="Arial, Helvetica, sans-serif">
+  <title>The Java stack trace three-act fix</title>
+  <desc>Act one: a default profile of a Java process produces raw, cut-off addresses, because the JIT repurposes the frame-pointer register. Act two: enabling PreserveFramePointer produces a long, complete walk, but still just hex addresses with no names. Act three: running jmaps to dump a symbol map turns the same walk into a fully readable Java call stack.</desc>
+  <rect width="720" height="420" fill="#ffffff"/>
+  <text x="360" y="26" text-anchor="middle" font-size="14" font-weight="bold" fill="#2C2C2A">Java stack traces: a three-act fix (Ch. 12 §12.3.5)</text>
+
+  <!-- Act 1 -->
+  <rect x="20" y="48" width="220" height="320" rx="10" fill="#FCEBEB" stroke="#E24B4A" stroke-width="1.5"/>
+  <text x="130" y="70" text-anchor="middle" font-size="12" font-weight="bold" fill="#791F1F">Act 1 — broken</text>
+  <text x="130" y="88" text-anchor="middle" font-size="10" fill="#791F1F">default JIT, no fix</text>
+  <rect x="40" y="100" width="180" height="26" fill="#ffffff" stroke="#888780" stroke-width="0.5"/>
+  <text x="50" y="117" font-size="9" fill="#2C2C2A">0x7efcff88a7bd</text>
+  <rect x="40" y="128" width="180" height="26" fill="#ffffff" stroke="#888780" stroke-width="0.5"/>
+  <text x="50" y="145" font-size="9" fill="#2C2C2A">0x12f023020020fd4</text>
+  <text x="130" y="172" text-anchor="middle" font-size="10" font-weight="bold" fill="#791F1F">— cuts off here</text>
+  <text x="130" y="192" text-anchor="middle" font-size="9" fill="#5F5E5A">(2 frames, then nothing)</text>
+  <rect x="40" y="220" width="180" height="120" rx="6" fill="#ffffff" stroke="#E24B4A" stroke-width="1"/>
+  <text x="130" y="242" text-anchor="middle" font-size="10" font-weight="bold" fill="#791F1F">Cause</text>
+  <text x="50" y="262" font-size="9" fill="#2C2C2A">JIT code repurposes the</text>
+  <text x="50" y="278" font-size="9" fill="#2C2C2A">frame-pointer register for</text>
+  <text x="50" y="294" font-size="9" fill="#2C2C2A">local variables — the walk</text>
+  <text x="50" y="310" font-size="9" fill="#2C2C2A">has nothing to follow once</text>
+  <text x="50" y="326" font-size="9" fill="#2C2C2A">it enters a Java frame</text>
+
+  <!-- Act 2 -->
+  <rect x="250" y="48" width="220" height="320" rx="10" fill="#FAEEDA" stroke="#BA7517" stroke-width="1.5"/>
+  <text x="360" y="70" text-anchor="middle" font-size="12" font-weight="bold" fill="#633806">Act 2 — walkable</text>
+  <text x="360" y="88" text-anchor="middle" font-size="10" fill="#633806">+PreserveFramePointer</text>
+  <rect x="270" y="100" width="180" height="20" fill="#ffffff" stroke="#888780" stroke-width="0.5"/>
+  <text x="280" y="114" font-size="8" fill="#2C2C2A">0x00007f3a1c2b4a10</text>
+  <rect x="270" y="122" width="180" height="20" fill="#ffffff" stroke="#888780" stroke-width="0.5"/>
+  <text x="280" y="136" font-size="8" fill="#2C2C2A">0x00007f3a1c2b5120</text>
+  <rect x="270" y="144" width="180" height="20" fill="#ffffff" stroke="#888780" stroke-width="0.5"/>
+  <text x="280" y="158" font-size="8" fill="#2C2C2A">0x00007f3a1c2b6e04</text>
+  <rect x="270" y="166" width="180" height="20" fill="#ffffff" stroke="#888780" stroke-width="0.5"/>
+  <text x="280" y="180" font-size="8" fill="#2C2C2A">... (30 frames, complete)</text>
+  <rect x="270" y="220" width="180" height="120" rx="6" fill="#ffffff" stroke="#BA7517" stroke-width="1"/>
+  <text x="360" y="242" text-anchor="middle" font-size="10" font-weight="bold" fill="#633806">Fixed, not readable</text>
+  <text x="280" y="262" font-size="9" fill="#2C2C2A">the walk itself now works</text>
+  <text x="280" y="278" font-size="9" fill="#2C2C2A">end to end — long, complete,</text>
+  <text x="280" y="294" font-size="9" fill="#2C2C2A">correctly connected — but</text>
+  <text x="280" y="310" font-size="9" fill="#2C2C2A">nothing has translated the</text>
+  <text x="280" y="326" font-size="9" fill="#2C2C2A">addresses into names yet</text>
+
+  <!-- Act 3 -->
+  <rect x="480" y="48" width="220" height="320" rx="10" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1.5"/>
+  <text x="590" y="70" text-anchor="middle" font-size="12" font-weight="bold" fill="#085041">Act 3 — readable</text>
+  <text x="590" y="88" text-anchor="middle" font-size="10" fill="#085041">+ jmaps symbol dump</text>
+  <rect x="500" y="100" width="180" height="20" fill="#ffffff" stroke="#888780" stroke-width="0.5"/>
+  <text x="510" y="114" font-size="8" fill="#2C2C2A">RepaintManager$4::run()</text>
+  <rect x="500" y="122" width="180" height="20" fill="#ffffff" stroke="#888780" stroke-width="0.5"/>
+  <text x="510" y="136" font-size="8" fill="#2C2C2A">RepaintManager::paintDirty</text>
+  <rect x="500" y="144" width="180" height="20" fill="#ffffff" stroke="#888780" stroke-width="0.5"/>
+  <text x="510" y="158" font-size="8" fill="#2C2C2A">JComponent::paint()</text>
+  <rect x="500" y="166" width="180" height="20" fill="#ffffff" stroke="#888780" stroke-width="0.5"/>
+  <text x="510" y="180" font-size="8" fill="#2C2C2A">... (30 frames, named)</text>
+  <rect x="500" y="220" width="180" height="120" rx="6" fill="#ffffff" stroke="#1D9E75" stroke-width="1"/>
+  <text x="590" y="242" text-anchor="middle" font-size="10" font-weight="bold" fill="#085041">Fully symbolized</text>
+  <text x="510" y="262" font-size="9" fill="#2C2C2A">"It looks like it was</text>
+  <text x="510" y="278" font-size="9" fill="#2C2C2A">painting a button in the</text>
+  <text x="510" y="294" font-size="9" fill="#2C2C2A">UI" — the actual payoff:</text>
+  <text x="510" y="310" font-size="9" fill="#2C2C2A">hex became an immediately</text>
+  <text x="510" y="326" font-size="9" fill="#2C2C2A">understandable sentence</text>
+
+  <defs>
+    <marker id="arrowAct" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#73726c"/>
+    </marker>
+  </defs>
+  <line x1="242" y1="200" x2="248" y2="200" stroke="#73726c" stroke-width="2" marker-end="url(#arrowAct)"/>
+  <line x1="472" y1="200" x2="478" y2="200" stroke="#73726c" stroke-width="2" marker-end="url(#arrowAct)"/>
+
+  <text x="360" y="398" text-anchor="middle" font-size="11" fill="#5F5E5A">Each act fixes one specific layer: the machine-code walk, then the symbol names — neither alone is enough</text>
+</svg>

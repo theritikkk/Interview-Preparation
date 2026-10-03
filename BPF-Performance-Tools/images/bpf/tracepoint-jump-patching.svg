@@ -1,0 +1,53 @@
+<svg width="720" height="360" viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg" role="img" font-family="Arial, Helvetica, sans-serif">
+  <title>Static jump patching: how a disabled tracepoint costs almost nothing</title>
+  <desc>While no tracer is attached, a tracepoint site is a 5-byte no-op and execution flows straight through. The instant any tracer enables it, the kernel live-patches that no-op into a jump instruction that reaches a trampoline, which calls each registered tracer callback. Disabling the last tracer patches the no-op back in.</desc>
+  <rect width="720" height="360" fill="#ffffff"/>
+  <text x="360" y="26" text-anchor="middle" font-size="14" font-weight="bold" fill="#2C2C2A">Static jump patching keeps disabled tracepoints nearly free (Ch. 2 §2.7)</text>
+
+  <defs>
+    <marker id="arrowJ" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#73726c"/>
+    </marker>
+  </defs>
+
+  <!-- State 1: disabled -->
+  <rect x="30" y="50" width="300" height="130" rx="10" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1.5"/>
+  <text x="180" y="72" text-anchor="middle" font-size="13" font-weight="bold" fill="#085041">Disabled — no tracer attached</text>
+  <rect x="50" y="86" width="60" height="30" fill="#ffffff" stroke="#888780" stroke-width="0.5"/>
+  <text x="80" y="106" text-anchor="middle" font-size="10" fill="#2C2C2A">code</text>
+  <rect x="110" y="86" width="90" height="30" fill="#FAEEDA" stroke="#BA7517" stroke-width="1"/>
+  <text x="155" y="106" text-anchor="middle" font-size="10" font-weight="bold" fill="#633806">5-byte NOP</text>
+  <rect x="200" y="86" width="90" height="30" fill="#ffffff" stroke="#888780" stroke-width="0.5"/>
+  <text x="245" y="106" text-anchor="middle" font-size="10" fill="#2C2C2A">code continues</text>
+  <line x1="50" y1="101" x2="290" y2="101" stroke="#1D9E75" stroke-width="2" marker-end="url(#arrowJ)"/>
+  <text x="180" y="140" text-anchor="middle" font-size="11" fill="#085041">execution flows straight through —</text>
+  <text x="180" y="158" text-anchor="middle" font-size="11" fill="#085041">as cheap as instrumentation can be</text>
+
+  <!-- State 2: enabled -->
+  <rect x="390" y="50" width="300" height="130" rx="10" fill="#FCEBEB" stroke="#E24B4A" stroke-width="1.5"/>
+  <text x="540" y="72" text-anchor="middle" font-size="13" font-weight="bold" fill="#791F1F">Enabled — ≥1 tracer attached</text>
+  <rect x="410" y="86" width="60" height="30" fill="#ffffff" stroke="#888780" stroke-width="0.5"/>
+  <text x="440" y="106" text-anchor="middle" font-size="10" fill="#2C2C2A">code</text>
+  <rect x="470" y="86" width="90" height="30" fill="#FCEBEB" stroke="#E24B4A" stroke-width="1"/>
+  <text x="515" y="106" text-anchor="middle" font-size="10" font-weight="bold" fill="#791F1F">JMP trampoline</text>
+  <rect x="560" y="86" width="90" height="30" fill="#ffffff" stroke="#888780" stroke-width="0.5"/>
+  <text x="605" y="106" text-anchor="middle" font-size="10" fill="#2C2C2A">code continues</text>
+  <line x1="410" y1="101" x2="650" y2="101" stroke="#B4B2A9" stroke-width="1" stroke-dasharray="3 3"/>
+  <path d="M 515,116 L 515,145 L 540,160" fill="none" stroke="#E24B4A" stroke-width="1.5" marker-end="url(#arrowJ)"/>
+  <text x="540" y="140" text-anchor="middle" font-size="10" fill="#791F1F">calls each registered</text>
+  <text x="540" y="156" text-anchor="middle" font-size="10" fill="#791F1F">tracer callback, then returns</text>
+
+  <!-- transition arrows between states -->
+  <path d="M 330,110 Q 360,90 388,95" fill="none" stroke="#73726c" stroke-width="1.5" marker-end="url(#arrowJ)"/>
+  <text x="358" y="80" text-anchor="middle" font-size="10" fill="#2C2C2A">first attach:</text>
+  <text x="358" y="200" text-anchor="middle" font-size="10" fill="#2C2C2A">live-patches NOP → JMP</text>
+
+  <path d="M 388,150 Q 360,175 332,150" fill="none" stroke="#73726c" stroke-width="1.5" marker-end="url(#arrowJ)" stroke-dasharray="4 3"/>
+  <text x="358" y="225" text-anchor="middle" font-size="10" fill="#2C2C2A">last detach:</text>
+  <text x="358" y="241" text-anchor="middle" font-size="10" fill="#2C2C2A">patches JMP → NOP</text>
+
+  <rect x="60" y="260" width="600" height="80" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+  <text x="360" y="284" text-anchor="middle" font-size="11" font-weight="bold" fill="#2C2C2A">Requires the compiler feature `asm goto`</text>
+  <text x="360" y="304" text-anchor="middle" font-size="11" fill="#2C2C2A">without it: a slower fallback checks an in-memory flag with a conditional branch instead</text>
+  <text x="360" y="324" text-anchor="middle" font-size="11" fill="#2C2C2A">the goal: instrumentation nobody is using should cost as close to literally nothing as possible</text>
+</svg>

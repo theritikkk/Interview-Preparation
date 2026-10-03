@@ -1,0 +1,47 @@
+<svg width="720" height="420" viewBox="0 0 720 420" xmlns="http://www.w3.org/2000/svg" role="img" font-family="Arial, Helvetica, sans-serif">
+  <title>The Linux kernel mutex's three-path escalation</title>
+  <desc>Acquiring a kernel mutex tries three paths in order, each more expensive than the last: fastpath, an atomic compare-and-swap with no blocking if the lock is free; midpath, optimistic spinning if the current holder is actively running, betting it will release soon; slowpath, actually blocking and waiting to be woken, only once both faster options have failed.</desc>
+  <rect width="720" height="420" fill="#ffffff"/>
+  <text x="360" y="26" text-anchor="middle" font-size="14" font-weight="bold" fill="#2C2C2A">Kernel mutex acquisition: three paths, tried in order (Ch. 14)</text>
+
+  <defs>
+    <marker id="arrowM" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#73726c"/>
+    </marker>
+  </defs>
+
+  <!-- start -->
+  <rect x="290" y="44" width="140" height="36" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="1"/>
+  <text x="360" y="67" text-anchor="middle" font-size="11" font-weight="bold" fill="#2C2C2A">mutex_lock() called</text>
+  <line x1="360" y1="80" x2="360" y2="104" stroke="#73726c" stroke-width="1.5" marker-end="url(#arrowM)"/>
+
+  <!-- fastpath -->
+  <rect x="60" y="106" width="600" height="68" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1.5"/>
+  <text x="140" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#085041">1. Fastpath</text>
+  <text x="430" y="130" font-size="10" fill="#085041">atomic compare-and-swap (cmpxchg) — if the lock is free, acquire it instantly</text>
+  <text x="430" y="150" font-size="10" fill="#085041">cheapest possible case: no blocking, no scheduler involvement at all</text>
+  <text x="200" y="165" text-anchor="middle" font-size="9" font-style="italic" fill="#5F5E5A">lock was free → done</text>
+
+  <line x1="360" y1="174" x2="360" y2="198" stroke="#73726c" stroke-width="1.5" marker-end="url(#arrowM)"/>
+  <text x="380" y="190" font-size="10" fill="#791F1F">lock was held →</text>
+
+  <!-- midpath -->
+  <rect x="60" y="200" width="600" height="76" rx="8" fill="#FAEEDA" stroke="#BA7517" stroke-width="1.5"/>
+  <text x="140" y="224" text-anchor="middle" font-size="12" font-weight="bold" fill="#633806">2. Midpath</text>
+  <text x="430" y="224" font-size="10" fill="#633806">if the current holder is actively running on a CPU right now, spin optimistically</text>
+  <text x="430" y="244" font-size="10" fill="#633806">bets the holder is about to release momentarily — cheaper than a full block/wake</text>
+  <text x="430" y="262" font-size="10" fill="#633806">cycle if the bet pays off</text>
+  <text x="190" y="263" text-anchor="middle" font-size="9" font-style="italic" fill="#5F5E5A">holder released while spinning → done</text>
+
+  <line x1="360" y1="276" x2="360" y2="300" stroke="#73726c" stroke-width="1.5" marker-end="url(#arrowM)"/>
+  <text x="400" y="292" font-size="10" fill="#791F1F">holder not running, or spin timed out →</text>
+
+  <!-- slowpath -->
+  <rect x="60" y="302" width="600" height="68" rx="8" fill="#FCEBEB" stroke="#E24B4A" stroke-width="1.5"/>
+  <text x="140" y="326" text-anchor="middle" font-size="12" font-weight="bold" fill="#791F1F">3. Slowpath</text>
+  <text x="430" y="326" font-size="10" fill="#791F1F">actually block: add to the wait queue, deschedule, wait to be woken</text>
+  <text x="430" y="346" font-size="10" fill="#791F1F">only reached once both faster options have already failed</text>
+  <text x="200" y="358" text-anchor="middle" font-size="9" font-style="italic" fill="#5F5E5A">woken when lock is released → done</text>
+
+  <text x="360" y="396" text-anchor="middle" font-size="10" fill="#5F5E5A">No tracepoints exist for kernel mutexes — kprobing mutex_lock()/mutex_unlock() is the only instrumentation option</text>
+</svg>

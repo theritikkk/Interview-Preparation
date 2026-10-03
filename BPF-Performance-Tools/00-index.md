@@ -2,6 +2,24 @@
 
 Source: *BPF Performance Tools: Linux System and Application Observability* by Brendan Gregg (Addison-Wesley, 2019) — 880 pages, 18 chapters, 5 appendices.
 
+**Diagrams.** The `images/` folder holds 31 original SVG diagrams, organized by domain (`bpf/`, `cpu/`, `memory/`, `storage/`, `networking/`, `containers/`, `kernel/`, `languages/`, `applications/`, `observability/`) and embedded at the point in each chapter where the mental model is actually needed — not bundled at the top. See `VISUAL-AUDIT.md` for the full file-by-file audit and priority ratings — every CRITICAL, HIGH, and MEDIUM item identified is now built; only LOW-priority items (where prose already does the job) remain text-only. These are illustrative originals, not reproductions of the book's own figures.
+
+### Visual map
+
+| Domain | Diagrams | Chapters |
+|---|---|---|
+| BPF architecture | `bpf-pipeline` · `bpf-loading-pipeline` · `event-sources` · `bcc-vs-bpftrace` · `stack-walking-comparison` · `flame-graph-anatomy` · `timestamp-pair-idiom` · `power-of-two-histogram-example` · `percpu-map-race` · `tracepoint-jump-patching` | 2, 4, 5 |
+| CPU | `cpu-thread-state-machine` · `cpu-vs-offcpu-flamegraph` | 6 |
+| Memory | `memory-page-lifecycle` | 7 |
+| Filesystems / I/O | `filesystem-io-path` · `filesystem-cache-path` | 8 |
+| Storage | `io-time-timeline` | 9 |
+| Networking | `network-stack` · `network-packet-lifecycle` · `tcp-connection-lifecycle` | 10 |
+| Languages | `jit-uprobe-problem` · `java-stack-trace-fix` | 12 |
+| Applications | `thread-pool-models` | 13 |
+| Kernel | `wakeup-chain` · `hypervisor-visibility-progression` · `mutex-escalation` | 14, 16 |
+| Containers | `container-namespaces-cgroups` · `kubernetes-to-kernel` | 15 |
+| Observability | `investigation-loop` · `latency-heatmap-example` · `observer-effect-feedback-loop` · `prometheus-grafana-pipeline` | 3, 17, 18 |
+
 **A note on how these notes are written.** These are original study notes — explanations, summaries, and worked examples written in my own words to teach you the concepts — not a copy of the book's text. I verified every fact, number, and tool name below directly against your uploaded copy so the details are accurate, but the prose, structure, and teaching examples are freshly written for you as a study companion. That means these notes are yours to use freely, but they're not a substitute for the book itself — where the book gives long-form rationale, worked production war-stories, or full tool source listings, I've pointed you back to the specific section rather than reproducing it.
 
 **Given the size of this book (880 pages), I'm working through it in batches rather than all at once.** This index will be updated as each batch is finished — think of it as the map, with the finished chapters as the territory. Say "continue" any time and I'll produce the next batch.

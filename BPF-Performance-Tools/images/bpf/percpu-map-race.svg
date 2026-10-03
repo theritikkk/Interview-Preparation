@@ -1,0 +1,78 @@
+<svg width="720" height="460" viewBox="0 0 720 460" xmlns="http://www.w3.org/2000/svg" role="img" font-family="Arial, Helvetica, sans-serif">
+  <title>A shared map races; a per-CPU map cannot</title>
+  <desc>Two CPUs incrementing a shared hash map entry at the same time both read the old value before either writes back, so one increment is silently lost. Two CPUs each incrementing their own private per-CPU map slot never touch the same memory, so there is nothing to race on; user space sums the slots afterward.</desc>
+  <rect width="720" height="460" fill="#ffffff"/>
+  <text x="360" y="26" text-anchor="middle" font-size="14" font-weight="bold" fill="#2C2C2A">A shared map races; a per-CPU map cannot (Ch. 2 §2.3.7)</text>
+
+  <defs>
+    <marker id="arrowP1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#73726c"/>
+    </marker>
+  </defs>
+
+  <!-- LEFT PANEL: shared map, race -->
+  <rect x="16" y="48" width="340" height="396" rx="10" fill="#FCEBEB" stroke="#E24B4A" stroke-width="1.5"/>
+  <text x="186" y="70" text-anchor="middle" font-size="13" font-weight="bold" fill="#791F1F">Shared map — a race</text>
+
+  <rect x="40" y="82" width="120" height="44" rx="6" fill="#E6F1FB" stroke="#378ADD" stroke-width="1"/>
+  <text x="100" y="108" text-anchor="middle" font-size="12" font-weight="bold" fill="#0C447C">CPU 0</text>
+  <rect x="212" y="82" width="120" height="44" rx="6" fill="#E6F1FB" stroke="#378ADD" stroke-width="1"/>
+  <text x="272" y="108" text-anchor="middle" font-size="12" font-weight="bold" fill="#0C447C">CPU 1</text>
+
+  <line x1="100" y1="126" x2="150" y2="156" stroke="#73726c" stroke-width="1.5" marker-end="url(#arrowP1)"/>
+  <line x1="272" y1="126" x2="222" y2="156" stroke="#73726c" stroke-width="1.5" marker-end="url(#arrowP1)"/>
+
+  <rect x="126" y="158" width="120" height="40" rx="6" fill="#FAEEDA" stroke="#BA7517" stroke-width="1"/>
+  <text x="186" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#633806">count = 4</text>
+  <text x="186" y="212" text-anchor="middle" font-size="10" fill="#5F5E5A">both CPUs read 4 at the same instant</text>
+
+  <text x="100" y="236" text-anchor="middle" font-size="10" fill="#0C447C">computes 4+1=5</text>
+  <text x="272" y="236" text-anchor="middle" font-size="10" fill="#0C447C">computes 4+1=5</text>
+  <line x1="100" y1="126" x2="100" y2="250" stroke="#B4B2A9" stroke-width="1" stroke-dasharray="2 3"/>
+  <line x1="272" y1="126" x2="272" y2="250" stroke="#B4B2A9" stroke-width="1" stroke-dasharray="2 3"/>
+
+  <line x1="100" y1="252" x2="150" y2="278" stroke="#73726c" stroke-width="1.5" marker-end="url(#arrowP1)"/>
+  <line x1="272" y1="252" x2="222" y2="278" stroke="#73726c" stroke-width="1.5" marker-end="url(#arrowP1)"/>
+  <text x="90" y="266" font-size="10" fill="#791F1F">writes 5</text>
+  <text x="240" y="266" font-size="10" fill="#791F1F">writes 5</text>
+
+  <rect x="126" y="280" width="120" height="40" rx="6" fill="#FCEBEB" stroke="#E24B4A" stroke-width="1"/>
+  <text x="186" y="304" text-anchor="middle" font-size="12" font-weight="bold" fill="#791F1F">count = 5</text>
+
+  <rect x="36" y="336" width="300" height="88" rx="8" fill="#ffffff" stroke="#E24B4A" stroke-width="1.5"/>
+  <text x="186" y="360" text-anchor="middle" font-size="12" font-weight="bold" fill="#791F1F">Lost update</text>
+  <text x="186" y="380" text-anchor="middle" font-size="11" fill="#2C2C2A">two increments happened, but the</text>
+  <text x="186" y="397" text-anchor="middle" font-size="11" fill="#2C2C2A">second write silently overwrote the first —</text>
+  <text x="186" y="414" text-anchor="middle" font-size="11" fill="#2C2C2A">final count should be 6, is only 5</text>
+
+  <!-- RIGHT PANEL: per-CPU map, no race -->
+  <rect x="364" y="48" width="340" height="396" rx="10" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1.5"/>
+  <text x="534" y="70" text-anchor="middle" font-size="13" font-weight="bold" fill="#085041">Per-CPU map — no race</text>
+
+  <rect x="388" y="82" width="120" height="44" rx="6" fill="#E6F1FB" stroke="#378ADD" stroke-width="1"/>
+  <text x="448" y="108" text-anchor="middle" font-size="12" font-weight="bold" fill="#0C447C">CPU 0</text>
+  <rect x="560" y="82" width="120" height="44" rx="6" fill="#E6F1FB" stroke="#378ADD" stroke-width="1"/>
+  <text x="620" y="108" text-anchor="middle" font-size="12" font-weight="bold" fill="#0C447C">CPU 1</text>
+
+  <line x1="448" y1="126" x2="448" y2="158" stroke="#73726c" stroke-width="1.5" marker-end="url(#arrowP1)"/>
+  <line x1="620" y1="126" x2="620" y2="158" stroke="#73726c" stroke-width="1.5" marker-end="url(#arrowP1)"/>
+
+  <rect x="388" y="160" width="120" height="40" rx="6" fill="#FAEEDA" stroke="#BA7517" stroke-width="1"/>
+  <text x="448" y="184" text-anchor="middle" font-size="11" font-weight="bold" fill="#633806">slot[0]: 2 → 3</text>
+  <rect x="560" y="160" width="120" height="40" rx="6" fill="#FAEEDA" stroke="#BA7517" stroke-width="1"/>
+  <text x="620" y="184" text-anchor="middle" font-size="11" font-weight="bold" fill="#633806">slot[1]: 2 → 3</text>
+  <text x="534" y="218" text-anchor="middle" font-size="10" fill="#5F5E5A">each CPU owns a private slot — no shared memory to touch</text>
+
+  <line x1="448" y1="200" x2="500" y2="248" stroke="#73726c" stroke-width="1.5" marker-end="url(#arrowP1)"/>
+  <line x1="620" y1="200" x2="568" y2="248" stroke="#73726c" stroke-width="1.5" marker-end="url(#arrowP1)"/>
+  <text x="534" y="238" text-anchor="middle" font-size="10" fill="#085041">user space sums the slots when it reads</text>
+
+  <rect x="474" y="250" width="120" height="40" rx="6" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1"/>
+  <text x="534" y="274" text-anchor="middle" font-size="12" font-weight="bold" fill="#085041">3 + 3 = 6</text>
+
+  <rect x="384" y="336" width="300" height="88" rx="8" fill="#ffffff" stroke="#1D9E75" stroke-width="1.5"/>
+  <text x="534" y="360" text-anchor="middle" font-size="12" font-weight="bold" fill="#085041">No race possible</text>
+  <text x="534" y="380" text-anchor="middle" font-size="11" fill="#2C2C2A">no two CPUs ever write the same</text>
+  <text x="534" y="397" text-anchor="middle" font-size="11" fill="#2C2C2A">physical memory, so there is nothing</text>
+  <text x="534" y="414" text-anchor="middle" font-size="11" fill="#2C2C2A">to lock and no update to lose</text>
+</svg>

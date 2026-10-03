@@ -1,0 +1,42 @@
+<svg width="720" height="300" viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" role="img" font-family="Arial, Helvetica, sans-serif">
+  <title>Wait time, service time, and request time on one I/O timeline</title>
+  <desc>An I/O request is inserted into the block layer queue, waits there, is issued to the device, is serviced by the device, and completes. Wait time covers only the queueing. Service time covers only the device's own issue-to-completion span. Request time spans the whole thing, from queue insertion to completion, and is what a synchronous caller actually experiences.</desc>
+  <rect width="720" height="300" fill="#ffffff"/>
+  <text x="360" y="26" text-anchor="middle" font-size="14" font-weight="bold" fill="#2C2C2A">Wait, service, and request time on one I/O (Ch. 9)</text>
+
+  <!-- timeline events -->
+  <defs>
+    <marker id="arrowT" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#73726c"/>
+    </marker>
+  </defs>
+
+  <line x1="60" y1="90" x2="660" y2="90" stroke="#B4B2A9" stroke-width="1.5"/>
+  <!-- event ticks -->
+  <circle cx="100" cy="90" r="5" fill="#378ADD"/>
+  <circle cx="320" cy="90" r="5" fill="#BA7517"/>
+  <circle cx="620" cy="90" r="5" fill="#1D9E75"/>
+
+  <text x="100" y="72" text-anchor="middle" font-size="11" font-weight="bold" fill="#0C447C">queue insertion</text>
+  <text x="320" y="72" text-anchor="middle" font-size="11" font-weight="bold" fill="#633806">device issue</text>
+  <text x="620" y="72" text-anchor="middle" font-size="11" font-weight="bold" fill="#085041">completion</text>
+
+  <!-- wait time bracket -->
+  <rect x="100" y="110" width="220" height="26" fill="#E6F1FB" stroke="#378ADD" stroke-width="1"/>
+  <text x="210" y="128" text-anchor="middle" font-size="11" font-weight="bold" fill="#0C447C">wait time</text>
+
+  <!-- service time bracket -->
+  <rect x="320" y="146" width="300" height="26" fill="#FAEEDA" stroke="#BA7517" stroke-width="1"/>
+  <text x="470" y="164" text-anchor="middle" font-size="11" font-weight="bold" fill="#633806">service time</text>
+
+  <!-- request time bracket, spans both -->
+  <rect x="100" y="182" width="520" height="26" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1"/>
+  <text x="360" y="200" text-anchor="middle" font-size="11" font-weight="bold" fill="#085041">request time (queue insertion → completion)</text>
+
+  <text x="100" y="140" font-size="9" fill="#0C447C">in block-layer scheduler / dispatch queues</text>
+  <text x="320" y="176" font-size="9" fill="#633806">device issue → completion (may hide on-device queueing)</text>
+
+  <rect x="60" y="230" width="600" height="56" rx="8" fill="#ffffff" stroke="#1D9E75" stroke-width="1.5"/>
+  <text x="360" y="252" text-anchor="middle" font-size="12" font-weight="bold" fill="#085041">Request time is what matters most</text>
+  <text x="360" y="270" text-anchor="middle" font-size="11" fill="#2C2C2A">it's the full OS-observable duration — what a synchronous caller actually waits on</text>
+</svg>

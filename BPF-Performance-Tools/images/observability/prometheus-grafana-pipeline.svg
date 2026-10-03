@@ -1,0 +1,49 @@
+<svg width="720" height="280" viewBox="0 0 720 280" xmlns="http://www.w3.org/2000/svg" role="img" font-family="Arial, Helvetica, sans-serif">
+  <title>The ebpf_exporter / Prometheus / Grafana pipeline</title>
+  <desc>A BPF program such as runqlat runs continuously and accumulates histogram data. Cloudflare's ebpf_exporter reads that data and exposes it as standard Prometheus histogram-bucket metrics on a local port. Prometheus scrapes that port on a schedule and stores the time series. Grafana queries Prometheus and renders the result, such as a run-queue-latency heat map built from a rate() query over the bucket metrics.</desc>
+  <rect width="720" height="280" fill="#ffffff"/>
+  <text x="360" y="26" text-anchor="middle" font-size="14" font-weight="bold" fill="#2C2C2A">ebpf_exporter / Prometheus / Grafana pipeline (Ch. 17.3)</text>
+
+  <defs>
+    <marker id="arrowG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#73726c"/>
+    </marker>
+  </defs>
+
+  <rect x="20" y="70" width="150" height="90" rx="8" fill="#FAEEDA" stroke="#BA7517" stroke-width="1.5"/>
+  <text x="95" y="96" text-anchor="middle" font-size="11" font-weight="bold" fill="#633806">BPF program</text>
+  <text x="95" y="114" text-anchor="middle" font-size="9" fill="#633806">e.g. runqlat.yaml</text>
+  <text x="95" y="132" text-anchor="middle" font-size="9" fill="#633806">accumulates a</text>
+  <text x="95" y="146" text-anchor="middle" font-size="9" fill="#633806">histogram in-kernel</text>
+
+  <line x1="170" y1="115" x2="200" y2="115" stroke="#73726c" stroke-width="1.5" marker-end="url(#arrowG)"/>
+
+  <rect x="200" y="70" width="150" height="90" rx="8" fill="#E6F1FB" stroke="#378ADD" stroke-width="1.5"/>
+  <text x="275" y="96" text-anchor="middle" font-size="11" font-weight="bold" fill="#0C447C">ebpf_exporter</text>
+  <text x="275" y="114" text-anchor="middle" font-size="9" fill="#0C447C">reads the BPF map</text>
+  <text x="275" y="130" text-anchor="middle" font-size="9" fill="#0C447C">exposes it on a local</text>
+  <text x="275" y="146" text-anchor="middle" font-size="9" fill="#0C447C">port, Prometheus format</text>
+
+  <line x1="350" y1="115" x2="380" y2="115" stroke="#73726c" stroke-width="1.5" marker-end="url(#arrowG)"/>
+  <text x="365" y="105" text-anchor="middle" font-size="8" fill="#5F5E5A">scrape</text>
+
+  <rect x="380" y="70" width="150" height="90" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="1.5"/>
+  <text x="455" y="96" text-anchor="middle" font-size="11" font-weight="bold" fill="#3C3489">Prometheus</text>
+  <text x="455" y="114" text-anchor="middle" font-size="9" fill="#3C3489">scrapes on a schedule</text>
+  <text x="455" y="130" text-anchor="middle" font-size="9" fill="#3C3489">stores _bucket metrics</text>
+  <text x="455" y="146" text-anchor="middle" font-size="9" fill="#3C3489">(le="..." per boundary)</text>
+
+  <line x1="530" y1="115" x2="560" y2="115" stroke="#73726c" stroke-width="1.5" marker-end="url(#arrowG)"/>
+  <text x="545" y="105" text-anchor="middle" font-size="8" fill="#5F5E5A">query</text>
+
+  <rect x="560" y="70" width="140" height="90" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1.5"/>
+  <text x="630" y="96" text-anchor="middle" font-size="11" font-weight="bold" fill="#085041">Grafana</text>
+  <text x="630" y="114" text-anchor="middle" font-size="9" fill="#085041">rate(..._bucket[20s])</text>
+  <text x="630" y="130" text-anchor="middle" font-size="9" fill="#085041">renders a run-queue-</text>
+  <text x="630" y="146" text-anchor="middle" font-size="9" fill="#085041">latency heat map</text>
+
+  <rect x="40" y="196" width="640" height="64" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="1"/>
+  <text x="360" y="218" text-anchor="middle" font-size="11" font-weight="bold" fill="#2C2C2A">No BPF-specific visualization machinery anywhere in this half of the pipeline</text>
+  <text x="360" y="238" text-anchor="middle" font-size="10" fill="#2C2C2A">standard Prometheus histogram-bucket semantics do the work — any Prometheus-compatible</text>
+  <text x="360" y="252" text-anchor="middle" font-size="10" fill="#2C2C2A">dashboard could render the same data, not just Grafana</text>
+</svg>
