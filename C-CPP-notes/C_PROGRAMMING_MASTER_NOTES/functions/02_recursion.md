@@ -23,13 +23,13 @@ frames from earlier calls to the *same* function.
 ### 🧠 Mental model: recursion is stack frames, not magic
 
 ```
-printd(123) frame:  n=123  ─┐
-                             │ calls printd(12)
-printd(12)  frame:  n=12   ─┤
-                             │ calls printd(1)
-printd(1)   frame:  n=1    ─┘  ← base case: prints '1', returns
-                             │ back in printd(12)'s frame: prints '2', returns
-                             │ back in printd(123)'s frame: prints '3', returns
+printd(123) frame:  n=123  ────┐
+                               │ calls printd(12)
+printd(12)  frame:  n=12   ────┤
+                               │ calls printd(1)
+printd(1)   frame:  n=1    ────┘  ← base case: prints '1', returns
+                               │ back in printd(12)'s frame: prints '2', returns
+                               │ back in printd(123)'s frame: prints '3', returns
 ```
 
 Every box in that stack is a genuinely separate frame with its own `n` — there is no

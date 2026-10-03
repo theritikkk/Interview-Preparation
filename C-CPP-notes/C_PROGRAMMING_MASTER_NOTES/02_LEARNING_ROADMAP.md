@@ -199,40 +199,40 @@ C-CPP-notes/
     │   ├── 02_pointers.md                              · Done
     │   ├── 03_pointer_declarations_parsing.md          · Done
     │   ├── 04_arrays_and_strings.md                    · Done
-    │   ├── 05_dynamic_memory.md                        · Pending (Phase 6)
+    │   ├── 05_dynamic_memory.md                        · Done
     │   ├── 06_struct_union_layout.md                   · Done
     │   └── 07_alignment_padding_aliasing.md            · Done
     │
     ├── libraries/
-    │   ├── 01_stdio.md                                 · Pending
-    │   ├── 02_stdlib.md                                · Pending
-    │   ├── 03_string.md                                · Pending
-    │   ├── 04_ctype_and_locale.md                      · Pending
-    │   ├── 05_math.md                                  · Pending
-    │   ├── 06_assert_and_errno.md                      · Pending
-    │   ├── 07_setjmp_and_signal.md                     · Pending
-    │   ├── 08_stdarg.md                                · Pending
-    │   ├── 09_time.md                                  · Pending
-    │   └── 10_limits_float_stddef.md                   · Pending
+    │   ├── 01_stdio.md                                 · Done
+    │   ├── 02_stdlib.md                                · Done
+    │   ├── 03_string.md                                · Done
+    │   ├── 04_ctype_and_locale.md                      · Done
+    │   ├── 05_math.md                                  · Done
+    │   ├── 06_assert_and_errno.md                      · Done
+    │   ├── 07_setjmp_and_signal.md                     · Done
+    │   ├── 08_stdarg.md                                · Done
+    │   ├── 09_time.md                                  · Done
+    │   └── 10_limits_float_stddef.md                   · Done
     │
     ├── systems/
     │   ├── 01_compilation_toolchain.md                 · Done
     │   ├── 02_linking_and_loading.md                   · Done
-    │   ├── 03_file_descriptors_and_unix_io.md          · Pending
-    │   ├── 04_system_calls_vs_libc_vs_posix.md         · Pending
-    │   ├── 05_processes_fork_exec_wait.md              · Pending
-    │   ├── 06_pipes_and_signals.md                     · Pending
-    │   └── 07_sockets_and_networking.md                · Pending (bonus, Book A)
+    │   ├── 03_file_descriptors_and_unix_io.md          · Done
+    │   ├── 04_system_calls_vs_libc_vs_posix.md         · Done
+    │   ├── 05_processes_fork_exec_wait.md              · Done
+    │   ├── 06_pipes_and_signals.md                     · Done
+    │   └── 07_sockets_and_networking.md                · Done (bonus, Book A)
     │
     ├── debugging/
-    │   ├── 01_toolchain_gdb.md                         · Pending
-    │   ├── 02_sanitizers_and_valgrind.md               · Pending
-    │   ├── 03_static_and_binary_inspection.md          · Pending
-    │   └── 04_debugging_workflows_labs.md              · Pending
+    │   ├── 01_toolchain_gdb.md                         · Done
+    │   ├── 02_sanitizers_and_valgrind.md               · Done
+    │   ├── 03_static_and_binary_inspection.md          · Done
+    │   └── 04_debugging_workflows_labs.md              · Done
     │
     ├── advanced/
-    │   ├── 01_undefined_behavior.md                    · Pending
-    │   ├── 02_implementation_defined_and_portability.md· Pending
+    │   ├── 01_undefined_behavior.md                    · Done
+    │   ├── 02_implementation_defined_and_portability.md· Done
     │   ├── 03_aliasing_and_optimization.md             · Pending
     │   └── 04_modern_c_vs_historical_c.md              · Pending
     │
@@ -247,8 +247,12 @@ C-CPP-notes/
     │   ├── 03_pointers_and_memory_questions.md         · Done
     │   ├── 04_arrays_structs_questions.md              · Done
     │   ├── 05_compilation_linking_questions.md         · Done
-    │   ├── 06_systems_and_unix_questions.md            · Pending
-    │   └── 07_debugging_questions.md                   · Pending
+    │   ├── 06_dynamic_memory_questions.md              · Done
+    │   ├── 07_standard_library_questions.md            · Done
+    │   ├── 08_file_io_questions.md                     · Done
+    │   ├── 09_unix_posix_questions.md                  · Done
+    │   ├── 10_debugging_questions.md                   · Done
+    │   └── 11_advanced_questions.md                    · Done (partial — UB catalogue + implementation-defined/portability so far; aliasing/modern C next)
     │
     ├── revision/
     │   ├── 01_fundamentals_revision.md                 · Done
@@ -256,8 +260,12 @@ C-CPP-notes/
     │   ├── 03_pointers_and_memory_revision.md          · Done
     │   ├── 04_arrays_structs_revision.md               · Done
     │   ├── 05_compilation_linking_revision.md          · Done
-    │   ├── 06_stdlib_revision.md                       · Pending
-    │   └── 07_systems_and_advanced_revision.md         · Pending
+    │   ├── 06_dynamic_memory_revision.md               · Done
+    │   ├── 07_standard_library_revision.md             · Done
+    │   ├── 08_file_io_revision.md                      · Done
+    │   ├── 09_unix_posix_revision.md                   · Done
+    │   ├── 10_debugging_revision.md                    · Done
+    │   └── 11_advanced_revision.md                     · Done (partial — UB catalogue + implementation-defined/portability so far; aliasing/modern C next)
     │
     └── references/
         ├── 01_books.md                                 · Pending
@@ -265,8 +273,12 @@ C-CPP-notes/
         └── 03_glossary.md                               · Pending
 ```
 
-**Estimated total file count: ~55 Markdown files** (30 done — the 3 planning files, all of
-Phases 1–5 — ~25 pending). One planned file,
+**Total planned file count: 73 Markdown files** (64 done — the 3 planning files, all of
+Phases 1–10, and 2 of Phase 11's 4 `advanced/` files — 9 pending). *Correction note: earlier
+versions of this roadmap said "~55" and later "~58" total. Those figures were stale — they
+weren't recomputed as the per-phase revision/interview files were added, and undercounted
+what remains. The 73 above is a direct count of the tree below, and is the number to trust.*
+One planned file,
 `functions/03_function_pointers_and_variadics.md`, was dropped from the plan: function-
 pointer syntax turned out to belong with `memory/03_pointer_declarations_parsing.md` (both
 K&R and the declaration-parsing skill treat it as a pointer topic), and variadic functions
@@ -308,18 +320,24 @@ working drafts) rather than the paywalled final standard, verified at the point 
 
 ## How the PART system works from here
 
-**Phases 1–5 are now done.** Phases 1–4 covered C fundamentals, functions/scope/the
-preprocessor, pointers & memory (the brief's single most-emphasized phase), and arrays/
-strings/structs/unions — see each phase's revision file for a condensed recap. Phase 5
-(Compilation & Linking Toolchain) added `systems/01_compilation_toolchain.md` and
-`02_linking_and_loading.md`, going well past Book A's brief chapter 9 into object-file
-internals, static/shared libraries, and the dynamic linker/loader — necessarily mostly
-`[External]`/`[Synthesis]`, since none of the three books goes this deep. Every phase
-re-opened the actual relevant book pages for its specific topics, with book-derived claims
-tagged — including catching one real transcription error in the source `binsearch` listing
-back in Phase 1.
+**Phases 1–10 are done; Phase 11 (Undefined Behavior, Portability & Modern C) is
+underway** (64 of 73 files). This is the vault's heaviest `[Synthesis]` load: rather than
+new mechanics, `advanced/01_undefined_behavior.md` assembled **every** UB instance this
+vault has flagged in passing since Phase 1 — signed overflow, OOB access, dangling
+pointers, double-free, uninitialized reads, unsequenced modification, `ctype`/`va_arg`/
+format-string misuse — into one catalogue under the standard's own four-way classification
+(undefined / unspecified / implementation-defined / locale-specific), plus a worked example
+of an optimizer legally deleting an overflow check. `02_implementation_defined_and_portability.md`
+did the same consolidation for implementation-defined facts (`char` signedness, struct
+padding, byte order, bit-field packing) and the portability strategies to handle each.
 
-- Say **"NEXT"** to generate Phase 6 (Dynamic Memory), or name a different phase/file from
-  the plan above to jump there instead.
-- Each subsequent part follows the same process: re-open the relevant book pages for that
-  specific topic, write the topic file(s), then that phase's revision and interview entries.
+**Remaining in Phase 11:** `03_aliasing_and_optimization.md` (the full strict-aliasing
+rule, previewed since `memory/07_alignment_padding_aliasing.md` §5) and
+`04_modern_c_vs_historical_c.md` (consolidating every "modern C" aside already dropped
+throughout — `<stdint.h>`, `<stdbool.h>`, `restrict`, and more — plus C99→C23 deltas).
+
+- Say **"NEXT"** to finish Phase 11 with those two files, or name a different phase/file
+  from the plan above to jump there instead.
+- Each subsequent part follows the same process: re-open the relevant book pages (or,
+  where the books are silent, the vetted external references) for that specific topic,
+  write the topic file(s), then extend that phase's revision and interview entries.
