@@ -1,7 +1,7 @@
 # 📚 Ritik Raj — Distributed Systems Interview Prep: Master Index
 
 > **Generated:** October 7, 2026  
-> **Total Study Material:** 6,898 lines / 344 KB across 6 files (in this folder alone)  
+> **Total Study Material:** 7,827 lines / 412 KB across 7 files (in this folder alone)  
 > **Plus:** 70+ existing notes files across 16 categories in the parent repo
 
 ---
@@ -12,10 +12,11 @@
 |:--|:-----|:------|:-----|:---------------|
 | 1 | [distributed-systems-notes.md](file:///Users/ritikraj/Documents/GitHub/Interview-Preparation/distributed-systems/distributed-systems-notes.md) | 335 | 20 KB | Dynamo-style KV store, LSM-Trees, consistent hashing, quorums, vector clocks, gossip, hinted handoff, Merkle trees |
 | 2 | [microservices-backend-interview-notes.md](file:///Users/ritikraj/Documents/GitHub/Interview-Preparation/distributed-systems/microservices-backend-interview-notes.md) | 365 | 24 KB | CAP/PACELC, Raft/Paxos, 2PC/Saga, caching patterns, load balancing, resilience, observability, system design framework |
-| 3 | [kafka-event-driven-deep-dive.md](file:///Users/ritikraj/Documents/GitHub/Interview-Preparation/distributed-systems/kafka-event-driven-deep-dive.md) | 1,547 | 64 KB | Kafka internals (commit log, ISR, KRaft), Spring Boot + Kafka, threading model, EOS, transactional outbox, DLT, CQRS, event sourcing |
-| 4 | [java-concurrency-spring-boot-deep-dive.md](file:///Users/ritikraj/Documents/GitHub/Interview-Preparation/distributed-systems/java-concurrency-spring-boot-deep-dive.md) | 1,138 | 48 KB | Java threading, locks, `java.util.concurrent`, CompletableFuture, Virtual Threads, Spring IoC/AOP/@Transactional internals, HikariCP, interview problems |
-| 5 | [docker-kubernetes-aws-production.md](file:///Users/ritikraj/Documents/GitHub/Interview-Preparation/distributed-systems/docker-kubernetes-aws-production.md) | 2,362 | 136 KB | Docker internals, Kubernetes architecture, all AWS services (Lambda/DDB/EventBridge/Step Functions/SQS/S3/ECS/Cognito), Terraform, CI/CD, deployment patterns |
-| 6 | [system-design-case-studies.md](file:///Users/ritikraj/Documents/GitHub/Interview-Preparation/distributed-systems/system-design-case-studies.md) | 1,151 | 52 KB | 10 fully-worked system designs: URL Shortener, Rate Limiter, Task Scheduler, Chat, Notifications, News Feed, KV Store, Video Streaming, E-Commerce, Autocomplete |
+| 3 | [hardware-internals-lsm-memtable-sstable.md](file:///Users/ritikraj/Documents/GitHub/Interview-Preparation/distributed-systems/hardware-internals-lsm-memtable-sstable.md) | 929 | 68 KB | Hardware & OS internals of LSM engines: CPU cache lines, DRAM Arena allocators, SkipLists, WAL disk physics, SSTable block layouts, SIMD Bloom filters, SSD FTL & NAND flash WAF |
+| 4 | [kafka-event-driven-deep-dive.md](file:///Users/ritikraj/Documents/GitHub/Interview-Preparation/distributed-systems/kafka-event-driven-deep-dive.md) | 1,547 | 64 KB | Kafka internals (commit log, ISR, KRaft), Spring Boot + Kafka, threading model, EOS, transactional outbox, DLT, CQRS, event sourcing |
+| 5 | [java-concurrency-spring-boot-deep-dive.md](file:///Users/ritikraj/Documents/GitHub/Interview-Preparation/distributed-systems/java-concurrency-spring-boot-deep-dive.md) | 1,138 | 48 KB | Java threading, locks, `java.util.concurrent`, CompletableFuture, Virtual Threads, Spring IoC/AOP/@Transactional internals, HikariCP, interview problems |
+| 6 | [docker-kubernetes-aws-production.md](file:///Users/ritikraj/Documents/GitHub/Interview-Preparation/distributed-systems/docker-kubernetes-aws-production.md) | 2,362 | 136 KB | Docker internals, Kubernetes architecture, all AWS services (Lambda/DDB/EventBridge/Step Functions/SQS/S3/ECS/Cognito), Terraform, CI/CD, deployment patterns |
+| 7 | [system-design-case-studies.md](file:///Users/ritikraj/Documents/GitHub/Interview-Preparation/distributed-systems/system-design-case-studies.md) | 1,151 | 52 KB | 10 fully-worked system designs: URL Shortener, Rate Limiter, Task Scheduler, Chat, Notifications, News Feed, KV Store, Video Streaming, E-Commerce, Autocomplete |
 
 ---
 

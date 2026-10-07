@@ -1290,6 +1290,8 @@ READ ORDER (follow the arrows):
        │
        ├──► distributed-systems-notes.md
        │         │
+       │         ├──► hardware-internals-lsm-memtable-sstable.md (Hardware/OS deep dive)
+       │         │
        │         └──► microservices-backend-interview-notes.md
        │                    │
        │                    ├──► kafka-event-driven-deep-dive.md
@@ -1313,6 +1315,9 @@ DEPENDENCY TABLE:
 ├──────────────────────────────────────┼──────────────────────────────────┤
 │ distributed-systems-notes.md         │ §1 Data Structures, §3 Network,  │
 │                                      │ §4 Database basics               │
+├──────────────────────────────────────┼──────────────────────────────────┤
+│ hardware-internals-lsm-memtable-     │ §1 Data Structures (LSM/Trees),  │
+│ sstable.md                           │ §2 OS (caching/IO), §8 Linux     │
 ├──────────────────────────────────────┼──────────────────────────────────┤
 │ microservices-backend-interview-     │ §1-4 (all fundamentals),         │
 │ notes.md                             │ §9 API Design, §11 DS Vocab      │
