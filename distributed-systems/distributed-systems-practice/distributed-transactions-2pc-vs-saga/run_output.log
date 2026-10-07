@@ -1,0 +1,77 @@
+
+##############################################################################
+# STARTING STATE
+##############################################################################
+  STATE: account.balance=100 inventory.stock=5 shipping.shipments={}
+
+##############################################################################
+# SCENARIO 1: 2PC, everything succeeds
+##############################################################################
+
+=== 2PC TRANSACTION order=order-A (amount=30, qty=2, ship_fail=False) ===
+--- PHASE 1: PREPARE ---
+  coordinator -> account   PREPARE -> vote=yes
+  coordinator -> inventory PREPARE -> vote=yes
+  coordinator -> shipping  PREPARE -> vote=yes
+--- ALL VOTES YES -> PHASE 2: GLOBAL COMMIT ---
+  coordinator -> account   COMMIT
+  coordinator -> inventory COMMIT
+  coordinator -> shipping  COMMIT
+RESULT: transaction COMMITTED everywhere.
+  STATE: account.balance=70 inventory.stock=3 shipping.shipments={'order-A': 'shipped'}
+
+##############################################################################
+# SCENARIO 2: 2PC, shipping will vote NO during PREPARE
+##############################################################################
+
+=== 2PC TRANSACTION order=order-B (amount=30, qty=2, ship_fail=True) ===
+--- PHASE 1: PREPARE ---
+  coordinator -> account   PREPARE -> vote=yes
+  coordinator -> inventory PREPARE -> vote=yes
+  coordinator -> shipping  PREPARE -> vote=no
+--- shipping VOTED NO -> PHASE 2: GLOBAL ABORT ---
+  coordinator -> account   ABORT (even services that voted yes release their hold)
+  coordinator -> inventory ABORT (even services that voted yes release their hold)
+  coordinator -> shipping  ABORT (even services that voted yes release their hold)
+RESULT: transaction ABORTED everywhere -- real state untouched anywhere.
+
+  Check: did account/inventory change AT ALL from the failed attempt?
+  STATE: account.balance=70 inventory.stock=3 shipping.shipments={'order-A': 'shipped'}
+
+##############################################################################
+# SCENARIO 3: SAGA, everything succeeds
+##############################################################################
+
+=== SAGA TRANSACTION order=order-C (amount=30, qty=2, ship_fail=False) ===
+--- STEP 1: debit account (REAL, immediate) ---
+  orchestrator -> account   debit -> {'ok': True}
+--- STEP 2: reserve inventory (REAL, immediate) ---
+  orchestrator -> inventory reserve -> {'ok': True}
+--- STEP 3: ship order (REAL, immediate) ---
+  orchestrator -> shipping  ship -> {'ok': True}
+RESULT: saga COMPLETED, all three steps committed immediately as they ran.
+  STATE: account.balance=40 inventory.stock=1 shipping.shipments={'order-A': 'shipped', 'order-C': 'shipped'}
+
+##############################################################################
+# SCENARIO 4: SAGA, shipping fails AFTER account+inventory already committed
+##############################################################################
+
+=== SAGA TRANSACTION order=order-D (amount=30, qty=1, ship_fail=True) ===
+--- STEP 1: debit account (REAL, immediate) ---
+  orchestrator -> account   debit -> {'ok': True}
+--- STEP 2: reserve inventory (REAL, immediate) ---
+  orchestrator -> inventory reserve -> {'ok': True}
+--- STEP 3: ship order (REAL, immediate) ---
+  orchestrator -> shipping  ship -> {'ok': False}
+--- STEP 3 FAILED -> running compensations for completed steps, in REVERSE order ---
+  orchestrator -> inventory compensate_reserve -> {'ok': True}
+  orchestrator -> account   compensate_debit -> {'ok': True}
+RESULT: saga FAILED, but all prior real effects were undone.
+
+  Check: account/inventory were REALLY debited, then REALLY compensated back
+  STATE: account.balance=40 inventory.stock=1 shipping.shipments={'order-A': 'shipped', 'order-C': 'shipped'}
+
+##############################################################################
+# cleanup
+##############################################################################
+  all service processes killed

@@ -1,0 +1,91 @@
+// telemetry.proto — schema for a small fleet-telemetry service.
+//
+// This is a REAL Protocol Buffers schema, compiled by the real `protoc`
+// compiler (see scripts/gen.sh) into real generated message classes used
+// for real wire-format serialization. The `service` block below is the
+// genuine gRPC IDL for declaring a service and its four RPC shapes.
+//
+// What's real vs. simulated, in one line (full story in ANALYSIS.md):
+// the MESSAGES and their wire bytes are 100% real Protocol Buffers; the
+// RPC TRANSPORT that carries them (the TCP framing in rpc/framing.py) is
+// hand-written, standing in for gRPC's own HTTP/2-based transport, which
+// isn't installable in this sandbox (no apt, no grpcio wheel, no npm).
+// The `service` definition below still documents the real, intended
+// contract — it's just not auto-compiled into stub code the way a real
+// `protoc --grpc_out` run would, since that plugin isn't available here.
+
+syntax = "proto3";
+package telemetry;
+
+// ---- messages -------------------------------------------------------
+
+message DeviceInfo {
+  string device_id = 1;
+  string model = 2;
+  double firmware_version = 3;
+}
+
+message RegisterAck {
+  bool accepted = 1;
+  string assigned_region = 2;
+  int64 server_time_ms = 3;
+}
+
+message DeviceId {
+  string device_id = 1;
+}
+
+enum Severity {
+  INFO = 0;
+  WARNING = 1;
+  CRITICAL = 2;
+}
+
+message Alert {
+  string device_id = 1;
+  Severity severity = 2;
+  string message = 3;
+  int64 timestamp_ms = 4;
+}
+
+message SensorReading {
+  string device_id = 1;
+  string sensor_name = 2;
+  double value = 3;
+  int64 timestamp_ms = 4;
+}
+
+message ReadingsSummary {
+  int32 count = 1;
+  double min_value = 2;
+  double max_value = 3;
+  double avg_value = 4;
+}
+
+message Command {
+  string device_id = 1;
+  string action = 2; // e.g. "reboot", "calibrate", "shutdown"
+}
+
+message Status {
+  string device_id = 1;
+  string state = 2; // e.g. "ack", "rebooting", "online"
+  int64 timestamp_ms = 3;
+}
+
+// ---- service ----------------------------------------------------------
+// Four RPCs, deliberately one of each gRPC call shape:
+
+service FleetTelemetry {
+  // Unary: one request, one response.
+  rpc RegisterDevice(DeviceInfo) returns (RegisterAck);
+
+  // Server streaming: one request, a stream of responses.
+  rpc StreamAlerts(DeviceId) returns (stream Alert);
+
+  // Client streaming: a stream of requests, one response.
+  rpc UploadReadings(stream SensorReading) returns (ReadingsSummary);
+
+  // Bidirectional streaming: both sides stream independently.
+  rpc ControlChannel(stream Command) returns (stream Status);
+}
