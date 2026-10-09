@@ -1,91 +1,119 @@
 # Project Deep Dive: Distributed Task Scheduler — Cron-as-a-Service
 
-🔴🔴🔴 Same priority tier as Hermes. This project's defining rigor challenge is precision about what "exactly-once" actually means — get this right and you turn your resume's most challengeable claim into your strongest answer.
+🔴🔴🔴 **This file has been verified directly against your source code** (`distributed-scheduler-main.zip`). Every mechanism below is what the code actually does, not a plausible guess — where the earlier draft of this file guessed wrong, that's called out explicitly so you don't accidentally memorize the wrong version.
 
 ---
 
-## Architecture (Reconstructed From Resume Claims)
+## Corrections From the Earlier (Pre-Verification) Draft
+
+- **Idempotency mechanism was wrong.** The earlier draft guessed `FOR UPDATE SKIP LOCKED`. The real mechanism is different and, honestly, cleaner: each task execution gets a row in `task_executions` keyed by `execution_id`; the worker checks `execution_already_finished(execution_id)` (i.e., `completed_at IS NOT NULL`) **before** running the command, and on a redelivered message, does an **idempotent skip** — logs it, increments a dedicated Prometheus counter (`TASKS_IDEMPOTENT_SKIP`), acks without re-executing. `FOR UPDATE` (not `SKIP LOCKED`) is used separately, by the coordinator, when it claims a due task and creates the execution row.
+- **Load-test tool was wrong.** The earlier draft guessed k6. The actual load test (documented in `screenshots/deployment/test-5/README.md`, 52 timestamped screenshots) used a **plain bash `for` loop with `curl`** — 10,000 sequential `curl` POSTs, each scheduling a task for the same instant two minutes out, specifically to force every TTL to expire simultaneously ("the hardest possible scenario... a single burst rather than a gradual ramp" — your own words in the test doc).
+- **New finding, not in the earlier draft at all:** there's a **slow reconciliation poller** (every 120s by default, `SCHEDULER_RECONCILE_INTERVAL_SEC`), scanning PostgreSQL directly for due-but-unpublished tasks (`LIMIT 100` per cycle) and re-publishing them straight to `scheduler.due`. This means the honest answer to "why not polling?" isn't "we never poll" — it's "TTL-based dispatch is the fast path; a slow reconciliation poll exists as a safety net for the delay mechanism's edge cases (broker restarts clearing undelivered wakeups, the max-TTL cap below, etc.)." That's a *more* sophisticated answer than "zero polling," not a weaker one.
+- **A repo-hygiene issue worth knowing about, not a resume-accuracy problem:** your repo has two documents about the load test that contradict each other. `Benchmark.md` frames the 10k-task/8,562-peak/1,600-msg/s/~7m46s numbers as a **"Suggested Load Test (future)"** you hadn't run yet, and even suggests a resume bullet of "1,000+ tasks" — much lower than what's on your actual resume. But `screenshots/deployment/test-5/README.md` proves the real 10k test was actually run, with every single number matching your resume exactly. `Benchmark.md` is simply stale — written before test-5, never updated afterward. **Worth fixing in the repo** (an interviewer skimming your GitHub could get confused by the contradiction), but your resume numbers are fully verified and real.
+
+---
+
+## Architecture (Verified)
 
 ```
-Client → API Gateway → PostgreSQL (source of truth: task definitions, status)
-                              │
-                              ▼
-                        Coordinator (finds due tasks, dispatches)
-                              │
-                              ▼
-                RabbitMQ (delay-queue, TTL, DLX → dispatch-exchange)   [MESSAGING.md]
-                              │
-                              ▼
-                   Worker Fleet (3 replicas, independently metriced)
-                              │
-                              ▼
-                  PostgreSQL (status update, claimed via FOR UPDATE SKIP LOCKED)
+Client → API Gateway (Node.js/Express/TypeScript, port 3000)
+              │  JWT auth (bcrypt, 10 salt rounds, 7-day token, no refresh rotation)
+              │  Rate limit: 10,000 req / 15 min per IP · body limit 10kb
+              │  Every task query scoped by WHERE ... AND user_id = $N
+              ▼
+        PostgreSQL (tasks, task_executions, users, workers — full schema below)
+              ▲
+              │  FOR UPDATE row lock + conditional UPDATE (rowcount-checked)
+        Coordinator (Python) ── consumes scheduler.due
+              │
+              ▼
+   scheduler.delay (TTL=per-message expiration, max 2,147,483,647 ms ≈ 24.8 days,
+                    x-dead-letter-exchange="" / x-dead-letter-routing-key=scheduler.due)
+              │  (TTL expiry → native RabbitMQ dead-lettering)
+              ▼
+        scheduler.due → Coordinator claims → scheduler.tasks
+              │
+              ▼
+   Worker Fleet (Python; worker-1/2/3 are the standard, Prometheus-scraped set —
+                 docker-compose.yml also defines worker-4..10 for extra load-test
+                 capacity, not part of the standard 3-replica/observability story)
+              │  runs task.command via subprocess.run(argv_list) — NOT shell=True
+              │  (avoids classic shell injection; no validation on what the
+              │  command itself can be — see Security note below)
+              │
+              ├─ success → task_executions updated, ack
+              ├─ failure → scheduler.retry_delay (TTL=backoff, same DLX pattern
+              │            as above, dead-letters back into scheduler.tasks)
+              │            exponential backoff: base 5,000ms, cap 300,000ms (5min)
+              └─ exceeded TASK_MAX_RETRIES (default 3) → explicit application-level
+                 publish to scheduler.dlx exchange / scheduler.tasks.dlq
 
-Observability: Prometheus + Grafana + Loki + Alertmanager, scraping API/coordinator/all 3 workers
-Load test: 10,000 tasks → 8,562 peak queue depth, 1,600 msg/s burst, drained ~7m46s, 0 DLQ, 0 loss
+Reconciliation poller (Python, every 120s): SELECT due-but-unpublished tasks
+   LIMIT 100 → republish directly to scheduler.due (bypasses the delay queue —
+   the safety net for TTL-mechanism edge cases)
+
+Observability: Prometheus scrapes api-gateway:3000, coordinator:9090, worker-1/2/3:9100,
+   rabbitmq-exporter:9419 · Loki + Promtail (Docker-socket discovery, 7-day retention)
+   Grafana dashboard "Distributed Scheduler v2" · Alertmanager rules incl.
+   DLQMessagesPresent, WorkerConsumerDown
+
+Deployment (as actually run): single EC2 t3.large instance, Docker Compose —
+   NOT a multi-host/K8s fleet. Horizontal "scaling" today means more worker
+   containers on the same host, not more hosts.
 ```
 
 ---
 
-## Component-by-Component Justification
+## Verified Database Schema
 
-| Component | Why it exists | Why chosen (vs. alternative) | Failure mode | Scaling | Consistency implication |
-|---|---|---|---|---|---|
-| **API Gateway** | Client-facing task creation/query | Standard entry-point pattern | Overload if unrate-limited (`12_SECURITY/CLOUD_SECURITY.md`) | Horizontally scalable, stateless | N/A |
-| **PostgreSQL (source of truth)** | Durable task state, queryable | ACID transactions + strong consistency for task state, vs. eventual-consistency stores — matters because you need to know definitively whether a task is done | Connection exhaustion under high concurrent load (`06_DATABASES/POSTGRESQL.md`) — a plausible real bottleneck in your 10,000-task test | Read replicas possible for query load; writes bound by single-primary throughput | Strong (CP-leaning) — a deliberate choice, contrasted with Hermes's AP-leaning DynamoDB |
-| **Coordinator** | Finds due tasks, initiates dispatch | Centralizes the "what's due now" decision | **Honest weakness to name proactively:** likely a single point of failure unless clustered/leader-elected — `NEEDS VERIFICATION` | Can shard by task-ID hash across multiple coordinator instances (see `11_SYSTEM_DESIGN/COMMON_DESIGNS.md` Design 3) | N/A |
-| **RabbitMQ (TTL + DLX)** | Event-driven delayed dispatch, avoiding hot-polling | See `MESSAGING.md` Cluster 2 in full — this is the project's core architectural decision | Broker down = dispatch stalls unless clustered with quorum queues (`MESSAGING.md` follow-up chain) | Vertical (bigger broker) or clustered (quorum queues) | At-least-once delivery — NOT exactly-once at the broker level (see Claim Defense below) |
-| **Worker Fleet (3 replicas)** | Executes dispatched tasks | Separate processes for fault isolation (`03_CS_FUNDAMENTALS/OS.md` Cluster 1) | One worker crashing shouldn't take down others — verify this is actually true of your process model | Horizontal — add more worker processes/replicas | Idempotent claiming (`FOR UPDATE SKIP LOCKED`) required for correctness under concurrent workers |
-| **Prometheus/Grafana/Loki/Alertmanager** | Full observability across API/coordinator/3 workers | Self-hosted stack, since this project isn't AWS-native (contrast with Hermes's CloudWatch-by-default + X-Ray) | Silent failure if scrape targets aren't correctly configured per-replica | Scales with the number of scrape targets, generally not a bottleneck at this scale | N/A |
+```sql
+users            (id, email, password_hash, created_at)
+tasks            (id, user_id, command, schedule_type, next_execution_time,
+                  status, retry_count, max_retries, created_at, updated_at)
+task_executions  (id [execution_id], task_id, status, started_at, completed_at,
+                  result, error, worker_id)
+workers          (id, last_heartbeat, status)
+
+Indexes:
+  tasks(next_execution_time) — PARTIAL: WHERE status IN ('pending','scheduled')
+  tasks(user_id, status)
+  task_executions(task_id)
+  workers(last_heartbeat)
+```
+The partial index is a nice, specific detail worth mentioning proactively if asked about indexing choices: it excludes completed/failed tasks from the index entirely, since those rows are never queried by "what's due now," keeping the index smaller and cheaper to maintain than a full index over the whole table.
 
 ---
 
-## The Named Questions From Your Own Prep Brief — Direct Answers
+## The Named Questions — Now With Verified Answers
 
-**"Why RabbitMQ?"** → Native TTL + dead-letter-exchange gives you event-driven delayed dispatch with no polling — see `MESSAGING.md` Cluster 2.
+**"Why RabbitMQ? Why TTL? Why not polling?"** → Confirmed as designed: `scheduler.delay`'s per-message TTL + native dead-lettering triggers dispatch with zero hot-polling. **New nuance:** a 120s reconciliation poll exists as a deliberate safety net, not the primary mechanism — mention this proactively, it's a stronger answer than claiming zero polling anywhere in the system.
 
-**"Why TTL?"** → It's the mechanism that turns "deliver this later" into "let the broker expire it at the right moment, then route it to the real queue" — no cron/poller needed to check "is anything due yet."
+**"How does delayed scheduling work?"** → `pika.BasicProperties(expiration=str(ms))` sets the TTL in milliseconds, capped at 2,147,483,647ms (~24.8 days — RabbitMQ's practical per-message TTL ceiling). **Verified edge-case handling:** a task scheduled further out than that gets its TTL clamped to the max; when that capped delay expires and lands in `scheduler.due`, the coordinator checks `next_execution_time` again — if it's still in the future, it re-publishes a fresh wakeup with a newly computed delay. This is a genuinely elegant recursive re-arming mechanism for far-future tasks, and a strong answer to "what's your max delay and what happens beyond it?"
 
-**"Why not polling?"** → Every polling interval means a database query regardless of whether anything is actually due — wasted load at scale, plus up to one full interval of latency before a due task is noticed; TTL-based dispatch is event-driven and exact.
+**"What happens if a worker dies?"** → Message isn't acked, RabbitMQ redelivers to another consumer on the queue. The worker's `execution_already_finished()` check means a redelivery of a task that *did* complete before the crash gets skipped cleanly (idempotent skip); a redelivery of a task that *didn't* complete gets legitimately retried.
 
-**"How does delayed scheduling work?"** → Message published to a delay-queue with TTL = desired delay; on expiry, RabbitMQ dead-letters it to the real dispatch exchange — see `MESSAGING.md` for the exact mechanism and its known limitation (per-queue TTL only expires in FIFO order at the queue head).
+**"How are duplicate tasks handled?"** → **Verified, precise answer, two layers:** (1) Coordinator-side: `SELECT ... FOR UPDATE` on the task row plus a conditional `UPDATE ... WHERE id = %s AND status = 'scheduled'` with a rowcount check — belt-and-suspenders against the same task being claimed twice. (2) Worker-side: the `execution_id`/`completed_at` check described above prevents re-executing a redelivered message for an already-finished execution.
 
-**"What happens if a worker dies?"** → Depends on the ack model: if the message wasn't acked before the crash, RabbitMQ redelivers it (to another worker) once the connection/consumer is detected as gone — the task isn't lost, but this again requires the eventual processing to be idempotent (or your PostgreSQL claiming mechanism to prevent true double-execution — be precise about which mechanism is doing the actual work here).
+**"Is the append/claim atomic?"** — not directly asked in the original brief, but a natural follow-up now that you know the mechanism: the coordinator's claim is a single conditional `UPDATE` with a rowcount check, which *is* atomic at the database level — a strong, correct answer if pushed on this.
 
-**"What happens if RabbitMQ goes down?"** → `NEEDS VERIFICATION` — honestly: without clustering/mirrored queues, it's a single point of failure for dispatch; in-flight unacked messages could be lost on a hard crash without durable queues + persistent messages. See `MESSAGING.md`'s follow-up chain for the full precise answer and its resilience mitigations.
+**"What does 'exactly-once' mean? Is it really guaranteed?"** 🔴 — unchanged in substance, now with verified specifics to cite: RabbitMQ's real guarantee is at-least-once (with acks). Your system achieves an exactly-once *effect* through the `execution_id`-keyed idempotent-skip check at the worker, verified in your load test by PostgreSQL row-count convergence with zero orphaned `scheduled` rows and (per test-5) **zero actual redeliveries occurred** during that specific run — meaning idempotency wasn't even exercised by the headline 10k test; it was validated separately via a dedicated duplicate-delivery chaos test documented in `Benchmark.md`'s reliability table. Keep these two test efforts distinct if asked: the 10k run proved throughput/drain/loss; a separate, smaller chaos test proved the idempotency mechanism itself under deliberate duplicate delivery.
 
-**"How are duplicate tasks handled?"** → `NEEDS VERIFICATION` on the exact mechanism — the expected/standard answer is a claiming pattern (`FOR UPDATE SKIP LOCKED` or a `claimed_by`/`claimed_at` compare-and-set) at the PostgreSQL layer, so even if RabbitMQ redelivers a message to two workers, only one successfully claims the underlying task row.
+**"How did the load test work? What does 8,562 peak / 1,600 msg/s / ~7m46s mean?"** → Fully verified via `screenshots/deployment/test-5/`: a bash loop firing 10,000 sequential `curl` POSTs, each task scheduled for the identical instant (+2 minutes), deliberately forcing simultaneous TTL expiry rather than a gradual ramp — the queue peaked at 8,562 in-flight messages, drained from 14:55 to 15:02:46 (≈7m46s), zero DLQ messages, zero task loss, p95 latency recovering from a 160ms spike to a 76ms floor.
 
-**"How do you avoid task loss?"** → Durable queues + persistent messages (survive broker restart) + PostgreSQL as the ultimate source of truth (a task's status is what PostgreSQL says it is, not just "was a message consumed") — the row-count convergence check your resume describes is precisely this cross-check.
+**"What's the bottleneck?"** → Not explicitly logged in the test doc as a single named bottleneck; a reasoned, honest answer given the architecture: with 3 Prometheus-scraped workers processing a shared queue and PostgreSQL as the single source of truth for both claim-locking and execution records, the two most likely candidates are (a) PostgreSQL's row-lock contention on the `tasks` table if claim rate is very high, or (b) raw worker throughput if command execution itself is slow — back-calculating from the numbers: 8,562 messages drained in ~466 seconds ≈ **~18 msg/s sustained** across 3 workers, i.e., roughly 6 msg/s per worker — a specific number worth having ready.
 
-**"How do you scale workers?"** → Add more worker processes/replicas consuming from the same dispatch queue — RabbitMQ distributes messages across all connected consumers on a queue automatically (round-robin by default).
+---
 
-**"What is the bottleneck?"** `NEEDS VERIFICATION` — candidates: PostgreSQL connection limits under high concurrent claiming (`06_DATABASES/POSTGRESQL.md`), or the coordinator's own throughput if it's a single unsharded process. Know which one your load test actually revealed, if either — a specific, evidence-based answer beats a generic one.
+## New Security Detail Worth Knowing (Not in the Original Brief)
 
-**"How does PostgreSQL behave under concurrent scheduling?"** → MVCC means readers don't block writers, but concurrent `UPDATE`s to the same row (or lock contention from `FOR UPDATE`) do need `SKIP LOCKED` to avoid workers queueing up behind each other — see `06_DATABASES/POSTGRESQL.md` Cluster 1.
-
-**"How do retries work?"** `NEEDS VERIFICATION` — the shape of a good answer: failed task execution triggers a requeue (possibly with a backoff delay, itself implementable via the same TTL mechanism) up to a max-retry count, after which it's dead-lettered to a DLQ for manual inspection.
-
-**"How does the DLQ work?"** → Messages that fail delivery/processing repeatedly (exceeding a max-retry threshold) land in a dead-letter queue instead of being silently dropped or retried forever — your load test's "zero DLQ messages" result is evidence that no task exceeded that threshold during the test, not that the DLQ mechanism was never exercised at all.
-
-**"What does 'exactly once' mean? Is it really guaranteed?" 🔴 — the most important question in this entire file.**
-The precise, defensible answer: RabbitMQ itself guarantees **at-least-once delivery** (with acks) — it does not, and cannot alone, guarantee exactly-once delivery, because a network partition between a worker acking and RabbitMQ receiving that ack is fundamentally indistinguishable from the worker having crashed before processing, so RabbitMQ's only safe default is to redeliver. **What your system actually achieves is an exactly-once *effect*** — the end state (PostgreSQL row counts converging 1:1, zero orphaned `scheduled` rows) is correct — and that correctness comes from the *combination* of at-least-once delivery **plus** idempotent/claim-guarded processing at the PostgreSQL layer, not from the broker's delivery guarantee alone. State it in exactly this order if asked: broker guarantee (at-least-once) → why that alone isn't enough → what closes the gap (idempotent claiming) → the observed effect (row-count convergence) as evidence the combination worked. This full reasoning also lives in `01_PROGRAMMING/SQL.md`'s follow-up chain and `07_DISTRIBUTED_SYSTEMS/FUNDAMENTALS.md` Cluster 2.
-
-**"How did the load test work?"** `NEEDS VERIFICATION` — confirm the actual tool (k6? a custom script?) before describing specific tooling, per `10_OBSERVABILITY/K6.md`'s exposure-risk note.
-
-**"What does 8,562 peak queue depth mean?"** → At the busiest single moment, 8,562 messages were sitting in the dispatch queue waiting for a worker to consume them — evidence of a real burst the system absorbed (queued, not dropped) rather than rejecting or crashing under.
-
-**"What does 1,600 msg/s burst mean?"** → The peak throughput rate at which messages were being dead-lettered from the delay-queue into the dispatch path at once — since all 10,000 tasks were presumably scheduled close together, their TTLs expired in a tight cluster, producing this burst.
-
-**"Why did the system drain in ~7m46s?"** → The time from peak queue depth back to zero reflects the sustained consumption rate of the worker fleet — `NEEDS VERIFICATION`: you should be able to back-calculate an approximate sustained messages/sec processing rate from 8,562 messages ÷ ~466 seconds ≈ ~18 msg/s sustained drain rate, and have a view on whether that's worker-CPU-bound, PostgreSQL-write-bound, or RabbitMQ-consumer-count-bound.
-
-**"How would you improve it?"** → Honest, specific answers score far higher than vague ones: more worker replicas (if drain rate was the bottleneck), a connection pool tuning pass (if PostgreSQL connections were the limit), or clustering RabbitMQ (if broker durability/single-point-of-failure was the concern raised earlier in the interview).
-
-### "Why not Kafka?" (comparison question, not on your resume)
-Same shape of answer as Hermes's version: your core need — native delayed/TTL-based dispatch with flexible exchange-based routing — is a RabbitMQ-native feature with no direct Kafka equivalent; Kafka's strengths (high-throughput log retention, replay, consumer-group-managed offsets) target a different problem (event streaming) than task dispatch. See `MESSAGING.md` Cluster 3 for the full comparison table.
+Tasks execute as literal shell commands: `{"command": "echo hello"}` → `subprocess.run(cmd.strip().split(), ...)`. Two things worth being precise about if security comes up:
+- **What's protected:** using `subprocess.run` with an argv list (not `shell=True`) means classic shell-metacharacter injection (`; rm -rf /`, backticks, pipes) is **not** interpreted by a shell — the "command" is split on whitespace and executed directly as a program + arguments.
+- **What's not protected:** there's no validation or sandboxing of *what* the command/program itself can be — a user can schedule any executable reachable on the worker's `PATH` with any arguments. Authorization is enforced at the task-ownership level (a user can only schedule/see their own tasks via the `user_id` JWT-derived scoping), not at the command-content level. This is an honest, specific thing to say if asked "how would you secure this further" — sandboxing (containers-per-execution, a strict allowlist of permitted commands, or dropping to a restricted, non-privileged execution user) would be the natural next step.
 
 ### Quick Revision
-- The "exactly-once" question is THE question for this project — always answer with: broker guarantee (at-least-once) → the gap → idempotent claiming closes it → row-count convergence is the *evidence*, not the *mechanism*.
-- Name the coordinator's likely single-point-of-failure status proactively — a strong, honest answer beats being caught not having considered it.
-- Back-calculate the ~18 msg/s sustained drain rate from your own numbers before the interview — a specific number beats "it drained quickly."
-- `FOR UPDATE SKIP LOCKED` (or equivalent) is the actual mechanism preventing duplicate task execution — RabbitMQ redelivery alone would cause duplicates without it.
+- Idempotency is `execution_id` + `completed_at`-based, not row-locking-based — row-locking (`FOR UPDATE`) is the *coordinator's* claim mechanism, a separate layer.
+- The load test used bash + curl, not k6 — say so if asked about tooling.
+- `Benchmark.md` is a stale draft; `screenshots/deployment/test-5/` is the real, verified evidence — know where the receipts actually are.
+- A 120s reconciliation poll is a deliberate safety net alongside TTL dispatch, not a contradiction of "no polling."
+- Deployed today as Docker Compose on a single EC2 host, not a multi-host cluster — be accurate if asked how it's actually running.
+- Shell commands run via argv (no shell interpretation) but with no content validation — a specific, honest answer to a security follow-up.

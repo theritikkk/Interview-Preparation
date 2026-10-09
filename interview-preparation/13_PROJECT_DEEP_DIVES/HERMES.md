@@ -1,108 +1,63 @@
 # Project Deep Dive: Hermes — Serverless Workflow Orchestration Platform
 
-🔴🔴🔴 Treat this as the single highest-priority document in the whole knowledge base. Every mechanism referenced here has its own deep-dive file — this document's job is to assemble them into one coherent, defensible narrative and give you the exact answers to the exact questions your resume invites.
+🔴🔴🔴 **Verified directly against your source code** (`hermes-release-v1.0.0.zip`). This repo is unusually well-documented for interview purposes already — it has its own `INTERVIEW_GUIDE.md`, `DECISIONS.md` (ADRs), `TRADE_OFFS.md`, and `EVIDENCE.md`. Where those exist, they're the authoritative source; this file synthesizes them with direct code verification and flags what changed from the earlier speculative draft.
 
 ---
 
-## Architecture (Reconstructed From Resume Claims)
+## The Single Biggest Risk Item Is Now Resolved: Your Six Read Models
 
-```
-Client → API Gateway (?) → Lambda (TS/Java/Python, polyglot)
-                               │
-                               ├── Cognito JWT verification (COGNITO.md)
-                               │     → tenantId + role claims extracted
-                               │
-                               ├── Command handling → conditional write (optimistic concurrency)
-                               │     → DynamoDB Event Store (append-only)   [CONCURRENCY.md]
-                               │
-                               ├── DynamoDB Streams (change capture)         [08_AWS/DYNAMODB.md]
-                               │     → SQS (Transactional Outbox target)     [SQS.md]
-                               │     → EventBridge (fan-out)                 [EVENTBRIDGE.md]
-                               │           ├──→ Read Model Updater #1..6 → 6 DynamoDB Read Model tables
-                               │           └──→ Step Functions trigger (multi-step pipelines)
-                               │
-                               └── Step Functions (orchestration, X-Ray traced)  [STEP_FUNCTIONS.md, XRAY.md]
+Confirmed directly from Terraform (`infra/environments/dev/*.tf`, `dynamodb-table` module instantiations):
 
-Infra: 18 Terraform modules · Tests: 285 (234 TS / 42 Java-JUnit5 / 9 Python-pytest), 51+ suites
-```
+1. **execution-read-model** — execution state/status queries
+2. **workflow-read-model** — workflow definition/instance queries
+3. **asset-read-model** — asset/document queries
+4. **tenant-read-model** — tenant metadata queries
+5. **metrics-read-model** — usage/metrics queries
+6. **audit-read-model** — audit trail queries
 
-Everything above the "Infra" line is reconstructed *from your resume's own claims* — cross-check each arrow against your actual code before an interview; anywhere this diagram guesses at a mechanism not explicitly stated in your resume, it's flagged `NEEDS VERIFICATION` below.
+Know these six names cold. "Why six read models" now has a real, specific answer instead of a generic "each is optimized for its own query" — you can name what each one actually serves.
 
 ---
 
-## Component-by-Component Justification
+## Corrections and Important Nuances From the Earlier (Pre-Verification) Draft
 
-| Component | Why it exists | Why chosen (vs. alternative) | Failure mode | Scaling | Cost |
-|---|---|---|---|---|---|
-| **Lambda (polyglot)** | Compute, no server management | Serverless = pay-per-invocation, auto-scales; alternative = EC2/ECS (always-on cost, manual scaling) | Cold starts (worse for Java — `LAMBDA.md`); 15-min max execution | Auto-scales per invocation; can overwhelm downstream connection limits (`LAMBDA.md`) | Pay-per-invocation — cheap at low/spiky volume, can exceed always-on compute cost at very high sustained volume |
-| **DynamoDB (event store)** | Durable, scalable append-only log | Native Streams (Outbox mechanism), predictable low-latency at scale; alternative = PostgreSQL (ACID, but the Task Scheduler already demonstrates that path — a deliberate polyglot-persistence choice) | Hot partition if event-store partition key is poorly chosen (`06_DATABASES/DYNAMODB.md`) | Scales near-linearly with good key design; poor key design caps throughput regardless of provisioned capacity | On-demand or provisioned RCU/WCU (`08_AWS/DYNAMODB.md`) |
-| **Event Sourcing + CQRS** | Durable audit trail + read-optimized projections | Alternative = conventional CRUD (loses history, one model serves both read/write badly) | Read models eventually consistent — a query right after a write may miss it (`CONSISTENCY.md`) | Read models scale independently of the write path | 6x the storage/write-amplification of a single-model design — a real cost tradeoff |
-| **Transactional Outbox (Streams→SQS→EventBridge)** | Solves the dual-write problem | Alternative = direct SQS publish after DynamoDB write (broken — can silently drop the notification on a crash, `EVENT_DRIVEN.md`) | SQS redelivery on consumer failure (idempotent processing required, `SQS.md`) | Scales with Streams' native throughput; SQS/EventBridge scale independently | Streams + SQS + EventBridge each bill separately — a real per-event cost stack, worth being honest about if asked about cost tradeoffs |
-| **Step Functions** | Explicit multi-step orchestration with retry/catch | Alternative = hand-rolled orchestration in one Lambda (no visual debugging, bound by 15-min Lambda timeout, `STEP_FUNCTIONS.md`) | A misconfigured Catch can silently swallow a failure into the wrong branch | Not bound by a single Lambda's timeout — can span long-running workflows | Billed per state transition — can add up for very high-frequency, many-step workflows |
-| **Cognito + JWT + RBAC** | Multi-tenant auth/authorization | Alternative = custom auth service (more code, more attack surface to maintain yourself) | A missed tenant-scoping check at the data-access layer is the single highest-severity possible bug in this whole system (`COGNITO.md`) | Stateless JWT verification scales trivially (no shared session store) | Cognito's per-MAU pricing — negligible until very large user bases |
-| **Terraform (18 modules)** | Reproducible, version-controlled infra | Alternative = manual console clicks (undocumented, unreproducible, no drift detection, `09_DEVOPS/TERRAFORM.md`) | Drift if manual changes bypass Terraform | N/A (infra-as-code doesn't "scale" in the runtime sense) | Prevents costly manual-configuration mistakes more than it has a direct cost itself |
+### 1. The "polyglot" framing needs precision — TypeScript is the deployed core; Java and Python are real but labeled differently by your own README
+Your README's own runtime table is explicit: **TypeScript/Node 20 is "Active Core Platform (100% Implemented & Deployed)"** — 13 named Lambda services (`command-api`, `query-api`, `execution-projection`, `usage-projection`, `opensearch-projection`, `outbox-publisher`, `snapshot-trigger`, `dlq-handler`, `webhook-dispatcher`, `outbox-republisher`, `validate-worker`, `ocr-worker`, `classify-worker`). **Java (Spring Boot, `admin-service` + `replay-service`) and Python (`ai-workers`) are labeled "Architectural Expansion Option"** in the same table (ADR-014 and ADR-023 respectively) — but this doesn't mean stub code. Both have substantial, real, tested implementations (proper hexagonal/DDD-style Java with Spring Security and JWT converters; real Python handlers). The honest, precise framing for an interview: *"The TypeScript core is the actively deployed platform. I built out full, tested Java and Python services as an architectural expansion — proving the domain model and event contracts hold across languages — documented as ADRs rather than folded into the 'active' deployment claim."* This is a **stronger** answer than an unqualified "polyglot, all three deployed" claim, because it's precise about what's live vs. what's proven-but-optional, and it preempts the obvious follow-up ("show me the Java service running in prod") with an honest answer instead of an exposed overclaim.
 
----
+### 2. Test counts: Java and Python match your resume exactly; TypeScript has grown
+Verified via `TESTING.md`: **Java = 42 tests** (exact match), **Python = 9 tests** (exact match), **TypeScript = 260 tests / 57 suites** (your resume says 234 / 51+ suites). The codebase has grown since the resume snapshot — a normal, easily-explained gap, not a discrepancy to worry about. If asked directly: *"That was accurate as of when I wrote my resume; I've kept building since — it's 260 TypeScript tests across 57 suites now."*
 
-## The Named Questions From Your Own Prep Brief — Direct Answers
+### 3. Optimistic concurrency is two sequential conditional writes, not one atomic transaction — a genuinely good, precise detail to know
+Verified in `shared/event-store/src/index.ts`: the append path does **two separate conditional `PutCommand` calls**, not a single `TransactWriteItems`. First, a conditional `PutCommand` on a META item — `ConditionExpression: 'attribute_not_exists(version) OR version = :expectedVersion'` — which is what actually resolves the race (only one of N concurrent writers can succeed here for a given expected version). Second, a conditional `PutCommand` on the event item itself — `ConditionExpression: 'attribute_not_exists(SK)'` — preventing an overwrite at that sequence number. **The precise, honest answer if asked "is this atomic?":** the *concurrency resolution* is atomic (the META item's conditional write is the actual arbiter of who wins), but the two writes are not wrapped in a single DynamoDB transaction — a crash between them is a real, if narrow and recoverable, edge case (a claimed version with no corresponding event row). This is exactly the kind of precise, non-overclaiming answer that plays well against a rigorous interviewer: state the mechanism correctly, acknowledge the edge case, and note it's a deliberate tradeoff (avoiding the extra cost/complexity of `TransactWriteItems` for a two-item write) rather than an oversight you're unaware of.
 
-**"Why Event Sourcing?"** → Full audit trail as a structural property (not bolted on), and the ability to build new read models later by replaying history — see `EVENT_DRIVEN.md` Cluster 1.
+### 4. Tenant claim extraction has a documented dev-mode fallback — know it exists, and confirm it's not reachable in production
+Verified in `shared/domain/src/index.ts`, `extractAuthContext()`: the primary path reads `event.requestContext.authorizer.jwt.claims`, pulling `custom:tenantId` (with fallbacks to `custom:tenant_id`/`tenantId`), `sub` for userId, and roles from `cognito:groups`. **There is also an explicit fallback**, commented `"Fallback for unauthenticated / header-based dev access"`, that reads `x-tenant-id`/`x-role` HTTP headers directly with **no cryptographic verification**, defaulting to `['Admin', 'User', 'Service']` roles if no role header is present. This is a completely standard, reasonable pattern for local/offline testing without a real Cognito authorizer attached — but it's worth being able to say plainly, if asked, that this path only fires when `requestContext.authorizer` is absent, which should only happen outside a real API Gateway + Cognito authorizer deployment. **Action item for you, not just interview prep:** confirm your API Gateway config requires the Cognito authorizer on every route in the deployed environment, so this fallback is genuinely unreachable in production — if you haven't checked this, it's worth five minutes before an interview, since "does this ever run in prod" is a very natural, very sharp follow-up once an interviewer knows the fallback exists.
 
-**"Why CQRS?"** → Write and read access patterns are fundamentally different shapes; one model serving both compromises on both — see `EVENT_DRIVEN.md` Cluster 2.
+Related, and worth stating precisely: `enforceTenantIsolation()` includes an explicit Admin-role cross-tenant bypass (`if (auth.roles.includes('Admin') && requestedTenantId) return requestedTenantId`) — meaning RBAC and tenant isolation aren't fully independent checks; an Admin can operate across tenant boundaries by design. Good to know precisely rather than describe tenant isolation as an absolute wall with no exceptions.
 
-**"Why DynamoDB?"** → Native Streams gives you the Transactional Outbox mechanism directly; predictable low-latency at scale for a key-based access pattern that event-sourced aggregates naturally have (fetch this aggregate's events, in order) — see `06_DATABASES/DYNAMODB.md`.
-
-**"Why six read models?"** → Six distinct query patterns, each denormalized for its own access shape rather than one general-purpose model needing joins/filters at query time. **`NEEDS VERIFICATION`: you must be able to name what the six actually are** — this is the single most likely place a generic answer gets caught out.
-
-**"How does optimistic concurrency work?"** → Version-tagged conditional writes; only one of N competing writers' expected-version check can match — see `CONCURRENCY.md` for the exact mechanism and the full follow-up chain.
-
-**"How do you prevent concurrent writes?"** → You don't prevent them from *attempting* — you let them race and use the store's atomic conditional-write guarantee to ensure only one succeeds; the other 99 fail cleanly and can retry. Precision matters here: "prevent" is the wrong verb; "resolve safely" is correct.
-
-**"How does the Transactional Outbox solve dual writes?"** → By writing to only one system (DynamoDB) atomically, then deriving the notification from the already-committed write (Streams) rather than making a second, independently-failable call — see `EVENT_DRIVEN.md` Cluster 3.
-
-**"Why DynamoDB Streams → SQS → EventBridge?"** → Streams closes the dual-write gap; SQS adds durable, at-least-once, retryable delivery with a DLQ safety net; EventBridge adds pattern-matched fan-out to arbitrary future consumers without touching upstream code — each hop earns its place for a distinct reason, not redundantly.
-
-**"What happens if SQS delivery fails?"** → Visibility timeout expires, message redelivers — the EventBridge-publish step is naturally retried; your downstream logic must be idempotent to handle a possible duplicate publish (see `SQS.md`).
-
-**"What happens if a consumer crashes?"** → Depends on *when*: mid-processing before ack → message redelivers after visibility timeout, safe if idempotent. After processing but before ack → same outcome, same requirement. This is exactly why idempotency isn't optional anywhere in this chain.
-
-**"How is idempotency achieved?"** `NEEDS VERIFICATION` — the standard mechanisms (an idempotency key stored and checked before reprocessing, or a naturally idempotent operation like a conditional/upsert write) are the expected answer shape; confirm which one your actual consumers use.
-
-**"How does tenant isolation work?"** → Two independent layers: application-level (JWT tenantId claim scoping every data-access call) and, if implemented, IAM-level conditions on DynamoDB access — see `COGNITO.md` and `AWS_FUNDAMENTALS.md`. **Never let the answer imply the tenant ID comes from anywhere other than the verified token.**
-
-**"How does Cognito JWT validation work?"** → Local signature verification against Cognito's public keys (JWKS, cached), no per-request network call back to Cognito — see `COGNITO.md` Cluster 1.
-
-**"How does RBAC work?"** → Role claim extracted post-verification, checked against the specific action being attempted — a second, independent check from tenant-boundary enforcement, not the same check — see `COGNITO.md` Cluster 2.
-
-**"Why Step Functions?"** → Explicit ordering + built-in retry/catch per step + not bound by a single Lambda's 15-minute timeout + visual execution history for debugging — see `STEP_FUNCTIONS.md`.
-
-**"Why not Kafka?"** (not on your resume, but a certain comparison question) → Kafka is built for high-throughput log streaming with consumer-managed offsets and replay; your Outbox chain's actual requirement — reliable, ordered-enough, DLQ-backed delivery of discrete domain events with AWS-native integration to Lambda/Step Functions — is what SQS/EventBridge are purpose-built for, with far less operational overhead (no cluster to run/tune) than self-managing Kafka. This mirrors the Task Scheduler's "why RabbitMQ not Kafka" answer in shape, `MESSAGING.md`.
-
-**"Why Lambda?"** → No server management, scales to zero, pay-per-invocation fits a workflow-orchestration platform's naturally spiky, event-triggered load pattern far better than provisioning always-on compute for unpredictable demand.
-
-**"Why not Kubernetes?"** → K8s solves a different problem (orchestrating always-running containers) than a naturally event-driven, spiky workload needs — you'd be paying for and operating a cluster (control plane, node management, scaling policies) to replicate what Lambda gives you natively; a legitimate, honest tradeoff answer, not a dismissal of K8s's value in other contexts (see `09_DEVOPS/KUBERNETES.md`'s honest exposure-risk framing).
-
-**"What are the tradeoffs of serverless?"** → Upside: no server management, auto-scaling, pay-per-use. Downside: cold starts (worse for JVM-based components), 15-minute execution ceiling, potential for Lambda fan-out to overwhelm a downstream resource's connection limit (`LAMBDA.md`), and less control over the exact runtime environment than a container/VM gives you — a fair, two-sided answer beats a one-sided sales pitch.
+### 5. Terraform: exactly 18 modules, confirmed
+`infra/modules/` has exactly 18 directories — matches your resume exactly. Worth knowing a few by name if asked to elaborate: `cognito-user-pool`, `dynamodb-table`, `eventbridge` (+ `eventbridge-sfn-role`, `eventbridge-sfn-target`), `http-api` (confirms **HTTP API**, not REST API, type — a real, specific detail), `kms-key`, `lambda-function`, `opensearch`, `rds-postgres` (a relational DB module exists too — likely supporting the Java services' JPA/Hibernate persistence, separate from the DynamoDB-based event store/read models), `s3-bucket`, `sfn-exec-role`, `sqs-queue`, `multi-region-dr`, `workflow-registry`.
 
 ---
 
-## Quantitative Claim Defense Sheet
+## Verified Interview-Specific Facts (From Your Own `INTERVIEW_GUIDE.md`)
 
-### "100 concurrent append attempts, exactly 1 succeeds, 99 rejected with ConcurrencyException"
-- **How was the test generated?** `NEEDS VERIFICATION` — likely 100 concurrent async calls (Promise.all-style, or a thread pool) all targeting the same aggregate/sequence.
-- **What proves correctness, not just "no crash"?** The assertion that exactly 1 succeeded and 99 threw the specific exception type — not just that the test completed.
-- **What would happen at 1,000 concurrent attempts?** Same mechanism, same guarantee (the conditional-write primitive doesn't degrade with more competitors) — but 999 wasted round-trips is a real efficiency question worth acknowledging (see `CONCURRENCY.md`'s optimistic-vs-pessimistic tradeoff under heavy contention).
-- **How reproducible is this test?** Deterministic in outcome (exactly 1 winner, by design) even if *which* attempt wins isn't deterministic — a good distinction to draw if asked.
+Your repo already has purpose-built defense documentation — these are the specific numbers/decisions it cites:
+- **Snapshotting is implemented**, triggered at **N=50 events** per aggregate — resolves the earlier "does Hermes snapshot?" unknown definitively: yes.
+- Single-table DynamoDB key design: `TENANT#<id>`, `EXEC#<id>` — confirms tenant ID is embedded directly in the partition key, which is both a distribution strategy and a tenant-isolation mechanism at the storage layer (defense-in-depth alongside the application-level JWT check).
+- OpenSearch indexes are **monthly-rotated** (`hermes-executions-YYYY.MM`) — a specific, concrete detail for index-lifecycle/retention questions.
+- WAFv2 rate limiting: **1,000 requests per 5 minutes per IP.**
+- KMS: a customer-managed key (CMK) with **annual rotation.**
 
-### "285 automated tests (234 TS, 42 Java/JUnit5, 9 Python/pytest), 51+ suites, 0 failures"
-- **What do the language splits suggest?** TS carries the bulk of test coverage — plausibly the bulk of the application logic; Java and Python's smaller counts suggest narrower, more focused components. `NEEDS VERIFICATION`: know what those Java/Python components actually are.
-- **Does "0 failures" mean 100% correctness?** No — it means the tests that exist all pass; it says nothing about untested code paths or edge cases the suite doesn't cover. Precision here (what a passing test suite does and doesn't prove) mirrors the Valgrind precision point in `C.md`.
+Read `INTERVIEW_GUIDE.md`, `DECISIONS.md`, `TRADE_OFFS.md`, and `EVIDENCE.md` in full before an interview — they were written specifically for this purpose and are more authoritative than anything reconstructed secondhand here.
 
-### "18 Terraform modules"
-- **What's the likely breakdown?** `NEEDS VERIFICATION` — a plausible structure given the architecture: modules for Lambda+IAM role bundles (possibly one per language runtime or per function group), DynamoDB tables (event store + 6 read models), SQS, EventBridge rules, Step Functions state machines, Cognito, networking/IAM baseline — know your actual breakdown, don't invent one under pressure.
+---
 
-### Quick Revision
-- Six read models: know what they actually are — the single highest-risk generic-answer trap in this whole project.
-- "Prevent concurrent writes" is imprecise — you resolve races safely via conditional writes, you don't prevent the attempt.
-- Tenant ID authorization must always trace back to the verified JWT claim, never client-supplied data.
-- Every "why X" question has a real alternative and a real cost/tradeoff — never present a choice as costless.
+## Quick Revision
+- Six read models: execution, workflow, asset, tenant, metrics, audit — know these names cold, this was the #1 risk item and it's now closed.
+- TypeScript = active deployed core (13 named Lambdas); Java/Python = real, tested, but documented as "architectural expansion" (ADR-014/ADR-023) — a precise framing, not a downgrade.
+- Optimistic concurrency = two sequential conditional PutCommands (META item resolves the race, event item prevents overwrite), not one atomic transaction — know the narrow crash-window edge case and why it's an acceptable tradeoff.
+- Tenant ID comes from the verified JWT claim in production; a header-based dev fallback exists and should be confirmed unreachable outside local testing.
+- Admin role has an explicit cross-tenant bypass in the isolation check — RBAC and tenant isolation interact, they're not fully separate.
+- 18 Terraform modules confirmed exactly; `http-api` module confirms HTTP API (not REST API) type; `rds-postgres` module exists alongside DynamoDB, likely backing the Java services.
+- Your own `INTERVIEW_GUIDE.md`/`DECISIONS.md`/`TRADE_OFFS.md`/`EVIDENCE.md` are authoritative — read them directly, don't rely solely on secondhand summaries.
