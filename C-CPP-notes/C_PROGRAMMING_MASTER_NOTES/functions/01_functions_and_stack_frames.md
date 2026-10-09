@@ -198,18 +198,18 @@ Each active function call owns a contiguous region of memory called its **stack 
 
 ```
                      Higher addresses
-        ┌────────────────────────────────┐
-        │  caller's frame                │
-        ├────────────────────────────────┤
-        │  return address                │  ← where execution resumes in the caller
-        │  saved caller registers        │     (pushed by the call instruction / prologue)
-        │  function parameters           │  ← copies of the arguments (call by value, §2)
+        ┌─────────────────────────────┐
+        │  caller's frame              │
+        ├─────────────────────────────┤
+        │  return address               │  ← where execution resumes in the caller
+        │  saved caller registers       │     (pushed by the call instruction / prologue)
+        │  function parameters          │  ← copies of the arguments (call by value, §2)
         │  local variables               │  ← automatic variables, uninitialized garbage
         │  (space for the next call's    │     unless explicitly initialized
         │   arguments, if this function  │
         │   calls another)               │
-        └────────────────────────────────┘
-                  Lower addresses           ← stack typically grows this direction (x86, ARM)
+        └─────────────────────────────┘
+                     Lower addresses     ← stack typically grows this direction (x86, ARM)
 ```
 
 ```mermaid

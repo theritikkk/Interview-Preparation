@@ -173,7 +173,7 @@ C-CPP-notes/
     ├── 00_INDEX.md                                    · Done
     ├── 01_BOOK_ANALYSIS.md                             · Done
     ├── 02_LEARNING_ROADMAP.md                          · Done
-    ├── 03_C_MENTAL_MODEL.md                            · Pending
+    ├── 03_C_MENTAL_MODEL.md                            · Done
     │
     ├── fundamentals/
     │   ├── 01_program_structure.md                     · Done
@@ -233,13 +233,13 @@ C-CPP-notes/
     ├── advanced/
     │   ├── 01_undefined_behavior.md                    · Done
     │   ├── 02_implementation_defined_and_portability.md· Done
-    │   ├── 03_aliasing_and_optimization.md             · Pending
-    │   └── 04_modern_c_vs_historical_c.md              · Pending
+    │   ├── 03_aliasing_and_optimization.md             · Done
+    │   └── 04_modern_c_vs_historical_c.md              · Done
     │
     ├── projects/
-    │   ├── 01_beginner_projects.md                     · Pending
-    │   ├── 02_intermediate_projects.md                 · Pending
-    │   └── 03_systems_projects.md                      · Pending
+    │   ├── 01_beginner_projects.md                     · Done
+    │   ├── 02_intermediate_projects.md                 · Done
+    │   └── 03_systems_projects.md                      · Done
     │
     ├── interviews/
     │   ├── 01_c_fundamentals_questions.md              · Done
@@ -252,7 +252,7 @@ C-CPP-notes/
     │   ├── 08_file_io_questions.md                     · Done
     │   ├── 09_unix_posix_questions.md                  · Done
     │   ├── 10_debugging_questions.md                   · Done
-    │   └── 11_advanced_questions.md                    · Done (partial — UB catalogue + implementation-defined/portability so far; aliasing/modern C next)
+    │   └── 11_advanced_questions.md                    · Done
     │
     ├── revision/
     │   ├── 01_fundamentals_revision.md                 · Done
@@ -265,16 +265,15 @@ C-CPP-notes/
     │   ├── 08_file_io_revision.md                      · Done
     │   ├── 09_unix_posix_revision.md                   · Done
     │   ├── 10_debugging_revision.md                    · Done
-    │   └── 11_advanced_revision.md                     · Done (partial — UB catalogue + implementation-defined/portability so far; aliasing/modern C next)
+    │   └── 11_advanced_revision.md                     · Done
     │
     └── references/
-        ├── 01_books.md                                 · Pending
-        ├── 02_external_sources.md                      · Pending
-        └── 03_glossary.md                               · Pending
+        ├── 01_books.md                                 · Done
+        ├── 02_external_sources.md                      · Done
+        └── 03_glossary.md                               · Done
 ```
 
-**Total planned file count: 73 Markdown files** (64 done — the 3 planning files, all of
-Phases 1–10, and 2 of Phase 11's 4 `advanced/` files — 9 pending). *Correction note: earlier
+**Total planned file count: 73 Markdown files — all 73 are now done.** *Correction note: earlier
 versions of this roadmap said "~55" and later "~58" total. Those figures were stale — they
 weren't recomputed as the per-phase revision/interview files were added, and undercounted
 what remains. The 73 above is a direct count of the tree below, and is the number to trust.*
@@ -320,24 +319,20 @@ working drafts) rather than the paywalled final standard, verified at the point 
 
 ## How the PART system works from here
 
-**Phases 1–10 are done; Phase 11 (Undefined Behavior, Portability & Modern C) is
-underway** (64 of 73 files). This is the vault's heaviest `[Synthesis]` load: rather than
-new mechanics, `advanced/01_undefined_behavior.md` assembled **every** UB instance this
-vault has flagged in passing since Phase 1 — signed overflow, OOB access, dangling
-pointers, double-free, uninitialized reads, unsequenced modification, `ctype`/`va_arg`/
-format-string misuse — into one catalogue under the standard's own four-way classification
-(undefined / unspecified / implementation-defined / locale-specific), plus a worked example
-of an optimizer legally deleting an overflow check. `02_implementation_defined_and_portability.md`
-did the same consolidation for implementation-defined facts (`char` signedness, struct
-padding, byte order, bit-field packing) and the portability strategies to handle each.
+**All 73 files are done. The handbook is complete.**
 
-**Remaining in Phase 11:** `03_aliasing_and_optimization.md` (the full strict-aliasing
-rule, previewed since `memory/07_alignment_padding_aliasing.md` §5) and
-`04_modern_c_vs_historical_c.md` (consolidating every "modern C" aside already dropped
-throughout — `<stdint.h>`, `<stdbool.h>`, `restrict`, and more — plus C99→C23 deltas).
+Phase 12 closed the vault with `03_C_MENTAL_MODEL.md` (the top-level synthesis file,
+assembling every "chain" diagram from every earlier phase into one combined picture, plus
+the five recurring patterns that explain most of what's initially confusing about C);
+three `projects/` files (five new beginner projects, five new intermediate projects plus
+pointers back to the linked-list and allocator exercises already built in Phases 4 and 6,
+and five new systems projects plus pointers back to the mini shell, `cat`-alike, pipeline,
+and allocator already built in Phases 8–9); and three `references/` files (the book
+bibliography, every external source cited across all 66 topic files consolidated and
+organized, and a glossary giving the task brief's 20 explicitly-named terms full
+treatment).
 
-- Say **"NEXT"** to finish Phase 11 with those two files, or name a different phase/file
-  from the plan above to jump there instead.
-- Each subsequent part follows the same process: re-open the relevant book pages (or,
-  where the books are silent, the vetted external references) for that specific topic,
-  write the topic file(s), then extend that phase's revision and interview entries.
+There is no further "NEXT" — every phase, every file, and every cross-reference this
+vault promised in its very first response (`01_BOOK_ANALYSIS.md`) is now in place. See
+`00_INDEX.md` for the complete, final file-by-file map, or `03_C_MENTAL_MODEL.md` for the
+one-file summary of the whole thing.

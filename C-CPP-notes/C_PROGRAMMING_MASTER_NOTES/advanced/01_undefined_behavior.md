@@ -97,11 +97,35 @@ where it was first shown in context]`
   `debugging/02_sanitizers_and_valgrind.md` §4.
 - **`abs(INT_MIN)` and the `printd`/`itoa` negation bug.** The same asymmetry, recurring:
   `functions/02_recursion.md` §2, `libraries/02_stdlib.md` §2.
-- **Division by zero** (`x / 0`, `x % 0`) — undefined for both integer types (unlike
-  floating-point, where IEEE semantics commonly give `inf`/`NaN` instead — itself
-  implementation-defined, not undefined, under the C standard's actual floating-point
-  model, `[Needs verification: confirm your platform's exact floating-point divide-by-zero
-  conformance]`).
+- **Integer division by zero** (`x / 0`, `x % 0`) — undefined. **Measured in this
+  vault's own build environment (GCC 13.3.0, x86-64 Linux, `-O0` for both), two nearly
+  identical programs gave two completely different outcomes:**
+
+  ```c
+  volatile int num = 7, z = 0;
+  return num / z;          /* ->  "Floating point exception", exit status 136 */
+
+  volatile int z = 0;
+  return 1 / z;            /* ->  no crash at all, exit status 0 */
+  ```
+
+  The first compiled to a real `idiv` instruction; the CPU raised a divide error and the
+  kernel delivered `SIGFPE` (shell status `128 + 8 = 136`). The second contained **no
+  `idiv` at all** — verified by disassembly: GCC special-cased division of the constant `1`
+  by a variable into a compare-and-conditional-move sequence, and because `z == 0` is
+  undefined, that sequence simply yields `0` and the program carries on. **Same compiler,
+  same flags, same undefined behavior — one version crashes, the other silently continues.**
+  Neither is "the" behavior of division by zero; the standard promises nothing, so both
+  are permitted. This is also a correction worth being open about: the *expected* result
+  for the second program, written down before running it, was a `SIGFPE` crash —
+  precisely the "it'll just crash, probably" assumption this file's §6 warns against.
+- **Floating-point division by zero** is a different category, not undefined in the same
+  way on IEEE 754 platforms. `[External, measured on the same platform]`
+  `1.0/0.0` printed `inf`, `-1.0/0.0` printed `-inf`, `0.0/0.0` printed `-nan` — no trap,
+  no signal, just IEEE special values. `[Synthesis]` Whether a given C implementation
+  follows IEEE 754 semantics here is a property of that implementation, so treat the
+  `inf`/`nan` results as "documented behavior of IEEE-conforming targets," not a guarantee
+  of ISO C itself.
 - **Invalid shifts.** Shifting by a negative count, or by a count ≥ the type's width
   (`1 << 33` for a 32-bit `int`) — undefined. Real UBSan capture:
   `debugging/02_sanitizers_and_valgrind.md` §4.

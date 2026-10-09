@@ -170,8 +170,13 @@ because it looks fine:
    Close each session descriptor when done with it.
 4. **`sizeof(struct sockaddr)` in `connect`/`bind`.** Book A passes the size of the
    *generic* struct; the correct convention is the size of the *actual* address struct you
-   filled in (`sizeof dest`). On common platforms the two happen to be the same size, so it
-   works — by coincidence, not by contract `[Needs verification: exact sizes per platform]`.
+   filled in (`sizeof dest`). `[External, measured directly in this vault's build
+   environment — x86-64 Linux, glibc]` `sizeof(struct sockaddr)` and
+   `sizeof(struct sockaddr_in)` are both **16** bytes, so Book A's version works for IPv4 —
+   by coincidence, not by contract. The coincidence **ends at IPv6**:
+   `sizeof(struct sockaddr_in6)` measured **28** bytes, so passing
+   `sizeof(struct sockaddr)` as the length for an IPv6 address would silently truncate it —
+   a real bug, not just a style point, the moment code like this is extended past IPv4.
 5. **`recv` and `send` may transfer fewer bytes than requested.** `[Book-derived, A]` Book A
    warns for `send`: it "may not be able to send all of the bytes, so it is important to
    check that its return value is equal to the number of bytes you tried to send." The same

@@ -2,8 +2,7 @@
 
 > Quick-reference companion to `advanced/`. **The vault's heaviest synthesis phase** —
 > mostly consolidating UB/portability facts flagged throughout every earlier phase into one
-> place, plus new external material on aliasing and modern C. Generated across multiple
-> parts. Currently covers: `01_undefined_behavior.md`, `02_implementation_defined_and_portability.md`.
+> place, plus external material on aliasing and modern C. **Phase 11 is now complete.**
 
 ---
 
@@ -62,6 +61,51 @@ causes (padding, endianness), not just "it's risky."
 
 ---
 
+## Aliasing & the strict aliasing rule — 1-minute summary
+
+An object may only be accessed through an lvalue of its own (or compatible) type, the
+corresponding signed/unsigned type, an aggregate/union containing that type, or a
+character type — the universal exception that's why `memcpy` always works. Violating this
+(the classic `*(int*)&some_float` pattern) is undefined behavior, **verified live in this
+vault**: the same source printed `result = 0` at `-O0` and `result = 1` at `-O2`, because
+`-O2` assumes a `float*` and an `int*` can't alias and skips re-reading memory the `-O0`
+build actually re-read. Union-based type punning, accessed through the union type, is
+explicitly **permitted** in C (unlike C++) — confirmed consistent at both optimization
+levels. `memcpy`-based reinterpretation is always safe and typically free (compilers fold
+a fixed-size `memcpy` into a register move). `restrict` on a pointer parameter is the
+programmer's promise of no aliasing, unlocking optimizations (caching, vectorization) the
+aliasing rule alone can't license for same-typed pointers — breaking that promise is UB of
+the same class.
+
+**Worth memorizing:** the character-type exception (why `memcpy` is always legal) and that
+union-based punning is C-legal but not C++-legal.
+**Worth understanding, not memorizing:** the real `-O0`-vs-`-O2` divergence
+(aliasing_and_optimization.md §2) well enough to explain *why* each answer is "correct"
+from the compiler's point of view — this is the clearest single demonstration in the vault
+of what "the optimizer assumes UB never happens" actually means in practice.
+
+---
+
+## Modern C vs. historical C — 1-minute summary
+
+All three source books predate or ignore C99+: Book B is exactly ANSI C89; Book C is from
+1992; Book A (2013) doesn't flag which features are version-specific. The day-to-day-
+relevant deltas: C99 allows declarations anywhere in a block (not just at the top, as
+Book B's own examples always do), adds `<stdbool.h>`, `<stdint.h>`, `restrict`, designated
+initializers, compound literals, and `//` comments; C11 adds `_Generic`, anonymous structs/
+unions, `_Static_assert`, `_Alignas`/`_Alignof`; C17 is a bug-fix-only release; C23 adds
+`0b` literals, `nullptr`, removes old-style (K&R) function declarations entirely, and
+**mandates two's complement** as the only legal signed-integer representation.
+
+**Worth memorizing:** the two's-complement-mandate caveat — it fixes *representation*, not
+*overflow behavior*; `INT_MAX + 1` is still undefined behavior even in C23. This is a
+real, specific trap.
+**Worth understanding, not memorizing:** *why* a C89-legal old-style function definition
+no longer compiles under a strict C23 compiler (modern_c_vs_historical_c.md §4) — know
+which parts of "old C" are merely discouraged versus actually removed.
+
+---
+
 ## Cross-topic traps worth drilling before an interview
 
 1. Calling argument-evaluation order "undefined" instead of "unspecified" — a real,
@@ -73,3 +117,13 @@ causes (padding, endianness), not just "it's risky."
    boundary.
 5. Assuming plain `char`'s signedness (or any implementation-defined fact) transfers
    unchanged to a new compiler/platform without checking.
+6. Reinterpreting a `float`'s bits via `*(unsigned int *)&f` — undefined, and genuinely
+   gives different answers at different optimization levels (verified in this vault).
+7. Assuming union-based type punning is as risky as pointer-cast punning — it isn't; it's
+   explicitly permitted in C.
+8. Writing a `restrict`-qualified function and then calling it with overlapping arguments
+   anyway — breaks the exact promise that licensed the compiler's optimizations.
+9. Assuming "C23 mandates two's complement" means signed overflow is now defined — it
+   doesn't; overflow is still UB.
+10. Assuming classic K&R-style (non-prototype) function definitions still compile
+    everywhere — C23 removed them outright.

@@ -1,7 +1,7 @@
 # Interview Questions — Undefined Behavior, Portability & Modern C
 
-> Consolidated from `advanced/`. **Generated across multiple parts.** Currently covers:
-> `01_undefined_behavior.md`, `02_implementation_defined_and_portability.md`.
+> Consolidated from `advanced/`. **Phase 11 is now complete**: UB catalogue,
+> implementation-defined behavior/portability, aliasing/optimization, modern C.
 
 ---
 
@@ -63,3 +63,68 @@
    changed a previously-unrelied-upon implementation-defined choice — most commonly struct
    padding/alignment defaults — exposed because the program used raw struct serialization
    rather than an explicit, portable format. (`02_implementation_defined_and_portability.md` §4)
+
+## Easy (aliasing, modern C)
+
+1. **Is type punning through a union legal in C?** Yes, when accessed through the union
+   type — a genuine, standard-permitted pattern. (`03_aliasing_and_optimization.md` §3)
+2. **What's the fully portable way to reinterpret a `float`'s bits as an `unsigned
+   int`?** `memcpy` between the two. (§4)
+3. **Which C standard introduced `<stdint.h>`'s exact-width integer types?** C99.
+   (`04_modern_c_vs_historical_c.md` §2)
+4. **Can you declare a loop variable inline (`for (int i = ...)`) in classic ANSI C
+   (C89)?** No — C99 introduced declarations anywhere in a block. (§3)
+
+## Medium (aliasing, modern C)
+
+1. **Why does writing a `float` and reading it back through an `int *` produce different
+   results at `-O0` versus `-O2`?** At `-O0` the compiler re-reads memory and sees the
+   aliased write; at `-O2`, strict-aliasing optimization assumes the two pointer types
+   can't alias, so it returns a stale cached value instead.
+   (`03_aliasing_and_optimization.md` §2)
+2. **What does `restrict` let the compiler do that the strict aliasing rule alone
+   doesn't, for two same-typed pointer parameters?** Assume no overlap at all, even though
+   same-typed pointers are always permitted to alias under the aliasing rule itself —
+   unlocking optimizations like safely caching a value across loop iterations. (§5)
+3. **What's the practical day-to-day difference between historical and modern C regarding
+   variable declarations?** C89 requires all of a block's declarations before any
+   statement; C99+ allows declaring a variable anywhere, including inline in a `for` loop.
+   (`04_modern_c_vs_historical_c.md` §3)
+4. **Why are designated initializers a genuine improvement over positional struct
+   initialization, beyond convenience?** They're order-independent and self-documenting,
+   so reordering a struct's members doesn't silently misassign values. (§3)
+
+## Hard (aliasing, modern C)
+
+1. **Explain precisely why union-member-reading is exempt from the strict aliasing rule
+   while an equivalent pointer-cast reinterpretation is not.** The aliasing rule's
+   effective-type list explicitly includes "an aggregate or union type that includes" the
+   accessed type among its members; a pointer cast has no such standing, since the
+   pointed-to object's effective type never changed. (`03_aliasing_and_optimization.md` §1, §3)
+2. **Why is a `restrict` violation the same class of danger as a strict-aliasing
+   violation, even though they're nominally different rules?** Both are promises the
+   programmer makes that the compiler then optimizes on faith in; breaking either means the
+   generated code's assumptions no longer match reality. (§5)
+3. **Does C23's two's-complement mandate make `INT_MAX + 1` defined behavior?** No —
+   representation and overflow behavior are distinct; the mandate fixes bit-pattern
+   predictability, but signed overflow remains undefined behavior even in C23.
+   (`04_modern_c_vs_historical_c.md` §4)
+4. **Why can't code written strictly to C89 rules necessarily compile under a strict C23
+   compiler?** C23 formally removed old-style (non-prototype) function declarations/
+   definitions entirely, even though most of the rest of C89 remains valid. (§2, §4)
+
+## Systems-level (aliasing, modern C)
+
+1. **A numeric library's inner loop isn't auto-vectorizing despite identical arithmetic to
+   a hand-vectorized version. First thing to check?** Whether the loop's pointer
+   parameters lack `restrict` — without it, the compiler must conservatively assume
+   potential aliasing. (`03_aliasing_and_optimization.md` §5)
+2. **A codebase relying on `*(int *)&some_float` for years suddenly produces silent wrong
+   output after a compiler upgrade. Cause and fix?** A latent strict-aliasing violation
+   that an earlier compiler/optimization level happened not to exploit; fix by switching to
+   `memcpy`-based reinterpretation, which is immune to this class of regression. (§4)
+3. **A legacy embedded codebase needs one macro dispatching to `abs`/`labs`/`fabsf`/`fabs`
+   by argument type, without moving to C11. What are the options, and what's lost without
+   `_Generic`?** A GCC-specific `__builtin_types_compatible_p`-based dispatch (not portable
+   ISO C), or separately-named functions requiring the caller to pick — both strictly worse
+   than C11's language-level solution. (`04_modern_c_vs_historical_c.md` §7)

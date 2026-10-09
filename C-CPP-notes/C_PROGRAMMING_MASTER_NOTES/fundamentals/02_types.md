@@ -226,7 +226,7 @@ context layered on top of book-derived material above.
 |---|---|---|
 | Exact-width integers | Not available — `int`/`long` sizes vary by platform | `<stdint.h>`: `int32_t`, `uint16_t`, `int64_t`, etc. — use these when a format/protocol needs an exact width |
 | Boolean type | None — `0`/nonzero convention only | C99 `_Bool` + `<stdbool.h>`'s `bool`/`true`/`false` (still just sugar over an integer type) |
-| Negative-number representation | Implementation-defined (sign-magnitude, one's complement, or two's complement all permitted) | C23 mandates two's complement as the *only* permitted representation — a genuine simplification of the standard `[Needs verification: confirm against a current cppreference/standard summary if this exact fact matters for your work]` |
+| Negative-number representation | Implementation-defined (sign-magnitude, one's complement, or two's complement all permitted) | C23 mandates two's complement as the *only* permitted representation — a genuine simplification of the standard `[External, verified against cppreference's C23 changelog; see `advanced/04_modern_c_vs_historical_c.md` §4 — including the crucial caveat that this fixes *representation* only: signed overflow remains undefined behavior]` |
 | Binary integer literals | Not available | C23 permits `0b101010` |
 
 **What you should actually use today:** `<stdint.h>` types for anything where exact width

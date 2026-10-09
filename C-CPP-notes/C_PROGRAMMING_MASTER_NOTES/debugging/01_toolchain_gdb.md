@@ -76,7 +76,7 @@ Breakpoint 1, square (x=7) at util.c:4
 $1 = 7
 (gdb) backtrace
 #0  square (x=7) at util.c:4
-#1  main () { at main.c:9
+#1  main () at main.c:9
 (gdb) next
 5       }
 (gdb) print call_count

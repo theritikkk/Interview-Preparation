@@ -7,35 +7,31 @@ interface, the standard library's design, and low-level debugging.
 
 This is **not** a chapter-by-chapter summary of the source books. It's a synthesized,
 dependency-ordered handbook that combines them, fills their gaps with clearly labeled
-external material, and is built for both first-pass learning and later revision.
+external material — in several places verified live against real, executed code rather
+than taken on faith — and is built for both first-pass learning and later revision.
 
-## Status: Phases 1–10 done, Phase 11 underway — 64 of 73 files generated
+## Status: complete — all 73 files generated across 12 phases
 
-See `02_LEARNING_ROADMAP.md` for the full file-by-file status table across all 12 phases.
+See `02_LEARNING_ROADMAP.md` for the full file-by-file map and generation history, or
+`03_C_MENTAL_MODEL.md` for the one-file synthesis of the entire vault.
 
-| File | What it is |
+| File / folder | What it covers |
 |---|---|
 | `00_INDEX.md` | This file — start here. |
-| `01_BOOK_ANALYSIS.md` | What each of the three source books actually is, what it's good/weak at, a full topic-coverage matrix, and the concept dependency graph. |
-| `02_LEARNING_ROADMAP.md` | The 12-phase learning order, the full planned directory tree with generation status, and the recommended external references. |
-| `fundamentals/` (Phase 1) | The compilation model, types & representation, expressions/operators/conversions, control flow. |
-| `functions/` + `preprocessing/` (Phase 2) | Call-by-value, storage classes, the stack-frame memory model, recursion, macros and their pitfalls, headers, conditional compilation. |
-| `memory/01_…` → `03_…` (Phase 3) | The brief's single most-emphasized topic: process memory regions, the full pointer/array duality, pointer arithmetic, dangling/wild pointers, parsing complicated declarations. |
-| `memory/04_…`, `06_…`, `07_…` (Phase 4) | Array/string layout, `sizeof` vs. `strlen`, structs/unions/self-referential types (linked lists & trees), struct padding. |
-| `systems/01_…`, `02_…` (Phase 5) | Object-file internals, static vs. shared libraries, the linker's symbol resolution/relocation, and the dynamic linker/loader's boot sequence from `./program` to `main`. |
-| `memory/05_dynamic_memory.md` (Phase 6) | `malloc`/`calloc`/`realloc`/`free`'s exact contracts, a from-scratch free-list allocator, leaks, double-free, use-after-free, fragmentation, and ownership discipline. |
-| `libraries/01_…` → `10_…` (Phase 7 — complete) | All fifteen standard headers by design. |
-| `systems/03_file_descriptors_and_unix_io.md` (Phase 8) | The five raw POSIX system calls, two `getchar` implementations built directly on `read`, and a real `fopen`/`getc` sketch showing where `stdio` calls into the kernel. |
-| `systems/04_…` → `07_…` (Phase 9 — complete) | The C-language/C-library/POSIX/Linux-syscall four-layer model, `dup`/`dup2`; `fork`'s double-return, the `exec` family, `wait`/`waitpid`, zombies vs. orphans, a minimal-shell project; pipes (and the classic unclosed-write-end hang), POSIX signals as process control, `SIGCHLD` reaping; and a bonus sockets file built on Book A's unique networking chapter. |
-| `systems/06_…`, `07_…` (Phase 9) | Pipes (and the classic unclosed-write-end hang), POSIX signals as process control, `SIGCHLD` reaping; a bonus sockets file built on Book A's networking chapter. |
-| `debugging/` (Phase 10) | `gdb` and core dumps; sanitizers vs. Valgrind with real captured diagnostic output for five deliberately-triggered bugs; `nm`/`objdump`/`readelf` run against a real build, making relocations literally visible; a symptom-to-tool debugging guide. |
-| `advanced/01_…`, `02_…` (Phase 11, in progress) | The complete undefined-behavior catalogue under the standard's four-way classification, an optimizer example that legally deletes an overflow check, and the implementation-defined/portability facts (`char` signedness, struct padding, byte order) scattered through earlier phases, now consolidated. |
-| `revision/01_…` → `11_…` | 1-minute + 5-minute revision sheets for Phases 1–10 and (partially) 11. |
-| `interviews/01_…` → `11_…` | Easy → systems-level interview questions for Phases 1–10 and (partially) 11. |
-
-**To generate more content:** say **"NEXT"** to finish Phase 11 with
-`03_aliasing_and_optimization.md` and `04_modern_c_vs_historical_c.md`, or name any
-specific phase/file from `02_LEARNING_ROADMAP.md` to jump there instead.
+| `01_BOOK_ANALYSIS.md` | What each of the three source books actually is, strengths/weaknesses, the topic-coverage matrix, and the concept dependency graph. |
+| `02_LEARNING_ROADMAP.md` | The full 12-phase learning order and directory plan, plus the complete, real generation history. |
+| `03_C_MENTAL_MODEL.md` | The capstone: every "chain" diagram from every phase assembled into one picture, and the five recurring patterns that explain most of what's confusing about C. |
+| `fundamentals/` | The compilation model, types & representation, expressions/operators/conversions, control flow. |
+| `functions/` + `preprocessing/` | Call-by-value, storage classes, the stack-frame memory model, recursion, macros and their pitfalls, headers, conditional compilation. |
+| `memory/` | The brief's single most-emphasized topic, in full: process memory regions, pointer/array duality, pointer arithmetic, parsing complicated declarations, arrays & strings, dynamic memory (a from-scratch allocator), structs/unions, padding & alignment. |
+| `systems/` | The compilation/linking toolchain, file descriptors beneath `stdio`, the C/libc/POSIX/kernel-syscall distinction, `fork`/`exec`/`wait`, pipes & signals, and a bonus sockets chapter. |
+| `libraries/` | All fifteen ISO C standard headers, by design — not just by API. |
+| `debugging/` | `gdb` and core dumps; sanitizers vs. Valgrind with real captured diagnostic output; `nm`/`objdump`/`readelf` against a real build; a symptom-to-tool debugging guide. |
+| `advanced/` | The complete undefined-behavior catalogue; implementation-defined behavior & portability; the strict aliasing rule (verified with a real optimization-level divergence); modern C vs. historical C. |
+| `projects/` | Beginner, intermediate, and systems-level labs — each with requirements, architecture, pitfalls, testing, and extensions. |
+| `revision/` | 1-minute + 5-minute revision sheets, one per phase. |
+| `interviews/` | Easy → systems-level interview questions, one set per phase. |
+| `references/` | The book bibliography, every external source this vault cited, and a glossary. |
 
 ## Source books (see `01_BOOK_ANALYSIS.md` for full detail)
 
@@ -47,13 +43,12 @@ specific phase/file from `02_LEARNING_ROADMAP.md` to jump there instead.
   implementation treatment of the ANSI C standard library, one chapter per header.
 
 **Note:** the original task brief mentions four books; only these three PDFs were
-actually uploaded. This is flagged in detail in `01_BOOK_ANALYSIS.md` §1. If a fourth
-book exists, add it to the uploads and I'll fold it into the analysis.
+actually uploaded. This is flagged in detail in `01_BOOK_ANALYSIS.md` §1.
 
 The `Papyrus-C++/` folder alongside this one is a separate, pre-existing project
 (unrelated notes on a C++ load-testing tool) and is untouched by this handbook.
 
-## How to read notation used throughout this vault
+## How to read the notation used throughout this vault
 
 - `[Book-derived]` / `[External]` / `[Synthesis]` / `[Needs verification]` — source-
   discipline tags on non-trivial claims; see `01_BOOK_ANALYSIS.md` §0.
@@ -62,24 +57,27 @@ The `Papyrus-C++/` folder alongside this one is a separate, pre-existing project
   🛠 **Debugging technique** — recurring callout boxes inside topic files.
 - Book codes **A / B / C** as above, used everywhere instead of repeating full titles.
 
-## Planned structure (abridged — full tree with status in `02_LEARNING_ROADMAP.md`)
+## Full structure
 
 ```
 C_PROGRAMMING_MASTER_NOTES/
 ├── 00_INDEX.md · 01_BOOK_ANALYSIS.md · 02_LEARNING_ROADMAP.md · 03_C_MENTAL_MODEL.md
-├── fundamentals/    — syntax, types, expressions, control flow
-├── functions/       — functions, recursion, function pointers, variadics
-├── preprocessing/   — macros, includes, conditional compilation
-├── memory/          — memory model, pointers, arrays/strings, dynamic memory, structs
-├── libraries/       — one file per standard-header family
-├── systems/         — compilation/linking, file descriptors, syscalls, processes, IPC
-├── debugging/        — gdb, sanitizers/valgrind, binary inspection, workflows
-├── advanced/        — undefined behavior, portability, aliasing, modern C
-├── projects/        — beginner / intermediate / systems-level lab projects
-├── interviews/      — interview questions by topic
-├── revision/        — 1-minute / 5-minute / deep revision sheets per topic
-└── references/      — books, external sources, glossary
+├── fundamentals/    — syntax, types, expressions, control flow                  (4 files)
+├── functions/       — functions & stack frames, recursion                      (2 files)
+├── preprocessing/   — macros, includes, conditional compilation                (3 files)
+├── memory/          — memory model, pointers, arrays/strings, dynamic memory,
+│                      structs/unions, alignment & padding                      (7 files)
+├── systems/         — compilation/linking, file descriptors, syscalls,
+│                      processes, pipes & signals, sockets                      (7 files)
+├── libraries/       — one file per standard-header family, all 15 headers     (10 files)
+├── debugging/       — gdb, sanitizers/Valgrind, binary inspection, workflows   (4 files)
+├── advanced/        — undefined behavior, portability, aliasing, modern C      (4 files)
+├── projects/        — beginner / intermediate / systems-level lab projects     (3 files)
+├── interviews/      — interview questions by topic, one set per phase        (11 files)
+├── revision/        — 1-minute / 5-minute revision sheets, one per phase      (11 files)
+└── references/      — books, external sources, glossary                       (3 files)
 ```
 
-73 Markdown files total when complete (64 done, 9 pending — a direct count of the tree in
-`02_LEARNING_ROADMAP.md`; earlier "~55"/"~58" figures were stale undercounts).
+**73 Markdown files, all generated.** Where to go from here is up to you — jump to
+whatever phase you need, or start at `03_C_MENTAL_MODEL.md` for the big picture before
+diving into any one topic in depth.

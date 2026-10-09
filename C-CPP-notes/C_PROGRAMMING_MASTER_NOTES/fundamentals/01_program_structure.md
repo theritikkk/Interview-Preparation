@@ -197,11 +197,12 @@ across all the object files being linked (see §2's linker discussion above).
 - **Falling off the end of `main` without a `return` statement.** `[Synthesis]`
   *Historical C / C89:* the returned status is unspecified — effectively garbage.
   *Modern C (C99 onward):* falling off the end of `main` is defined to return `0` (success),
-  as a special-case rule that applies to `main` only, no other function. Because Book B
-  predates this rule and Book A doesn't discuss it, **write an explicit `return 0;` anyway**
-  — it's correct under every C standard and makes your intent unambiguous to a reader.
-  `[Needs verification: exact wording of the C99 special-case rule — cross-check against
-  cppreference's `main` page if the precise clause matters for your purposes.]`
+  as a special-case rule that applies to `main` only, no other function — `[External,
+  verified]` the standard's own text (§5.1.2.2.3, paragraph 1) states it plainly:
+  "reaching the `}` that terminates the `main` function returns a value of 0." Because
+  Book B predates this rule and Book A doesn't discuss it, **write an explicit
+  `return 0;` anyway** — it's correct under every C standard and makes your intent
+  unambiguous to a reader.
 - **"`void main()` is fine."** It's extremely common in tutorials and it compiles on many
   systems, but it is not standard C — `main` must return `int`. Treat this as a portability
   bug, not a style choice.

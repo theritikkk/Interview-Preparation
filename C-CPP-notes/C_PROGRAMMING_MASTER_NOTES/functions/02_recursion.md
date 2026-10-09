@@ -23,13 +23,13 @@ frames from earlier calls to the *same* function.
 ### 🧠 Mental model: recursion is stack frames, not magic
 
 ```
-printd(123) frame:  n=123  ────┐
-                               │ calls printd(12)
-printd(12)  frame:  n=12   ────┤
-                               │ calls printd(1)
-printd(1)   frame:  n=1    ────┘  ← base case: prints '1', returns
-                               │ back in printd(12)'s frame: prints '2', returns
-                               │ back in printd(123)'s frame: prints '3', returns
+printd(123) frame:  n=123  ─┐
+                             │ calls printd(12)
+printd(12)  frame:  n=12   ─┤
+                             │ calls printd(1)
+printd(1)   frame:  n=1    ─┘  ← base case: prints '1', returns
+                             │ back in printd(12)'s frame: prints '2', returns
+                             │ back in printd(123)'s frame: prints '3', returns
 ```
 
 Every box in that stack is a genuinely separate frame with its own `n` — there is no
@@ -159,10 +159,36 @@ call into a plain jump, reusing the current stack frame instead of pushing a new
 "tail-call optimization" (TCO). **C compilers are not required to perform this
 optimization**, unlike some functional languages that guarantee it — so writing
 deeply-recursive C code and assuming TCO will save you from a stack overflow is a portability
-gamble, not a guarantee. `[Needs verification: exact conditions under which GCC/Clang apply
-TCO — this is compiler- and optimization-level-dependent; check with `-O2`/`-O3` and by
-inspecting the generated assembly (`fundamentals/01_program_structure.md` §2's `gcc -S`
-technique) if this matters for a specific piece of code.]`
+gamble, not a guarantee.
+
+**Measured, not assumed** — `[External, run in this vault's own build environment: GCC
+13.3.0, x86-64 Linux]`. A genuinely tail-recursive function summing `1..n`, called with
+`n = 100,000,000` (a hundred million nested calls if no optimization intervenes):
+
+```c
+long sum_to(long n, long acc) {
+    if (n == 0) return acc;
+    return sum_to(n - 1, acc + n);       /* the recursive call is the LAST action */
+}
+```
+
+| Flag | Self-calls left inside `sum_to` (via `objdump -d`) | Result |
+|---|---|---|
+| `-O0` | 1 | **Segmentation fault** (exit 139 — stack exhausted) |
+| `-O1` | 1 | **Segmentation fault** (exit 139) — `-O1` did *not* optimize it |
+| `-O2` | 0 | prints `5000000050000000` (correct), exit 0 |
+| `-O3` | 0 | prints `5000000050000000` (correct), exit 0 |
+
+**Identical source; it crashes or succeeds depending purely on the optimization flag.**
+At `-O2` the compiler turned the recursion into a loop (zero `call` instructions to itself
+remain), so the stack never grew. `[Synthesis]` The precise lesson: TCO is an
+*optimization this compiler happens to perform at `-O2` and above*, not a language
+guarantee — code whose correctness depends on it works in a release build and overflows the
+stack in a debug build, which is an unpleasant property to discover late. The threshold
+(`-O2`, not `-O1`) is specific to this compiler version and not something to rely on;
+the portable fix for deep recursion is an explicit loop. `[Needs verification: Clang's and
+other GCC versions' thresholds were not tested here — re-run the table above on your own
+toolchain if it matters.]`
 
 ---
 
