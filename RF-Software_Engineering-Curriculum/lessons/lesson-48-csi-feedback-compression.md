@@ -126,4 +126,4 @@ Run §8/§9's sweep for a couple of different antenna counts and find, for each,
 
 ---
 
-[← Lesson 47](lesson-47-beam-management.md) · [Table of Contents](../README.md)
+[← Lesson 47](lesson-47-beam-management.md) · [Table of Contents](../README.md) · [Lesson 49 →](lesson-49-proportional-fair-scheduling.md)

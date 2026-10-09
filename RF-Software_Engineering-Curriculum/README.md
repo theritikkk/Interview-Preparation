@@ -74,6 +74,10 @@ A living roadmap from backend/systems engineering to job-readiness for **PHY, ba
 - [Lesson 43 — Portfolio Packaging: GitHub Structure, READMEs, Resume Bullets](lessons/lesson-43-portfolio-packaging.md) *(Stage 14)*
 - [Lesson 44 — Polar Codes: Channel Polarization and Successive Cancellation Decoding](lessons/lesson-44-polar-codes.md) *(Stage 3/8)*
 - [Lesson 45 — LDPC Codes: Belief Propagation and NR's Actual Data-Channel Code](lessons/lesson-45-ldpc-codes.md) *(Stage 3/8)*
+- [Lesson 46 — Beamforming: Transmit Precoding (MRT)](lessons/lesson-46-beamforming-mrt.md) *(Stage 4)*
+- [Lesson 47 — NR Beam Management: P1/P2/P3 Hierarchical Search](lessons/lesson-47-beam-management.md) *(Stage 8)*
+- [Lesson 48 — Massive MIMO CSI Feedback Compression](lessons/lesson-48-csi-feedback-compression.md) *(Stage 8)*
+- [Lesson 49 — Proportional Fair Scheduling](lessons/lesson-49-proportional-fair-scheduling.md) *(Stage 7/8)*
 
 ---
 
