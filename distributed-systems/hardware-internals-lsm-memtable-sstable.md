@@ -7,38 +7,62 @@
 
 ## Table of Contents
 
-1. [Executive Summary: Software Abstraction vs. Hardware Physics](#1-executive-summary-software-abstraction-vs-hardware-physics)
-2. [The Hardware Hierarchy: Latency, Bandwidth & Physical Constraints](#2-the-hardware-hierarchy-latency-bandwidth--physical-constraints)
-3. [The Write Path: From CPU Registers to Silicon Cells](#3-the-write-path-from-cpu-registers-to-silicon-cells)
-   - [Step 1: Ingestion & CPU Cache Hierarchy](#step-1-ingestion--cpu-cache-hierarchy)
-   - [Step 2: Memtable in DRAM — Allocators, SkipLists & Cache Lines](#step-2-memtable-in-dram--allocators-skiplists--cache-lines)
-   - [Step 3: Write-Ahead Log (WAL) & Physical Storage](#step-3-write-ahead-log-wal--physical-storage)
-   - [Step 4: The Flush Pipeline — Volatile to Immutable Disk Stream](#step-4-the-flush-pipeline--volatile-to-immutable-disk-stream)
-4. [Physical Anatomy of an SSTable on Disk](#4-physical-anatomy-of-an-sstable-on-disk)
-   - [Byte-Level Layout & Disk Geometry](#byte-level-layout--disk-geometry)
-   - [Data Blocks & Restart Points (Delta Encoding)](#data-blocks--restart-points-delta-encoding)
-   - [Filter Blocks & SIMD Vectorized Bloom Filters](#filter-blocks--simd-vectorized-bloom-filters)
-   - [Index Blocks & Two-Level Sparse Indexing](#index-blocks--two-level-sparse-indexing)
-   - [Compression Engine: CPU Cycles vs. PCIe Bandwidth](#compression-engine-cpu-cycles-vs-pcie-bandwidth)
-   - [Footer & Verification Metadata](#footer--verification-metadata)
-5. [The Read Path: Hardware-Level Data Traversal](#5-the-read-path-hardware-level-data-traversal)
-   - [End-to-End Hardware Execution Trace](#end-to-end-hardware-execution-trace)
-   - [Block Cache Architecture & Double-Buffering Avoidance](#block-cache-architecture--double-buffering-avoidance)
-   - [Point Lookups vs. Range Scans: Hardware Behavior](#point-lookups-vs-range-scans-hardware-behavior)
-6. [Compaction: The Physical Hardware Storm](#6-compaction-the-physical-hardware-storm)
-   - [Physical Resource Contention (CPU, RAM, PCIe, NAND)](#physical-resource-contention-cpu-ram-pcie-nand)
-   - [Compaction Strategies & Hardware Profiles](#compaction-strategies--hardware-profiles)
-   - [The Three Amplifications: Software vs. Hardware WAF](#the-three-amplifications-software-vs-hardware-waf)
-   - [NAND Flash Physics: Erase Blocks & Garbage Collection](#nand-flash-physics-erase-blocks--garbage-collection)
-   - [Rate Limiting Compaction to Protect User I/O](#rate-limiting-compaction-to-protect-user-io)
-7. [Advanced Hardware-Conscious Storage Technologies](#7-advanced-hardware-conscious-storage-technologies)
-   - [`mmap` vs. `pread`/`pwrite` vs. `io_uring`](#mmap-vs-preadpwrite-vs-io_uring)
-   - [Kernel Bypass & SPDK (Storage Performance Development Kit)](#kernel-bypass--spdk-storage-performance-development-kit)
-   - [ZNS (Zoned Namespaces): The Hardware Revolution for LSM](#zns-zoned-namespaces-the-hardware-revolution-for-lsm)
-   - [Persistent Memory (PMEM / CXL) for Memtables](#persistent-memory-pmem--cxl-for-memtables)
-8. [Hardware Failure Scenarios & Edge Cases](#8-hardware-failure-scenarios--edge-cases)
-9. [Linux Kernel & Hardware Tuning Parameters](#9-linux-kernel--hardware-tuning-parameters)
-10. [Hardware-Centric Interview Scenarios & Q&A](#10-hardware-centric-interview-scenarios--qa)
+- [Hardware Internals of LSM-Tree Storage Engines: Memtable, SSTable \& Physical Data Flow](#hardware-internals-of-lsm-tree-storage-engines-memtable-sstable--physical-data-flow)
+  - [Table of Contents](#table-of-contents)
+  - [1. Executive Summary: Software Abstraction vs. Hardware Physics](#1-executive-summary-software-abstraction-vs-hardware-physics)
+  - [2. The Hardware Hierarchy: Latency, Bandwidth \& Physical Constraints](#2-the-hardware-hierarchy-latency-bandwidth--physical-constraints)
+    - [The Human Scale Analogy](#the-human-scale-analogy)
+  - [3. The Write Path: From CPU Registers to Silicon Cells](#3-the-write-path-from-cpu-registers-to-silicon-cells)
+    - [Step 1: Ingestion \& CPU Cache Hierarchy](#step-1-ingestion--cpu-cache-hierarchy)
+    - [Step 2: Memtable in DRAM — Allocators, SkipLists \& Cache Lines](#step-2-memtable-in-dram--allocators-skiplists--cache-lines)
+      - [The Problem with Standard `malloc()` \& Red-Black Trees](#the-problem-with-standard-malloc--red-black-trees)
+      - [The Hardware-Aligned Solution: Arena Allocators](#the-hardware-aligned-solution-arena-allocators)
+      - [SkipList Memory Layout](#skiplist-memory-layout)
+    - [Step 3: Write-Ahead Log (WAL) \& Physical Storage](#step-3-write-ahead-log-wal--physical-storage)
+      - [The Storage Subsystem Hierarchy](#the-storage-subsystem-hierarchy)
+      - [`write()` vs. `fdatasync()` vs. `fsync()` vs. `O_DIRECT`](#write-vs-fdatasync-vs-fsync-vs-o_direct)
+      - [Power Loss Protection (PLP) \& Supercapacitors](#power-loss-protection-plp--supercapacitors)
+    - [Step 4: The Flush Pipeline — Volatile to Immutable Disk Stream](#step-4-the-flush-pipeline--volatile-to-immutable-disk-stream)
+  - [4. Physical Anatomy of an SSTable on Disk](#4-physical-anatomy-of-an-sstable-on-disk)
+    - [Byte-Level Layout \& Disk Geometry](#byte-level-layout--disk-geometry)
+    - [Data Blocks \& Restart Points (Delta Encoding)](#data-blocks--restart-points-delta-encoding)
+      - [Why Delta Encoding \& Restart Points?](#why-delta-encoding--restart-points)
+    - [Filter Blocks \& SIMD Vectorized Bloom Filters](#filter-blocks--simd-vectorized-bloom-filters)
+      - [Hardware \& SIMD Optimization of Bloom Filters](#hardware--simd-optimization-of-bloom-filters)
+    - [Index Blocks \& Two-Level Sparse Indexing](#index-blocks--two-level-sparse-indexing)
+    - [Compression Engine: CPU Cycles vs. PCIe Bandwidth](#compression-engine-cpu-cycles-vs-pcie-bandwidth)
+      - [The Hardware Calculation: When Does Compression Make Sense?](#the-hardware-calculation-when-does-compression-make-sense)
+    - [Footer \& Verification Metadata](#footer--verification-metadata)
+  - [5. The Read Path: Hardware-Level Data Traversal](#5-the-read-path-hardware-level-data-traversal)
+    - [Block Cache Architecture \& Double-Buffering Avoidance](#block-cache-architecture--double-buffering-avoidance)
+    - [Point Lookups vs. Range Scans: Hardware Behavior](#point-lookups-vs-range-scans-hardware-behavior)
+  - [6. Compaction: The Physical Hardware Storm](#6-compaction-the-physical-hardware-storm)
+    - [Physical Resource Contention (CPU, RAM, PCIe, NAND)](#physical-resource-contention-cpu-ram-pcie-nand)
+    - [Compaction Strategies \& Hardware Profiles](#compaction-strategies--hardware-profiles)
+      - [1. Size-Tiered Compaction Strategy (STCS)](#1-size-tiered-compaction-strategy-stcs)
+      - [2. Leveled Compaction Strategy (LCS)](#2-leveled-compaction-strategy-lcs)
+    - [The Three Amplifications: Software vs. Hardware WAF](#the-three-amplifications-software-vs-hardware-waf)
+    - [NAND Flash Physics: Erase Blocks \& Garbage Collection](#nand-flash-physics-erase-blocks--garbage-collection)
+      - [The Golden Rule of NAND Flash:](#the-golden-rule-of-nand-flash)
+      - [Hardware Write Amplification Factor (Hardware WAF)](#hardware-write-amplification-factor-hardware-waf)
+    - [Rate Limiting Compaction to Protect User I/O](#rate-limiting-compaction-to-protect-user-io)
+  - [7. Advanced Hardware-Conscious Storage Technologies](#7-advanced-hardware-conscious-storage-technologies)
+    - [`mmap` vs. `pread`/`pwrite` vs. `io_uring`](#mmap-vs-preadpwrite-vs-io_uring)
+      - [Why `io_uring` is the Future of LSM Engines](#why-io_uring-is-the-future-of-lsm-engines)
+    - [Kernel Bypass \& SPDK (Storage Performance Development Kit)](#kernel-bypass--spdk-storage-performance-development-kit)
+    - [ZNS (Zoned Namespaces): The Hardware Revolution for LSM](#zns-zoned-namespaces-the-hardware-revolution-for-lsm)
+    - [Persistent Memory (PMEM / CXL) for Memtables](#persistent-memory-pmem--cxl-for-memtables)
+  - [8. Hardware Failure Scenarios \& Edge Cases](#8-hardware-failure-scenarios--edge-cases)
+    - [1. Silent Data Corruption (Bit Rot)](#1-silent-data-corruption-bit-rot)
+    - [2. Torn Writes](#2-torn-writes)
+    - [3. NVMe Queue Full \& Backpressure Stalls](#3-nvme-queue-full--backpressure-stalls)
+  - [9. Linux Kernel \& Hardware Tuning Parameters](#9-linux-kernel--hardware-tuning-parameters)
+  - [10. Hardware-Centric Interview Scenarios \& Q\&A](#10-hardware-centric-interview-scenarios--qa)
+    - [Q1: "Why does an LSM-Tree outperform a B-Tree on write throughput, especially on flash/SSD storage?"](#q1-why-does-an-lsm-tree-outperform-a-b-tree-on-write-throughput-especially-on-flashssd-storage)
+    - [Q2: "What is the CPU cache penalty of using a standard `std::map` as a Memtable, and how do production systems solve it?"](#q2-what-is-the-cpu-cache-penalty-of-using-a-standard-stdmap-as-a-memtable-and-how-do-production-systems-solve-it)
+    - [Q3: "Explain why Bloom filters in storage engines are partitioned into 64-byte blocks."](#q3-explain-why-bloom-filters-in-storage-engines-are-partitioned-into-64-byte-blocks)
+    - [Q4: "What is Write Amplification Factor (WAF), and what is the difference between Software WAF and Hardware WAF?"](#q4-what-is-write-amplification-factor-waf-and-what-is-the-difference-between-software-waf-and-hardware-waf)
+    - [Q5: "How does an LSM storage engine prevent compaction from causing latency spikes on customer reads and writes?"](#q5-how-does-an-lsm-storage-engine-prevent-compaction-from-causing-latency-spikes-on-customer-reads-and-writes)
 
 ---
 
@@ -53,22 +77,22 @@ In hardware reality, every database operation is governed by physical electro-me
 - **CPU memory hierarchy dictates throughput.** An in-memory cache that pointer-chases across random heap memory incurs L3 cache misses ($\approx 40\text{--}75\text{ ns}$ each), stalling the CPU execution pipeline.
 
 ```
-┌────────────────────────────────────────────────────────────────────────────────────────┐
+┌─────────────────────────────────────────────────────────────────────────────────────────┐
 │                                 THE CORE MOTIVATION                                     │
-│                                                                                        │
-│   B-Tree Storage Engine                   LSM-Tree Storage Engine                      │
-│   (PostgreSQL, MySQL InnoDB)              (RocksDB, Cassandra, ScyllaDB)               │
-│                                                                                        │
-│   In-place page updates:                  Out-of-place append updates:                 │
-│   • Writes dirty 16KB/8KB pages           • Writes append to in-memory Memtable        │
-│   • Flushes random disk pages             • Sequentially streams full SSTables         │
-│   • High random I/O write rate            • 100% sequential disk I/O on flush          │
-│   • High SSD write amplification (FTL)    • Hardware-aligned sequential writes         │
-│                                                                                        │
-│   HARDWARE VERDICT:                       HARDWARE VERDICT:                            │
-│   Read-friendly; writes saturate          Write-optimized; leverages maximum           │
-│   IOPS & exhaust flash write cycles.      sequential PCIe/NVMe storage bandwidth.      │
-└────────────────────────────────────────────────────────────────────────────────────────┘
+│                                                                                         │
+│   B-Tree Storage Engine                   LSM-Tree Storage Engine                       │
+│   (PostgreSQL, MySQL InnoDB)              (RocksDB, Cassandra, ScyllaDB)                │
+│                                                                                         │
+│   In-place page updates:                  Out-of-place append updates:                  │
+│   • Writes dirty 16KB/8KB pages           • Writes append to in-memory Memtable         │
+│   • Flushes random disk pages             • Sequentially streams full SSTables          │
+│   • High random I/O write rate            • 100% sequential disk I/O on flush           │
+│   • High SSD write amplification (FTL)    • Hardware-aligned sequential writes          │
+│                                                                                         │
+│   HARDWARE VERDICT:                       HARDWARE VERDICT:                             │
+│   Read-friendly; writes saturate          Write-optimized; leverages maximum            │
+│   IOPS & exhaust flash write cycles.      sequential PCIe/NVMe storage bandwidth.       │
+└─────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -141,7 +165,7 @@ If **1 CPU cycle ($\approx 0.3\text{ ns}$)** equaled **1 second**:
                  │
                  ▼ [Flush Thread - Sequential DMA / I/O]
 ┌─────────────────────────────────────────────────────────────────────────────────────────────┐
-│                          FLUSH TO DISK: GENERATE L0 SSTABLE                                  │
+│                          FLUSH TO DISK: GENERATE L0 SSTABLE                                 │
 │ • Linear scan through sorted SkipList (L1 prefetcher friendly)                              │
 │ • Write compressed Data Blocks (4KB-64KB aligned)                                           │
 │ • Generate SIMD-accelerated Bloom Filter Blocks                                             │
@@ -178,15 +202,15 @@ To eliminate allocation overhead and memory fragmentation, storage engines use a
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
 │                        ARENA MEMORY ALLOCATION ARCHITECTURE                            │
 │                                                                                        │
-│   Allocates massive contiguous chunks from OS (e.g., 2MB or 8MB blocks via mmap):     │
+│   Allocates massive contiguous chunks from OS (e.g., 2MB or 8MB blocks via mmap):      │
 │                                                                                        │
 │   Chunk #1 (2 MB Contiguous DRAM Buffer)                                               │
 │   ┌───────────────────┬───────────────────┬───────────────────┬──────────────────────┐ │
 │   │ Node 1 (Aligned)  │ Node 2 (Aligned)  │ Node 3 (Aligned)  │ Free Unallocated     │ │
 │   │ [Key|Val|Heights] │ [Key|Val|Heights] │ [Key|Val|Heights] │ Space...             │ │
 │   └───────────────────┴───────────────────┴───────────────────┴──────────────────────┘ │
-│   ▲                   ▲                                       ▲                      │
-│   │                   │                                       │                      │
+│   ▲                   ▲                                       ▲                        │
+│   │                   │                                       │                        │
 │   Offset 0            Offset 64                               Offset ptr (BUMP POINTER)│
 │                                                                                        │
 │   • Allocation is a simple atomic pointer bump: fetch_add(size, relaxed)               │
@@ -336,22 +360,22 @@ An SSTable is an immutable, sorted, block-based file. Once written, it is never 
 Within each **Data Block** (typically configured to **4 KB** or **64 KB** to match storage sector / page boundaries):
 
 ```
-┌────────────────────────────────────────────────────────────────────────┐
-│                           DATA BLOCK INTERNALS                         │
-├────────────────────────────────────────────────────────────────────────┤
+┌─────────────────────────────────────────────────────────────────────────┐
+│                           DATA BLOCK INTERNALS                          │
+├─────────────────────────────────────────────────────────────────────────┤
 │ Entry 0:  [Shared: 0][Unshared: 7][ValueLen: 5]["order:100"]["VAL_A"]   │
-│ Entry 1:  [Shared: 8][Unshared: 1][ValueLen: 5]["1"]["VAL_B"]          │
-│           (Full key reconstructed: "order:100" + "1" = "order:1001")   │
-│ Entry 2:  [Shared: 8][Unshared: 1][ValueLen: 5]["2"]["VAL_C"]          │
-│           (Full key reconstructed: "order:100" + "2" = "order:1002")   │
-│ ...                                                                    │
+│ Entry 1:  [Shared: 8][Unshared: 1][ValueLen: 5]["1"]["VAL_B"]           │
+│           (Full key reconstructed: "order:100" + "1" = "order:1001")    │
+│ Entry 2:  [Shared: 8][Unshared: 1][ValueLen: 5]["2"]["VAL_C"]           │
+│           (Full key reconstructed: "order:100" + "2" = "order:1002")    │
+│ ...                                                                     │ 
 │ Entry 16: [Shared: 0][Unshared: 7][ValueLen: 5]["order:200"]["VAL_X"]   │
-│           (Restart Point: Full key stored without compression)         │
-├────────────────────────────────────────────────────────────────────────┤
-│ RESTART ARRAY (at tail of block):                                      │
-│ [Offset 0, Offset 512, Offset 1024, ...]                               │
-│ Number of Restart Elements (uint32_t)                                  │
-└────────────────────────────────────────────────────────────────────────┘
+│           (Restart Point: Full key stored without compression)          │
+├─────────────────────────────────────────────────────────────────────────┤
+│ RESTART ARRAY (at tail of block):                                       │
+│ [Offset 0, Offset 512, Offset 1024, ...]                                │
+│ Number of Restart Elements (uint32_t)                                   │
+└─────────────────────────────────────────────────────────────────────────┘
 ```
 
 #### Why Delta Encoding & Restart Points?
@@ -463,7 +487,7 @@ The final **48 bytes** of an SSTable file contain the **Footer**:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                       SSTABLE FOOTER (48 Bytes)              │
+│                       SSTABLE FOOTER (48 Bytes)             │
 ├────────────────────────┬────────────────────────────────────┤
 │ Metaindex Handle       │ Offset (varint64) + Size (varint64)│
 ├────────────────────────┼────────────────────────────────────┤
@@ -676,7 +700,7 @@ During heavy compaction runs, your hardware experiences an intense, simultaneous
               │  Read Amplification ◄──► Space Amplification   │
               │                                                │
               │  You can optimize for any two, but NEVER all   │
-              │  three simultaneously on physical hardware.   │
+              │  three simultaneously on physical hardware.    │
               └────────────────────────────────────────────────┘
 ```
 
@@ -753,23 +777,23 @@ rate_limiter = NewGenericRateLimiter(
 ### `mmap` vs. `pread`/`pwrite` vs. `io_uring`
 
 ```
-┌────────────────────────────────────────────────────────────────────────┐
-│                        STORAGE I/O ENGINE COMPARISON                   │
-├──────────────┬──────────────────┬──────────────────┬───────────────────┤
+┌─────────────────────────────────────────────────────────────────────────┐
+│                        STORAGE I/O ENGINE COMPARISON                    │
+├──────────────┬──────────────────┬───────────────────┬───────────────────┤
 │ Feature      │ mmap()           │ pread() / pwrite()│ io_uring (Modern) │
-├──────────────┼──────────────────┼──────────────────┼───────────────────┤
+├──────────────┼──────────────────┼───────────────────┼───────────────────┤
 │ Syscall Cost │ Zero on page hit │ 1 syscall per read│ 0 syscalls via    │
-│              │ (page fault cost)│                  │ shared ring buffer│
-├──────────────┼──────────────────┼──────────────────┼───────────────────┤
-│ Context      │ TLB shootdown on │ User <-> Kernel  │ Zero context      │
-│ Switches     │ unmap / munmap   │ context switch   │ switches in poll  │
-├──────────────┼──────────────────┼──────────────────┼───────────────────┤
-│ Control      │ OS decides when  │ Explicit control │ Fully async batch │
-│              │ to evict/flush   │ over buffers     │ submissions       │
-├──────────────┼──────────────────┼──────────────────┼───────────────────┤
-│ Pitfalls     │ SIGBUS on disk   │ Thread blocks on │ Requires Linux    │
-│              │ error or unmount │ NVMe read wait   │ kernel 5.1+       │
-└──────────────┴──────────────────┴──────────────────┴───────────────────┘
+│              │ (page fault cost)│                   │ shared ring buffer│
+├──────────────┼──────────────────┼───────────────────┼───────────────────┤
+│ Context      │ TLB shootdown on │ User <-> Kernel   │ Zero context      │
+│ Switches     │ unmap / munmap   │ context switch    │ switches in poll  │
+├──────────────┼──────────────────┼───────────────────┼───────────────────┤
+│ Control      │ OS decides when  │ Explicit control  │ Fully async batch │
+│              │ to evict/flush   │ over buffers      │ submissions       │
+├──────────────┼──────────────────┼───────────────────┼───────────────────┤
+│ Pitfalls     │ SIGBUS on disk   │ Thread blocks on  │ Requires Linux    │
+│              │ error or unmount │ NVMe read wait    │ kernel 5.1+       │
+└──────────────┴──────────────────┴───────────────────┴───────────────────┘
 ```
 
 #### Why `io_uring` is the Future of LSM Engines
