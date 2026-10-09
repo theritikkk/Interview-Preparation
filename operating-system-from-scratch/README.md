@@ -229,11 +229,39 @@ constructed, clearly-labeled material.
       (files 05/08/10/12/15/21/22) into one arms-race narrative
 - [x] `32-performance-and-observability.md` — sampling profiler as file
       14's interrupt repurposed; USE method; flame graphs
-- [ ] everything else — generated one file at a time on request
+- [x] `33-modern-hardware.md` — resolves four deferred threads
+      (files 03/04/08/23): pipelining, renaming, branch prediction, ordering
+- [x] `34-modern-boot-and-efi.md` — the Secure Boot depth file 07 deferred;
+      measured boot as a distinct, complementary mechanism
+- [x] `35-ebpf-and-kernel-observability.md` — resolves tools named in
+      files 21/30/32; verifier as the safety mechanism modules lack
+- [x] `36-operating-system-design.md` — the book's own unstated design
+      (extreme monolithic) vs. its stated aspiration (Minix, a microkernel)
+- [x] `37-building-a-simple-os.md` — checkpoint: full, working assembly
+      of everything the book actually delivers, Ch.1-§6.2 only
+- [x] `38-capstone-project.md` — nine staged, dependency-graphed,
+      beyond-the-book projects with concrete acceptance tests
+- [x] `book-to-course-map.md` — every book section, status-coded, cross-
+      referenced to course files; 38 Full, 7 Seed, 7 Stub
+- [x] `glossary.md` — ~90 terms, alphabetical, each pointing to its
+      home file
+- [x] `source-code-map.md` — every tool used across the course, grouped
+      by job, with what it reveals and an example command
+- [x] `debugging-playbook.md` — nine symptom-first flowcharts, each
+      layer tied to its tool and lesson file
+- [x] `experiments.md` — every practical experiment indexed by
+      difficulty (Level 1-7), not file order
+- [x] `interview-questions.md` — curated across all 38 files by category,
+      including 14 full-chain "explain what happens when" questions
+- [x] `final-knowledge-map.md` — the closing audit checklist and complete
+      hardware-to-applications mental model with recurring patterns
+
+**The course is complete:** 39 numbered files (00–38), 7 reference
+appendices, and 46 original diagrams.
 
 ## Diagrams
 
-Files `01`–`11` embed original SVG figures under `images/` — byte-field
+Files `01`–`38` embed original SVG figures under `images/` — byte-field
 layouts, memory/stack diagrams, flowcharts — generated for this course,
 not pulled from the web. Keep the `images/` folder alongside the
 `.md` files for them to render.

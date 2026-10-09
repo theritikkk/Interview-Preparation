@@ -235,7 +235,7 @@ Book coverage: Full (37, as a checkpoint) → constructed (38). Difficulty: ★2
 | # | File | Book Coverage | Prereqs | Difficulty | Core Practical Project |
 |---|---|---|---|---|---|
 | 01 | computer-systems-foundation | Seed (Ch.1) | — | ★1 | Map "layers of abstraction" onto your own laptop |
-| 02 | binary-hex-memory-representation | Seed (§2.4) | 01 | ★1 | Hand-convert the boot sector's own bytes |
+| 02 | binary-hex-memory-representation | Full (§2.2, §2.4) | 01 | ★1 | Hand-convert the boot sector's own bytes |
 | 03 | cpu-and-instruction-set | Seed (§3.3.2) | 02 | ★2 | Identify registers in a raw disassembly |
 | 04 | x86-architecture | Seed (implicit) | 03 | ★2 | Compare 16/32/64-bit views of the same register |
 | 05 | assembly-language | Full (§3.3–3.4) | 04 | ★2 | Hand-assemble the book's "Hello" boot sector |
@@ -243,9 +243,9 @@ Book coverage: Full (37, as a checkpoint) → constructed (38). Difficulty: ★2
 | 07 | bios-uefi-bootloaders | Seed/None | 06 | ★3 | Check whether your own machine boots BIOS or UEFI |
 | 08 | real-protected-long-mode | Full/None | 06,07 | ★3 | Step through the mode switch in Bochs's debugger |
 | 09 | memory-and-addressing | Full (§3.6.1,§4.2) | 08 | ★3 | Compute segment:offset by hand, then a GDT-flat address |
-| 10 | stack-heap-calling-conventions | Seed (§3.4.4,§5.1) | 09 | ★3 | Watch `ebp`/`esp` move across a call in GDB |
+| 10 | stack-heap-calling-conventions | Full (§5.1.2–5.1.4) | 09 | ★3 | Watch `ebp`/`esp` move across a call in GDB |
 | 11 | c-compilation-and-machine-code | Full (§5.1) | 10 | ★3 | Reproduce the book's C → `objdump` exercise |
-| 12 | linking-loading-and-elf | Seed (§5.1–5.2.3) | 11 | ★3 | `readelf -S` a real binary vs the book's raw-binary link |
+| 12 | linking-loading-and-elf | Full (§5.2.1–5.2.3) | 11 | ★3 | `readelf -S` a real binary vs the book's raw-binary link |
 | 13 | kernel-entry-and-architecture | Full (§5.2–5.3) | 12 | ★3 | Build the `kernel_entry.asm` + Makefile chain |
 | 14 | interrupts-exceptions-traps | Seed/Stub (§3.3.1/§6.3) | 13 | ★4 | Build a real IDT and remap the 8259 PIC |
 | 15 | device-io-and-dma | Full/Seed (§6.1) | 13 | ★3 | Extend `port_byte_in/out`; sketch a DMA transfer |
@@ -271,7 +271,7 @@ Book coverage: Full (37, as a checkpoint) → constructed (38). Difficulty: ★2
 | 35 | ebpf-and-kernel-observability | None | 26,32 | ★4 | Trace syscalls with `bpftrace` |
 | 36 | operating-system-design | Seed (implicit) | 25 | ★3 | Compare monolithic vs microkernel vs your toy OS |
 | 37 | building-a-simple-os | Full (Ch.1–6.2 checkpoint) | 06–17 | ★2 | Build the whole book-grounded OS in one sitting |
-| 38 | capstone-project | Full → Stub/None | all | ★5 | The 16-stage OS (see below) |
+| 38 | capstone-project | Full → Stub/None | all | ★5 | The 15-stage OS (see below) |
 
 ---
 
