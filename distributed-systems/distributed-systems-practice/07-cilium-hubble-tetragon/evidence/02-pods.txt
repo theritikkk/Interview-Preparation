@@ -1,0 +1,5 @@
+NAMESPACE     NAME                               READY   STATUS              RESTARTS   AGE     IP          NODE     NOMINATED NODE   READINESS GATES
+kube-system   cilium-envoy-gpl9h                 0/1     ContainerCreating   0          2m10s   192.0.2.2   vm       <none>           <none>
+kube-system   cilium-mm255                       0/1     Init:0/6            0          2m10s   192.0.2.2   vm       <none>           <none>
+kube-system   cilium-operator-6c4fb78954-fhrcf   0/1     ContainerCreating   0          2m10s   192.0.2.2   vm       <none>           <none>
+kube-system   coredns-ccb96694c-dgw7x            0/1     Pending             0          3m29s   <none>      <none>   <none>           <none>

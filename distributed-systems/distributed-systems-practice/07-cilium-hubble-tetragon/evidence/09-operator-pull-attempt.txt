@@ -1,0 +1,4 @@
+quay.io/cilium/operator-generic:v1.16.5: resolving      |[32m[0m--------------------------------------| 
+elapsed: 0.1 s                           total:   0.0 B (0.0 B/s)                                         
+time="2026-10-11T02:16:24+05:30" level=info msg="trying next host" error="failed to do request: Head \"https://quay.io/v2/cilium/operator-generic/manifests/v1.16.5\": Forbidden" host=quay.io
+ctr: failed to resolve reference "quay.io/cilium/operator-generic:v1.16.5": failed to do request: Head "https://quay.io/v2/cilium/operator-generic/manifests/v1.16.5": Forbidden

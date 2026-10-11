@@ -1,0 +1,2 @@
+hugetlb
+controllers delegated to this sandbox's v2 unified hierarchy (empty/hugetlb-only = no cpu/memory/pids delegation for nested containers)

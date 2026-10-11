@@ -1,0 +1,276 @@
+Name:                 cilium-mm255
+Namespace:            kube-system
+Priority:             2000001000
+Priority Class Name:  system-node-critical
+Service Account:      cilium
+Node:                 vm/192.0.2.2
+Start Time:           Sun, 11 Oct 2026 02:14:13 +0530
+Labels:               app.kubernetes.io/name=cilium-agent
+                      app.kubernetes.io/part-of=cilium
+                      controller-revision-hash=5f884c4dd
+                      k8s-app=cilium
+                      pod-template-generation=1
+Annotations:          container.apparmor.security.beta.kubernetes.io/apply-sysctl-overwrites: unconfined
+                      container.apparmor.security.beta.kubernetes.io/cilium-agent: unconfined
+                      container.apparmor.security.beta.kubernetes.io/clean-cilium-state: unconfined
+                      container.apparmor.security.beta.kubernetes.io/config: unconfined
+                      container.apparmor.security.beta.kubernetes.io/install-cni-binaries: unconfined
+                      container.apparmor.security.beta.kubernetes.io/mount-bpf-fs: unconfined
+                      container.apparmor.security.beta.kubernetes.io/mount-cgroup: unconfined
+Status:               Pending
+IP:                   192.0.2.2
+IPs:
+  IP:           192.0.2.2
+Controlled By:  DaemonSet/cilium
+Init Containers:
+  config:
+    Container ID:  
+    Image:         quay.io/cilium/cilium:v1.16.5@sha256:758ca0793f5995bb938a2fa219dcce63dc0b3fa7fc4ce5cc851125281fb7361d
+    Image ID:      
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      cilium-dbg
+      build-config
+    State:          Waiting
+      Reason:       PodInitializing
+    Ready:          False
+    Restart Count:  0
+    Environment:
+      K8S_NODE_NAME:          (v1:spec.nodeName)
+      CILIUM_K8S_NAMESPACE:  kube-system (v1:metadata.namespace)
+    Mounts:
+      /tmp from tmp (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-shvhc (ro)
+  mount-cgroup:
+    Container ID:  
+    Image:         quay.io/cilium/cilium:v1.16.5@sha256:758ca0793f5995bb938a2fa219dcce63dc0b3fa7fc4ce5cc851125281fb7361d
+    Image ID:      
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -ec
+      cp /usr/bin/cilium-mount /hostbin/cilium-mount;
+      nsenter --cgroup=/hostproc/1/ns/cgroup --mount=/hostproc/1/ns/mnt "${BIN_PATH}/cilium-mount" $CGROUP_ROOT;
+      rm /hostbin/cilium-mount
+      
+    State:          Waiting
+      Reason:       PodInitializing
+    Ready:          False
+    Restart Count:  0
+    Environment:
+      CGROUP_ROOT:  /run/cilium/cgroupv2
+      BIN_PATH:     /opt/cni/bin
+    Mounts:
+      /hostbin from cni-path (rw)
+      /hostproc from hostproc (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-shvhc (ro)
+  apply-sysctl-overwrites:
+    Container ID:  
+    Image:         quay.io/cilium/cilium:v1.16.5@sha256:758ca0793f5995bb938a2fa219dcce63dc0b3fa7fc4ce5cc851125281fb7361d
+    Image ID:      
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -ec
+      cp /usr/bin/cilium-sysctlfix /hostbin/cilium-sysctlfix;
+      nsenter --mount=/hostproc/1/ns/mnt "${BIN_PATH}/cilium-sysctlfix";
+      rm /hostbin/cilium-sysctlfix
+      
+    State:          Waiting
+      Reason:       PodInitializing
+    Ready:          False
+    Restart Count:  0
+    Environment:
+      BIN_PATH:  /opt/cni/bin
+    Mounts:
+      /hostbin from cni-path (rw)
+      /hostproc from hostproc (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-shvhc (ro)
+  mount-bpf-fs:
+    Container ID:  
+    Image:         quay.io/cilium/cilium:v1.16.5@sha256:758ca0793f5995bb938a2fa219dcce63dc0b3fa7fc4ce5cc851125281fb7361d
+    Image ID:      
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /bin/bash
+      -c
+      --
+    Args:
+      mount | grep "/sys/fs/bpf type bpf" || mount -t bpf bpf /sys/fs/bpf
+    State:          Waiting
+      Reason:       PodInitializing
+    Ready:          False
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /sys/fs/bpf from bpf-maps (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-shvhc (ro)
+  clean-cilium-state:
+    Container ID:  
+    Image:         quay.io/cilium/cilium:v1.16.5@sha256:758ca0793f5995bb938a2fa219dcce63dc0b3fa7fc4ce5cc851125281fb7361d
+    Image ID:      
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /init-container.sh
+    State:          Waiting
+      Reason:       PodInitializing
+    Ready:          False
+    Restart Count:  0
+    Environment:
+      CILIUM_ALL_STATE:           <set to the key 'clean-cilium-state' of config map 'cilium-config'>         Optional: true
+      CILIUM_BPF_STATE:           <set to the key 'clean-cilium-bpf-state' of config map 'cilium-config'>     Optional: true
+      WRITE_CNI_CONF_WHEN_READY:  <set to the key 'write-cni-conf-when-ready' of config map 'cilium-config'>  Optional: true
+    Mounts:
+      /run/cilium/cgroupv2 from cilium-cgroup (rw)
+      /sys/fs/bpf from bpf-maps (rw)
+      /var/run/cilium from cilium-run (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-shvhc (ro)
+  install-cni-binaries:
+    Container ID:  
+    Image:         quay.io/cilium/cilium:v1.16.5@sha256:758ca0793f5995bb938a2fa219dcce63dc0b3fa7fc4ce5cc851125281fb7361d
+    Image ID:      
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /install-plugin.sh
+    State:          Waiting
+      Reason:       PodInitializing
+    Ready:          False
+    Restart Count:  0
+    Requests:
+      cpu:        100m
+      memory:     10Mi
+    Environment:  <none>
+    Mounts:
+      /host/opt/cni/bin from cni-path (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-shvhc (ro)
+Containers:
+  cilium-agent:
+    Container ID:  
+    Image:         quay.io/cilium/cilium:v1.16.5@sha256:758ca0793f5995bb938a2fa219dcce63dc0b3fa7fc4ce5cc851125281fb7361d
+    Image ID:      
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      cilium-agent
+    Args:
+      --config-dir=/tmp/cilium/config-map
+    State:          Waiting
+      Reason:       PodInitializing
+    Ready:          False
+    Restart Count:  0
+    Liveness:       http-get http://127.0.0.1:9879/healthz delay=0s timeout=5s period=30s #success=1 #failure=10
+    Readiness:      http-get http://127.0.0.1:9879/healthz delay=0s timeout=5s period=30s #success=1 #failure=3
+    Startup:        http-get http://127.0.0.1:9879/healthz delay=5s timeout=1s period=2s #success=1 #failure=105
+    Environment:
+      K8S_NODE_NAME:               (v1:spec.nodeName)
+      CILIUM_K8S_NAMESPACE:       kube-system (v1:metadata.namespace)
+      CILIUM_CLUSTERMESH_CONFIG:  /var/lib/cilium/clustermesh/
+      GOMEMLIMIT:                 node allocatable (limits.memory)
+    Mounts:
+      /host/etc/cni/net.d from etc-cni-netd (rw)
+      /host/proc/sys/kernel from host-proc-sys-kernel (rw)
+      /host/proc/sys/net from host-proc-sys-net (rw)
+      /lib/modules from lib-modules (ro)
+      /run/xtables.lock from xtables-lock (rw)
+      /sys/fs/bpf from bpf-maps (rw)
+      /tmp from tmp (rw)
+      /var/lib/cilium/clustermesh from clustermesh-secrets (ro)
+      /var/lib/cilium/tls/hubble from hubble-tls (ro)
+      /var/run/cilium from cilium-run (rw)
+      /var/run/cilium/envoy/sockets from envoy-sockets (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-shvhc (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   False 
+  Initialized                 False 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  tmp:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     
+    SizeLimit:  <unset>
+  cilium-run:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/run/cilium
+    HostPathType:  DirectoryOrCreate
+  bpf-maps:
+    Type:          HostPath (bare host directory volume)
+    Path:          /sys/fs/bpf
+    HostPathType:  DirectoryOrCreate
+  hostproc:
+    Type:          HostPath (bare host directory volume)
+    Path:          /proc
+    HostPathType:  Directory
+  cilium-cgroup:
+    Type:          HostPath (bare host directory volume)
+    Path:          /run/cilium/cgroupv2
+    HostPathType:  DirectoryOrCreate
+  cni-path:
+    Type:          HostPath (bare host directory volume)
+    Path:          /opt/cni/bin
+    HostPathType:  DirectoryOrCreate
+  etc-cni-netd:
+    Type:          HostPath (bare host directory volume)
+    Path:          /etc/cni/net.d
+    HostPathType:  DirectoryOrCreate
+  lib-modules:
+    Type:          HostPath (bare host directory volume)
+    Path:          /lib/modules
+    HostPathType:  
+  xtables-lock:
+    Type:          HostPath (bare host directory volume)
+    Path:          /run/xtables.lock
+    HostPathType:  FileOrCreate
+  envoy-sockets:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/run/cilium/envoy/sockets
+    HostPathType:  DirectoryOrCreate
+  clustermesh-secrets:
+    Type:                Projected (a volume that contains injected data from multiple sources)
+    SecretName:          cilium-clustermesh
+    SecretOptionalName:  0xc002242078
+    SecretName:          clustermesh-apiserver-remote-cert
+    SecretOptionalName:  0xc00224210e
+    SecretName:          clustermesh-apiserver-local-cert
+    SecretOptionalName:  0xc002242126
+  host-proc-sys-net:
+    Type:          HostPath (bare host directory volume)
+    Path:          /proc/sys/net
+    HostPathType:  Directory
+  host-proc-sys-kernel:
+    Type:          HostPath (bare host directory volume)
+    Path:          /proc/sys/kernel
+    HostPathType:  Directory
+  hubble-tls:
+    Type:                Projected (a volume that contains injected data from multiple sources)
+    SecretName:          hubble-server-certs
+    SecretOptionalName:  0xc0022421bd
+  kube-api-access-shvhc:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              kubernetes.io/os=linux
+Tolerations:                 op=Exists
+                             node.kubernetes.io/disk-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/memory-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/network-unavailable:NoSchedule op=Exists
+                             node.kubernetes.io/not-ready:NoExecute op=Exists
+                             node.kubernetes.io/pid-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/unreachable:NoExecute op=Exists
+                             node.kubernetes.io/unschedulable:NoSchedule op=Exists
+Events:
+  Type     Reason                  Age                  From               Message
+  ----     ------                  ----                 ----               -------
+  Normal   Scheduled               2m10s                default-scheduler  Successfully assigned kube-system/cilium-mm255 to vm
+  Warning  FailedCreatePodSandBox  10s (x10 over 2m9s)  kubelet            Failed to create pod sandbox: rpc error: code = Unknown desc = failed to create containerd task: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: can't get final child's PID from pipe: EOF: unknown

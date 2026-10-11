@@ -1,0 +1,23 @@
+LAST SEEN   TYPE      REASON                   OBJECT                                  MESSAGE
+2m10s       Normal    Scheduled                pod/cilium-mm255                        Successfully assigned kube-system/cilium-mm255 to vm
+2m10s       Warning   FailedScheduling         pod/cilium-envoy-gpl9h                  0/1 nodes are available: 1 node(s) didn't match pod affinity rules. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling.
+2m9s        Normal    Scheduled                pod/cilium-envoy-gpl9h                  Successfully assigned kube-system/cilium-envoy-gpl9h to vm
+3m24s       Warning   FailedScheduling         pod/coredns-ccb96694c-dgw7x             0/1 nodes are available: 1 node(s) had untolerated taint {node.kubernetes.io/not-ready: }. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling.
+2m10s       Normal    Scheduled                pod/cilium-operator-6c4fb78954-fhrcf    Successfully assigned kube-system/cilium-operator-6c4fb78954-fhrcf to vm
+3m33s       Normal    ApplyingManifest         addon/coredns                           Applying manifest at "/var/lib/rancher/k3s/server/manifests/coredns.yaml"
+3m33s       Normal    ApplyingManifest         addon/ccm                               Applying manifest at "/var/lib/rancher/k3s/server/manifests/ccm.yaml"
+3m33s       Normal    AppliedManifest          addon/ccm                               Applied manifest at "/var/lib/rancher/k3s/server/manifests/ccm.yaml"
+3m32s       Normal    AppliedManifest          addon/runtimes                          Applied manifest at "/var/lib/rancher/k3s/server/manifests/runtimes.yaml"
+3m32s       Normal    AppliedManifest          addon/rolebindings                      Applied manifest at "/var/lib/rancher/k3s/server/manifests/rolebindings.yaml"
+3m32s       Normal    ApplyingManifest         addon/rolebindings                      Applying manifest at "/var/lib/rancher/k3s/server/manifests/rolebindings.yaml"
+3m32s       Normal    AppliedManifest          addon/coredns                           Applied manifest at "/var/lib/rancher/k3s/server/manifests/coredns.yaml"
+3m32s       Normal    ApplyingManifest         addon/runtimes                          Applying manifest at "/var/lib/rancher/k3s/server/manifests/runtimes.yaml"
+3m29s       Normal    ScalingReplicaSet        deployment/coredns                      Scaled up replica set coredns-ccb96694c to 1
+3m29s       Normal    SuccessfulCreate         replicaset/coredns-ccb96694c            Created pod: coredns-ccb96694c-dgw7x
+2m10s       Normal    SuccessfulCreate         daemonset/cilium-envoy                  Created pod: cilium-envoy-gpl9h
+2m10s       Normal    SuccessfulCreate         daemonset/cilium                        Created pod: cilium-mm255
+2m10s       Normal    ScalingReplicaSet        deployment/cilium-operator              Scaled up replica set cilium-operator-6c4fb78954 to 1
+2m10s       Normal    SuccessfulCreate         replicaset/cilium-operator-6c4fb78954   Created pod: cilium-operator-6c4fb78954-fhrcf
+10s         Warning   FailedCreatePodSandBox   pod/cilium-mm255                        Failed to create pod sandbox: rpc error: code = Unknown desc = failed to create containerd task: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: can't get final child's PID from pipe: EOF: unknown
+7s          Warning   FailedCreatePodSandBox   pod/cilium-envoy-gpl9h                  Failed to create pod sandbox: rpc error: code = Unknown desc = failed to create containerd task: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: can't get final child's PID from pipe: EOF: unknown
+1s          Warning   FailedCreatePodSandBox   pod/cilium-operator-6c4fb78954-fhrcf    Failed to create pod sandbox: rpc error: code = Unknown desc = failed to create containerd task: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: can't get final child's PID from pipe: EOF: unknown
