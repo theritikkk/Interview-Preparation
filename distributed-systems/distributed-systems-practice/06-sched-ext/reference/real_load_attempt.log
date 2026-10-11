@@ -1,0 +1,118 @@
+libbpf: loading object from scx_simple.bpf.o
+libbpf: elf: section(3) struct_ops/simple_select_cpu, size 240, link 0, flags 6, type=1
+libbpf: sec 'struct_ops/simple_select_cpu': found program 'simple_select_cpu' at insn offset 0 (0 bytes), code size 30 insns (240 bytes)
+libbpf: elf: section(4) .relstruct_ops/simple_select_cpu, size 48, link 46, flags 40, type=9
+libbpf: elf: section(5) struct_ops/simple_enqueue, size 304, link 0, flags 6, type=1
+libbpf: sec 'struct_ops/simple_enqueue': found program 'simple_enqueue' at insn offset 0 (0 bytes), code size 38 insns (304 bytes)
+libbpf: elf: section(6) .relstruct_ops/simple_enqueue, size 80, link 46, flags 40, type=9
+libbpf: elf: section(7) struct_ops/simple_dispatch, size 24, link 0, flags 6, type=1
+libbpf: sec 'struct_ops/simple_dispatch': found program 'simple_dispatch' at insn offset 0 (0 bytes), code size 3 insns (24 bytes)
+libbpf: elf: section(8) .relstruct_ops/simple_dispatch, size 16, link 46, flags 40, type=9
+libbpf: elf: section(9) struct_ops/simple_running, size 112, link 0, flags 6, type=1
+libbpf: sec 'struct_ops/simple_running': found program 'simple_running' at insn offset 0 (0 bytes), code size 14 insns (112 bytes)
+libbpf: elf: section(10) .relstruct_ops/simple_running, size 32, link 46, flags 40, type=9
+libbpf: elf: section(11) struct_ops/simple_stopping, size 120, link 0, flags 6, type=1
+libbpf: sec 'struct_ops/simple_stopping': found program 'simple_stopping' at insn offset 0 (0 bytes), code size 15 insns (120 bytes)
+libbpf: elf: section(12) .relstruct_ops/simple_stopping, size 16, link 46, flags 40, type=9
+libbpf: elf: section(13) struct_ops/simple_enable, size 48, link 0, flags 6, type=1
+libbpf: sec 'struct_ops/simple_enable': found program 'simple_enable' at insn offset 0 (0 bytes), code size 6 insns (48 bytes)
+libbpf: elf: section(14) .relstruct_ops/simple_enable, size 16, link 46, flags 40, type=9
+libbpf: elf: section(15) struct_ops.s/simple_init, size 32, link 0, flags 6, type=1
+libbpf: sec 'struct_ops.s/simple_init': found program 'simple_init' at insn offset 0 (0 bytes), code size 4 insns (32 bytes)
+libbpf: elf: section(16) .relstruct_ops.s/simple_init, size 16, link 46, flags 40, type=9
+libbpf: elf: section(17) struct_ops/simple_exit, size 184, link 0, flags 6, type=1
+libbpf: sec 'struct_ops/simple_exit': found program 'simple_exit' at insn offset 0 (0 bytes), code size 23 insns (184 bytes)
+libbpf: elf: section(18) .relstruct_ops/simple_exit, size 48, link 46, flags 40, type=9
+libbpf: elf: section(19) license, size 4, link 0, flags 3, type=1
+libbpf: license of scx_simple.bpf.o is GPL
+libbpf: elf: section(20) .struct_ops.link, size 200, link 0, flags 3, type=1
+libbpf: elf: section(21) .rel.struct_ops.link, size 128, link 46, flags 40, type=9
+libbpf: elf: section(22) .rodata, size 1, link 0, flags 2, type=1
+libbpf: elf: section(23) .data, size 1168, link 0, flags 3, type=1
+libbpf: elf: section(24) .maps, size 32, link 0, flags 3, type=1
+libbpf: elf: section(25) .bss, size 8, link 0, flags 3, type=8
+libbpf: elf: section(36) .BTF, size 4382, link 0, flags 0, type=1
+libbpf: elf: section(38) .BTF.ext, size 1444, link 0, flags 0, type=1
+libbpf: elf: section(46) .symtab, size 1152, link 1, flags 0, type=2
+libbpf: looking for externs among 48 symbols...
+libbpf: collected 5 externs total
+libbpf: extern (ksym) #0: symbol 38, name scx_bpf_consume
+libbpf: extern (ksym) #1: symbol 43, name scx_bpf_create_dsq
+libbpf: extern (ksym) #2: symbol 33, name scx_bpf_dispatch
+libbpf: extern (ksym) #3: symbol 36, name scx_bpf_dispatch_vtime
+libbpf: extern (ksym) #4: symbol 31, name scx_bpf_select_cpu_dfl
+libbpf: map 'stats': at sec_idx 24, offset 0.
+libbpf: map 'stats': found type = 6.
+libbpf: map 'stats': found key_size = 4.
+libbpf: map 'stats': found value_size = 8.
+libbpf: map 'stats': found max_entries = 2.
+libbpf: map 'scx_simp.rodata' (global data): at sec_idx 22, offset 0, flags 480.
+libbpf: map 1 is "scx_simp.rodata"
+libbpf: map 'scx_simp.data' (global data): at sec_idx 23, offset 0, flags 400.
+libbpf: map 2 is "scx_simp.data"
+libbpf: map 'scx_simp.bss' (global data): at sec_idx 25, offset 0, flags 0.
+libbpf: map 3 is "scx_simp.bss"
+libbpf: struct_ops init: struct sched_ext_ops(type_id=63) simple_ops found at offset 0
+libbpf: sec '.relstruct_ops/simple_select_cpu': collecting relocation for section(3) 'struct_ops/simple_select_cpu'
+libbpf: sec '.relstruct_ops/simple_select_cpu': relo #0: insn #8 against 'scx_bpf_select_cpu_dfl'
+libbpf: prog 'simple_select_cpu': found extern #4 'scx_bpf_select_cpu_dfl' (sym 31) for insn #8
+libbpf: sec '.relstruct_ops/simple_select_cpu': relo #1: insn #15 against 'stats'
+libbpf: prog 'simple_select_cpu': found map 0 (stats, sec 24, off 0) for insn #15
+libbpf: sec '.relstruct_ops/simple_select_cpu': relo #2: insn #27 against 'scx_bpf_dispatch'
+libbpf: prog 'simple_select_cpu': found extern #2 'scx_bpf_dispatch' (sym 33) for insn #27
+libbpf: sec '.relstruct_ops/simple_enqueue': collecting relocation for section(5) 'struct_ops/simple_enqueue'
+libbpf: sec '.relstruct_ops/simple_enqueue': relo #0: insn #6 against 'stats'
+libbpf: prog 'simple_enqueue': found map 0 (stats, sec 24, off 0) for insn #6
+libbpf: sec '.relstruct_ops/simple_enqueue': relo #1: insn #13 against 'fifo_sched'
+libbpf: prog 'simple_enqueue': found data map 1 (scx_simp.rodata, sec 22, off 0) for insn 13
+libbpf: sec '.relstruct_ops/simple_enqueue': relo #2: insn #21 against 'scx_bpf_dispatch'
+libbpf: prog 'simple_enqueue': found extern #2 'scx_bpf_dispatch' (sym 33) for insn #21
+libbpf: sec '.relstruct_ops/simple_enqueue': relo #3: insn #24 against '.bss'
+libbpf: prog 'simple_enqueue': found data map 3 (scx_simp.bss, sec 25, off 0) for insn 24
+libbpf: sec '.relstruct_ops/simple_enqueue': relo #4: insn #36 against 'scx_bpf_dispatch_vtime'
+libbpf: prog 'simple_enqueue': found extern #3 'scx_bpf_dispatch_vtime' (sym 36) for insn #36
+libbpf: sec '.relstruct_ops/simple_dispatch': collecting relocation for section(7) 'struct_ops/simple_dispatch'
+libbpf: sec '.relstruct_ops/simple_dispatch': relo #0: insn #1 against 'scx_bpf_consume'
+libbpf: prog 'simple_dispatch': found extern #0 'scx_bpf_consume' (sym 38) for insn #1
+libbpf: sec '.relstruct_ops/simple_running': collecting relocation for section(9) 'struct_ops/simple_running'
+libbpf: sec '.relstruct_ops/simple_running': relo #0: insn #1 against 'fifo_sched'
+libbpf: prog 'simple_running': found data map 1 (scx_simp.rodata, sec 22, off 0) for insn 1
+libbpf: sec '.relstruct_ops/simple_running': relo #1: insn #5 against '.bss'
+libbpf: prog 'simple_running': found data map 3 (scx_simp.bss, sec 25, off 0) for insn 5
+libbpf: sec '.relstruct_ops/simple_stopping': collecting relocation for section(11) 'struct_ops/simple_stopping'
+libbpf: sec '.relstruct_ops/simple_stopping': relo #0: insn #1 against 'fifo_sched'
+libbpf: prog 'simple_stopping': found data map 1 (scx_simp.rodata, sec 22, off 0) for insn 1
+libbpf: sec '.relstruct_ops/simple_enable': collecting relocation for section(13) 'struct_ops/simple_enable'
+libbpf: sec '.relstruct_ops/simple_enable': relo #0: insn #1 against '.bss'
+libbpf: prog 'simple_enable': found data map 3 (scx_simp.bss, sec 25, off 0) for insn 1
+libbpf: sec '.relstruct_ops.s/simple_init': collecting relocation for section(15) 'struct_ops.s/simple_init'
+libbpf: sec '.relstruct_ops.s/simple_init': relo #0: insn #2 against 'scx_bpf_create_dsq'
+libbpf: prog 'simple_init': found extern #1 'scx_bpf_create_dsq' (sym 43) for insn #2
+libbpf: sec '.relstruct_ops/simple_exit': collecting relocation for section(17) 'struct_ops/simple_exit'
+libbpf: sec '.relstruct_ops/simple_exit': relo #0: insn #2 against 'uei'
+libbpf: prog 'simple_exit': found data map 2 (scx_simp.data, sec 23, off 0) for insn 2
+libbpf: sec '.relstruct_ops/simple_exit': relo #1: insn #4 against 'uei'
+libbpf: prog 'simple_exit': found data map 2 (scx_simp.data, sec 23, off 0) for insn 4
+libbpf: sec '.relstruct_ops/simple_exit': relo #2: insn #9 against 'uei'
+libbpf: prog 'simple_exit': found data map 2 (scx_simp.data, sec 23, off 0) for insn 9
+libbpf: struct_ops reloc simple_ops: for 30 value 0 shdr_idx 3 rel->r_offset 0 map->sec_offset 0 name 40 ('simple_select_cpu')
+libbpf: struct_ops reloc simple_ops: for 34 value 0 shdr_idx 5 rel->r_offset 8 map->sec_offset 0 name 480 ('simple_enqueue')
+libbpf: struct_ops reloc simple_ops: for 37 value 0 shdr_idx 7 rel->r_offset 16 map->sec_offset 0 name 374 ('simple_dispatch')
+libbpf: struct_ops reloc simple_ops: for 39 value 0 shdr_idx 9 rel->r_offset 24 map->sec_offset 0 name 436 ('simple_running')
+libbpf: struct_ops reloc simple_ops: for 40 value 0 shdr_idx 11 rel->r_offset 32 map->sec_offset 0 name 405 ('simple_stopping')
+libbpf: struct_ops reloc simple_ops: for 41 value 0 shdr_idx 13 rel->r_offset 40 map->sec_offset 0 name 591 ('simple_enable')
+libbpf: struct_ops reloc simple_ops: for 42 value 0 shdr_idx 15 rel->r_offset 48 map->sec_offset 0 name 121 ('simple_init')
+libbpf: struct_ops reloc simple_ops: for 44 value 0 shdr_idx 17 rel->r_offset 56 map->sec_offset 0 name 92 ('simple_exit')
+libbpf: object 'scx_simple': failed (-22) to create BPF token from '/sys/fs/bpf', skipping optional step...
+libbpf: loaded kernel BTF from '/sys/kernel/btf/vmlinux'
+libbpf: extern (func ksym) 'scx_bpf_consume': not found in kernel or module BTFs
+
+==> LOAD REJECTED (errno=22, Invalid argument)
+==> This is the real, directly-observed kernel/libbpf
+==> response captured for ANALYSIS.md — see the libbpf
+==> diagnostic lines printed above (from print_fn) for
+==> the specific reason.
+== scx_simple loader (non-skeleton libbpf API) ==
+[1/3] bpf_object__open_file(scx_simple.bpf.o)
+      open OK — object name: scx_simple
+[2/3] bpf_object__load() — this is the real kernel accept/reject step
