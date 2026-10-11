@@ -128,6 +128,58 @@ No answers here — this is the self-check. If any of these stall you, that's th
 
 ---
 
+## Complete file index
+
+| # | File | Covers |
+|---|---|---|
+| 00 | `MASTER_MENTAL_MODEL` | The twelve mental-model diagrams |
+| 01 | `TERMINALS_AND_TERMINAL_EMULATORS` | Terminal, console, teletype, emulator; terminal ≠ shell |
+| 02 | `TTY_AND_PTY` | Device files, PTY master/slave, line discipline, echo |
+| 03 | `SHELLS_OVERVIEW` | Shell landscape, POSIX boundary |
+| 04 | `BASH` | Bash as language and process launcher |
+| 05 | `ZSH` | Zsh as a diff against Bash |
+| 06 | `SHELL_PARSING` | Tokenization, quoting, expansion order |
+| 07 | `COMMAND_EXECUTION` | The 24-step trace; PATH; builtins vs external |
+| 08 | `PROCESSES_FORK_EXEC` | fork, exec, copy-on-write, ELF, dynamic linking |
+| 09 | `SYSTEM_CALLS` | User/kernel mode, the syscall transition |
+| 10 | `FILE_DESCRIPTORS` | fd table, open file description, inode, dup family |
+| 11 | `STDIN_STDOUT_STDERR` | Why stderr is separate; `2>&1` in detail |
+| 12 | `REDIRECTION` | Operators, here-documents, process substitution |
+| 13 | `PIPES` | pipe(), wiring, buffering, EOF, close discipline |
+| 14 | `SIGNALS` | Signal catalog, Ctrl+C/Z, SIGWINCH |
+| 15 | `JOB_CONTROL` | Foreground/background, fg/bg |
+| 16 | `SESSIONS_AND_PROCESS_GROUPS` | setsid, tcsetpgrp, SIGTTIN/TTOU |
+| 17 | `ENVIRONMENT_AND_PATH` | environ, envp, export, IFS |
+| 18 | `SHELL_STARTUP_FILES` | Login vs interactive; Bash and Zsh file sets |
+| 19 | `FILESYSTEM_AND_VFS` | VFS, inodes, dentries, directories |
+| 20 | `PERMISSIONS_AND_SUDO` | rwx, setuid, sudo and PAM |
+| 21 | `PROCESS_MEMORY` | Address-space layout, malloc, ASLR, ulimit |
+| 22 | `SCHEDULER` | States, context switching, true concurrency |
+| 23 | `TERMINAL_LINE_DISCIPLINE` | termios, Ctrl+D, Readline/ZLE |
+| 24 | `TERMINAL_CONTROL_SEQUENCES` | ANSI escapes, alternate screen |
+| 25 | `INTERACTIVE_TERMINAL_PROGRAMS` | vim/less/top/ssh patterns |
+| 26 | `SSH` | Keys, encrypted channel, remote PTY, `-t` |
+| 27 | `TMUX` | Client/server, Unix domain sockets |
+| 28 | `DAEMONS_SYSTEMD` | Double-fork recipe, systemd |
+| 29 | `CONTAINERS` | Namespaces, cgroups, `docker exec -it` |
+| 30 | `NETWORKING_FROM_TERMINAL` | `curl` traced; AF_UNIX vs AF_INET |
+| 31 | `DEBUGGING_TOOLS` | Tool-by-tool reference |
+| 32 | `STRACE` | `ls`, `cat`, a full pipeline traced |
+| 33 | `PROC_FILESYSTEM` | `/proc`, `/proc/self` vs `/proc/$$` |
+| 34 | `MINI_SHELL_PROJECT` | 12-stage C build |
+| 35 | `LABS` | 24 hands-on labs |
+| 36 | `INTERVIEW_QUESTIONS` | 41 questions, four parts each |
+| 37 | `DEBUGGING_SCENARIOS` | Five investigations |
+| 38 | `COMMON_MISCONCEPTIONS` | 34 corrected misconceptions |
+| 39 | `MASTER_EXECUTION_TRACE` | One command through every layer |
+| 40 | `QUICK_REVISION` | This file |
+| 41 | `BOOT_TO_TERMINAL` | Power button to shell; what PID 1 is |
+| 42 | `SHELL_GOTCHAS_AND_EXIT_STATUS` | Traps, `$?`, `set -e`, operators |
+| 43 | `MACOS_COMPARISON` | Linux vs macOS, side by side |
+| 44 | `PROCESS_TREE_ZOMBIES_ORPHANS` | The process tree, zombies, orphans |
+
+---
+
 ## This is the end of the handbook
 
-Forty-four files, `00` through `40` plus the three added along the way (`41`-`43`, if you requested the boot-sequence, gotchas, or macOS-comparison files in your build order). Every mechanism traced to a syscall or a kernel concept; every syscall tied back to something you can run and observe yourself. The pressure test in file 00 and the checklist above are the two places to return to, periodically, long after the first read-through.
+Forty-five files, `00` through `44`. Every mechanism is traced to a syscall or a kernel concept, and every syscall is tied back to something you can run and observe yourself. The pressure test in file 00 and the checklist above are the two places to return to, periodically, long after the first read-through.
