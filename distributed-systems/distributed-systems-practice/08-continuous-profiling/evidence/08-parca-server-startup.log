@@ -1,0 +1,13 @@
+[36mooooooooo.[0m
+[36m`888   `Y88.[0m
+[36m 888   .d88'  .oooo.   oooo d8b  .ooooo.   .oooo.[0m
+[36m 888ooo88P'  `P  )88b  `888""8P d88' `"Y8 `P  )88b[0m
+[36m 888          .oP"888   888     888        .oP"888[0m
+[36m 888         d8(  888   888     888   .o8 d8(  888[0m
+[36mo888o        `Y888""8o d888b    `Y8bod8P' `Y888""8o[0m
+[36m[0m
+[36m[0m
+[36m[0m
+level=info name=parca ts=2026-10-11T15:01:57.157207425Z caller=factory.go:54 msg="loading bucket configuration"
+level=info name=parca ts=2026-10-11T15:01:57.16487968Z caller=badgerlogger.go:36 msg="Set nextTxnTs to 0"
+level=info name=parca ts=2026-10-11T15:01:57.179617313Z caller=server.go:88 msg="starting server" addr=:7070

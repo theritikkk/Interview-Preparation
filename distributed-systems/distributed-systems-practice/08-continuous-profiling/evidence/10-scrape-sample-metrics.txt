@@ -1,0 +1,44 @@
+# HELP parca_target_interval_length_seconds Actual intervals between scrapes.
+# TYPE parca_target_interval_length_seconds summary
+parca_target_interval_length_seconds{interval="10s",quantile="0.01"} 9.998056727
+parca_target_interval_length_seconds{interval="10s",quantile="0.05"} 9.99925474
+parca_target_interval_length_seconds{interval="10s",quantile="0.5"} 10.000186377
+parca_target_interval_length_seconds{interval="10s",quantile="0.9"} 10.073773518
+parca_target_interval_length_seconds{interval="10s",quantile="0.99"} 10.30153312
+parca_target_interval_length_seconds_sum{interval="10s"} 4078.8321135150036
+parca_target_interval_length_seconds_count{interval="10s"} 407
+# HELP parca_target_samples_total Total number of samples that were scraped
+# TYPE parca_target_samples_total counter
+parca_target_samples_total 47091
+# HELP parca_target_scrape_pool_sync_total Total number of syncs that were executed on a scrape pool.
+# TYPE parca_target_scrape_pool_sync_total counter
+parca_target_scrape_pool_sync_total{scrape_job="parca"} 1
+parca_target_scrape_pool_sync_total{scrape_job="profworkload"} 1
+# HELP parca_target_scrapes_exceeded_sample_limit_total Total number of scrapes that hit the sample limit and were rejected.
+# TYPE parca_target_scrapes_exceeded_sample_limit_total counter
+parca_target_scrapes_exceeded_sample_limit_total 0
+# HELP parca_target_scrapes_sample_duplicate_timestamp_total Total number of samples rejected due to duplicate timestamps but different values
+# TYPE parca_target_scrapes_sample_duplicate_timestamp_total counter
+parca_target_scrapes_sample_duplicate_timestamp_total 0
+# HELP parca_target_scrapes_sample_out_of_bounds_total Total number of samples rejected due to timestamp falling outside of the time bounds
+# TYPE parca_target_scrapes_sample_out_of_bounds_total counter
+parca_target_scrapes_sample_out_of_bounds_total 0
+# HELP parca_target_scrapes_sample_out_of_order_total Total number of samples rejected due to not being out of the expected order
+# TYPE parca_target_scrapes_sample_out_of_order_total counter
+parca_target_scrapes_sample_out_of_order_total 0
+# HELP parca_target_sync_length_seconds Actual interval to sync the scrape pool.
+# TYPE parca_target_sync_length_seconds summary
+parca_target_sync_length_seconds{scrape_job="parca",quantile="0.01"} 0.000667991
+parca_target_sync_length_seconds{scrape_job="parca",quantile="0.05"} 0.000667991
+parca_target_sync_length_seconds{scrape_job="parca",quantile="0.5"} 0.000667991
+parca_target_sync_length_seconds{scrape_job="parca",quantile="0.9"} 0.000667991
+parca_target_sync_length_seconds{scrape_job="parca",quantile="0.99"} 0.000667991
+parca_target_sync_length_seconds_sum{scrape_job="parca"} 0.000667991
+parca_target_sync_length_seconds_count{scrape_job="parca"} 1
+parca_target_sync_length_seconds{scrape_job="profworkload",quantile="0.01"} 0.000561155
+parca_target_sync_length_seconds{scrape_job="profworkload",quantile="0.05"} 0.000561155
+parca_target_sync_length_seconds{scrape_job="profworkload",quantile="0.5"} 0.000561155
+parca_target_sync_length_seconds{scrape_job="profworkload",quantile="0.9"} 0.000561155
+parca_target_sync_length_seconds{scrape_job="profworkload",quantile="0.99"} 0.000561155
+parca_target_sync_length_seconds_sum{scrape_job="profworkload"} 0.000561155
+parca_target_sync_length_seconds_count{scrape_job="profworkload"} 1

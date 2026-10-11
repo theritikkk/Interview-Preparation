@@ -1,0 +1,12 @@
+job: parca
+  profile=memory          url=http://127.0.0.1:7070/debug/pprof/allocs                health=HEALTH_GOOD lastScrape=2026-10-11T15:08:57.486031962Z
+  profile=block           url=http://127.0.0.1:7070/debug/pprof/block                 health=HEALTH_GOOD lastScrape=2026-10-11T15:08:54.841823065Z
+  profile=goroutine       url=http://127.0.0.1:7070/debug/pprof/goroutine             health=HEALTH_GOOD lastScrape=2026-10-11T15:08:58.219230519Z
+  profile=mutex           url=http://127.0.0.1:7070/debug/pprof/mutex                 health=HEALTH_GOOD lastScrape=2026-10-11T15:08:54.225301684Z
+  profile=process_cpu     url=http://127.0.0.1:7070/debug/pprof/profile?seconds=10    health=HEALTH_GOOD lastScrape=2026-10-11T15:08:41.824483166Z
+job: profworkload
+  profile=memory          url=http://127.0.0.1:9999/debug/pprof/allocs                health=HEALTH_GOOD lastScrape=2026-10-11T15:08:52.653482518Z
+  profile=block           url=http://127.0.0.1:9999/debug/pprof/block                 health=HEALTH_GOOD lastScrape=2026-10-11T15:08:57.242414170Z
+  profile=goroutine       url=http://127.0.0.1:9999/debug/pprof/goroutine             health=HEALTH_GOOD lastScrape=2026-10-11T15:08:52.810057209Z
+  profile=mutex           url=http://127.0.0.1:9999/debug/pprof/mutex                 health=HEALTH_GOOD lastScrape=2026-10-11T15:08:51.022997325Z
+  profile=process_cpu     url=http://127.0.0.1:9999/debug/pprof/profile?seconds=10    health=HEALTH_GOOD lastScrape=2026-10-11T15:08:49.370110775Z

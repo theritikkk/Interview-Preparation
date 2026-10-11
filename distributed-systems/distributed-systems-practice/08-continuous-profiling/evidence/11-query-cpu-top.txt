@@ -1,0 +1,22 @@
+=== request: real CPU top query, job=profworkload ===
+{
+  "mode": "MODE_MERGE",
+  "merge": {
+    "query": "process_cpu:samples:count:cpu:nanoseconds:delta{job=\"profworkload\"}",
+    "start": "2026-10-11T15:04:09Z",
+    "end": "2026-10-11T15:09:09Z"
+  },
+  "report_type": "REPORT_TYPE_TOP"
+}
+
+=== real response from Parca's QueryService (top 10 by flat) ===
+   101290000000  crypto/internal/fips140/sha256.blockSHANI   (/usr/local/go1.24.7/src/crypto/internal/fips140/sha256/sha256block_amd64.s)
+    32060000000  runtime.memmove   (/usr/local/go1.24.7/src/runtime/memmove_amd64.s)
+    23770000000  runtime.duffcopy   (/usr/local/go1.24.7/src/runtime/duff_amd64.s)
+    20380000000  crypto/internal/fips140/sha256.(*Digest).checkSum   (/usr/local/go1.24.7/src/crypto/internal/fips140/sha256/sha256.go)
+    14020000000  runtime.asyncPreempt   (/usr/local/go1.24.7/src/runtime/preempt_amd64.s)
+    13330000000  time.runtimeNow   (/usr/local/go1.24.7/src/runtime/time.go)
+    10720000000  fmt.(*fmt).fmtInteger   (/usr/local/go1.24.7/src/fmt/format.go)
+     9640000000  runtime.(*mspan).base   (/usr/local/go1.24.7/src/runtime/mheap.go)
+     9550000000  runtime.nextFreeFast   (/usr/local/go1.24.7/src/runtime/malloc.go)
+     9390000000  runtime.memclrNoHeapPointers   (/usr/local/go1.24.7/src/runtime/memclr_amd64.s)

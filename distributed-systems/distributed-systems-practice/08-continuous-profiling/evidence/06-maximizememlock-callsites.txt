@@ -1,0 +1,18 @@
+$ grep -rn 'MaximizeMemlock' --include='*.go'  (inside go.opentelemetry.io/ebpf-profiler, parca-dev fork — the library parca-agent v0.50.0 actually uses for its eBPF tracer, per its go.mod replace directive)
+kallsyms/bpf_integration_test.go:129:	restoreRlimit, err := rlimit.MaximizeMemlock()
+kallsyms/bpf_integration_test.go:157:	restoreRlimit, err := rlimit.MaximizeMemlock()
+rlimit/rlimit.go:14:// MaximizeMemlock updates the memlock resource limit to RLIM_INFINITY.
+rlimit/rlimit.go:16:func MaximizeMemlock() (func(), error) {
+tracer/tracepoints.go:37:	restoreRlimit, err := rlimit.MaximizeMemlock()
+tracer/ebpf_integration_test.go:99:	restoreRlimit, err := rlimit.MaximizeMemlock()
+tracer/ebpf_integration_test.go:160:	restoreRlimit, err := rlimit.MaximizeMemlock()
+tracer/systemconfig.go:297:	restoreRlimit, err := rlimit.MaximizeMemlock()
+tracer/systemconfig.go:588:	restoreRlimit, err := rlimit.MaximizeMemlock()
+tracer/tracer.go:703:	restoreRlimit, err := rlimit.MaximizeMemlock()
+tracer/tracer.go:924:	restoreRlimit, err := rlimit.MaximizeMemlock()
+processmanager/ebpf/ebpf_integration_test.go:33:	restoreRlimit, err := rlimit.MaximizeMemlock()
+processmanager/ebpf/ebpf_integration_test.go:95:	restoreRlimit, err := rlimit.MaximizeMemlock()
+processmanager/ebpf/ebpf.go:357:	restoreRlimit, err := rlimit.MaximizeMemlock()
+processmanager/ebpf/ebpf.go:625:	restoreRlimit, err := rlimit.MaximizeMemlock()
+processmanager/ebpf/ebpf.go:754:	restoreRlimit, err := rlimit.MaximizeMemlock()
+processmanager/ebpf/asyncupdate_integration_test.go:29:	restoreRlimit, err := rlimit.MaximizeMemlock()

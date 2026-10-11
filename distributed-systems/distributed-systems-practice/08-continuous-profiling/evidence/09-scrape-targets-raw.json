@@ -1,0 +1,432 @@
+{
+  "targets": {
+    "parca": {
+      "targets": [
+        {
+          "discoveredLabels": {
+            "labels": [
+              {
+                "name": "__address__",
+                "value": "127.0.0.1:7070"
+              },
+              {
+                "name": "__name__",
+                "value": "memory"
+              },
+              {
+                "name": "__profile_path__",
+                "value": "/debug/pprof/allocs"
+              },
+              {
+                "name": "__scheme__",
+                "value": "http"
+              },
+              {
+                "name": "job",
+                "value": "parca"
+              }
+            ]
+          },
+          "labels": {
+            "labels": [
+              {
+                "name": "instance",
+                "value": "127.0.0.1:7070"
+              },
+              {
+                "name": "job",
+                "value": "parca"
+              }
+            ]
+          },
+          "lastScrape": "2026-10-11T15:08:57.486031962Z",
+          "lastScrapeDuration": "0.024267839s",
+          "url": "http://127.0.0.1:7070/debug/pprof/allocs",
+          "health": "HEALTH_GOOD"
+        },
+        {
+          "discoveredLabels": {
+            "labels": [
+              {
+                "name": "__address__",
+                "value": "127.0.0.1:7070"
+              },
+              {
+                "name": "__name__",
+                "value": "block"
+              },
+              {
+                "name": "__profile_path__",
+                "value": "/debug/pprof/block"
+              },
+              {
+                "name": "__scheme__",
+                "value": "http"
+              },
+              {
+                "name": "job",
+                "value": "parca"
+              }
+            ]
+          },
+          "labels": {
+            "labels": [
+              {
+                "name": "instance",
+                "value": "127.0.0.1:7070"
+              },
+              {
+                "name": "job",
+                "value": "parca"
+              }
+            ]
+          },
+          "lastScrape": "2026-10-11T15:08:54.841823065Z",
+          "lastScrapeDuration": "0.000948467s",
+          "url": "http://127.0.0.1:7070/debug/pprof/block",
+          "health": "HEALTH_GOOD"
+        },
+        {
+          "discoveredLabels": {
+            "labels": [
+              {
+                "name": "__address__",
+                "value": "127.0.0.1:7070"
+              },
+              {
+                "name": "__name__",
+                "value": "goroutine"
+              },
+              {
+                "name": "__profile_path__",
+                "value": "/debug/pprof/goroutine"
+              },
+              {
+                "name": "__scheme__",
+                "value": "http"
+              },
+              {
+                "name": "job",
+                "value": "parca"
+              }
+            ]
+          },
+          "labels": {
+            "labels": [
+              {
+                "name": "instance",
+                "value": "127.0.0.1:7070"
+              },
+              {
+                "name": "job",
+                "value": "parca"
+              }
+            ]
+          },
+          "lastScrape": "2026-10-11T15:08:58.219230519Z",
+          "lastScrapeDuration": "0.002571841s",
+          "url": "http://127.0.0.1:7070/debug/pprof/goroutine",
+          "health": "HEALTH_GOOD"
+        },
+        {
+          "discoveredLabels": {
+            "labels": [
+              {
+                "name": "__address__",
+                "value": "127.0.0.1:7070"
+              },
+              {
+                "name": "__name__",
+                "value": "mutex"
+              },
+              {
+                "name": "__profile_path__",
+                "value": "/debug/pprof/mutex"
+              },
+              {
+                "name": "__scheme__",
+                "value": "http"
+              },
+              {
+                "name": "job",
+                "value": "parca"
+              }
+            ]
+          },
+          "labels": {
+            "labels": [
+              {
+                "name": "instance",
+                "value": "127.0.0.1:7070"
+              },
+              {
+                "name": "job",
+                "value": "parca"
+              }
+            ]
+          },
+          "lastScrape": "2026-10-11T15:08:54.225301684Z",
+          "lastScrapeDuration": "0.000909749s",
+          "url": "http://127.0.0.1:7070/debug/pprof/mutex",
+          "health": "HEALTH_GOOD"
+        },
+        {
+          "discoveredLabels": {
+            "labels": [
+              {
+                "name": "__address__",
+                "value": "127.0.0.1:7070"
+              },
+              {
+                "name": "__name__",
+                "value": "process_cpu"
+              },
+              {
+                "name": "__profile_path__",
+                "value": "/debug/pprof/profile"
+              },
+              {
+                "name": "__scheme__",
+                "value": "http"
+              },
+              {
+                "name": "job",
+                "value": "parca"
+              }
+            ]
+          },
+          "labels": {
+            "labels": [
+              {
+                "name": "instance",
+                "value": "127.0.0.1:7070"
+              },
+              {
+                "name": "job",
+                "value": "parca"
+              }
+            ]
+          },
+          "lastScrape": "2026-10-11T15:08:41.824483166Z",
+          "lastScrapeDuration": "10.001867334s",
+          "url": "http://127.0.0.1:7070/debug/pprof/profile?seconds=10",
+          "health": "HEALTH_GOOD"
+        }
+      ]
+    },
+    "profworkload": {
+      "targets": [
+        {
+          "discoveredLabels": {
+            "labels": [
+              {
+                "name": "__address__",
+                "value": "127.0.0.1:9999"
+              },
+              {
+                "name": "__name__",
+                "value": "memory"
+              },
+              {
+                "name": "__profile_path__",
+                "value": "/debug/pprof/allocs"
+              },
+              {
+                "name": "__scheme__",
+                "value": "http"
+              },
+              {
+                "name": "job",
+                "value": "profworkload"
+              }
+            ]
+          },
+          "labels": {
+            "labels": [
+              {
+                "name": "instance",
+                "value": "127.0.0.1:9999"
+              },
+              {
+                "name": "job",
+                "value": "profworkload"
+              }
+            ]
+          },
+          "lastScrape": "2026-10-11T15:08:52.653482518Z",
+          "lastScrapeDuration": "0.016694216s",
+          "url": "http://127.0.0.1:9999/debug/pprof/allocs",
+          "health": "HEALTH_GOOD"
+        },
+        {
+          "discoveredLabels": {
+            "labels": [
+              {
+                "name": "__address__",
+                "value": "127.0.0.1:9999"
+              },
+              {
+                "name": "__name__",
+                "value": "block"
+              },
+              {
+                "name": "__profile_path__",
+                "value": "/debug/pprof/block"
+              },
+              {
+                "name": "__scheme__",
+                "value": "http"
+              },
+              {
+                "name": "job",
+                "value": "profworkload"
+              }
+            ]
+          },
+          "labels": {
+            "labels": [
+              {
+                "name": "instance",
+                "value": "127.0.0.1:9999"
+              },
+              {
+                "name": "job",
+                "value": "profworkload"
+              }
+            ]
+          },
+          "lastScrape": "2026-10-11T15:08:57.242414170Z",
+          "lastScrapeDuration": "0.049070093s",
+          "url": "http://127.0.0.1:9999/debug/pprof/block",
+          "health": "HEALTH_GOOD"
+        },
+        {
+          "discoveredLabels": {
+            "labels": [
+              {
+                "name": "__address__",
+                "value": "127.0.0.1:9999"
+              },
+              {
+                "name": "__name__",
+                "value": "goroutine"
+              },
+              {
+                "name": "__profile_path__",
+                "value": "/debug/pprof/goroutine"
+              },
+              {
+                "name": "__scheme__",
+                "value": "http"
+              },
+              {
+                "name": "job",
+                "value": "profworkload"
+              }
+            ]
+          },
+          "labels": {
+            "labels": [
+              {
+                "name": "instance",
+                "value": "127.0.0.1:9999"
+              },
+              {
+                "name": "job",
+                "value": "profworkload"
+              }
+            ]
+          },
+          "lastScrape": "2026-10-11T15:08:52.810057209Z",
+          "lastScrapeDuration": "0.029228701s",
+          "url": "http://127.0.0.1:9999/debug/pprof/goroutine",
+          "health": "HEALTH_GOOD"
+        },
+        {
+          "discoveredLabels": {
+            "labels": [
+              {
+                "name": "__address__",
+                "value": "127.0.0.1:9999"
+              },
+              {
+                "name": "__name__",
+                "value": "mutex"
+              },
+              {
+                "name": "__profile_path__",
+                "value": "/debug/pprof/mutex"
+              },
+              {
+                "name": "__scheme__",
+                "value": "http"
+              },
+              {
+                "name": "job",
+                "value": "profworkload"
+              }
+            ]
+          },
+          "labels": {
+            "labels": [
+              {
+                "name": "instance",
+                "value": "127.0.0.1:9999"
+              },
+              {
+                "name": "job",
+                "value": "profworkload"
+              }
+            ]
+          },
+          "lastScrape": "2026-10-11T15:08:51.022997325Z",
+          "lastScrapeDuration": "0.027386996s",
+          "url": "http://127.0.0.1:9999/debug/pprof/mutex",
+          "health": "HEALTH_GOOD"
+        },
+        {
+          "discoveredLabels": {
+            "labels": [
+              {
+                "name": "__address__",
+                "value": "127.0.0.1:9999"
+              },
+              {
+                "name": "__name__",
+                "value": "process_cpu"
+              },
+              {
+                "name": "__profile_path__",
+                "value": "/debug/pprof/profile"
+              },
+              {
+                "name": "__scheme__",
+                "value": "http"
+              },
+              {
+                "name": "job",
+                "value": "profworkload"
+              }
+            ]
+          },
+          "labels": {
+            "labels": [
+              {
+                "name": "instance",
+                "value": "127.0.0.1:9999"
+              },
+              {
+                "name": "job",
+                "value": "profworkload"
+              }
+            ]
+          },
+          "lastScrape": "2026-10-11T15:08:49.370110775Z",
+          "lastScrapeDuration": "10.216944521s",
+          "url": "http://127.0.0.1:9999/debug/pprof/profile?seconds=10",
+          "health": "HEALTH_GOOD"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,20 @@
+=== request: real memory alloc_space top query, job=profworkload ===
+{
+  "mode": "MODE_MERGE",
+  "merge": {
+    "query": "memory:alloc_space:bytes:space:bytes{job=\"profworkload\"}",
+    "start": "2026-10-11T15:04:09Z",
+    "end": "2026-10-11T15:09:09Z"
+  },
+  "report_type": "REPORT_TYPE_TOP"
+}
+
+=== real response from Parca's QueryService (top 8 by flat) ===
+  2143439689898  main.hashBurn
+   829212321705  main.allocBurn
+   566459026718  fmt.Sprintf
+     2769971590  compress/flate.NewWriter
+     1300414496  compress/flate.(*compressor).init
+     1091862857  runtime/pprof.StartCPUProfile
+     1014623663  compress/flate.newDeflateFast
+      391206208  runtime/pprof.allFrames

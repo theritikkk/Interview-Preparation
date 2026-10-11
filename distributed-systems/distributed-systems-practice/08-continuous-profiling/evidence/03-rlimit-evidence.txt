@@ -1,0 +1,15 @@
+$ ulimit -a | grep -i lock
+real-time non-blocking time  (microseconds, -R) unlimited
+core file size              (blocks, -c) 0
+file size                   (blocks, -f) unlimited
+max locked memory           (kbytes, -l) 8192
+file locks                          (-x) unlimited
+
+$ ulimit -Hl   (hard limit, KB)
+8192
+
+$ ulimit -Sl   (soft limit, KB)
+8192
+
+$ ulimit -l unlimited   (attempt to raise, as root)
+/bin/bash: line 35: ulimit: max locked memory: cannot modify limit: Operation not permitted

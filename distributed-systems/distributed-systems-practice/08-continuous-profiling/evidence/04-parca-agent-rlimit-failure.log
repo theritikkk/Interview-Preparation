@@ -1,0 +1,25 @@
+2026/10/11 08:56:39 INFO GOMEMLIMIT is updated package=github.com/KimMachineGun/automemlimit/memlimit GOMEMLIMIT=5644954828 previous=9223372036854775807
+2026/10/11 08:56:39 INFO GOMEMLIMIT is updated package=github.com/KimMachineGun/automemlimit/memlimit GOMEMLIMIT=5644954828 previous=9223372036854775807
+[33mooooooooo.                                                  .o.                                            .[0m
+[33m`888   `Y88.                                               .888.                                         .o8[0m
+[33m 888   .d88'  .oooo.   oooo d8b  .ooooo.   .oooo.         .8"888.      .oooooooo  .ooooo.  ooo. .oo.   .o888oo[0m
+[33m 888ooo88P'  `P  )88b  `888""8P d88' `"Y8 `P  )88b       .8' `888.    888' `88b  d88' `88b `888P"Y88b    888[0m
+[33m 888          .oP"888   888     888        .oP"888      .88ooo8888.   888   888  888ooo888  888   888    888[0m
+[33m 888         d8(  888   888     888   .o8 d8(  888     .8'     `888.  `88bod8P'  888    .o  888   888    888 .[0m
+[33mo888o        `Y888""8o d888b    `Y8bod8P' `Y888""8o   o88o     o8888o `8oooooo.  `Y8bod8P' o888o o888o   "888"[0m
+[33m                                                                      d"     YD[0m
+[33m                                                                      "Y88888P'[0m
+[33m[0m
+parca-agent, version 0.50.0 (commit: ce8e26c6b7643849d2d1b211ea8b99a6afcc96a5, date: 2026-09-21T22:46:20Z), arch: amd64
+time="2026-10-11T08:56:39Z" level=info msg="External labels: "
+time="2026-10-11T08:56:39Z" level=info msg="no config file provided, using default config"
+time="2026-10-11T08:56:39Z" level=info msg="Can't connect Containerd client to [/run/containerd/containerd.sock /var/run/containerd/containerd.sock /var/run/docker/containerd/containerd.sock /system/run/containerd/containerd.sock]"
+time="2026-10-11T08:56:39Z" level=info msg="Environment variable KUBERNETES_SERVICE_HOST not set"
+time=2026-10-11T08:56:39.908Z level=INFO msg="VMA lookup disabled: failed to adjust rlimit for VMA helper probe: failed to set temporary rlimit: operation not permitted; patched 6 instructions"
+time="2026-10-11T08:56:39Z" level=error msg="Failed to load eBPF tracer: failed to load eBPF code: failed to set RODATA variables: failed to prepare programs and maps for system analysis: failed to adjust rlimit: failed to set temporary rlimit: operation not permitted"
+time="2026-10-11T08:56:39Z" level=info msg="Subprocess completed exit status 1 exit: 1"
+time="2026-10-11T08:56:39Z" level=error msg="======================= unexpected error ======================="
+time="2026-10-11T08:56:39Z" level=error msg="2026/10/11 08:56:39 INFO GOMEMLIMIT is updated package=github.com/KimMachineGun/automemlimit/memlimit GOMEMLIMIT=5644954828 previous=9223372036854775807\ntime=\"2026-10-11T08:56:39Z\" level=info msg=\"External labels: \"\ntime=\"2026-10-11T08:56:39Z\" level=info msg=\"no config file provided, using default config\"\ntime=\"2026-10-11T08:56:39Z\" level=info msg=\"Can't connect Containerd client to [/run/containerd/containerd.sock /var/run/containerd/containerd.sock /var/run/docker/containerd/containerd.sock /system/run/containerd/containerd.sock]\"\ntime=\"2026-10-11T08:56:39Z\" level=info msg=\"Environment variable KUBERNETES_SERVICE_HOST not set\"\ntime=2026-10-11T08:56:39.908Z level=INFO msg=\"VMA lookup disabled: failed to adjust rlimit for VMA helper probe: failed to set temporary rlimit: operation not permitted; patched 6 instructions\"\ntime=\"2026-10-11T08:56:39Z\" level=error msg=\"Failed to load eBPF tracer: failed to load eBPF code: failed to set RODATA variables: failed to prepare programs and maps for system analysis: failed to adjust rlimit: failed to set temporary rlimit: operation not permitted\"\n"
+time="2026-10-11T08:56:39Z" level=error msg="================================================================"
+time="2026-10-11T08:56:39Z" level=error msg="about to report error to server"
+time="2026-10-11T08:56:39Z" level=info msg="report sent successfully"

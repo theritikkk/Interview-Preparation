@@ -1,0 +1,30 @@
+object_storage:
+  bucket:
+    type: "FILESYSTEM"
+    config:
+      directory: "./parca-data/blocks"
+
+# Real scrape targets — no eBPF agent involved. Parca's server scrapes
+# standard Go net/http/pprof endpoints directly over HTTP, exactly as
+# documented in the real upstream parca.yaml (parca-src/parca.yaml,
+# cloned from github.com/parca-dev/parca for reference).
+#
+# Target 1: Parca itself. This matches the project's own documented
+# default behavior ("By default, Parca is scraping its own pprof
+# endpoints" — bin/README.md, bundled in the real release tarball).
+#
+# Target 2: workload/profworkload, a small real Go binary written for
+# this project (workload/main.go) that does real, continuous CPU
+# (SHA-256 hashing) and allocation (map/string churn) work and exposes
+# it over net/http/pprof on :9999 — see ../ANALYSIS.md for why this
+# target exists and what it proves.
+scrape_configs:
+  - job_name: "parca"
+    scrape_interval: "10s"
+    static_configs:
+      - targets: ["127.0.0.1:7070"]
+
+  - job_name: "profworkload"
+    scrape_interval: "10s"
+    static_configs:
+      - targets: ["127.0.0.1:9999"]
