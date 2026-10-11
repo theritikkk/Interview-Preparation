@@ -125,4 +125,4 @@ Extend §8's sweep to find, numerically, the $T_{cycle}$ beyond which the margin
 
 ---
 
-[← Lesson 50](lesson-50-uplink-power-control.md) · [Table of Contents](../README.md)
+[← Lesson 50](lesson-50-uplink-power-control.md) · [Table of Contents](../README.md) · [Lesson 52 →](lesson-52-handover.md)

@@ -78,6 +78,9 @@ A living roadmap from backend/systems engineering to job-readiness for **PHY, ba
 - [Lesson 47 — NR Beam Management: P1/P2/P3 Hierarchical Search](lessons/lesson-47-beam-management.md) *(Stage 8)*
 - [Lesson 48 — Massive MIMO CSI Feedback Compression](lessons/lesson-48-csi-feedback-compression.md) *(Stage 8)*
 - [Lesson 49 — Proportional Fair Scheduling](lessons/lesson-49-proportional-fair-scheduling.md) *(Stage 7/8)*
+- [Lesson 50 — Uplink Power Control: Open-Loop, Closed-Loop, Fractional Compensation](lessons/lesson-50-uplink-power-control.md) *(Stage 7/8)*
+- [Lesson 51 — DRX: The Latency-vs-Battery Trade-off, Derived](lessons/lesson-51-drx.md) *(Stage 7/8)*
+- [Lesson 52 — Handover: Hysteresis, Time-to-Trigger, and Ping-Pong](lessons/lesson-52-handover.md) *(Stage 7/8)*
 
 ---
 
