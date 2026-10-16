@@ -1,0 +1,25 @@
+PhysicianID,Specialty,AwarenessStage,TRxLast3M,Region
+P-001,Neurologist,Unaided awareness,0,North
+P-002,Neurologist,Aided awareness,0,South
+P-003,Neurologist,Consideration,0,East
+P-004,Neurologist,Trial prescribed,12,West
+P-005,Neurologist,Regular prescriber,31,North
+P-006,Cardiologist,Unaided awareness,0,South
+P-007,Cardiologist,Aided awareness,0,East
+P-008,Cardiologist,Consideration,0,West
+P-009,Cardiologist,Trial prescribed,12,North
+P-010,Cardiologist,Regular prescriber,31,South
+P-011,Oncologist,Unaided awareness,0,East
+P-012,Oncologist,Aided awareness,0,West
+P-013,Oncologist,Consideration,0,North
+P-014,Oncologist,Trial prescribed,12,South
+P-015,Oncologist,Regular prescriber,31,East
+P-016,Neurologist,Unaided awareness,0,West
+P-017,Neurologist,Aided awareness,0,North
+P-018,Neurologist,Consideration,0,South
+P-019,Neurologist,Trial prescribed,12,East
+P-020,Neurologist,Regular prescriber,31,West
+P-021,Cardiologist,Unaided awareness,0,North
+P-022,Cardiologist,Aided awareness,0,South
+P-023,Cardiologist,Consideration,0,East
+P-024,Cardiologist,Trial prescribed,12,West

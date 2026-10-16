@@ -1,0 +1,13 @@
+Product,Region,Segment,Revenue_Cr,Target_Cr
+CardioX,North,Branded,480,450
+CardioX,South,Branded,620,600
+CardioX,East,Branded,210,260
+CardioX,West,Branded,390,380
+NeuroY,North,Branded,150,140
+NeuroY,South,Branded,205,190
+NeuroY,East,Branded,60,75
+NeuroY,West,Branded,120,130
+OncoZ,North,Branded,95,120
+OncoZ,South,Branded,140,110
+OncoZ,East,Branded,35,40
+OncoZ,West,Branded,80,85
