@@ -1,0 +1,2125 @@
+
+===== page 1 =====
+Discrete Discrete Discrete 
+MathematicsMathematicsMathematics
+===== page 2 =====
+Published By: 
+ 
+  Physics Wallah 
+ISBN: 978-93-94342-39-2 
+Mobile App: Physics Wallah (Available on Play Store) 
+  
+Website: www.pw.live 
+Email: support@pw.live 
+ 
+Rights 
+All rights will be reserved by Publisher. No part of this book may be used or reproduced in any manner 
+whatsoever without the written permission from author or publisher. 
+In the interest of student's community: 
+Circulation of soft copy of Book(s) in PDF or other equivalen t format(s) through any social media channels, 
+emails, etc. or any other channels through mobiles, laptops or desktop is a criminal offence. Anybody 
+circulating, downloading, storing, soft copy of the book on his device(s) is in breach of Copyright Act. Further 
+Photocopying of this book or any of its material is also illegal. Do not download or forward in case you come 
+across any such soft copy material. 
+ 
+Disclaimer 
+A team of PW experts and faculties with an understanding of the subject has worked hard for the books. 
+While the author and publisher have used their best efforts in preparing these books. The content has been 
+checked for accuracy. As the book is intended for educational purposes, the author shall not be responsible for 
+any errors contained in the book. 
+The publication is designed to provide accurate and authoritative information with regard to the subject matter 
+covered. 
+This book and the individual contribution contained in it are protected under copyright by the publisher. 
+(This Module shall only be Used for Educational Purpose.) 
+
+===== page 3 =====
+ 
+ 
+ 
+Design Against Static Load 
+ 
+ 
+ 
+ 
+ 
+1. Graph Theory  .......................................................................................................................  2.1 – 2.10 
+2. Logic Handbook  ...................................................................................................................    2.11 – 2.17 
+3. Set Theory  ...........................................................................................................................  2.18 – 2.35 
+4. Combinatorics  .....................................................................................................................    2.36 – 2.40 
+ 
+INDEX 
+GATE-O-PEDIA COMPUTER SCIENCE & INFORMATION TECHNOLOGY 
+===== page 4 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Design Against Static Load 
+2.1 
+1 
+GRAPH THEORY 
+1.1 Basics of Graphs: 
+The number of vertices of odd degree in a graph is always even.  
+Every graph has an even number of odd vertices.  
+• Based on Parallel edges & self-loops graphs are classified into 3 types  
+ Parallel graph Self-loops 
+Simple graph × × 
+Multi graph  ✓ × 
+Pseudograph ✓ ✓ 
+   
+  (We mainly discuss simple graph in our syllabus) 
+1.1.1 Theorem1: 
+Maximum degree of a vertex, in a simple graph with n vertices, is   n – 1. 
+Note:  
+Hand Shaking Lemma: Sum of all degrees = 2  sum of all edges. 
+1.1.2 Theorem2 : 
+Maximum no. of edges, in a simple graph with n vertices, is  
+( )
+2
+1
+2c
+nnn −=  
+Note:  No of different graphs possible with n distinct vertices is 
+( )1
+22
+nn −
+=  
+ No. of different graphs possible with n distinct vertices and ‘e’ edges is 
+( )1
+2
+ − 
+
+ eC
+nn  
+1.1.3 Degree sequence: 
+If the degrees of a graph are written in increasing order or decreasing order, we call it a degree sequence 
+• Not all degree sequence forms simple graph. 
+• The degree sequence which forms simple graph is called graphical  
+ 
+ 
+===== page 5 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.2 
+1.1.4 Theorem 3: 
+In a simple graph at least two vertices with have same degree (n  2) 
+Example: {5, 4, 3, 2, 1} is not graphical 
+    
+1.1.5 Theorem 4: 
+Max degrees in a given graph G is denoted as (G) & Min degree is denoted as (G) 
+( ) ( )2eG G n 1n     −
+ 
+ 1.1.6 Complete Graph (kn) (n  1):  
+ 
+ 
+ Degree of every vertex is n – 1 
+(or) 
+ There direct edge b/w every pair of vertices  
+• no. of edges is,  
+ 
+( )n n 1e 2−=  
+1.1.7 Regular Graph:  
+A graph in which degree of all vertices is same is called a regular graph.  
+n.(G) = 2e = n.(G) 
+  
+1.1.8 Cycle Graph (Cn) (n  3):  
+ 
+ 
+If given degree sequence is all 2’s, then it’s not guaranteed that it’s a cycle graph  
+G: [2, 2, 2, 2, 2, 2] 
+ 
+ 
+ 
+ 
+k1
+k2
+k3
+C3 C5C4
+
+===== page 6 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.3 
+Degree of all vertices is 2 in a cycle graph  
+• Every Cn is a regular graph   
+• Number of Edges = n = Number of Vertex 
+  
+1.1.9 Wheel Graph (wn) (n  4):  
+A wheel graph w n is obtained by adding a vertex (hub) to c n – 1(Cycle Graph) such that this vertex is adjacent to all the  other 
+vertices. 
+  
+Number of edges = 2 (n - 1)  
+   
+1.1.10 Line Graph (L(G)):  
+Consider below graph, G 
+ 
+ 
+ 
+Step to construct L(G) 
+(i) define edges in G 
+(ii) label these edges as vertices in L(G) 
+(iii) Connect vertices with common number.  
+ 
+ 
+ 
+Line graph of every cycle graph is also a cycle.  
+ 
+ 
+ 
+ 
+ 
+ 
+C3 W4 C4
+1
+2
+3
+4
+5
+(12)
+(13)
+(23)
+(34)
+(35)
+(45)
+34
+35
+4523
+12
+13
+===== page 7 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.4 
+1.1.11 Bipartite (L(G)):  
+ 
+  
+Note: Bi – partite graphs do not contain odd length cycle. 
+1.1.12 Complete bipartite graph (km,n) :  
+Each vertex in set v1 is adjacent to all vertices in set v2. 
+Example: 
+ 
+ 
+  K2, 4 |v1| = m 
+  | v2 | = n 
+ 
+In km, n number of vertices = m + n 
+number of edges = mn 
+(km, n) = max (m, n),     ( km, n) = min (m, n) 
+ 
+1.1.13 Theorem 5 : 
+• Maximum no. of edges passible is bipartite graph of n vertices is    
+2n
+4
+
+
+  
+A
+B
+CD
+E
+A B
+C D
+A
+B C
+A B
+CD
+A B
+C D
+A B
+V1 V2 V1 V2
+C  is a bipartite graph4 Now adding E in either of the
+sets violates the property of 
+bipartite graph
+C  is not a bipartite graph  5
+adding C is not possible
+  C  is not a bipartite graph3
+V1 V2
+===== page 8 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.5 
+1.1.14 Star graph (k1,n-1) :  
+It is complete bipartite graph with one vertex in one set and rest of the vertices in other set. 
+(or) 
+Star graph (k1, kn-1) is complete bipartite graph possible with n vertices and minimum no. of edges.  
+ 
+Eg: Star graph of 5 vertices, k1, 4 is  
+total no of edges in k1, n-1 = n - 1  
+ (k1, n – 1) = n - 1,  (k1, n-1) = 1   
+ 
+ 
+1.1.15 Complement graph 
+( )G  :  
+For a graph G, complement of G
+( )G  is the graph which contains all the vertices present in G and does not contain the edges 
+present in G. 
+ 
+ 
+( ) ( ) ( )n n n 1G G k e G e G 2− + =  + =
+ 
+ 
+If the degree of vertex v is x in graph G, then the degree of vertex v in 
+G  is [(n-1)-x] 
+If d1, d2 ……… dn is degree sequence for G then   
+(n-1-d1), (n1-d2), ….. (n-1-dn) is degree sequence of 
+G  
+Example:  
+consider a graph of degree sequence {5, 2, 2, 2, 2, 1}. 
+What is the degree sequence of complement graph?  
+Total vertices, n = 6 
+  
+ 
+6k 5, 5, 5, 5, 5, 5
+G 5, 2, 2, 2, 2,1
+G 0, 3, 3, 3, 3, 4
+→
+→
+→  
+Isomorphic Graphs: 
+Let G1 = (V1, E1) and G2 = (V2, E2) be two undirected graphs. A function f: V1 → V2 is called a graph isomorphism if (a) f 
+is one-to-one and onto, and (b) for all a, b  V1. {a, b}  E1 if and only if {f(a), f(b)} E2. When such a function exists, G1 
+and G2 are called isomorphic graphs.  
+     
+(or)
+3
+1 2
+4 3
+1 2
+4
+G G
+===== page 9 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.6 
+(ii)  Self-complement: 
+( )GG  
+ It is a graph which is isomorphic to-its own complement.  
+ i.e., 
+GG=  
+ 
+ 
+It is clear that above two graphs are self-complement to each other.  
+w.r.t 
+ 
+( ) ( ) ( )n n 1e G e G 2−+=  
+ Let e be no. of edges in G 
+ 
+( )n n 1e te 2−=  
+• 
+( )n n 1e 4−=   i.e., no. of edges in a self-complement graph  
+Complement of star graph k1, n-1 gives one isolated vertex and a complete graph  kn-1 
+ n must be congruent to 0 or 1 mod 4. 
+ 
+Hypercube (Qn): 
+Q1  
+2’ vertices – 0, 1 
+Q2  
+4’ vertices – 00, 01, 10, 11 
+ 
+Every cycle in hypercube B of even length (think why). So, every hypercube is bipartite graph 
+Q3: 23 vertices 
+ 
+ 
+Number of edges = 
+n
+n1n2 n22 − =  
+G G
+01
+1110
+00
+001
+010
+111
+101
+000100
+511
+40
+===== page 10 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.7 
+1.2 Connectivity  
+Name Repeated Vertex 
+(Vertices) 
+Repeated Edge(s) Open Closed 
+Walk (open) Yes Yes Yes  
+Walk (closed) Yes Yes  Yes 
+Trail Yes No Yes  
+Circuit Yes No  Yes 
+Path No No Yes  
+Cycle No No  Yes 
+ 
+1.2.1 Connected graph:  
+For every two pair of vertices, there must exist a path between them.   
+ 
+ 
+ 
+1.2.2 Disconnected graph:  
+If we can find at least one pair of vertices, such that there is no path available b/w these 2 verities, then the graph is said to be 
+disconnected graph. 
+ 
+ 
+ 
+• If G is connected then 
+G  may be connected or disconnected  
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Disconnected graph 
+G GG G
+Connected Connected Connected disconnected 
+===== page 11 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.8 
+1.2.3 Theorem 6: 
+If G is disconnected, then 
+G is connected. 
+Example: 
+  
+ 
+1.2.4 Range of edges for a connected graph (k=1): 
+(k is connected components) 
+Tree 
+• Minimum no of edges required to get a possibility to make graph connected with in vertices is n-1.  
+( )
+Tree
+n n 1(n 1) e 2−−  
+ 
+• The connected graph with n-1 edges is doesn’t have a cycle. 
+• This graph is known as minimally connected graph.  
+• In this kind of graph, these will be a unique path b/w any two pair of vertices.  
+• This kind of graph is called a tree (a connected graph with no cycles) 
+1.2.5 Range of edges for a disconnected graph:  
+• Edges range b/w   
+( )( )n k n k 1n k e 2− − +−  
+ 
+Proof: 
+Here lets say we have k components with n1, n2 …… nk components  
+ n1 + n2 + …….. + n2 : k 
+For min no. of edge, each compared must be minimally connected. 
+ min no of edges is  
+N1 – 1 + n2 – 1 + …… + nk – 1 
+= (n1 + n2 + ….. nk) – k = n – k 
+ 
+Note:  
+1. Let G be a graph of order n. If 
+deg u + deg v  n – 1 
+nonadjacent vertices u and v of G, then G is connected and diam(G)  2. 
+2. If G is a graph of order n with (G)  (n – 1)/2, then G is connected.  
+3. A directed graph is strong connected if there is a path from a to b and from b to a whenever a and b are vertices in the 
+graph.  
+4.A directed graph is weakly connected if there is a path between every two vertices in the underlying undirected graph.  
+5. k(G)  (G)  minvv deg(v). 
+G G
+GG
+===== page 12 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.9 
+6. Simple graph G with n vertices is connected if it has more than (n - 1) (n - 2)/2 edges.  
+7. Let G = (V, E) be a loop-free graph with n (2) vertices. If deg(v)  (n - 1)/2 for all v  V, then G has a Hamilton path.              
+8. If G = (V, E) is a loop-free undirected graph with 
+n1
+V n 3, and if E 2 2,
+−=   +   then G has a Hamilton cycle.  
+9. If G = (V, E) is a loop-free undirected graph with 
+( )V n 3, and deg v n / 2=    for all   V, then G has a Hamilton cycle.  
+(10) If G1, G2 are (loop-free) undirected graphs, G1, G2 are isomorphic if and only if 
+12G , G  are isomorphic.  
+(11) If G is an undirected graph or multigraph with no isolated vertices, then we can construct an Euler trail in G if and only 
+if G is connected and has exactly two vertices of odd degree.  
+(12) 
+( ) ( ) ( ) ( )k G G G G n 1       −  
+1.3 Planarity  
+A graph (or multigraph) G is called planar if G can be drawn in the plane with its edges intersecting only at vertices of G. Such 
+a drawing of G is called an embedding of G in the plane.  
+     
+Kuratowski’s Theorem. A graph is nonplanar if and only if it contains s subgraph that is homomorphic to either K5 or K3.3. 
+ 
+Let G = (V, E) be a connected planar graph or multigraph with |V| =  and |E| = e. Let r be the number of regions in the plane 
+determined by a planar embedding (or, depiction) of G; one of these regions has infinite area and is called the infinite regi on. 
+Then  – e + r = 2. 
+Let G = (V, E) be a loop-free connected planar graph with |V| = , |E| = e > 2, and r regions. Then 3r  2e and e  3 – 6. 
+1.3.1 Coloring:  
+ Note:  Every MIS will always be MDS. But reverse need not to be true  
+ Domination number  Independence number. 
+ (G) =  (G 
+ 
+1.3.2 Theorem 7 : 
+Sum of size of minimum vertex cover and size of maximum independent set is equal to number of vertices  
+ 
+1.4 Covering:  
+It is set of edges such that all vertices should incident on at least one edge.  
+ 
+ 
+ 
+1
+6 5
+2 3
+4
+===== page 13 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.10 
+ {16, 12, 65, 53, 54} 
+ {16, 54, 23}, {16, 12, 53, 54} 
+ {12, 16, 65, 23, 53, 62, 54} 
+ 
+Set of all edge is also a covering set  
+• It is also known as edge covering set.  
+ 
+1.4.1 Minimal Covering set:  
+It is a covering set from which we can’t remove new elements(edge).  
+{16, 12, 53, 54} . {16, 54, 23} are MCS 
+ 
+1.4.2 Covering Number (C(G)): 
+It is no of edges present smallest covering set.  
+For above graph C(G) = 3 
+ 
+1.5 Perfect Matching:  
+A matching is said to be prefect matching if every vertex in the graph is matched  
+(or) 
+Induced degree of all the vertices is 1. 
+ 
+1.5.1 Induced degree:   
+The degree of a vertex in a matching is called indeed degree  
+ 
+Example:  
+ 
+ 
+ {12, 45, 36} is perfect matching  
+ 
+Note:  Every perfect matching is maximal, but reverse need not to be true. 
+ If prefect matching exists, then no. of vertices will always be even but reverse need not to be true. 
+ A graph may contain more than one perfect matching. 
+ Total no. of prefect matching possible for a complete graph with 2n vertices is 
+( )
+n
+2n !
+2 .n!  
+❑❑❑ 
+  
+1
+2 3
+4 5
+6
+===== page 14 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.11 
+2 
+LOGIC HANDBOOK 
+2.1 Introduction 
+ 
+p 
+ p 
+T 
+F 
+F 
+T 
+ 
+p q p  q 
+T 
+T 
+F 
+F 
+T 
+F 
+T 
+F 
+T 
+F 
+F 
+F 
+ 
+ Let p and q be propositions. The conditional statement p → q is the proposition “if p, then q.” 
+ The conditional statement p → q is false when p is true and q is false, and true otherwise. In the conditional statement  
+ p → q, p is called the hypothesis (or antecedent or premise) and q is called the conclusion (or consequence). 
+ “if p, then q”      “p implies q” 
+ “if p, q”       “p only if q” 
+ “p is sufficient for q”    “a sufficient condition for q is p” 
+ “q if p”       “q whenever p” 
+ “q when p”      “q is necessary for p” 
+ “a necessary condition for p is q” “q follows from p” 
+ “q unless 
+ p”     “q provided that p” 
+ 
+ 
+ 
+ 
+p q p  q 
+T 
+T 
+F 
+F 
+T 
+F 
+T 
+F 
+T 
+T 
+T 
+F 
+===== page 15 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.12 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+Let p and q be propositions. The biconditional statement p  q is the proposition “ p if and only if q”. The biconditional 
+statement p  q is true when p and q have the same truth values, and is false otherwise. Biconditional statements are also 
+called bi-implications. 
+  
+Operator Precedence 
+
+ 1 
+ 
+ 
+2 
+3 
+→ 
+ 
+4 
+5 
+ 
+A compound proposition that is always true, no matter what the truth values of the propositional variables that occur in it, 
+is called a tautology. A compound proposition that is always false is called a contradiction. A compound proposition that 
+is neither a tautology nor a contradiction is called contingency. 
+→ Every contingency is satisfiable, but reverse need not to be true 1. 
+→ Every tautology is satisfiable, but revers need not to be true. 
+For any primitive statements p, q, r, any tautology ‘T’ and any contradiction ‘F’. 
+(1)   p  p         Law of Double Negation 
+(2)  (p  q)   p   q      DeMorgan’s Laws 
+  (p  q)   p   q 
+(3) p  q  q  p       Commutative Laws 
+ p  q  q  p 
+(4) p  (q  r)  (p  q)  r     Associative Laws 
+  p  (q  r)  (p  q)  r 
+ (5) p  (q  r)  (p  q)  (p  r)    Distributive Laws 
+  p  (q  r)  (p  q)  (p  r) 
+ (6) p  p  p        Idempotent Laws 
+p q p → q 
+T 
+T 
+F 
+F 
+T 
+F 
+T 
+F 
+T 
+F 
+T 
+T 
+p q p  q 
+T 
+T 
+F 
+F 
+T 
+F 
+T 
+F 
+T 
+F 
+F 
+T 
+===== page 16 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.13 
+  p  p  p 
+ (7) p  F  p        Identity Laws 
+  p  T  p 
+ (8) p   p  T        Inverse Laws 
+  p   p  F 
+ (9) p  T  T        Domination Laws 
+  p  F  F 
+ (10)p  (p  q)  p       Absorption Laws 
+  p  (p  q)  p 
+ 
+  
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Rule of Inference Related Logical Implications Name of Rule 
+1) 
+→
+
+p
+pq
+q  
+2) 
+→
+→
+→
+pq
+qr
+pr  
+3) 
+→
+
+
+pq
+q
+p  
+[p  (p → q)] → q 
+ 
+ 
+ 
+[(p → q)  (q → r)] → (p → r) 
+ 
+ 
+[(p → q)  q] →  p 
+Rule of Detachment (Modus Ponens) 
+ 
+ 
+Law of the syllogism 
+ 
+ 
+Modus Tollens 
+ 
+ p → q   p  q 
+ p → q   q →  p 
+ p  q   p →  q 
+ p  q    (p →  q) 
+  (p → q)  p   q 
+ (p → q)  (p → r)  p → (q  r) 
+ (p → r)  (q → r)  (p  q) → r 
+ (p → q)  (p → r)  p → (q  r) 
+ (p → r)  (q → r)  (p  q) → r 
+ p  q  (p → q)  (q → p) 
+ p  q   p   q 
+ p  q  (p  q)  ( p   q) 
+  (p  q)  p   q 
+===== page 17 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.14 
+4) 
+
+p
+q
+pq  
+5) 
+
+
+
+pq
+p
+q  
+6) 
+pF
+p
+→
+  
+7) 
+
+
+pq
+p  
+8) 
+
+p
+pq  
+9) 
+()
+
+→→
+
+pq
+p q r
+r  
+10) 
+()
+→
+→
+  →
+pq
+qr
+p q r  
+11) 
+→
+→
+
+
+pq
+rs
+pr
+qs  
+12) 
+→
+→
+  
+  
+pq
+rs
+qs
+pr  
+ 
+ 
+ 
+ 
+[(p  q)   p] → q 
+ 
+( p → F0) → p 
+ 
+(p  q) → p 
+ 
+p → p  q 
+ 
+ 
+[(p  q)  [p → (q → r)]] → r 
+ 
+ 
+[(p → r)  (q → r)] → [(p  q) →r] 
+ 
+ 
+[(p → q)  (r → s)  (p  r)] → (q  s) 
+ 
+ 
+[(p → q)  (r → s)  (q  s)]→( p  r) 
+ 
+Rules of Conjunction 
+ 
+Rule of Disjunctive Syllogism 
+ 
+Rule of Contradiction 
+ 
+Rule of Conjunctive simplification 
+ 
+Rule of Disjunctive Amplification 
+ 
+Rule of Conditional Proof 
+ 
+ 
+Rule for Proof by Cases 
+ 
+Rule of the Constructive Dilemma 
+ 
+ 
+Rule of the Destructive Dilemma 
+ 
+ 
+   
+x p(x) 
+For some (at least one) a in 
+the universe, p(a) is true. 
+For every a in the universe, 
+p(a) is false. 
+x p(x) 
+For every replacement a from 
+The universe, p(a) is true. 
+There is at least one replacement a from 
+the universe for which p(a) is false. 
+x  p(x) 
+For at least one choice a in 
+The universe, p(a) is false, so 
+Its negation p(a) is true. 
+For every replacement a in the universe, 
+p(a) is true. 
+===== page 18 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.15 
+x  p(x) 
+For every replacement a from 
+The universe, p(a) is false and its 
+negation p(a) is true 
+There is at least one replacement a from 
+the universe for which  p(a) is false and 
+p(a) is true. 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+   
+    
+   
+   
+   
+ 
+   
+ 
+   
+  
+ 
+ 
+ 
+ 
+ 
+ 
+Statement When True? When False? 
+xyP(x, y) 
+yxP(x, y) 
+P(x, y) is true for every pair x, y There is a pair x, y for which 
+P(x, y) is false. 
+xyP(x, y) For every x there is a y for which P(x, y) is 
+true 
+There is an x such that  
+P(x, y) is false for every y. 
+xyP(x, y) There is an x for which P(x, y) is true for 
+every y. 
+For every x there is a y for 
+which P(x, y) is false. 
+x [P(x)  Q(x)]  x P(x)  x Q(x) 
+x [P(x)  Q(x)]  x P(x)  x Q(x) 
+x [P(x)  Q(x)] → x P(x)  x Q(x) 
+x [P(x)   Q(x)] → x [P(x)  Q(x)] 
+x [P(x) →  Q(x)] → x P(x) → x Q(x) 
+x [P(x)   Q(x)] →  P(x)  x Q(x) 
+(x) P(x)  (x) Q(x)  (x) [P(x)  Q(x)] 
+(x) P(x)  (x) Q(x)  (x) (y) [P(x)  Q(y)] 
+(x) P(x)  (x) Q(x)  (x) (y) [P(x)  Q(y)] 
+(x) P(x)  (x) Q(x)  (x) [P(x)  Q(y)] 
+(x) P(x)  (x) Q(x)  (x) (y) [ P(x)  Q(y)] 
+(x) P(x)  (x) Q(x)  (x) (y) [ P(x)  Q(y)] 
+A  (x) P(x)  (x) [A  P(x)] 
+A  (x) P(x)  (x) [A  P(x)] 
+A  (x) P(x)  (x) [A  P(x)] 
+A  (x) P(x)  (x) [A  P(x)] 
+ [x p(x)]  x  p(x) 
+ [x p(x)]  x  p(x) 
+ [x  p(x)]  x  p(x)  x p(x) 
+ [x  p(x)]  x  p(x)  x p(x) 
+ 
+===== page 19 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.16 
+xyP(x, y) 
+yxP(x, y) 
+ The is a pair x, y for which P(x, y) is true P(x, y) is false for every  
+pair x, y 
+ 
+ 
+  
+Rule of Inference Name 
+()
+()
+xP x
+Pc
+
+
+ Universal instantiation 
+( )for an arbitary
+()
+P c c
+xP x
+ Universal generalization 
+()
+for some element
+xP x
+c
+
+
+ Existential instantiation 
+( )for some elemet
+()
+P c c
+xP x
+ Existential generalization 
+ 
+ 
+Number of non-equivalent propositional function possible with ‘n’ propositional variable 
+22 n
+ 
+Nested Quantifier 
+xy xy yx xy 
+    
+English statements Logical Expressions 
+
+===== page 20 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.17 
+All graphs are connected x[G(x) → C(x)] 
+Not all graphs are connected x[G(x) → C(x)] 
+All graphs are  not connected  No graphs are 
+connected 
+x[G(x) →  C(x)]  x[G(x) →  C(x)]  
+ 
+❑❑❑ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+===== page 21 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.18 
+3 
+SET THEORY 
+3.1 Introduction 
+Collection of unordered, district and well defined objects.  
+• {1, 2} = {2, 1} = {1, 2, 1} (order & repetition doesn’t matter) 
+ Set representation: A {1, 2, 3} - Roaster form  
+ A = {zzN   x  3} – Set builder form 
+• Set with one element is known as singleton set. 
+• Set with zero element is known as empty set or null set.  
+• No of elements in a set is known as cardinality of set.  
+• If a set A contains an element a, it is denoted as: 
+ a  A. 
+  
+3.1.1 Equal sets (Axiom of extension): 
+Two sets A and B are said to be equal iff they have same set of elements.  
+A = B x (xA  xB)  A  B ^ B  A   
+ 
+3.1.2 Subset: 
+• A is said to be subset of B iff every element in A is also then in B. Denoted as A  B 
+ x (x  A  x  B) 
+ 
+3.1.3 Proper subset:   
+• ‘A’ is said to be a proper subset of B if every element in A. exist in B and A  B. Denoted as A  B 
+ i.e., A   B  x (xA → xB) ^ x. (x  B ^ x  A) 
+ or 
+ A  B  x (xA → xB) ^ (|A|  |B|)  
+===== page 22 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.19 
+ 
+3.1.4 Powerset:   
+Powerset of a set A is set of all subsets of A. Denoted as P(A) 
+• if |A| = n 
+ |P(A)| = 2n  
+• For any set A 
+   A 
+ If A = , then  
+   A 
+ 
+3.1.5 Operations on set:   
+(i) Union:  
+ AB = {xxA  x  B} 
+(ii) Intersection:  
+ AB = {xxA  x  B} 
+(iii) Complement: 
+ If A is a set, 
+ Complement of A, 
+A  = Ac = {xx     x  A} 
+ i.e.,  
+A  = U – A = U  
+A  
+(iv) Difference: 
+ A/B = A – B = {xx  A  x  B} = 
+AB  
+ 
+AB−  is also called complement of B w.r.t. to A. 
+ “complement of B in A” 
+ 
+(v) Symmetric Difference: 
+ A  B = {xxA  xB, but not both} 
+ Since it corresponds to XOR operator, it is also denoted as 
+AB  
+ AB = (A – B)  (B – A) = (A  B) – (A  B) 
+ 
+
+===== page 23 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.20 
+ 
+• Two sets are said to be disjoint if their intersection . 
+ 
+ 3.1.6 Loss involving set operations:   
+• 
+Idempotent lawA A AA A A= =   
+• 
+Domination law = = AA U U  
+• 
+Indentity lawA U AAA=  =   
+• 
+( )
+( ) ( )
+( ) ( )
+( ) Associative law
+A B C A B C
+A B C A B C
+A B C A B C
+  =   
+  =   
+  =     
+ 
+  XOR operation is associative 
+• 
+( ) ( ) ( )
+( ) ( ) ( ) Distributive lawA B C A B A cA B C A B A C  =       =      
+• 
+( )
+( ) absorption law  =    = A A B AA A B A  
+• 
+Demorgan's lawA B A B
+A B A B
+ =   =    
+ 
+Note: 
+log .
+A B A C B C The proot can be obtained by relatingA C B C A C this to XOR operation in ic =   =  =   = 
+ 
+ 
+3.1.7 Representation of sets using Venn diagrams:   
+Rather than direct calculations we sometimes represent sets with Venn diagram and see them as regions.  
+ Let A, B, C be 3 sets  
+ 
+===== page 24 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.21 
+ 
+ 
+ The region 1 is represented by 
+A B c  
+ The region 2 is represented by 
+A B c     
+ Similarly, we have 8 regions including region outside of A, B, C 
+ The principle of duality:  
+Let s denote a theorem dealing with the equality at two expressions which involve only operation  and . The dual of 
+s(sd) (i.e., expression obtained by interchanging  and ) is also a theorem.  
+ Finding dual of A  B 
+ A   B can be written as  
+ AB = B 
+ Dual is AB = B 
+ i.e., B     A 
+ Dual of A     B is B  A 
+ Duality principle should be applied only for general can but no for particular cases  
+    
+3.1.8 Cartesian Product:   
+A × B = {(a, b) aA  be B} 
+• Cartesian product is associative  
+ However  
+( ) ( )
+( )( ) ( )( ), , , ,
+    
+
+it has ordered pairs t type a b c a b c
+A B C A B C
+ 
+ A × B  B × A 
+ If A × B = B × A then (A = B  (A = )  (B = ) 
+• A × (BC) = (A × B)  (A × C) 
+ A × (BC) = (A × B)  (A × C) 
+ 
+A B A B    
+A
+1 2 3
+4 5 6
+7 C
+B
+===== page 25 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.22 
+ 
+A B A B    
+  
+3.1.9 Multisets:   
+Multiset is an unordered collection of elements where on element can occur more than once. 
+Eg: {m1.a1, m2.a2 --- mnan} 
+ Where m1 is called multiplicity of set 
+   
+3.1.10 Operations on multisets:   
+• Union: Maximum of multiplicities is considered.  
+• Intersection: Minimum of multiplicities is considered  
+• Difference: Difference of multiplicities is considered. 
+ If the difference is -ve, it is considered 0. 
+• Sum: Sum of multiplicities is considered.  
+ It is denoted as P + Q 
+3.2 Relations:   
+A binary relation from set A to set B is any subset of A × B. 
+ If |A| = M and |B| = n, then |A × B| = mn 
+  number of relations possible from A to B = 2mn 
+ If relation B from A to A we say it relation on A. 
+  Number of relations possible on a set A = 
+2n2 , |A| = n 
+ Domain of relation : {  x  (x, y)R} 
+ Range of relation : {y  (x, y) R} 
+• (x, y) R is written as ‘xRy’ on ‘k’ relates y 
+ 
+3.2.1 Inverse of relations:   
+Inverse of a relation, R-1 = {(y, x)|(x, y)R} 
+3.2.2 Diagonal relation:   
+Diagonal relation on set A is  
+( ) ,|A a a a A =  
+ 
+===== page 26 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.23 
+3.2.3 Reflexive relations:   
+Relation R defined on set A is reflexive  
+aRa a A  
+ 
+i.e., if R is a reflexive relation then A  R  
+3.2.4 Important type of relations:   
+Type of relation 
+ 
+Condition No. of relatives 
+possible 
+Union Intersection 
+Reflective aRa, aA 
+2nn2 −   ✓ ✓ 
+Irreflective aA (a
+R a) 
+2nn2 −   ✓ ✓ 
+Symmetric x, yA(xRy   yRx) 
+2
+22 .2
+nn
+n
+−
+ 
+ ✓ ✓ 
+Antisymmetric x, y (xRy   yRx  x = y) 
+2
+223
+nn
+n
+−
+ 
+× ✓ 
+Asymmetric x, y (xRy   y
+R x) 
+2
+23
+nn−
+ 
+× ✓ 
+Transitive x, y (z(xRy   yRz  xRz) — × ✓ 
+ 
+• Note that all the above relations are defined on a single set.  
+• Also to prove any relation is not of certain type we need to P.T the logical formula for that relation is false.  
+• Every Asymmetric relation is antisymmetric relation.  
+ 
+3.2.5 Composition of relations:   
+If R is a relation from A to B, S is a relation from B to C, the composition of R & S is given by  
+SoR from A to C.  
+S.R = {(a, c)|(a, b)R and (b, c)S} 
+If R is relation on A, then composition is denoted as R2, R3. 
+Note:  
+If R is any relation on set A, then  
+ RoA = R and A oR = R 
+ 
+ 3.2.6 Closure:   
+Clause of a relation R under given property is smallest possible relation that contains R and Satisfy the prpperty.  
+(i) Reflexive Closure (R*): 
+ Reflexive clouse of a relation R,  
+ R# = RUA  
+===== page 27 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.24 
+(ii) Symmetric closure: 
+ R+ = RUR–1  
+(iii) Transitive closure:   
+• Finding transitive closure has no formula, but we have a procedure as shown below. 
+ Steps: Represent relation R with a directed graph such that whenever aRb draw a directed edge from a to b.  
+ Steps: Now from each vertex, find all reachable vertices and for each reachable vertex b from a add the ordered pair (a, 
+b) to the closure.  
+• The standard procedure for finding transitive closes is  
+ R# = RR2. R3…….. Rn-1Rn   
+ ‘n’ is a positive integer such that Rn–1 = Rn  
+• when a relation is represent as a graph,  
+ If (a, b)  Rn, we can say that there exists an n-length path from a to b.  
+• when asked to find more than one closure, the order to be followed is reflexive, symmetric, transitive.  
+ Following any other order may give redundancy.  
+• The closure of a relation, if exists, under a property is intersection of the relations with that property containing R.  
+• If R is a transitive relation,     
+• Rn  R n  1 
+• also Rn is transitive relation.     
+    
+3.2.7 Partion:   
+A partition of set s is dividing s in disjoint subsets such that  
+A1A2 …An = s  
+AiAj =  i, j  n  
+    
+3.2.8 Refinement:   
+Partition P2 is called refinement of partition p1. 
+if every partitioned subset of P2 is subset to some partitioned subset of P1.    
+3.2.9 Equivalence Relation:   
+A relation which is reflexive  
+Symmetric  
+Transitive  
+is called an equivalence relation.  
+• Equivalence relation creates partition. 
+• Each set of the partition is called an equivalence class.  
+• Every element of same equivalence class are related to each other.  
+• No two element of different classes of related to each other  
+===== page 28 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.25 
+• Equivalence class is represented by  
+[a] R 
+Where a is any element of the equivalence classes  
+• It R is an equivalence relation, the below two sentences means the same  
+(i) aRb 
+(ii) [a]R = [b]R 
+aRb & [a]R  [b] also mean same.     
+If R is an equivalence relation.  
+aRb is read as “a is equivalent to b”. 
+• If R1, R2 are two equivalence relations  
+R1R2 need not to be an equivalence relation 
+R1R2 is an equivalence relation. 
+    
+3.2.10 Finding number of equivalence relations:   
+• No of equivalence relations on a set with n elements is given by  
+Bell number 
+( )
+1
+,
+n
+n
+k
+B s n k
+=
+=   
+Where sterling 2nd  kind number  
+( ) ( ) ( )
+0
+1,1 ! == − −n im iis m n nc n in
+ 
+The below is a shortcut to find the Bell number  
+B0 → (1) 
+B1 → (1) 2 
+B2 → (2) 3 5 
+B3 → (5) 7 10 15 
+B4 → (15) 20 27 37 52 
+Find no. of equivalence relations is nothing but find no. of way we can partition the set.  
+3.3 Partial Ordering Relations:   
+A relation R on a set A is called a partial order if R is reflexive, antisymmetric and transitive.  
+3.3.1 Poset:   
+A set ‘A’ together with a partial order R is called a poset  
+It is denoted as [A:R]. In a poset aRb is denoted as a  b. a < b means a  b and a  b. 
+===== page 29 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.26 
+3.3.2 To set:   
+A post [A;R] is called toset it every pair of element of set A are comparable.  
+Toset is also known as linearly ordered set (or) chain.  
+If [A, R] is a poset, then  
+ [A ; R–1] is called dual of the poset. 
+i.e., these diagram of [A : R–1] can be obtained by turning the hasse diagram of [A, R] upside down.   
+3.3.3 Hasse Diagram (Poset Diagram):   
+• It is graphical representation of a poset.  
+ It is constructed as below: 
+(i) Create vertex corresponding to every element of set A. 
+(ii) All loops & Edges implied from transitivity are not shown.  
+• Let [A, ] be a poset   
+We say yes, covers x  s, if x < y such that there doesn’t exist any z  s, x < z < y 
+• Thus hasse diagram shows edges b/w two elements x & y only if x covers y (or) y covers x. The set of such pairs x < y is 
+called covering relation of (s, ). 
+• Thus applying reflexive transitive closure on covering relation of a poset gives the poset.  
+• Hasse Diagram of a toset is a chain.  
+ 
+3.3.4 Maximum Element:   
+In a poset an element is called maximal if it is not related to any other element.  
+3.3.5 Greatest element (or) Maximum element:   
+In a poset an element is called greatest if every element of the set relates to that element.  
+3.3.6 Minimal element:   
+In a poset an element is called minimal, if no other element is related to it.  
+3.3.7 Least element (or) Minimum Element:   
+In a poset least element is the one which relates to every other element of the set.  
+• Every finite, nonempty lattice has at least one minimal and one maximal element.  
+• Greatest or least element if exists is unique.  
+• Greatest and least elements may or may not exist if they exist they are the only maximal and only minimal elements 
+respectively.   
+ 
+3.3.8 Upper Bound:   
+If [A : R] is a poset and B  A 
+Upper band of B = {x|bB, x  b and xA} 
+===== page 30 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.27 
+3.3.9 Least Upper Bound (lub or join or Supremum):   
+In a poset [A : R] lub of two elemis a, b  A is least element of upper bound of {a, b}. It is denoted as ab. 
+i.e., ab  x x upper band of [a, b]  
+• If no least element exists in the upper bound, we say lub doesn’t exist.  
+• In other word,  
+ If ab = c then  
+ aRc & bRc and  
+ If aRd  bRd  cRd 
+3.3.10 Greatest lower Bound (glb or meet or infimum) 
+In a poset [A, R] glb of a, b is greatest element of lower bound of {a, b}. It is denoted as a  b 
+• If no such element exists we say glb doesn’t exist. 
+• Other way to define glb is  
+If a  b = c, then  
+[eRa  cRb]  [(dRa  dRb)  dRc]  
+• For poset [Dn ; 1] 
+Lub (a, b) = LCM (a, b) 
+Glb (a, b) = GCD (a, b) 
+• For poset [P(A) ; ], where P(A) is power set of A  
+lub (x, y) = xy 
+lub (x, y) = xy 
+• The hasse diagram of [P(A); ] forms a hypercube on, where |A| = n 
+3.3.11 Join Semi Lattice:  
+It is a poset in which every pair of elements has lub.  
+3.3.12 Meet Semi Lattice:   
+It is a poset in which every pair of elements has glb.  
+3.4 Lattice  
+A lattice is a poset in which every pair of elements has both glb & lub.  
+i.e., Lattice is both join semi lattice & meet semi lattice.  
+A lattice L is denoted as (L, , )  
+• It is not needed that every lattice has greatest and least element.  
+• Every finite lattice has least and greatest elements.  
+ 
+===== page 31 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.28 
+3.4.1 Properties of Lattice:    
+• 
+Idempotenta a aa a a= =    
+• 
+Commutativea b a aa v a a =   =    
+• 
+( )
+( )
+() Associative()a b c a b ca b c a b c  =      =     
+• 
+() Absorption law()a a b aa a b a  =   =   
+• 
+a b a c b c      
+ 
+a b a c b c      
+ If a  b and c  d then 
+ a  c  b  d 
+ a  c  b  d  
+3.4.2 Sublattice:  
+If A is a lattice B is called  
+Sublattice of A iff  
+(i) B itself is a lattice.  
+(ii) lub of any two element of B is same as lub of the two elements in A.  
+  
+In above figure B is subset of A and B is a lattice still B is not a sublattice of A.  
+Because 
+( )
+( )
+   2,3   4
+ B  2,3 e not equal not sublat c5 i−==in A glbin glb  
+  
+5
+4
+32
+1
+A
+5
+32
+1
+B
+===== page 32 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.29 
+3.4.3 Types of Lattices:  
+(1) Bounded Lattice: 
+• A lattice with greatest element and least element is called bounded lattice.  
+• Every finite lattice is bounded lattice.  
+(2) Complemented Lattice: 
+• Complemented lattice is a bounded in which every element has atleast one complement.  
+B is said to be complement of a iff. 
+• glb (a, b) = greatest element and lub (a, b) = least element.  
+(3) Distributive Lattice: 
+• A lattice is said to be distributive if following distributive laws hold. 
+• a(bc) = (ab)  (ac).  
+• a(bc) = (ab)  (ac). 
+ 
+Note: If L is a bounded distributive lattice then complement of an element if exists, is unique. The reverse need not to be true.  
+Hence if we find more than one complement for an element, we can conclude that the lattice is not distributive  
+(4) Boolean Algebra: 
+• A lattice which is both distributive and complemented is known as Boolean algebra  
+• It is called so because it satisfises all the properties of Boolean algebra. Thus when given lattice is a Boolean algebra we 
+can apply all the rules that we apply in logic.  
+• In Boolean algebra every element has exactly one complement.  
+• [Dn : 1] is a distributive lattice for any n.  
+• It is because distributive properties hold for lcm  & gcd. 
+• [Dn : 1] is a Boolean lattice if n is a square free number.  
+• [P(s); ] is a Boolean lattice.  
+• Every Boolean lattice with 2n  elements,   0. 
+Every Boolean lattice contains 2nelements is isomorphic to the lattice (P(s); ) where s is a set with n elements.  
+Also this Boolean lattice is a hypercube Qn. 
+• Sublattice of a complemented lattice need not to be a complemented lattice.  
+• Sublattice of a bounded lattice is a bounded lattice.  
+3.5  Function (or) Mapping (or) Transformation 
+A function F from  set A to  set B is an assignment of exactly in one element of B to each element of A. It is denoted as:  F : A 
+→  B  
+Here A is called Domain B is called codomain  
+Function is a special type of relation. 
+• Consider f(a) = b 
+     b is called image of a 
+  a is called preimage of b. 
+===== page 33 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.30 
+•  Range: It is set of images of all the elements of A. 
+  Range   Co-domain (Range need not to be equal to co-domain)  
+•  If f1, f2 are two functions 
+  f1(x) + f2(x) is denoted as (f1 + f2) (x) 
+  f1(x). f2(x) is denoted as (f1.f2) (x) 
+  
+( )
+1
+fx  is denoted as 
+1
+f (x), (
+1
+f  is not equal to inverse function) 
+•   If A and B are two sets with  
+  |A| = n   |B| = m then  
+  number of functions possible from A to B = mn 
+3.6 Types of functions: 
+3.6.1 One - One function (Injection): 
+f : A → B is one to one 
+iff 
+ab(f(a) = f(b)  a = b) 
+•   It f : A → B is 1–1 then |A| ≤ |B| 
+•   If |A| = m and |B| = n 
+  no of 1 – 1 function possible from A to B = 
+nmp  
+•  If m = n = k, then number of 1:1 function = k! 
+ 
+3.6.2 Onto function (Surjection): 
+f : A → B is onto iff 
+bB  aA such that f(a) = b 
+ 
+•  If f : A → B is onto then |A| ≥ |B| 
+•   If |A| = m  |B| = n then  
+( ) ( )
+n im
+i
+i0
+ number of onto functions = 1 nc n i
+=
+ − − 
+ 
+•  If m = n = k, then number of 1:1 function = k! 
+ 
+3.6.3 One-to-One Correspondence (or) Bijection: 
+A function f : A → B is Bijection iff  
+f is both one-one and onto  
+•   If f : A → B is bijection, then |A| = |B| 
+•   If f : A → B is 1 – 1 and |A| = |B| 
+  then f is a bijection  
+•   If f : A → B is onto and |A| = |B| 
+  then f is a bijection  
+===== page 34 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.31 
+•  If |A| = |B| = n then no of bijections possible from A to B are n!  
+•   If f : A → A is a function and A is a finite set then 
+  A is 1–1  A is onto  
+    
+3.6.4 Inverse of a function: 
+f : A → B is invertible if its inverse relation fi is a function from B to A. 
+f : A → B is invertible  f is a bijection 
+•   Inverse doesn’t exist if a function is not bijection. However, we can find inverse image of subset of codomain. If f : A → 
+B is a function and S ≤ B 
+Inverse image of S = {aA|f(a)  S} 
+•   If f is a function from A to B and let S, T be subsets of A. 
+  
+( ) ( ) ( )f S T   f f T S  =
+  
+  
+( ) ( ) ( )f S T   f f T S  =
+  
+  However, 
+( ) ( ) ( )f S T   f f T S  =
+  if f is a bijection 
+•   If f is a function from A to B and let S, T be subsets of B 
+  
+( ) ( ) ( )1 1 1f S T   f s  f T− − − =
+  
+  
+( ) ( ) ( )1 1 1f S T   f s  f T− − − =
+  
+  
+( ) ( )11f s f s−− =  
+3.6.5 Identity function: 
+A mapping IA : A → A is called an identity function if  
+IA = {(x, x)/xA} 
+3.6.7 Constant function: 
+A function f : A → B is said to be a constant function if  
+f(x) = c   x A 
+3.6.8 Composition of functions: 
+If f : A → B and g:B → C are two function then gof: A → C is called a composition function of f & g. 
+ 
+ 
+  gof(x) = g(f(x)) 
+•  In gof : A → C 
+  A is domain of gof 
+  C is codomain of gof 
+
+===== page 35 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.32 
+  Range of gof is image of (range of f under g) 
+•   If f : A → B and g : B → C are tow functions 
+  gof is defined for every case  
+ 
+  But fog is defined iff 
+  range of g ≤ domain of f 
+  fog maps from B to B i.e., fog : B → B 
+  fog  gof (i.e., composition is not commutative) 
+   (fog)oh = fo(goh) (i.e., Associative)   
+   (fog)–1 = g–1 of–1 (Think why)   
+  Let f : A → B be an invertible function then  
+  f–1 : B → A is a inverse of f  
+  f–1of : A → A is an identity function IA 
+  fof–1 : B → B is an identity function IB 
+ 
+Note: 
+•   f is 1–1 & g is 1–1  gof is 1–1 
+•   f is onto & g is onto  gof is onto 
+•   f is bijection & g is bijection  gof is bijection  
+•   If gof is onto then g is onto  
+•   If gof is 1–1 then f is 1–1 
+•   If gof is a bijection then f is onto  g is 1–1 
+ 
+3.6.9 Partial Functions: 
+f: A → B is called partial function if ‘f’ is defined only for some of aA. 
+The subset of A on which f is defined is called domain definition of f. 
+3.7 Groups: 
+3.7.1 Binary Operation: 
+The binary operator * is said to be a binary operation on a non-empty set A if the set is closed under the operation. 
+i.e., (a*b) A a,bA 
+3.7.2 Binary Structure (or) Algebraic Structure: 
+A nonempty set A is called binary structure with respect is a binary operator *, if * is binary operation on A. it is demoted a s 
+(A, *) 
+3.7.3 Semi Group: 
+(A, *)  is semigroup iff 
+(i)   is closed operation 
+(ii)   is an associative property  
+
+===== page 36 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.33 
+3.7.4 Monoid:    
+(A, *) is called monoid iff: 
+(i)  is closed operation 
+(ii) is an associative property 
+(iii) Identity element exists 
+3.7.5 Group: 
+(A, *)  is called monoid iff: 
+(i) is closed operation 
+(ii)  is an associative property 
+(iii) Identity element exists in A 
+(iv) Every element of A has inverse 
+ 
+•  Identity element if exists is unique. 
+•   Inverse element if exist is unique. 
+•   Finite Group: 
+  A group with finite number of elements  
+•   Order of a group: It is number of elements in the group. 
+•   In a group of 2 element  
+  a–1 = a, aG 
+•  ({0,1,2,3 ….. m-1}, m) is a group 
+•  Let Sn be set of positive integers less than n and relatively prime to n. then   
+  (Sn, n) is a group. 
+•   Abelian Group: 
+  A group (G,*) is called abelian if * is commutative.    
+3.7.6 Properties of Groups 
+•   Let (G,*) be a group 
+  if ab = ac  b = c (Left cancellation property)  
+  ba = ca  b = c (Right cancellation property)  
+  due to these property ever raw and column in Caley table has exactly one element  
+•  If G is a group and a,bG 
+  then (ab)–1 = b–1a–1  
+•   Group G is abelian  (ab)–1 = b–1a–1 a, bG 
+•  aG, a° = e 
+3.7.7 Homomorphism  
+•   If (G, *) and (G’, ) are two groups then a function f : G → G’ is called a homomorphism  
+  if f(a*b) = f(a)  f(b)   
+•   If f : G → G’ is a bijection, then we call the homomorphism isomorphism. It is denote as G ≅ G’ 
+•   If e1, e2 are identity elements of G and G’ respectively then f(e1) = e2 
+•   If aG, and f : G → G’ is a homomorphism f(a–1) = (f(a))–1 
+  
+===== page 37 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.34 
+3.7.8 Order of an element: 
+The smallest positive integer n such that an = e is called of order of an element a in the group. 
+•   The order of an element is divisor of order of the group. 
+•   Order (a) = order (a–1)  aG 
+•   a–n = bn if a–1 = b and n is any positive integer. 
+3.7.9 Subgroup: 
+A non-empty subset H of a group G is called subgroup of G if (H, *) is also a group. 
+•   For every group G, {e} and G are called trivial subgroups of G. 
+•   Every subgroup contains identity element of its parent group. 
+•   If H is a subgroup of G then order(H) divides order(G) (Lagrange’s theorem). The converse of Lagrange’s theorem holds 
+only for abelian groups. 
+•   If H and k are two subgroups of same group, then  
+  
+Hk
+  is also, a subgroup 
+  
+Hk
+  need not to be a subgroup. 
+•   If H  G, then H is called subgroup of G iff: 
+  (i)  (a*b)H  a, bH 
+  (ii) a–1 H   a, bH 
+    
+•   If H  G, and if H is finite → (applies only when H is finite) and nonempty, then H is called subgroup iff:  
+  (a*b)H a, bH  
+•  If G is a subgroup of composite order, then G necessarily has non-trivial subgroup. 
+3.7.10 Cyclic Groups:  
+A group G is called cyclic, if aG such that every element can be written as an integral power of a such an element ‘a’ is 
+called generator. 
+•  The order of generator is order of the group. 
+•   If ‘a’ is a generator then a–1 is also a generator. 
+•   All subgroups of a cyclic group are cyclic. 
+•   If G is a cyclic group of order n, then no of generator of G is given by (n) (Euler’s phi function) 
+•   If ‘a’ is a generator of G, and let m be an integer such that 1 < m ≤ n then  
+  order(am) = 
+( )
+n
+gcd n,m  
+•   If G is a cyclic group with generator a and let d be divisor of |G|. 
+  For every d there exists exactly one subgroup of order d. this subgroup is generated by an/d where n = |G| 
+  No of subgroup of a cyclic group = no. of divisors of |G| each subgroup is generated by an/d. (d is divisor of |G|)  
+3.7.11 Cyclic subgroup of a group: 
+If (G,*) is any group and let aG. 
+The smallest subgroup of G containing a is <a> where   
+   <a> = {an/nZ} 
+  Also <a> is a cyclic subgroup. 
+  order of the subgroup <a> = order of element ‘a’ in G. 
+===== page 38 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.35 
+•   If H is any subgroup of G and if H contains ‘a’ then  
+  <a>  H 
+•   Thus if G is a group 
+  <a> is a cyclic subgroup of G, aG. 
+  Such subgroups are called generating sets 
+ 
+Note: 
+ •  Every group of prime order is cyclic in which every element (except e) is a generator element. 
+ •  Every cyclic group is abelian. 
+ •  A group is cyclic  it can’t be expressed as union of two proper subgroups. 
+ •  If (G,*) and (H,) are two groups 
+  (G  H, •) is a group where • is defined as  
+  (g1, h1) • (g2, h2) = (g1*g2, h1  h2)  
+ This group is called direct product of G and H. 
+ •  Every group of order less than or equal to 5 is abelian. 
+ •  There is only one unique group for each of the order 1,2,3. 
+ 
+❑❑❑ 
+  
+===== page 39 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.36 
+4 
+COMBINATORICS 
+4.1  Introduction 
+Let m  ℕ. For a procedure of m successive distinct and independent steps with n 1 outcomes possible for the first step, n 2 
+outcomes possible for the second step, .... , and nm outcomes possible for the mth step, the total number of possible outcomes 
+is 
+            n1  n2    nm 
+For a collection of m disjoint sets with n1 elements in the first, n2 elements in the second, . . ., and nm elements in the mth, the 
+number of ways to choose one element from the collection is 
+n1 + n2 +    + nm 
+ 
+( )
+nn k n k
+k0
+nx y x y . nk −= +=  −   
+ 
+( )( )
+n i
+i0
+C n, i 1 0
+=
+−=  
+For n even, 
+ 
+( ) ( )
+n/2 n/2 1
+i 0 i 0
+C n, 2i C n, 2i 1
+−
+==
+=+  
+For n odd, 
+ 
+( ) ( )
+n/2 n/2 1
+i 0 i 0
+C n, 2i C n, 2i 1
++      
+==
+=+  
+ 
+( )
+n n1
+i1 iC n, i n2 . −= =  
+For positive integers n, t, the coefficient of 
+nnnn 3t12
+1 2 3 tx x x ...x  in the expansion of (x1 + x2 + x3 + … + xt)n is 
+1 2 3 t
+n! ,n !n !n !... n !
+ 
+ 
+where each ni is an integer with 0 ≤ ni ≤ n, for all 1 ≤ i ≤ t, and n1 + n2 + n3 + ··· + nt = n. 
+ 
+===== page 40 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.37 
+When we wish to select, with repetition, r of n distinct objects, we are considering all arrangements of r x's and n – 1  |'s and 
+that their number is 
+( )
+( )
+n r 1n r 1 ! .rr! n 1 ! +−+− = − 
+ 
+Consequently, the number of combinations of n objects taken r at a time, with repetition, is C(n + r – 1, r). 
+ 
+4.1.1 we recognize the equivalence of the following: 
+(a) The number of integer solutions of the equation 
+   x1 + x2 + … + xn = r,  xi ≥ 0,  1 ≤ i ≤ n. 
+(b) The number of selections, with repetition, of size r from a collection of size n. 
+(c) The number of ways r identical objects can be distributed among n distinct containers. 
+  
+n
+2n 2n 2n 1b, n n 1 n n1     = − =     − +       n ≥ 1, b0 = 1.  
+The numbers b0, b1, b2, …. are called the Catalan numbers, after the Belgian mathematician 
+Order Is Relevant Repetitions Are Allowed Type of Result Formula 
+Yes No Permutation P(n, r) = n!/(n – r)!, 0 ≤ r ≤ n 
+Yes Yes Arrangement Nr, n, r ≥ 0 
+No No Combination C(n, r) = n!/[r!(n – r)!] = 
+n
+r
+
+ , 
+0 ≤ r ≤ n 
+No Yes Combination with repetition 
+n r 1
+r
++−
+ ,  n, r ≥ 0 
+ 
+If there are n objects with n 1 indistinguishable objects of a first type, n 2 indistinguishable objects of a second type, . .  . and nr 
+indistinguishable objects of an rth type, where n 1 + n2 + . . . + n r = n, then there are 
+1 2 r
+n!
+n !n !... n !  (linear) arrangements of the 
+given n objects. 
+Let A and B be subsets of a finite universal set U. Then 
+(a)  
+A B A B A B= + −
+  
+(b)  
+AB
+  ≤ min{|A|, |B|}, the minimum of |A| and |B| 
+(c)  |A\B| = |A| – 
+AB
+ ≥ |A| – |B| 
+(d)  |Ac| = |U| – |A| 
+(e)  |A  B| = 
+A B A B A B 2 A B A/ B B/ A− = + − = +
+  
+(f)  |A × B| = |A| – |B| 
+===== page 41 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.38 
+Given a finite number of finite sets, A1, A2, . . . , An, the number of elements in the union 
+1 2 nA A ... A
+ is 
+1 2 n i i j i j k
+i i j i j k
+A A ... A A A A A A A
+  
+= − +  
+ – . . . + (–1)n+1  
+1 2 nA A ... A
+ ,  
+where the first sum is over all i, the second sum is over all pairs i, j with i < j, the third sum is over all triples i, j , k with i < j < 
+k, and so forth. 
+The number of derangements of n ≥ 1 ordered symbol is 
+( )
+n
+n
+1 1 1 1D n! 1 ... 1 .1! 2! 3! n!= − + − + + −
+ 
+Let a0, a1, a2, . . . be a sequence of real numbers. The function 
+f(x) = a0 + a1x + a2x2 + . . . = 
+i
+i
+i0
+ax
+
+=
+  
+is called the generating function for the given sequence. 
+4.1.2 Extended Binomial coefficient  
+ 
+( ) ( ) ( ) ( )n n n 1 n 2 ... n r 1
+r r!
+− − − − − − − − + =  
+ 
+( ) ( )( )( ) ( )
+r
+1 n n 1 n 2 ... n r 1
+r!
+− + + + −=  
+ 
+( ) ( )
+( ) ( )
+n
+r n r 11 n r 1 ! 1 rn 1 !r! +−− + − = = − −  . 
+For all m, n  Z+, a  R, 
+(1) (1 + x)n = 
+2nn n n n x x ... x0 1 2 n       + + + +                
+(2) (1 + ax)n = 
+2 2 n nn n n n ax a x ... a x0 1 2 n       + + + +                
+(3) (1 + xm)n = 
+m 2m nmn n n n x x ... x0 1 2 n       + + + +                
+(4)  (1 – xn+1)/(1 – x) = 1 + x + x2 + …. + xn 
+(5)  1/(1 – x) = 1 + x + x2 + x3 + … = 
+i
+i0 x
+
+=  
+(6)  1/(1 – ax) = 1 + (ax) + (ax)2 + (ax)3 + …    
+  = 
+( )
+i ii
+i 0 i 0ax a x
+
+== =  
+  = 1 + ax + a2x2 + a3x3+ … 
+===== page 42 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.39 
+(7)  1/(1 + x)n = 
+2n n n x x ...0 1 2− − −     + + +             
+  = 
+i
+i0
+n xi= −  
+  
+( ) ( )
+2 2n 1 1 n 2 11 1 x 1 x ... 12+ − + −   = + − + − +        
+  =
+( )
+i i
+i0
+n i 11x i= +−−   
+(8)  1/(1 – x)n = 
+( ) ( )
+2n n n x x ...0 1 2− − −     + − + − +             
+  =
+( )
+i
+i0
+n xi= − −  
+  
+( ) ( ) ( ) ( )
+22n 1 1 n 2 11 1 x 1 x ... 12+ − + −   = + − − + − − +        
+  =
+i
+i0
+n i 1 xi= +−  
+If f(x) = 
+( )iiiii 0 i 0a x ,g x b x== = , and h(x) = f(x)g(x), then 
+h(x) = 
+i
+ii0 cx
+
+= , where for all k ≥ 0, 
+ck = a0bx + a1bx–1 + ... + ak–1b1 + akb0 = 
+k
+j k j
+j0
+ab −
+=
+ . 
+Objects Are 
+Distinct 
+Containers Are 
+Distinct 
+Some Container(s) 
+May Be Empty Number of Distributions 
+No Yes Yes 
+n m 1
+m
++−
+  
+No No Yes 
+(1) p(m), for n = m 
+(2) p(m, 1) + p(m, 2) + … + 
+p(m, n), for n < m 
+No Yes No 
+( )
+( )
+n m n 1 m 1 m 1
+mn m n n 1
+ + − −  −−   ==    − −−     
+No No No p(m, n) 
+Consider the nonhomogeneous first-order relation 
+an + C1an–1 = krn, 
+where k is a constant and n  Z+. If rn is not a solution of the associated homogeneous relation 
+an + C1an–1 = 0, 
+===== page 43 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Discrete Mathematics 
+2.40 
+then 
+( )p
+na  = Arn, where A is a constant. When r n is a solution of the associated homogeneous relation, then 
+( )p
+na = Bnrn, for B a 
+constant. 
+Now consider the case of the nonhomogeneous second-order relation 
+an + C1an–1 + C2an–2 = krn, 
+Where k is a constant. Here we find that 
+(a)  
+( )p
+na = Arn, for A a constant, if rn is not a solution of the associated homogeneous relation; 
+(b) 
+( )p
+na = Bnrn, where B is a constant, if 
+( )h nn
+n 1 2 na c r c r=+ , where r1  r; and 
+(c) 
+( )p
+na = Cn2rn, for C a constant, when 
+( )h
+na  = (c1 + c2n)rn. 
+Given a linear nonhomogeneous recurrence relation (with constant coefficients) of the form C0an + C1an–1 + C2an–2 + … + Ckan–
+k = f(n), where C0  0 and Ck  0, let 
+( )h
+na denote the homogeneous part of the solution an. 
+ 
+( )p
+na  
+c, a constant A, a constant 
+n A1n + A0 
+n2 A2n2 + A1n + A0 
+nt, t  Z+ Atnt + At–1nt–1 + …. + A1n + A0 
+rn, r  R Arn 
+sin n A sin n + B cos n 
+cos n A sin n + B cos n 
+nt rn rn (Atnt + At–1nt–1 + … + A1n + A0) 
+rn sin n Arn sin n + Brn cos n 
+rn cos n Arn sin n + Brn cos n 
+ 
+❑❑❑ 
+ 

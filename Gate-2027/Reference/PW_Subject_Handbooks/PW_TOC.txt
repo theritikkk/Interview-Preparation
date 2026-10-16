@@ -1,0 +1,1665 @@
+
+===== page 1 =====
+TheoryTheory
+of of 
+ComputationComputation
+Theory
+of 
+Computation
+===== page 2 =====
+Published By: 
+ 
+  Physics Wallah 
+ISBN: 978-93-94342-39-2 
+Mobile App: Physics Wallah (Available on Play Store) 
+  
+Website: www.pw.live 
+Email: support@pw.live 
+ 
+Rights 
+All rights will be reserved by Publisher. No part of this book may be used or reproduced in any manner 
+whatsoever without the written permission from author or publisher. 
+In the interest of student's community: 
+Circulation of soft copy of Book(s) in PDF or other equivalen t format(s) through any social media channels, 
+emails, etc. or any other channels through mobiles, laptops or desktop is a criminal offence. Anybody 
+circulating, downloading, storing, soft copy of the book on his device(s) is in breach of Copyright Act. Further 
+Photocopying of this book or any of its material is also illegal. Do not download or forward in case you come 
+across any such soft copy material. 
+ 
+Disclaimer 
+A team of PW experts and faculties with an understanding of the subject has worked hard for the books. 
+While the author and publisher have used their best efforts in preparing these books. The content has been 
+checked for accuracy. As the book is intended for educational purposes, the author shall not be responsible for 
+any errors contained in the book. 
+The publication is designed to provide accurate and authoritative information with regard to the subject matter 
+covered. 
+This book and the individual contribution contained in it are protected under copyright by the publisher. 
+(This Module shall only be Used for Educational Purpose.) 
+
+===== page 3 =====
+ 
+ 
+ 
+Design Against Static Load 
+ 
+ 
+ 
+ 
+ 
+1. Basics of Theory of Computation .........................................................................................  7.1 – 7.5 
+2. Finite Automata  ...................................................................................................................    7.6 – 7.21 
+3. Push Down Automata  ..........................................................................................................  7.22 – 7.29 
+4. Turning Machine  .................................................................................................................    7.30 – 7.39 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+INDEX 
+GATE-O-PEDIA MECHANICAL ENGINEERING 
+GATE-O-PEDIA COMPUTER SCIENCE & INFORMATION TECHNOLOGY 
+===== page 4 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Design Against Static Load 
+7.1 
+1 
+BASICS OF THEORY OF 
+COMPUTATION 
+ 
+1.1 Symbol 
+Symbol represents very unique in the world. Any small thing that never be broken into any other is called as symbol. 
+ 
+1.2 Alphabet () 
+It is a set of finite number of symbols. 
+Example: 
+• English alphabet = {a, b, ... z}  
+• Binary alphabet = {0, 1}  
+• Decimal alphabet = {0, 1, 2, ... 9} 
+• We can create our own alphabet = {gate, cs, it, exam} 
+where gate, cs, it, exam all are symbols 
+ 
+1.3 String 
+• It is sequence of symbols defined over given alphabet.  
+let  = {a, b}  
+• Strings possible are , a, b, aa, bb……… 
+• Strings over English Alphabet: deva, gate, exam, etc. 
+• Strings over Binary Alphabet: 0010, 1011, 1101, 1111, etc. 
+• Strings over Decimal Alphabet: 3012, 2345, 5438, etc. 
+Note: 
+• Different length strings over given alphabet 
+        I     Zero length string  Empty string / Null string  or  is used to denote empty string length of empty string. || = 0. 
+       II    One length string over  = {a, b} are a, and b (2 strings).  
+      III   Two length strings over  = {a, b} are da, ab, ba, and bb (4 strings). 
+       
+Symbol 
+One Length string 
+It is smallest one
+
+===== page 5 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.2 
+1.4 Operations on Strings 
+There are various operations on strings:  
+• Unary and Binary operations  
+ 1.  length of a string:  Length of a string is denoted as  |w| and is defined as the number of positions for the symbol in the 
+string.   
+   Example:  w = aba   
+    |w| =|aba| = 3  
+  
+ 2. Reversal of a string: It will reverse or changes the order of a given string w.  
+   Example:  w = abb  
+   wR = bba 
+1.4.1 Concatenation of Two Strings  
+Given two strings w1 and w2, we define the concatenation of w1 and w2 to be the string as w1w2.  
+Example: 
+w1 = a, and w2= ba  
+Then w1w2 = a.ba = aba.  
+1.4.2 Prefix of a String  
+A substring with the sequence of beginning symbols of a given string is called a “prefix”. 
+Example:  
+(i) w = aaaa 
+Prefixes = {, a, aa, aaa, aaaa}  
+(ii) w = abcd 
+Prefixes = {, a, ab, abc, abcd} 
+Note:  
+If |w| = n then |wRev| = n. 
+If length of w1 is n1 and length of w2 is n2 then length of w1w2 = |w1 w2| = n1 + n2. 
+• Let w be n length string.  
+(i)    Number of prefixes in w = n+1  
+(ii)   Number of non-empty prefixes of w = n  
+(iii)  Number of different length prefixes of w = n + 1  
+(iv)  Number of different length prefixes of w excluding zero length = n 
+ 
+1.4.3 Suffix of a String  
+A substring with the sequence of ending symbols of a given string is called a “suffix”. 
+===== page 6 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.3 
+Example:  
+(i) w = aaaa 
+Suffixes = {, a, aa, aaa, aaaa}  
+(ii) w = abcd 
+Suffixes = {, d, cd, bcd, abcd} 
+Note :  
+• Let w be n length string. 
+(i)    Number of suffixes of w = n + 1  
+(ii)   Number of non-empty suffixes of w = n  
+(iii)  Number of different length suffixes of w = n + 1  
+(iv)  Number of different length suffixes of w excluding zero length = n 
+ 
+1.4.4 Substring of a String  
+ 
+ 
+• Let w be n length string. 
+ 
+ 
+ 
+• Number of different length substrings of any given n length string =n+1  
+• Number of different length substrings of any given n length string excluding zero length=n. 
+1.5 Relation between Symbol, Alphabet, String and Language 
+Character 
+ 
+Character set 
+ 
+Token 
+ 
+C Language 
+Symbol 
+ 
+Alphabet 
+ 
+String 
+ 
+Language 
+ 
+ 
+(i) Number of substrings of w
+minimum = n +1 
+(over 1 symbol)
+maximum = 1+ n + (n – 1) + ....+1
+(all characters distinct) =1 + n
+=  n +1
+(ii) Number of non-empty substrings of w
+minimum = n 
+maximum = n
+===== page 7 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.4 
+1.5.1 Chomsky Hierarchy 
+• Chomsky hierarchy includes all the problems in the world classified into classes. 
+
+ 
+• Type 3 is the smallest class, and Type 0 is the biggest class. 
+ Type 3 Type 2 Type 1 Type 0 
+Language:  Regular Context free Context sensitive Recursively 
+Enumerable  
+Automata: Finite Automata Push down  
+Automata 
+Linear Bounded 
+Automata 
+Turing Machine 
+Grammar: Regular Context free Context Sensitive Unrestricted 
+ 
+1.6 Language 
+• Language is set of strings defined over alphabet (). 
+• Let  = {a,b}. Then  = 0 1 2  …….  
+  = set of all strings 
+   = universal language  
+   = {, a, b, aa, ab, ba, ...} 
+• 2 = 1 • 1 ={a,b}. {a,b} = {aa, ab, ba, bb}  
+• Language: It is a subset of *  
+   
+*L   
+• A language is a collection of strings that must be a subset of * where * is a universal language. 
+Example:  
+ L = ab* = {a, ab, abb,..........} 
+
+===== page 8 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.5 
+1.7 Types of Languages 
+• Finite Language 
+• Infinite Language 
+• Regular language  
+• DCFL (Deterministic CFL)  
+• CFL  
+• CSL 
+• Recursive Language 
+• Recursive Enumerable Language (REL) 
+1.8 Types of automata 
+ 
+ 
+ 
+• Ralations between these machines: 
+
+1. Less power:  It can Represent less number of languages. 
+2. More power: It can Represent more number of  languages Compare to all these machines. 
+ 
+ 
+ 
+  
+
+===== page 9 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.6 
+2 
+FINITE AUTOMATA  
+ 
+2.1 Introduction  
+• Finite Automata describes or represents a regular language.  
+• Finite Automata is of two types: 
+ (i)  Acceptor: Accepts or rejects given string.  
+ (ii) Transducer: Produces output string for given input string.  
+ 
+ 
+Example:  
+1's complement of binary number: Input = 10100, Output = 01011 
+2.2 Finite Acceptor (Finite Automata) 
+• Finite Automata: 
+ 
+ 
+FA = (Q, , , . F)Σ δ q0
+Transition function
+Set of input symbols
+Set of finite number of states
+Set of final states
+Initial state
+===== page 10 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.7 
+ 
+2.3 Construction of DFA 
+1.  If epsilon belongs to L, then initial state must be final in DFA. 
+ 
+2. Dead state: It is non-final state but it never contain a path to final. 
+ 
+• Once we reach the dead state, there is no way to reach to the final state. 
+• If every state is final then every string accepted in the DFA. 
+  
+3. If all states are finals in DFA then L(DFA) = 
+ * 
+ 
+4. If every state is non final in a DFA then L(DFA) = 
+  or L(DFA) = {}, 
+ 
+ 
+L * L    
+ 
+L L *    
+ 
+LL   
+• If |w| = n or |w|
+  n, then number of states in minimum DFA = (n + 2) states  
+• If |w| 
+  n then number of states in minimum DFA = n+ 1 states.  
+• Start condition, exactly, atmost length question requires Dead state but end condition, contain substring, atleast length 
+questions do not require dead state. 
+
+===== page 11 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.8 
+• Over one symbol 
+  = {a}. Length of string is equal to number of a's in string. |w|= na(w). 
+• Let L={w|w
+  {a,b}*, na(w) is divisible by m, nb(w) is divisible by n}. Then Number of states in DFA= m×n. 
+• Let L={w | w belongs to {a. b}*, nth symbol of w from begin is 'a'}. Then Number of states in DFA = (n + 2). 
+• Number of equivalence classes for any regular set L = Number of states in minimal DFA that accepts L. 
+ 
+2.4 Non-Deterministic Finite Automata  
+2.4.1 Introduction 
+• Finite Automata can be designed in two ways: 
+ 
+• All these finite state machines are equivalent. DFA
+ . NFA 
+• We can convert one finite state machine to any other finite state machine. 
+• For every gular language, we can design infinite equivaent DFAs or infinite equivalent NFAs but minimum DFA is uique 
+for given regular language. 
+• For every regular language, one or more minimum NFAs may exist. 
+Note : For every regular language:  
+   (i)  Unique minimum DFA exists.  
+          (ii)  One or more minimum NFAs exists. 
+ 
+2.5 Comparison of NFA and DFA 
+ |w| = n |w| 
+  n |w| 
+  n 
+Number of states in 
+NFA 
+n + 1 n + 1 n + 1 
+Number of states in 
+DFA 
+n + 2 n + 2 n + 1 
+ 
+• If every string has nth symbol from begin is 'a' over binary alphabet {a, b} then (n + 1) states in minimum NFA but (n+2) 
+states in minimum DFA. 
+Finite Automata 
+DFA NFA (NDFA)
+without 
+- moves
+with
+- moves
+===== page 12 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.9 
+• If every string has nth symbol from end is 'a' over binary alphabet {a, b} then 2n states in minimum DFA and (n + 1) states 
+in minimum NFA. 
+2.5.1 COMPARISON OF DFA AND NFA (NFA vs DFA) 
+ 
+ NFA  DFA 
+(1) Transition Function (
+)  Q ×  → 2Q Q ×   → 
+ Q  
+(2) Number of paths for string For valid string: 1 path  
+For invalid string: >=0 paths 
+For valid string: 1 path  
+For invalid string: 1 path  
+ 
+2.5.2 Number of states in DFA and NFA for Regular Languages 
+Language NFA states DFA states 
+(1) {w | w  {a, b}*, |w| = n} n + 1  n + 2  
+(2) {w | w  {a, b}*, |w|  n} n + 1 n + 2 
+(3) {w | w  {a, b}*, |w|  n} n + 1 n + 2 
+(4) {w |w  {a, b}*, w starts with a} 2 3 
+(5) {w| w {a, b}*, nth symbol from begin is a} n + 1 n + 2 
+(6) {w| w  {a, b}*, nth symbol from end is 'a'} n + 1 2n  
+ 
+ 
+2.5.3 Finding number of states in DFA using NFA  
+ NFA (n states) 
+ Subset Construction  
+DFA (2n sates exists) 
+ Partition algorithm 
+Minimum DFA ( 2n states) atmost 2n states 
+• Every DFA is NFA, but NFA need not be DFA. 
+2.5.4 Relation between NFA with epsilon, NFA without epsilon, and DFA  
+ 
+ 
+ 
+
+===== page 13 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.10 
+2.6 Regular language Representation  
+ 
+2.7 FA Classification  
+ 
+2.8 Moore machine and mealy machine 
+Moore machine  Mealy machine  
+Transition Function  : Q ×  Q 
+Output Function  : Q    
+Outpput is asociated with every state. 
+ : Q ×  Q 
+ : Q ×    
+Output is associated with 
+transition. 
+ 
+  
+Regular Language
+FA Regular Expression Regular Grammar 
+DFA NFA 
+without 
+moves
+with
+moves
+
+===== page 14 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.11 
+2.8.1 Example for Moore machine and Mealy machine 
+Moore Mealy 
+ 
+ 
+Q = {A, B} 
+ = {0, 1} 
+ = {x, y} 
+Outpput is asociated with state. 
+ 
+• Extra one output is produced other than desired 
+output. 
+• So, we can ignore this extra output as this is the 
+machine property. 
+ 
+Q = {A, B} 
+ = {0, 1} 
+ = {x, y} 
+Output is associated with transition. 
+ 
+• No extra output is produced.  
+• For 3 length input, we are getting the 3 length 
+output. 
+2.9 Difference between Moore machine and  Mealy machine 
+ Moore machine  Mealy machine  
+1.  Q ×  Q Q ×  Q 
+ 
+2. 
+ Q    Q ×    
+3. 
+ 
+Length of O/p 
+ 
+ 
+If n length I/P (assume 1 length O/P 
+symbol is taken at each state) then  
+O/P length is (n+1). 
+ 
+If n length input (assume 1 length 
+O/P symbol is taken at each 
+transition) is given then O/P length 
+is n. 
+4. By default  DFA no final state. DFA no final state. 
+2.10 Constuction of FA with output 
+ 
+
+Moore Machine 
+Mealy Machine 
+===== page 15 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.12 
+Note :  
+           For every problem, if moore machine exists the we can also construct equivalent mealy machine. 
+Example: 
+ 
+2.11 Classification of Finite State Machine (FSM) 
+ 
+ 
+2.12 Regular Expression 
+Definition:  
+o Regular expression represents a regular language.  
+o It describes a regular set.  
+o L (regular expression) is regular set. 
+o It is a kind of declarative way to represents a regular language. 
+o Regular expression generates a regular set.  
+o It uses 4 operators to represent a regular language. 
+ 
+ 
+ 
+Sum of present bit and previous bit. 
+Mealy Machine
+0/00
+0/01
+1/10
+1/01
+Previous bit ‘0’ Previous bit ‘1’
+
+Moore Machine 
+Mealy Machine 
+Bzoth are equivalent 
+Operators Operandas 
+(Regular expression)
+Regular Expression
+Unary Binary
+===== page 16 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.13 
+2.13 Operators of Regular Expression 
+1. OR ( )
+Binary Operator
+2. Concatenation(.)
+ 
+
+
+ 
+3. Kleenestar ( ) * Unary Operator
+4. Kleenestar (+)
+
+
+
+ 
+            
+Regular Expression  Equivalent Regular Set 
+a + b L(a + b) = {a, b} 
+a + a = a  L(a + a) = {a}  
+a +  = a L(a + ) = {a}  
+a +  =   + a L(a + ) = {a, }  
+ +  =  L(+) = {}  
+ +  = ϕ  L( + ) = {} 
+a  b = ab  L (a  b) = {ab} 
+a   = a  L (a  ) = {a} 
+   =  L() = {}  
+   = ϕ  L(  ) = {} 
+a  a = aa = a2 L (a  a) = aa = {a2} 
+2.14 Kleene star/ kleene closure / closure  
+R* ( Kleene closure of R): 
+R* = R° +R1+ R2 +R3 + … =  + R + RR + RRR+ …. 
+  
+Example:  
+ a* = {a0, a1, a2, a3 , ...} =  {, a , aa, aaa, …} = Set of all strings over a. 
+ * = 0 + 1 + 2 + 3 + …. =  +  +  +  + …. =  +    =  
+2.15 Positive Closure (Kleeme Plus) 
+R+ (Positive Closure of R): 
+   
+R+= R1 + R2 + R3 + …..  
+ 
+ 
+R* = R 0 i.e. repeart R any number of time 
+R+ = R1 i.e.  repeat R atleast 1 time. 
+R* = R+ + R0  
+Example: 
+(1)  a + = {a, aa, aaa, …} = {an | n  1} 
+(2) + =  = *  
+(3) + =   
+ 
+ 
+ 
+===== page 17 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.14 
+Properties : 
+ OR Concatenation 
+1. Identity    
+2. Associative  Yes  Yes  
+3. Commutative  Yes  No 
+4. Annihilatior *  
+2.16 Identification of Regular Languages  
+ 
+1. L={anbm |n, m  0} = a*b*  (Regular language) 
+2. L= {anbm|m<n<10} (Finite Set, Regular language) 
+3. L={anbm |m > n > 10} (Non Regular language) 
+4. L= {anbm |m = n, m < 10} (Regular language) 
+5. L={ anbm |m = n, m > 10} (Non Regular language) 
+6. L={ambn | gcd (m, n) = 1} (Non Regular language) 
+7. L={ambn |LCM (m, n) = 1} (Regular language) 
+8. L= {anbn | n >= 0} (Non Regular language) 
+9. L={anb2n |n  0} (Non Regular language) 
+10.  L={ambn | m=even, n =odd}  (Regular language) 
+11.  L={ambn | m = n = even} (Non Regular language) 
+  OR  
+ L = {a2nb2n | n = even} 
+12. L={a*} over  = {a} 
+   = Regular language 
+13. L={a2n | n >= 0} over  = {a}. 
+ L= a2n=(aa)*  
+   = Regular language 
+
+===== page 18 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.15 
+14. L= {aPrime} over  = {a} 
+   = Non regular language 
+15. L={ 
+2na | n  0} over  = {a} 
+ L={epsilon, a, aaaa, a9, a16...}, FA Not possible for L. So, it's Non-Regular language. 
+16. L= { 
+2n
+a | n > 0}over  = {a} 
+ Non Regular language 
+17.  L= {
+2n
+a | n  10} 
+    = Regular language  
+18.  L={an! | n  100} over S = {a} 
+   = Non Regular language  
+19.  L={
+nn
+a |n  10} over  = {a} 
+   = Non Regular language 
+20. L = {aPrime}* over  ={a} 
+ L = complement of {a} = *– {a} ={, a2, a3 a4 ,a5, a6, a7,...}= Regular language 
+21.  L = {aprime | prime <100} is finite language (regular) 
+ 
+22. L = {w # w | w  a*}  
+  
+    = Non Regular language  
+23. L = {w # w | w  (a+b)*}  
+   = Non Regular language  
+24. L = {w # wR | w  a*} is non regular 
+  
+25. L = {w x w  | w  {a, b}*, x  {a, b}+} 
+ Put w = , and x = (a + b)+  
+ L = (a + b) + 
+     = Regular language  
+26. L = {x w w | w  {a, b}* x  {a, b}+}  
+L = {a # 
+n n
+a }
+dependency 
+L = {a # 
+n n
+a }
+===== page 19 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.16 
+ L = (a + b)+ 
+   = Regular language  
+27. L = {w wR x | w  {a, b}*, x  {a, b}+}  
+ L = (a + b)+ 
+    = Regular language  
+28. L = {w x wR |w  (a + b)*, x  {a, b}+}  
+ L = (a + b) + 
+    = Regular language  
+29. L = {x w wR | w  {a, b}*, x  {a, b}+}  
+ L = (a + b)+ 
+2.17 Closure Properties of Regular Languages 
+1. Closure properties for finite languages: 
+ 
+ 
+2.18 Table for FINITE sets 
+ Finite sets Closed/Not Closed 
+(1) Union () F1  F2  Finite           
+(2) Intersection () F1  F2  Finite           
+(3) Complement (
+L ) 
+F  NOT finite           
+(4) L1 – L2 F1 – F2  Finite            
+(5) L1. L2 F1  F2  Finite            
+(6) L* ,  L+ F*, F+  May or may not be finite                                            
+(7) Subset (L) Subset (Finite set)  Finite                                 
+ 
+ 
+2.18.1 Table for Infinite sets 
+Union 
+Intersection 
+Complement 
+Difference 
+Concatenation 
+Reversal 
+Kleene closure
+Subset 
+===== page 20 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.17 
+ Infinite sets 
+(1) Union () Infinite  Infinite  Infinite 
+(2) Intersection () Infinite  Infinite  Need not be infinite 
+(3) Complement (
+L ) Complement of Infinite  May or may not be 
+infinite 
+(4) L1 – L2 Need not be infinite 
+(5) L1 . L2 Infinite 
+(6) L*, L+ Infinite 
+(7) Subset (L) Need not be infinite 
+ 
+2.19 Closure Properties of Regulars 
+Li→ Regular 
+1.  2.  
+3. 
+L  4. 
+12LL  
+5. 
+12LL  6. 
+Re v
+L  
+7. 
+L
+  8. 
+L
+  
+9. Subset (L) is not closed for regular languages 10. Prefix (L) 
+11. Suffix (L) 12. Substring (L) 
+    
+13. Substitution (L) 14. Homomorphism (L) 
+15. -free homomorphism (L) 16. h–1 (L) (Inverse homomorphism (L)) 
+17. L1/L2 (Quotient) 18. Symmetric difference 
+19. Half (L)  20. Second half (L) 
+21. One-third (L) [1/3 (L)] 22. Middle 1/3 (L) 
+23. Last 1/3 (L) 24. 
+New 
+  11 2 2, Suff )ix(L L L L
+
+  
+25. Finite Union 26. Finite Intersection 
+27. Finite Difference 28. Finite Concatenation 
+===== page 21 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.18 
+  
+ Out of the given 36 closure properties, how many are closed for regular languages? 
+Subset operation, and 6 infinite operations are not closed, remaining all are closed for regular languages. 
+ Out of 36 operations total 7 operations are not closed. 
+ 
+2.19.1 Operations over regular languages 
+Examples: 
+ (1) 
+*
+*1
+12+
+2
+L = a L  L = a
+L=
+ .
+ a
+ 
+
+
+  
+ (2) 
+1
+1 2 2
+2
+L
+L + L = L
+L Any
+    
+ (3) 
+*
+**1
+12*
+2
+L = a L + L = a + b
+L = b
+
+
+  
+ (4) 
+**
+1 1 2
+1
+2
+L L L
+LL Any language over same 
+     
+    
+   
+ (5) 
+   
+**
+12*
+1 *
+*
+2
+L + L = a b
+La a,b         a + bL = b         
+  
+      
+Note :  
+           1. 
+1
+12
+2
+L
+LL
+L Any
+ 
+
+
+  
+  
+          2.     
+*
+1
+1 2 2
+2
+L L + L = L
+L Any
+    
+ 
+2.19.2 Properties of regular languages 
+I. If both L1 and L2 are regular sets then 
+12LL  is Regular. 
+II. IF 
+12LL  is regular set then   
+ L1 “need not be regular” 
+29. Finite Subset 30. Finite Substitution 
+31. Infinite Union 32. Infinite  
+33. Infinite Difference 34. Infinite Concatenation 
+35. Infinite Subset 36. Infinite Substitution 
+===== page 22 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.19 
+    L2 “need not be regular”. 
+III. If L is regular then 
+L  is regular. 
+IV.  If 
+L  is regular then L is regular. 
+V. L is regular iff 
+L  is regular 
+VI. L is not regular 
+iff  
+L  is not regular. 
+Example: 
+ 
+nn
+ab  is not regular and  
+nn
+ab  is not regular. 
+ 
+2.19.3 Arden’s Lemma and Kleene Method  
+Arden’s Lemma: 
+ If R = Q + RP and P does not contain  then 
+*
+R = QP  
+  R = Q + RP    ...(1) 
+      = Q + (Q + RP) P = Q + QP + RP2 ...(2) 
+  Substitute R one more time in equation (2) 
+  R = Q + QP + QP2 + RP3 
+ If we do repetitive substitution infinite time, we will get 
+*
+R = QP  
+Kleene Method: 
+  
+ 
+ 
+*1 1 1 1k k k k k
+ij ij ik kk kjR R R R R
+   
+  
+  
+ 
+LLG RLG 
+Each production in LLG follows 
+V → VT* 
+OR 
+V→T* 
+Each production in RLG follows 
+V→T*V 
+OR 
+V→T* 
+2.20 Identify the Language Generated by Regular Grammar 
+ Regular Grammar Regular Language 
+1. S →  L = {} 
+2.  S → |a L = {, a} 
+3. S → aa | abc | d L = {aa, abc, d} 
+
+===== page 23 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.20 
+4. S → Aa  
+A → b 
+By default S is a start symbol here. 
+L = {ba} 
+5. S → Aa Useless production. It has no meaning.  
+L = {} =  
+6. 
+Useless
+Ab |Sb
+
+  L = {b} 
+7.   
+Look from bottom to top 
+L = {aa, bb} 
+8.   
+  
+Regular Language Regular Grammar 
+a* (I)   S → Sa |  
+       OR 
+(II)  S → aS |  
+a+ (I)   S → Sa | a 
+       OR  
+(II)  S → aS | a 
+(a + b)* (I)   S → Sa | Sb |  
+       OR 
+(II)   S → aS | bS |  
+(a + b)+ (I)   S → Sa | Sb | a | b 
+       OR 
+(II)   S → aS | bS | a | b 
+(ab)* (I)   S → Sab |  
+       OR 
+(II)   S → abS |  
+2.21 Pumping-Lemma (PL) 
+2.21.1 Pumping Lemma for Regular Languages 
+ 
+ 
+2.21.2 Pumping Lemma for Non-Regular Languages using contradiction 
+
+===== page 24 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.21 
+ 
+2.21.3 Proof for Regular Languages 
+ If L is Regular language, then how pumping lemma proves it as regular? 
+ 
+ 
+2.22 Equivalence Classes  
+(1) L is regular iff L has finite number of equivalence classes. 
+(2) L is not regular iff L has infinite equivalence classes. 
+ 
+
+
+ 
+  
+
+===== page 25 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.22 
+3 
+PUSH DOWN AUTOMATA   
+ 
+3.1 Context Free Grammar 
+CFG: It represents a Context Free Language. 
+ 
+ 
+ Rule of each production in P: 
+ V → (V  T)* 
+ V = only 1 variable in LHS 
+ To derive a string, following derivations can be used.  
+1. Linear Derivation: Linear derivation is two types 
+       (a) Left Most Derivation (LMD) 
+       (b) Right Most Derivation (RMD) 
+2.  Non- linear Derivation: Non- linear Derivation OR Parse Tree OR Derivation Tree   
+3.2 Types of Context Free Grammars 
+There are two types of CFG: 
+1. Ambiguous CFG:  At least one string has more than one derivation. 
+2. Unambiguous CFG:  Every string (w) generated by CFG has exactly one derivation. 
+ 
+3.3 Pushdown Automata (PDA) 
+PDA accepts context free language (CFL). PDA also called as NPDA. 
+  
+
+===== page 26 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.23 
+ 
+ 
+3.4 PDA acceptance mechanisms 
+  PDA acceptance mechanisms are three types:  
+ 1. PDA acceptance using final state. 
+ 2. PDA acceptance using empty stack. 
+ 3. PDA acceptance using both final state and Empty stack. 
+  All PDA acceptance mechanisms are equivalent. 
+  DPDA acceptance mechanism are two types:  
+1.  DPDA using final stack. 
+2. DPDA using both final state and empty stack.  
+ 
+3.5 PDA configuration 
+PDA = (Q, ∑, 
+ , q0, F, Z0, ). 
+  where Q = Set of states 
+   ∑ = input alphabet 
+   
+  = Transition Function (PDA/NPDA 
+ : Q∑ 2Q  *) 
+   F = Set of Final state  
+   Z0 = Bottom symbol or initially TOS 
+    = Stack Alphabet 
+  DPDA transition Function is [
+ : Q∑  Q  *] 
+ Difference between DPDA and PDA  
+  
+DPDA PDA 
+[1] 
+ :Q∑ Q* 
+ :Q∑ 2Q  * 
+[2] Every DPDA is PDA Every PDA need not be DPDA 
+[3] DPDA acceptance with 
+      (a) Final state mechanism 
+      (b) Both Final and empty stack 
+PDA acceptance with 
+(a) Final state mechanism 
+(b) Empty stack mechanism  
+(c) Both Empty stack and Final 
+state 
+ 
+ Relation between Regular, DCFL and CFL. 
+ 
+ 
+   Regular languages ……(FA) 
+   DCFLs (DPDA) 
+   CFLs (PDA or NPDA) 
+ 
+
+===== page 27 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.24 
+I If L is regular language, then it is also DCFL and CFL. 
+II Every DCFL is CFL, but it need not be regular. 
+3.6 Closure Properties of CFLs 
+  
+•  Operation Closed / Not Closed 
+Union (L1  L2)  
+Intersection (L1 L2)  
+Complement (
+L )  
+Set difference (L1-L2)  
+Concatenation (L1.L2)  
+Reversal (LRev)  
+Kleene Closure (L)  
+Kleene Plus (L)  
+Subset (L)  
+Prefix (L)  
+Suffix (L)  
+Substring (L)  
+Substitution (L)  
+Homomorphism (L)  
+
+- free Homomorphism h(L)  
+Inverse Homomorphism h-1 (L)  
+quotient (L1, L2) = L1/L2   
+Symmetric difference (L1, L2)  
+Finite Union  
+ Finite Intersection   
+Finite difference  
+Finite concatenation  
+Finite subset  
+Finite substitution  
+Infinite Union  
+Infinite intersection  
+Infinite difference  
+Infinite concatenation  
+Infinite Subset  
+Infinite Substitution  
+Union with Regular (L U Regular)  
+L U Regular  
+L – Reg  
+Reg – L  
+ 
+ 
+ 
+===== page 28 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.25 
+Note :(i)     CFL  CFL = Need not be CFL 
+          (ii)    CFL  Regular = CFL (Need not be DCFL) 
+          (iii)   CFL  DCFL = May or may not be CFL  
+          (iv)   CFL  Finite = Finite 
+          (v)   CFL  infinite = Need not be CFL 
+3.7 Closure Properties of DCFLs  
+•  Operation Closed / Not Closed 
+Union (L1  L2)   
+Intersection (L1 L2)  
+Complement (
+L )  
+Set difference (L1-L2)  
+Concatenation (L1.L2)  
+Reversal (LRev)     
+Kleene Closure (L) = L*    
+Kleene Plus (L) = L+  
+Subset (L)   
+Prefix (L)    
+Suffix (L)  
+Substring (L)  
+Substitution (L)  
+Homomorphism (L)   
+
+- free Homomorphism h(L)  
+Inverse Homomorphism h-1 (L)    
+quotient (L1, L2)  
+Symmetric difference (L1, L2)  
+  Finite Union   
+Finite Intersection  
+Finite difference    
+Finite concatenation  
+Finite subset   
+Finite substitution  
+Infinite Union   
+Infinite intersection  
+Infinite difference  
+Infinite concatenation   
+Infinite Subset    
+Infinite Substitution    
+Union with Regular (L U Regular)  
+L U Regular  
+L – Regular  
+Regular – L   
+===== page 29 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.26 
+Note : 
+          DCFL  Regular  : DCFL 
+          DCFL  Regular  : DCFL 
+          DCFL - Regular  : DCFL 
+          Regular - DCFL  : DCFL 
+          DCFL  CFL  : CFL (need not be DCFL) 
+          DCFL  CFL  : Need not be CFL 
+          DCFL - CFL   : Need not be CFL 
+          CFL - DCFL   : Need not be CFL 
+          DCFL  Finite : DCFL 
+          DCFL   Finite  : Finite 
+          DCFL – Finite  : DCFL 
+          Finite - DCFL    : Finite 
+ 
+ 
+3.8 Comparison of Regular Grammars and CFGs 
+ CFL and CFG both are equivalent. CFL
+ CFG 
+ LLG: Left Linear Grammar, RLG: Right Linear Grammar, RG: Regular Grammar, LG: Linear Grammar, CFG: Context 
+Free Grammar.  
+ Every LLG is RG 
+ Every RLG is RG 
+ Every RG is LG 
+ Every RG is CFG 
+ Every LG is CFG 
+ Every RG need not be RLG 
+ Every RG need not be LLG 
+ Every LG need not be RG 
+ Every CFG need not be RLG 
+ Every CFG need not be LG 
+ 
+ 
+ 
+ 
+ 
+ 
+===== page 30 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.27 
+ 
+ 
+3.9 Context Free Languages and DCFLs 
+I. Comparison of various languages 
+ 
+ 
+II. Identification of Regulars, DCFLs, and CFLs 
+ 
+ 
+ 
+ 
+ 
+
+===== page 31 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.28 
+ [1] L = {anbnck n, m, k 
+ 0} 
+     = a*b*c* 
+     = Regular 
+ 
+ [2] L = {anbn n 
+ 0} 
+  L = DCFL but not regular 
+  S → aSb  
+  
+ 
+ [3] L = {anb2n n 
+ 0} 
+  L = DCFL but not regular 
+  S → aSbb  
+   
+                
+ [4] L = {a2nbn n 
+ 0}      
+  L = DCFL 
+  S → aaSb  
+  
+ 
+ [5] L = {a2nb2n n 
+ 0} 
+  L = DCFL 
+  S → aaSbb  
+  
+ 
+ [6] L = { anbnc*} Assume always n 
+ 0 in all examples 
+  OR 
+    = { ambnc*  m = n} 
+  DCFL but not regular 
+ [7] L = { anb*cn} DCFL 
+ [8] L = { a*bncn}  DCFL 
+ 
+ [9] L = { ambnc* m 
+ n } 
+  DCFL 
+ 
+ [10] L = { ambnc* m < n } 
+  DCFL 
+   
+ [11] L = { ambnc* m > n } 
+  DCFL 
+ 
+ [12] L = { ambnc* c
+ n } 
+  DCFL 
+ 
+ [13] L = { ambnc* m 
+  n } 
+  DCFL 
+ 
+ [14] L = { ambncm+n m, n
+ 0 } is DCFL 
+ 
+===== page 32 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.29 
+ [15] L = { am+nbn+kck+m m, n
+ 0 } is CFL 
+ 
+ [16] L = { wwr w belongs to {a, b}* } is CFL but not DCFL 
+       
+  
+ 
+
+  
+===== page 33 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.30 
+4 
+TURNING MACHINE 
+4.1 Classification of Languages 
+ 
+1. All languages which are not RELs 
+2. All not recursive languages 
+3. All not CSLs 
+4. All not CFLs 
+5. All not DCFLs 
+6. All not regulars 
+7. All recursive languages which are not DCFLs 
+8. All RELs which are not DCFLs  
+4.2 There are Two types of TM 
+(a) DTM (Deterministic TM) 
+(b) NTM (Non- Deterministic TM) 
+ 
+DTM 
+ 
+ :QQ
+Left Right
+,LR
+
+
+
+  
+NTM 
+  
+ 
+ : Q    2Q{ L, R} 
+
+===== page 34 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.31 
+4.3 Unrestricted Grammar (UG) and Context Sensitive Grammar (CSG) 
+Unrestricted grammar (UG) also called as   
+  RE grammar 
+  Phase structure grammar 
+Context sensitive grammar (CSG) is also called as  
+  Non contracting grammar 
+ Bound restricted grammar 
+4.4 Grammars 
+Left Linear Grammar (LLG):  V VT*  T* 
+Right Linear Grammar (RLG):  V T*V  T* 
+Linear Grammar (LG):  V T*VT*  T* 
+Context Free Grammar (CFG):  LHS  RHS,  
+LHS RHS   
+Unrestricted Grammar (UG):  LHS  RHS 
+4.5 Equivalence of various TMs 
+TM 
+ Single tape TM 
+TM 
+ One-way infinite tape TM 
+TM 
+ Two-way infinite tape TM 
+TM 
+ Multi tape and multi head TM 
+TM 
+ Universal TM 
+TM 
+ Two stack PDA 
+TM 
+ Multi stack PDA 
+TM 
+ FA with  two stacks 
+TM 
+ FA + R/W tape + Bidirectional head 
+ 
+4.6 Restrictions on TM 
+(1) If TM tape is read only tape, this TM accepts regular. 
+ TM 
+ FA (TM with read only tape) 
+(2) If TM head is unidirectional then L(TM) = Regular. 
+(3) If TM tape is read only and unidirectional head then L(TM) = Regular. 
+(4) If TM always halts then L(TM) is recursive language. 
+(5) If TM always halts and uses linear bound tape then L(TM) is CSL. 
+ 
+===== page 35 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.32 
+4.7 LBA, HTM and TM 
+HTM: It is a TM that always halts for every input. 
+TM:  It halts for every valid string and for invalid strings either halts at “non final state” or “never halts”. 
+LBA: It is HTM but length of the tape we use linearly bounded. 
+ LBA accepts CSL languages. 
+ HTM accepts recursive languages. 
+ TM accepts Recursive Enumerable (RE) languages. 
+4.8 Recursively Enumerable Language 
+It is also called as: 
+ Enumerable language 
+ TM recognizable language 
+ TM Enumerable language 
+ Partially decidable language 
+ Semi-decidable language 
+4.9 Recursive Language 
+ Recursive language is acceptable by HTM, and hence acceptable by TM. 
+ Recursive also called as decidable language. 
+ Recursive also called as Turing decidable language. 
+If TM always halts, then TM is called as HTM. 
+ 
+4.10 Difference between Recursive and REL 
+ All Recursive languages are RE languages. 
+ 
+ 
+ 
+
+===== page 36 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.33 
+Note :  
+             1.   Union: 
+  REL  Finite  REL 
+  REL  Regular  REL 
+  REL  CFL  REL 
+  REL  Recursive  REL 
+  REL1  REL2  REL 
+2.   Intersection: 
+  REL  Finite  REL (Finite) 
+  REL  CFL  REL 
+  REL  Rec  REL 
+            REL1  REL2  REL 
+4.11 Closure Properties of Recursive languages 
+I. The following operations are not closed for recursive languages: 
+ Subset 
+ Substitution 
+ Homomorphism 
+ Finite substitution 
+ Infinite union 
+ Infinite intersection 
+ Infinite concatenation 
+ Infinite difference 
+ Infinite substitution  
+II. The following operations are closed for recursive languages: 
+ Complement 
+ Difference 
+ Finite difference 
+ Infinite followed by , , -, , , f 
+ Remember not closed operations 
+4.12 Complement of Recursive Vs Complement of REL 
+ 
+
+===== page 37 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.34 
+ Complement of Recursive set is Recursive. 
+ Complement of REL is either Recursive or non-REL. 
+ Complement of REL never be “REL which is not recursive”. 
+4.13 Decidable and Undecidable 
+ 
+4.14 Decidable Vs Undecidable, RE Vs Not RE, Countable Vs Uncountable 
+ 
+ [1] Decidable    and  Undecidable 
+ 
+ 
+HTM exist     HTM not exist 
+(Rec language)    (not Rec language) 
+ 
+ [2] RE    and  Not RE 
+ 
+   
+       TM exist     TM not exist 
+  
+ [3] Countable set  and  Uncountable set 
+ 
+ 
+  X is countable set    (X is not countable set) 
+  iff 
+  Xf(X) is bijective where f(X) is known countable set.  
+ 
+
+===== page 38 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.35 
+ 
+ 
+Note :  
+ If problem p is decidable then 
+p  is also decidable. 
+ If problem p is Undecidable then 
+p  is also UD. 
+ If problem p is RE but not recursive then 
+p  is not RE. 
+ If problem p is not RE then 
+p  is either “Not RE” or “RE but not Recursive”. 
+ 
+  
+4.15 Decision Properties Table 
+ D: Decidable 
+ UD: Undecidable 
+ 
+ FA     DPDA PDA LBA/HTM TM 
+H (Halting) D D D D UD 
+M 
+(Membership) 
+D D D D UD 
+Em 
+(Emptiness) 
+D D D UD UD 
+F (Finiteness) D D D UD UD 
+
+===== page 39 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.36 
+T (Totality) D D UD UD UD 
+Eq 
+(Equivalence) 
+D D UD UD UD 
+D (Disjoint) D UD UD UD UD 
+S (Set 
+Containment) 
+D UD UD UD UD 
+ 
+4.16 Decidable problem for DFA / NFA/ FA/ Regular  
+(1) Halting problem for FA / Reg/ DFA / NFA is decidable. 
+(2) Non-halting problem for FA / Reg/ DFA / NFA is decidable. 
+(3) Membership problem for FA / Reg/ DFA / NFA is decidable. 
+(4) Non-membership problem for FA / Reg/ DFA / NFA is decidable. 
+(5) Emptiness for FA / Reg/ DFA / NFA is decidable. 
+(6) Non-emptiness problem for FA / Reg/ DFA / NFA is decidable. 
+(7) Fitness problem for FA / Reg/ DFA / NFA is decidable. 
+(8) Non-fitness problem for FA / Reg/ DFA / NFA is decidable. 
+(9) Totality problem for FA / Reg/ DFA / NFA is decidable. 
+(10) Non-totality problem for FA / Reg/ DFA / NFA is decidable. 
+(11) Equivalence problem for FA / Reg/ DFA / NFA is decidable. 
+(12) Non-equivalence problem for FA / Reg/ DFA / NFA is decidable. 
+(13) Disjointness problem is decidable for FA / Reg/ DFA / NFA. 
+(14) N0n-disjointness problem is decidable for FA / Reg/ DFA / NFA. 
+(15) Set containment problem for FA / Reg/ DFA / NFA is decidable 
+(16) Non-set containment problem for FA / Reg/ DFA / NFA is decidable. 
+4.17 Decidable problems for CFLs/DCFLs 
+  
+===== page 40 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.37 
+ 
+ 
+4.18 Decidability problems for Recursive languages 
+ 
+ Problems Recursive  
+1. Halting D 
+2. Non-Halting D 
+3. Membership D 
+4. Non-membership D 
+5. Emptiness UD [Not REL] 
+6. Non-emptiness UD [RE but not Rec] [SD but UD] 
+7. Finiteness UD [Not RE] 
+8. Non-finiteness UD [Not RE] 
+9. Totality UD [Not RE] 
+10. Non-totality UD [RE but not Rec] [SD but UD] 
+11. Equivalence UD [Not RE] 
+12. Non-equivalence UD [RE but not Rec]  
+13. Disjointness UD [Not RE] 
+14. Non-disjointness UD [RE but not Rec] 
+15. Set containment UD [Not RE] 
+16. Non-set containment UD [RE but not Rec] 
+ 
+ 
+ 
+ 
+ 
+ 
+
+===== page 41 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.38 
+4.19 Classification of Languages based on Decidability 
+All RE languages can be classified into 3 important classes. 
+ 
+4.19.1 Decidability Vs Turing Machine 
+ 
+ 
+ 
+4.20 Decidable languages 
+(1) Finite set  Decidable 
+(2) ∑ = {a, b}  Decidable  
+(3) ∑ 
+ Set of finite number of symbols  Decidable 
+(4) ∑* over alphabet ∑ = {a, b}  Decidable 
+(5) {M  M is DFA, M accepts ab}  Decidable 
+
+===== page 42 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Theory of Constraints 
+ 
+7.39 
+(6) {TM  Number of states in TM= 2}  Decidable 
+(7) {TM  TM reaches state q within 100 steps}  Decidable 
+(8) { TM  TM accepts REL}  Decidable 
+ 
+ 
+ 
+

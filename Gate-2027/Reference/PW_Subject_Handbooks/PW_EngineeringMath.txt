@@ -1,0 +1,2030 @@
+
+===== page 1 =====
+EngineeringEngineering
+MathematicsMathematics
+Engineering
+Mathematics
+===== page 2 =====
+Published By: 
+ 
+  Physics Wallah 
+ISBN: 978-93-94342-39-2 
+Mobile App: Physics Wallah (Available on Play Store) 
+  
+Website: www.pw.live 
+Email: support@pw.live 
+ 
+Rights 
+All rights will be reserved by Publisher. No part of this book may be used or reproduced in any manner 
+whatsoever without the written permission from author or publisher. 
+In the interest of student's community: 
+Circulation of soft copy of Book(s) in PDF or other equivalen t format(s) through any social media channels, 
+emails, etc. or any other channels through mobiles, laptops or desktop is a criminal offence. Anybody 
+circulating, downloading, storing, soft copy of the book on his device(s) is in breach of Copyright Act. Further 
+Photocopying of this book or any of its material is also illegal. Do not download or forward in case you come 
+across any such soft copy material. 
+ 
+Disclaimer 
+A team of PW experts and faculties with an understanding of the subject has worked hard for the books. 
+While the author and publisher have used their best efforts in preparing these books. The content has been 
+checked for accuracy. As the book is intended for educational purposes, the author shall not be responsible for 
+any errors contained in the book. 
+The publication is designed to provide accurate and authoritative information with regard to the subject matter 
+covered. 
+This book and the individual contribution contained in it are protected under copyright by the publisher. 
+(This Module shall only be Used for Educational Purpose.) 
+
+===== page 3 =====
+ 
+ 
+ 
+Design Against Static Load 
+ 
+ 
+ 
+ 
+ 
+1. Basic Calculus  ......................................................................................................................  1.1 – 1.16 
+2. Linear Algebra  ......................................................................................................................    1.17 – 1.28 
+3. Probability and Statistics  .....................................................................................................  1.29 – 1.40 
+ 
+ 
+ 
+INDEX 
+GATE-O-PEDIA COMPUTER SCIENCE & INFORMATION TECHNOLOGY 
+===== page 4 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Design Against Static Load 
+1.1 
+1 
+BASIC CALCULUS 
+1.1.  Introduction 
+1.1.1 Limits, Continuity and Differentiability 
+(a)  As x tends to a (x → a)    x is moving towards a  
+ A value l is said to be limit of a function f(x) at x → a if f(x) → l as x → a.  
+ It is mathematically defined as  
+      𝑙𝑖𝑚
+𝑥→𝑎
+𝑓(𝑥) = 𝑙 = 𝑙𝑖𝑚
+𝑥→𝑎−𝑓(𝑥) = 𝑙𝑖𝑚𝑥→𝑎+𝑓(𝑥)  
+ That is, Limit exist at any point, if LHL = RHL   
+ A function f(x) is said to be continuous at x = a, if 
+  𝑙𝑖𝑚
+𝑥→𝑎
+𝑓(𝑥) = 𝑙 = 𝑓(𝑎) = 𝑓(𝑥)|𝑥=𝑎 
+        That is, for a function to be continuous at any point, RHL = LHL = Value of function at point x = a. 
+Note: • For 𝑙𝑖𝑚
+𝑥→𝑎
+ 𝑓(𝑥) to exist, the function need not be continuous at x = a. 
+  • But for f(x) to be continuous at x = a, 𝑙𝑖𝑚
+𝑥→𝑎
+𝑓(𝑥) should exist. 
+ 
+• Continuity from Left :
+( ) ( )lim
+xa
+f x f a
+−→ =  
+• Continuity from Right : If 
+lim ( ) ( )
+xa
+f x f a
++→ =  
+Continuity in an Open Interval 
+ A function ‘f ’ is said to be continuous in open interval (a, b), if it is continuous at each point of open interval. 
+Continuity in a Closed Interval 
+ Let ‘f ’ be a function defined on the closed interval (a, b)  then ‘f ’ is said to be continuous on the closed interval [ a, b], if 
+it is : 
+ 1. Continuous from the right at a and 
+ 2. Continuous from the left at b and  
+ 3. Continuous on the open interval (a, b). 
+===== page 5 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 1.2 
+Engineering Mathematics 
+ 
+Fig. 1.1 
+(b)  Concept of differentiability  
+ A continuous function f(x) is said to be differentiable at x = a, if  𝑙𝑖𝑚
+𝑥→𝑎
+𝑓(𝑥)−𝑓(𝑎)
+𝑥−𝑎  exists, that is, RHL and LHL exist at a point 
+under consideration in 𝑓′(𝑥). 
+ 𝑓′(𝑥)|𝑥=𝑎 = 𝑓′(𝑎) = 𝑙𝑖𝑚𝑥→𝑎 𝑓(𝑥)−𝑓(𝑎)𝑥−𝑎      
+ 𝑓′(𝑎) = 𝑡𝑎𝑛 𝜃, where 𝜃 is the angle made by the tangent to the curve at x=a with x – axis. 
+(c)  Some Standard Derivatives   
+ (i)  
+𝑑
+𝑑𝑥 (𝑥𝑛) = 𝑛. 𝑥𝑛−1  
+ (ii)  
+𝑑
+𝑑𝑥 (𝑠𝑖𝑛 𝑥) = 𝑐𝑜𝑠 𝑥 
+ (iii)  
+𝑑
+𝑑𝑥 (𝑐𝑜𝑠 𝑥) = − 𝑠𝑖𝑛 𝑥 
+ (iv)  
+𝑑
+𝑑𝑥 (𝑡𝑎𝑛 𝑥) = 𝑠𝑒𝑐2 𝑥 
+ (v)  
+𝑑
+𝑑𝑥 (𝑐𝑜𝑡 𝑥) = −𝑐𝑜𝑠𝑒𝑐2𝑥 
+(vi)  
+𝑑
+𝑑𝑥 (𝑠𝑒𝑐 𝑥) = 𝑠𝑒𝑐 𝑥 . 𝑡𝑎𝑛 𝑥 
+ (vii)  
+𝑑
+𝑑𝑥 (𝑐𝑜𝑠𝑒𝑐 𝑥) = – 𝑐𝑜𝑠𝑒𝑐 𝑥 𝑐𝑜𝑡 𝑥 
+ (viii) 
+𝑑
+𝑑𝑥 (𝑠𝑖𝑛−1 𝑥) = 1√1−𝑥2 ; −1 < 𝑥 < 1 
+ (ix)  
+𝑑
+𝑑𝑥 (𝑐𝑜𝑠−1 𝑥) = −1√1−𝑥2 , −1 < 𝑥 < 1 
+ (x)  
+𝑑
+𝑑𝑥 (𝑡𝑎𝑛−1 𝑥) = 11+𝑥2 
+
+===== page 6 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 1.3 
+Engineering Mathematics 
+ (xi)  
+𝑑
+𝑑𝑥 (𝑐𝑜𝑡−1 𝑥) = −11+𝑥2 
+ (xii)  
+𝑑
+𝑑𝑥 (𝑠𝑒𝑐−1 𝑥) = 1|𝑥|√𝑥2−1 
+ (xiii) 
+𝑑
+𝑑𝑥 (𝑐𝑜𝑠𝑒𝑐−1 𝑥) = −1|𝑥|√𝑥2−1 ; |x| > 1  
+ (xiv) 
+𝑑
+𝑑𝑥 (𝑙𝑜𝑔𝑎 𝑥) =
+1
+𝑥 𝑙𝑜𝑔𝑒 𝑎 
+ (xv)  
+𝑑
+𝑑𝑥 (𝑙𝑜𝑔𝑒 𝑥) =
+1
+𝑥 
+ (xvi) 
+𝑑
+𝑑𝑥 (𝑎𝑥) = 𝑎𝑥. 𝑙𝑜𝑔𝑒 𝑎 
+ (xvii) 
+𝑑
+𝑑𝑥 (𝑒𝑥) = 𝑒𝑥 
+ (xviii)  
+𝑑
+𝑑𝑥 (|𝑥|) = |𝑥|𝑥 , (𝑥 ≠ 0) 
+ (xix) 
+𝑑
+𝑑𝑥 (𝑥𝑥) = 𝑥𝑥(1 + 𝑙𝑜𝑔𝑒 𝑥) 
+ (xx)  
+𝑑
+𝑑𝑥 (𝑠𝑖𝑛ℎ 𝑥) = 𝑐𝑜𝑠ℎ 𝑥 
+(d)  Product rule of differentiation  
+ (i) 
+𝑑
+𝑑𝑥 (𝑓(𝑥). 𝑔(𝑥)) = 𝑓(𝑥). 𝑔′(𝑥) + 𝑓′(𝑥). 𝑔(𝑥)  
+ (ii) 𝑑(𝑢𝑣𝑤) = 𝑢𝑣𝑤′ + 𝑢𝑣′𝑤 + 𝑢′𝑣𝑤  
+(e) Quotient rule of differentiation 
+ 
+𝑑
+𝑑𝑥 (
+𝑓(𝑥)
+𝑔(𝑥)) =
+𝑔(𝑥).𝑓′(𝑥)−𝑓(𝑥).𝑔′(𝑥)
+(𝑔(𝑥))2 , (𝑔(𝑥) ≠ 0) 
+(f) Logarithmic differentiation: 
+ Taking log might help in differentiation of a function. For example if 
+uyv=  then we can take log both side and 
+differentiable to get 
+dy
+dx  
+(g) Differentiation in parametric from : 
+ If we write x and y in term of find variable ‘t’ that is x = f(t), y = (t), then 
+/
+/
+dy dy dt
+dx dx dt=  
+(h)  Greatest Integer function / step function / integer part function  
+ 𝑓(𝑥) = [𝑥] = 𝑛, ∀ 𝑛 ≤ 𝑥 < 𝑛 + 1where, 𝑛 ∈ 𝑍                                       
+ 𝑙𝑖𝑚
+𝑥→𝑎
+[𝑥] = ∄  if a is an integer ( ∄ = do not exist) 
+ L.H.L. = 𝑙𝑖𝑚
+𝑥→𝑎−[𝑥] = 𝑎 − 1 
+ R.H.L. = 𝑙𝑖𝑚
+𝑥→𝑎+[𝑥] = 𝑎 
+===== page 7 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 1.4 
+Engineering Mathematics 
+ 
+Fig.1.2. Greatest Integer 
+(i)  Properties of Limits 
+ (i) 𝑙𝑖𝑚
+𝑥→𝑎
+(𝑓(𝑥) ± 𝑔(𝑥)) = 𝑙𝑖𝑚
+𝑥→𝑎
+𝑓(𝑥) ± 𝑙𝑖𝑚
+𝑥→𝑎
+𝑔(𝑥) 
+ (ii) 𝑙𝑖𝑚
+𝑥→𝑎
+(𝑓(𝑥). 𝑔(𝑥)) = 𝑙𝑖𝑚
+𝑥→𝑎
+𝑓(𝑥). 𝑙𝑖𝑚
+𝑥→𝑎
+𝑔(𝑥) 
+ (iii) 𝑙𝑖𝑚
+𝑥→𝑎
+𝑓(𝑥)
+𝑔(𝑥) =
+𝑙𝑖𝑚𝑥→𝑎𝑓(𝑥)
+𝑙𝑖𝑚𝑥→𝑎𝑔(𝑥) , (𝑙𝑖𝑚𝑥→𝑎𝑔(𝑥) ≠ 0) 
+ (iv) If 𝑙𝑖𝑚
+𝑥→𝑎
+𝑓(𝑥) exists and 𝑙𝑖𝑚
+𝑥→𝑎
+𝑔(𝑥) = ∄, then 𝑙𝑖𝑚
+𝑥→𝑎
+𝑓(𝑥). 𝑔(𝑥) may exist  
+Example: Let 𝑓(𝑥) = 𝑠𝑖𝑛 𝑥, 𝑔(𝑥) = 1𝑥, 𝑙𝑖𝑚𝑥→0𝑓(𝑥) = 0,  𝑙𝑖𝑚𝑥→0 1𝑥 = ∄  
+   But  𝑙𝑖𝑚
+𝑥→0
+𝑠𝑖𝑛 𝑥 .
+1
+𝑥 = 1  
+ (v) Indeterminate form III (00, 1, 0) 
+  If 
+ 
+()lim ( ) x
+xa
+y f x 
+→
+=  
+  Then, 
+ log lim ( )log ( )
+xa
+y x f x
+→
+=  
+  Thus 00, 1, 0 will convert into ×0 from which can be solved easily. 
+ (vi) If  𝑙𝑖𝑚
+𝑥→𝑎
+𝑓(𝑥)
+𝑔(𝑥) =
+0
+0 (or) ∞∞, then 𝑙𝑖𝑚𝑥→𝑎 𝑓(𝑥)𝑔(𝑥) = 𝑙𝑖𝑚𝑥→𝑎 𝑓′(𝑥)𝑔′(𝑥) ≠ (00) 
+  If 𝑙𝑖𝑚
+𝑥→𝑎
+𝑓′(𝑥)
+𝑔′(𝑥) =
+0
+0 (or)
+∞
+∞, then 𝑙𝑖𝑚𝑥→𝑎
+𝑓′(𝑥)
+𝑔′(𝑥) = 𝑙𝑖𝑚𝑥→𝑎
+𝑓′′(𝑥)
+𝑔′′(𝑥)and so on  
+ (vii)  If 𝑙𝑖𝑚
+𝑥→𝑎
+(𝑓(𝑥). 𝑔(𝑥)) = 0 ×∞ ⇒ 𝑙𝑖𝑚
+𝑥→𝑎
+𝑓(𝑥)
+( 1𝑔(𝑥)) =
+0
+0 (Apply L- Hospital Rule again) 
+
+===== page 8 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 1.5 
+Engineering Mathematics 
+(j)  Some Standard Limits 
+ (i)  𝑙𝑖𝑚
+𝑥→0
+𝑠𝑖𝑛 𝑥
+𝑥 = 1 
+ (ii)  𝑙𝑖𝑚
+𝑥→0
+𝑡𝑎𝑛 𝑥
+𝑥 = 1 
+ (iii)  𝑙𝑖𝑚
+𝑥→0
+1−𝑐𝑜𝑠 𝑎𝑥
+𝑥2 =
+𝑎2
+2  
+ (iv)  𝑙𝑖𝑚
+𝑥→∞
+𝑠𝑖𝑛 𝑥
+𝑥 = 0 
+ (v)  𝑙𝑖𝑚
+𝑥→∞
+𝑐𝑜𝑠 𝑥
+𝑥 = 0 
+ (vi)  𝑙𝑖𝑚
+𝑥→0
+(1 + 𝑎𝑥)𝑏/𝑥 = 𝑒𝑎𝑏 
+ (vii)  𝑙𝑖𝑚
+𝑥→∞
+(1 +
+𝑎
+𝑥)
+𝑏𝑥
+= 𝑒𝑎𝑏 
+ (viii) 𝑙𝑖𝑚
+𝑥→0
+(
+𝑎𝑥+𝑏𝑥
+2 )
+1/𝑥
+= √𝑎𝑏 
+ (ix)  𝑙𝑖𝑚
+𝑥→0
+(
+1𝑥+2𝑥+3𝑥+....+𝑛𝑥
+𝑛 )
+1/𝑥
+= √𝑛!
+𝑛
+ 
+ (x)  𝑙𝑖𝑚
+𝑥→0
+𝑎𝑥−1
+𝑥 = 𝑙𝑜𝑔𝑒 𝑎 ; 𝑙𝑖𝑚𝑥→0
+𝑒𝑥−1
+𝑥 = 1 
+ (xi)  𝑙𝑖𝑚
+𝑥→0
+𝑥. 𝑠𝑖𝑛 (
+1
+𝑥) = 0 
+1.2  Mean Value Theorems 
+1.2.1 Lagrange’s Mean Value Theorem (LMVT) 
+ If 𝑓(𝑥) is continuous in [a, b] and it is differentiable in (a, b) then ∃ at least one point ‘c’ such that c   (a, b) and  
+𝑓′(𝑐) = 𝑓(𝑏) − 𝑓(𝑎)𝑏 − 𝑎  
+ Here 𝑓′(𝑐)  slope of tangent to f(x) at x = c. 
+ Tangent at x = c is parallel to the line connecting the points A and B  
+ 
+Fig.1.3. LMVT 
+
+===== page 9 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 1.6 
+Engineering Mathematics 
+ 1.2.2  Rolle’s Mean Value Theorem 
+If 𝑓(𝑥) is continuous in [a, b] and differentiable in (a, b) and f(a) = f(b) then  at least one-point c  (a, b) such that 𝑓′(𝑐) = 0.                    
+ 
+Fig. 1.4. Rolle’s mean value 
+1.2.3  Cauchy’s Mean Value Theorem 
+If f(x) and g(x) are continuous in [ a, b] and differentiable in ( a, b) then  at least one value of ‘ c’ such that c  (a, b) and 
+  
+𝑔′(𝐶)
+𝑓′(𝐶) =
+𝑔(𝑏)−𝑔(𝑎)
+𝑓(𝑏)−𝑓(𝑎) 
+1.3  Increasing and Decreasing Functions 
+1.3.1 Increasing Functions  
+A function f(x) is said to be increasing, if 𝑓(𝑥1) < 𝑓(𝑥2) ∀ 𝑥1 < 𝑥2 
+   Or 
+A function f(x) is said to be increasing, if f(x) increases as x increases.  
+ For a function 𝑓(𝑥) to be increasing at the point x=a, 𝑓′(𝑎) > 0. 
+Example:  
+ ex, log ex   →  Monotonically increasing functions 
+ sin x in (0, /2) → non-monotonic functions 
+1.3.2 Decreasing Functions 
+ A function f(x) is said to be a decreasing function, if 𝑓(𝑥1) > 𝑓(𝑥2)∀𝑥1 < 𝑥2 
+ A function 𝑓(𝑥) is said to be decreasing function, if 𝑓(𝑥) decreases as x increases.  
+ Example: 𝑒−𝑥 →Monotonically decreasing function, sin 𝑥 in (𝜋2 , 𝜋)  
+1.4.  Concept of Maxima and Minima 
+Let f(x) be a differentiable function, then to find the maximum (or) minimum of f(x). 
+(1)  Find f (x) and equate to zero. 
+
+===== page 10 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 1.7 
+Engineering Mathematics 
+(2) Solve the resulting equation for x. Let its roots be a1, a2, . . . then f(x) is stationary at x = a1, a2, . . . . . . Thus x = a1, a2, . . . 
+. . . are the only points at which f(x) can be maximum or a minimum. 
+(3) Find f (x) and substitute in it by terms x = a1, a2, . . . . . . wherever f (x) is negative, we have a maximum and wherever 
+f (x) is positive, we have a minimum. 
+(4) If f (a1) = 0, find f (x) put x = a1 in it. If f (a1)  0, there is neither a maximum nor a minimum at x = a1. If f (a1) = 0, 
+find f iv(x) and put x = a1 in it. If f iv(a1) is negative, we have maximum at x = a1, if it is positive there is a minimum at  
+x = a1. If f iv(a1) is zero, we must find f v(x), and so on. Repeat the above process for each root of the equation f (x) = 0. 
+Example:  x = 0 is a critical point of f(x) = x3 
+ 
+Fig. 1.5. Graph of 𝒙𝟑 
+𝑓(𝑥) = 𝑥3 
+   𝑓′(𝑥) = 3𝑥2 = 0       x = 0 
+  𝑓′′(𝑥) = 6𝑥 ⇒ 𝑓′′(0) = 6(0) = 0 
+• Global maxima and minima : 
+ We first find local maxima and minima and then calculate the value of ‘f’ at boundary points of interval given e.g. (a, b) 
+we find f(a) and f(b) and compare it with the values of local maxima and minima. The absolute maxima and minima can 
+be decided then. 
+1.5. Taylor Series  
+ If f(x) is continuously differentiable (𝑓′(𝑥), 𝑓"(𝑥), 𝑓′′′(𝑥), . . . . . exists) then the Taylor series expansion of f(x) about the 
+point x = a is given by 
+ 𝑓(𝑥) = 𝑓(𝑎) + 𝑓′(𝑎)1! (𝑥 − 𝑎) + 𝑓′′(𝑎)2! (𝑥 − 𝑎)2 + 𝑓′′′(𝑎)3! (𝑥 − 𝑎)3. +. . . ∞ 
+ If a = 0, then 𝑓(𝑥) = 𝑓(0) + 𝑓′(0)1! 𝑥 + 𝑓′′(0)2! 𝑥2 + 𝑓′′′(0)3! 𝑥3+. . . . . ∞ (Remember that Mc-Lauren Series is same as Taylor 
+Series if a = 0) 
+ The coefficient of (x – a)n in the Taylor series expansion of f(x) is 𝑓𝑛(𝑎)𝑛! . 
+ The general expansion of Taylor series is given by 𝑓(𝑥 +ℎ) = 𝑓(𝑥) +ℎ. 𝑓′(𝑥)1! +ℎ2. 𝑓′′(𝑥)2! +ℎ3. 𝑓′′′(𝑥)3! +. . . . . .∞   
+
+===== page 11 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 1.8 
+Engineering Mathematics 
+• Finding the expansion of ex about x = 0  
+ 𝑓(𝑥) = 𝑒𝑥 ⇒ 𝑓(0) = 𝑒0 = 1  
+ 𝑓′(𝑥) = 𝑒𝑥 ⇒ 𝑓′(0) = 𝑒0 = 1; 𝑓"(0) = 𝑓′′′(0) = 𝑓′′′′(0) =. . . . . = 1  
+ 𝑓(𝑥) = 𝑒𝑥 = 1 + (𝑥 − 0) 11! + (𝑥 − 0)2. 12! + (𝑥 − 0)3. 13! +. . . . ..   
+  𝑒𝑥 = 1 + 𝑥1! + 𝑥22! + 𝑥33! +. . . ..  
+1.6 Integral Calculus  
+ If F(x) is anti -derivative of f(x). That is, continuous and differentiable in ( a, b), then we write  ∫ 𝑓(𝑥)𝑥=𝑏𝑥=𝑎 𝑑𝑥 = 𝐹(𝑏) −
+𝐹(𝑎). Here f(x) is integrand 
+ If 𝑓(𝑥) > 0 ∀𝑎 ≤ 𝑥 ≤ 𝑏, 𝑡ℎ𝑒𝑛 ∫ 𝑓(𝑥) 𝑑𝑥𝑏𝑎  represents the shaded area in the given figure. 
+y = f x( )
+x=a x=b
+ 
+Fig.1. 6. Integration of continuous function 
+1.6.1 Mean Value Theorem of Integration  
+ If f(x) is continuous in [a, b] and differentiable in (a, b) then ‘’ atleast one-point c (a, b) such that   
+ 𝑓(𝑐) =
+∫ 𝑓(𝑥)𝑏𝑎 𝑑𝑥
+(𝑏−𝑎)   
+ 
+Fig. 1.7. Mean value of integration 
+
+===== page 12 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 1.9 
+Engineering Mathematics 
+1.7.  Newton-Leibnitz Rule  
+If f(x) is continuously differentiable and (x), (x) are two functions for which the 1st derivative exists, then  
+𝑑
+𝑑𝑥 (∫ 𝑓(𝑥)𝑑𝑥
+𝜓(𝑥)
+𝜙(𝑥)
+) = 𝑓(𝜓(𝑥)). 𝜓′(𝑥) − 𝑓(𝜙(𝑥)). 𝜙′(𝑥) 
+Example:  
+𝑑
+𝑑𝑥 (∫ 𝑠𝑖𝑛 𝑥
+𝑥2
+𝑥 𝑑𝑥) = 𝑠𝑖𝑛(𝑥2) . 2𝑥 − 𝑠𝑖𝑛 𝑥 . 1 = 2𝑥 𝑠𝑖𝑛(𝑥2) − 𝑠𝑖𝑛 𝑥  
+1.8.  Some Standard Integrals  
+1. ∫ 𝑥𝑛𝑑𝑥 = 𝑥𝑛+1𝑛+1 + 𝐶, (𝑛 ≠ −1) 
+2. ∫
+1
+𝑥 𝑑𝑥 = 𝑙𝑜𝑔𝑒 | 𝑥| + 𝐶 
+3. ∫ 𝑠𝑖𝑛 𝑥 𝑑𝑥 = −𝑐𝑜𝑠 𝑥 + 𝐶 
+4. ∫ 𝑐𝑜𝑠 𝑥 𝑑𝑥 = 𝑠𝑖𝑛 𝑥 + 𝐶 
+5. ∫
+𝑓′(𝑥)
+𝑓(𝑥) 𝑑𝑥 = 𝑙𝑜𝑔𝑒|𝑓(𝑥)| + 𝐶 
+6. ∫ 𝑡𝑎𝑛 𝑥 𝑑𝑥 = − ∫ −
+𝑠𝑖𝑛 𝑥
+𝑐𝑜𝑠 𝑥 𝑑𝑥 = − 𝑙𝑜𝑔𝑒|𝑐𝑜𝑠 𝑥| + 𝐶 
+  ∫ 𝑡𝑎𝑛 𝑥 𝑑𝑥 = 𝑙𝑜𝑔𝑒 | 𝑠𝑒𝑐 𝑥 | + 𝐶 
+7. ∫ 𝑐𝑜𝑡 𝑥 𝑑𝑥 = ∫
+𝑐𝑜𝑠 𝑥
+𝑠𝑖𝑛 𝑥 𝑑𝑥 = 𝑙𝑜𝑔𝑒|𝑠𝑖𝑛 𝑥| + 𝐶 = − 𝑙𝑜𝑔𝑒|𝑐𝑜𝑠𝑒𝑐 𝑥| + 𝐶 
+8. ∫ 𝑠𝑒𝑐 𝑥 𝑑𝑥 = ∫
+𝑠𝑒𝑐 𝑥(𝑠𝑒𝑐 𝑥+𝑡𝑎𝑛 𝑥)
+(𝑠𝑒𝑐 𝑥+𝑡𝑎𝑛 𝑥) 𝑑𝑥 = 𝑙𝑜𝑔𝑒|𝑠𝑒𝑐 𝑥 + 𝑡𝑎𝑛 𝑥| + 𝐶 
+9. ∫ 𝑐𝑜𝑠𝑒𝑐 𝑥𝑑𝑥 = 𝑙𝑜𝑔𝑒|𝑐𝑜𝑠𝑒𝑐 𝑥 − 𝑐𝑜𝑡 𝑥| + 𝐶 
+10. ∫ 𝑎𝑥𝑑𝑥 = 𝑎𝑥𝑙𝑜𝑔𝑒 𝑎 + 𝐶 
+11. ∫
+1
+𝑥.𝑙𝑜𝑔𝑒 𝑎 𝑑𝑥 = 𝑙𝑜𝑔𝑎 𝑥 + 𝐶 
+12. ∫ 𝑥𝑥(1 + 𝑙𝑜𝑔𝑒 𝑥) 𝑑𝑥 = 𝑥𝑥 + 𝐶 
+13. ∫ 𝑓(𝑥) . 𝑓′(𝑥)𝑑𝑥 = 12 (𝑓(𝑥))2 + 𝐶 
+14. ∫
+𝑓′(𝑥)
+√𝑓(𝑥) 𝑑𝑥 = 2. √𝑓(𝑥) + 𝐶 
+15. If f(x), g(x) are two functions. that are differentiable, then  
+ ∫ 𝑓(𝑥) 𝑔(𝑥)𝑑𝑥 = 𝑓(𝑥). ∫ 𝑔(𝑥) 𝑑𝑥 − ∫[𝑓′(𝑥) 𝑔(𝑥)]𝑑𝑥 + 𝐶 
+===== page 13 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 1.10 
+Engineering Mathematics 
+ Before integrating the product, the functions f(x) and g(x) are to be arranged according to the ILATE Principle.  
+ Here, ILATE stands for INVERSE LOGARITHMIC ALGEBRAIC TRIGONOMETRIC EXPONENTIAL.   
+1.9 Properties of Definite Integrals  
+1. If f(x) is differentiable in interval (a, b), then  ∫ 𝑓(𝑥)𝑏𝑎 𝑑𝑥 = − ∫ 𝑓(𝑥)𝑎𝑏 𝑑𝑥   
+2. If  a point c  (a, b) such that f(x) is not differentiable, then  
+ ∫ 𝑓(𝑥)𝑏𝑎 𝑑𝑥 = ∫ 𝑓(𝑥)𝑐𝑎 𝑑𝑥 + ∫ 𝑓(𝑥)𝑏𝑐 𝑑𝑥  
+3. If f(x) is continuously differentiable function,  
+ ∫ 𝑓(𝑥)𝑎−𝑎 𝑑𝑥 = 2 × ∫ 𝑓(𝑥)𝑎0 𝑑𝑥; if 𝑓(−𝑥) = 𝑓(𝑥), (“f(x) is even function”) 
+               = 0;  if 𝑓(−𝑥) = −𝑓(𝑥), ("𝑓(𝑥) is odd function")   
+4. ∫ 𝑓(𝑥)2𝑎0 𝑑𝑥 = 2 × ∫ 𝑓(𝑥)𝑎0 𝑑𝑥, if 𝑓(2𝑎 − 𝑥) = 𝑓(𝑥) 
+5. ∫ 𝑓(𝑥)𝑏𝑎 𝑑𝑥 = ∫ 𝑓(𝑎 + 𝑏 − 𝑥)𝑏𝑎 𝑑𝑥       
+6. ∫
+𝑓(𝑥)
+𝑓(𝑥)+𝑓(𝑎+𝑏−𝑥)
+𝑏
+𝑎 = (
+𝑏−𝑎
+2 ) 
+Example: 
+ (i) ∫
+𝑠𝑖𝑛 𝑥
+𝑠𝑖𝑛 𝑥+𝑐𝑜𝑠 𝑥 =
+𝜋
+4
+𝜋/2
+0  
+ (ii) ∫
+1
+1+√𝑡𝑎𝑛 𝑥 𝑑𝑥 = ∫
+1
+1+(√𝑠𝑖𝑛 𝑥√𝑐𝑜𝑠 𝑥) 𝑑𝑥 = ∫ √𝑐𝑜𝑠 𝑥√𝑐𝑜𝑠 𝑥+√𝑠𝑖𝑛 𝑥 𝑑𝑥 = 𝜋4𝜋/20𝜋/20𝜋/20  
+ (iii) ∫ √𝑥√𝑥+√5−𝑥32 = (3−22 ) = 12 
+ (iv) ∫ √𝑡𝑎𝑛 𝑥√𝑡𝑎𝑛 𝑥+√𝑐𝑜𝑡 𝑥𝜋/20 𝑑𝑥 = 𝜋4 
+7. ∫ 𝑠𝑖𝑛𝑚 𝑥𝜋/20 𝑑𝑥 = ∫ 𝑐𝑜𝑠𝑚 𝑥  𝑑𝑥𝜋/20 = (𝑚−1)×(𝑚−3)×(𝑚−5)𝑚×(𝑚−2)×(𝑚−4) ×. . . (12) (or) 23 × 𝐾 
+ Where K = /2 if m is even  
+    = 1 if m is odd.  
+8. ∫
+𝑑𝑥
+𝑎2 𝑐𝑜𝑠2 𝑥+𝑏2 𝑠𝑖𝑛2 𝑥
+𝜋
+0 =
+𝜋
+𝑎𝑏 
+9. ∫
+𝑑𝑥
+𝑎2 𝑐𝑜𝑠2 𝑥+𝑏2 𝑠𝑖𝑛2 𝑥
+𝜋/2
+0 =
+𝜋
+2𝑎𝑏 
+1.10 Length of a Curve  
+ (a) The length of the arc of the curve y = f(x) between the points where x = a and x = b is 
+2
+1
+b
+a
+dys dx dx =+    
+===== page 14 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 1.11 
+Engineering Mathematics 
+ 
+ 
+Fig.1.8. Length of the curve  
+ 
+  (b) The length of the arc of the curve 
+()x f y=  between the points where y = a and y = b, is 
+2
+1
+b
+a
+dxs dy dy =+    
+  (c) The length of the arc of the curve 
+( ), ( )x f t y f t==  between the points where t = a and t = b, is 
+22b
+a
+dx dys dt dt dt   =+       
+ 
+  (d)  The length of the arc of the curve 
+( ),rf=  between the points where  =  and  = , is 
+2
+2 drs r d d  = +     
+1.11 Surface Area of Solid generated by revolving a curve about a fixed axis  
+Elemental Surface Area  
+𝑑𝐴 = 2𝜋𝑦 × 𝑑𝑠 = 2𝜋𝑦𝑑𝑠  
+ Total surface area = A = ∫ 2𝜋𝑦
+𝑥=𝑏
+𝑥=𝑎 √1 + (𝑑𝑦𝑑𝑥)2 𝑑𝑥  
+ 
+Fig.1.9. Surface area 
+
+===== page 15 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 1.12 
+Engineering Mathematics 
+1.12 Volume of the solid 
+A. The volume of the solid obtained by revolving the curve y = f (x) between the lines x = a and x = b is given by  
+  𝑉 ≈ ∫ 𝜋𝑦2𝑑𝑥𝑥=𝑏𝑥=𝑎  
+ 
+Fig. 1.10. Volume of the solid 
+ 
+B. Revolution about the y-axis. Interchanging x and y in the above formula, we see that the volume of the solid generated 
+by the revolution, about y -axis, of the area, bounded by the curve  
+( ),x f y=  the y-axis and the abscissa y = a, y = b is 
+2b
+a x dy
+. 
+1.13 Gamma Function  
+The integral ∫ 𝑒−𝑥. 𝑥𝑛−1∞0 𝑑𝑥, (𝑛 > 0) is called Gamma function of n. It is denoted by Γ𝑛 = ∫ 𝑒−𝑥𝑥𝑛−1𝑑𝑥∞0  . 
+Note :  
+/2
+0
+11
+22sin cos 22 2mn
+mn
+x xdx mn
+
+++         = ++  
+ Where (x) is called the gamma function. 
+1.13.1 Properties of Gamma Function     
+(i) Γ𝑛 = (𝑛 − 1)!        (ii) Γ(𝑛 + 1) = (𝑛)! 
+(iii) Γ(𝑛 + 1) = 𝑛Γ𝑛        (iv) Γ (
+1
+2) = √𝜋  
+1.14 Beta Function 
+The function  (m, n) = ∫ 𝑥𝑚−1. (1 − 𝑥)𝑛−110 𝑑𝑥 (m, n > 0) is called  function of m and n.  
+
+===== page 16 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 1.13 
+Engineering Mathematics 
+1.14.1 Properties of  function 
+(i) 𝛽(𝑚, 𝑛) =
+Γ𝑚.Γ𝑛
+Γ(m+𝑛) 
+(ii) 𝛽(𝑚, 𝑛) = 𝛽(𝑛, 𝑚) 
+(iii) 𝛽(𝑚, 𝑛) = ∫
+𝑥𝑚−1
+(1+𝑥)𝑚+𝑛
+∞
+0 𝑑𝑥 
+ 𝛽(𝑛, 𝑚) = ∫
+𝑥𝑛−1
+(1+𝑥)𝑚+𝑛
+∞
+0 𝑑𝑥 
+(iv) 𝑠𝑖𝑛𝑝𝜃. 𝑐𝑜𝑠𝑞 𝜃 𝑑𝑥 = 12 𝛽 (𝑝+12 , 𝑞+12 ) , (𝑝, 𝑞 > −1)   
+1.15 Area between the curves 
+If the function f(x) > g(x) for all values of x between x=a and x=b then  
+ 𝐴 = ∫ 𝑓(𝑥)𝑑𝑥𝑏𝑎 − ∫ 𝑔(𝑥)𝑑𝑥𝑏𝑎  ⇒ 𝐴 = ∫ (𝑓(𝑥) − 𝑔(𝑥))𝑏𝑎 𝑑𝑥  
+ 
+ 
+Fig. 1.11. Area under curve 
+Note : Area bounded by curve 
+()rf=  between 
+ =   and  is 
+21
+2 rd
+
+   
+1.16 Multi Variable Calculus 
+(a)  Continuity of a function  
+A function f(x, y) is said to be continuous at (a, b), if 𝑙𝑖𝑚𝑥→𝑎
+𝑦→𝑏
+𝑓(𝑥, 𝑦) = 𝑓(𝑎, 𝑏)   
+(b) Differentiation of a two-variable function  
+ If f(x, y) is a continuous function, then the derivative of f(x, y) with respect to x treating y as constant is given by  
+          p = 
+𝜕𝑓
+𝜕𝑥 = 𝑙𝑖𝑚ℎ→0
+𝑓(𝑥+ℎ,𝑦)−𝑓(𝑥,𝑦)
+ℎ   
+ The derivative of f(x, y) with respect to y treating x as constant is given by 
+𝑞 = 𝜕𝑓𝜕𝑦 = 𝑙𝑖𝑚𝑘→0 𝑓(𝑥, 𝑦 + 𝑘) − 𝑓(𝑥, 𝑦)𝑘  
+(c)  Homogenous Function  
+ A function f (x, y) is said to be homogenous function of degree ‘n’ if 𝑓(𝑘𝑥, 𝑘𝑦) = 𝑘𝑛. 𝑓(𝑥, 𝑦).  
+
+===== page 17 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 1.14 
+Engineering Mathematics 
+Example:  𝑓(𝑥, 𝑦) = 𝑥3 − 3𝑥2𝑦 + 3𝑥𝑦2 + 𝑦3 
+  𝑓(𝑘𝑥, 𝑘𝑦) = (𝑘𝑥)3 − 3(𝑘𝑥)2(𝑘𝑦) + 3(𝑘𝑥). (𝑘𝑦)2 + (𝑘𝑦)3 
+  =  𝑘3(𝑥3 − 3𝑥2𝑦 + 3𝑥𝑦2 + 𝑦3) 
+  = 𝑘3. 𝑓(𝑥, 𝑦)    𝑓(𝑥, 𝑦) is a homogenous function of degree ‘3’.  
+(d) Euler’s Theorem 
+ If f (x, y) is a homogeneous function of degree ‘n’ then  
+ (i) 𝑥.
+𝜕𝑓
+𝜕𝑥 + 𝑦.
+𝜕𝑓
+𝜕𝑦 = 𝑛𝑓  
+ (ii) 𝑥2. 𝜕2𝑓𝜕𝑥2 + 2𝑥𝑦 𝜕2𝑓𝜕𝑥𝜕𝑦 + 𝑦2 𝜕2𝑓𝜕𝑦2 = 𝑛(𝑛 − 1)𝑓 
+  If f(x, y) = g(x, y) + h(x, y) + (x, y) where g (x, y), h (x, y) and (x, y) are homogenous functions of degrees m, n and 
+p respectively, then  
+  𝑥.
+𝜕𝑓
+𝜕𝑥 + 𝑦.
+𝜕𝑓
+𝜕𝑦 = 𝑚. 𝑔(𝑥, 𝑦) + 𝑛. ℎ(𝑥, 𝑦) + 𝑝. 𝜙(𝑥, 𝑦)  
+  𝑥2. 𝜕2𝑓𝜕𝑥2 + 2𝑥𝑦. 𝜕2𝑓𝜕𝑥𝜕𝑦 + 𝑦2. 𝜕2𝑓𝜕𝑦2 = 𝑚(𝑚 − 1). 𝑔(𝑥, 𝑦) + 𝑛(𝑛 − 1). ℎ(𝑥, 𝑦) + 𝑝(𝑝 − 1). 𝜙(𝑥, 𝑦)  
+(e) Total derivative: 
+ (i)  If u = f(x, y) and if x = (t), y = v(t) then 
+..du u dx u dydt x dt y dt=+  
+ (ii) If u be a function of x and y, where y is a function of x, then 
+.du u u dydx x y dx=+  
+ (iii) If u = f(x, y) and 
+1 1 2( , )x f t t=  and 
+2 1 2( , ),y f t t=  then  
+  
+1 1 1
+..u u x u yt x t y t    =+      and 
+2 2 2
+..u u x u yt x t y t    =+      
+ (iv) If x and y are connected by an equation of the form f(x, y) = 0, then 
+/
+/
+dy f x
+dx f y
+=−   
+(f) Concept of Maxima and Minima in Two Variables 
+ If f(x, y) is a two-variable differentiable function, then to find the maxima (or) minima. 
+Step-1: Calculate 𝑝 =
+𝜕𝑓
+𝜕𝑥 and 𝑞 =
+𝜕𝑓
+𝜕𝑦 and equate p = 0, q = 0 
+  Let (x0, y0) be a stationary point. 
+Step-2: Calculate r, s, t where 𝑟 =
+𝜕2𝑓
+𝜕𝑥2|(𝑥0,𝑦0);  𝑠 =
+𝜕2𝑓
+𝜕𝑥.𝜕𝑦|(𝑥0,𝑦0); 𝑡 =
+𝜕2𝑓
+𝜕𝑦2|(𝑥0,𝑦0)  
+Case (i):  If 𝑟𝑡 − 𝑠2 > 0 and r > 0, then the function f (x, y) has minimum at (x0, y0) and the minimum value is f(x0, y0). 
+Case (ii):  If 𝑟𝑡 − 𝑠2 > 0 and r < 0, then the function f (x, y) has maximum at (x0, y0) and the maximum value is 
+===== page 18 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 1.15 
+Engineering Mathematics 
+    f(x0, y0). 
+Case (iii): If 𝑟𝑡 − 𝑠2 < 0 ; then we cannot comment on the existence of maxima and minima.  
+   Such stationary points where 𝑟𝑡 − 𝑠2 = 0  are called saddle points.        
+(g)  Concept of Constraint Maxima and Minima (Method of Lagrange’s unidentified multipliers). 
+ If f(x, y, z) is a continuous and differentiable function, such that the variables x, y and z are related/constrained by the 
+equation (x, y, z) = C then to calculate the extreme value of f(x, y, z) using Lagrange’s Method of unidentified multipliers.  
+Step-1: Form the function F(x, y, z) = f(x, y, z) + {(x, y, z) – C}, where 𝜆 is a multiplier. 
+Step-2:  Calculate 
+𝜕𝐹
+𝜕𝑥, 
+𝜕𝐹
+𝜕𝑦 and 
+𝜕𝐹
+𝜕𝑧 and equate them to zero  
+Step-3:  Equate the values of  from the above 3 equations and obtain the relation between the variables x, y and z.  
+Step-4:  Substitute the relation between x, y and z in (x, y, z) = C and get the values of x, y, z. Let they be (x0, y0, z0). 
+Step-5:  Calculate f(x0, y0, z0) 
+  The value f(x0, y0, z0) is the extreme value of f(x, y, z). 
+(h) Multiple Integrals 
+ If f(x, y) is continuous and differentiable at every point within a region ‘R’ bounded by some curves is given by  
+ 𝐼 = ∬ 𝑓(𝑥, 𝑦)𝑅 𝑑𝑥𝑑𝑦   
+ If there is a double integral, 
+ 𝐼 = ∫ ∫ 𝑓(𝑥, 𝑦)𝑑𝑦𝑑𝑥𝑦=𝜓(𝑥)𝑦=𝜙(𝑥)𝑥=𝑏𝑥=𝑎    [Let (x) > (x)]   
+ Then I = area of the region bounded by the curves, y = (x); y = (x), x = a and x = b if f(x, y) = 1 
+ Value of x – co-ordinate of centroid of the region bounded by y = (x); y = (x); x = a, x = b if f(x, y) = x 
+(i) Change of Orders of Integration 
+ 𝐼 = ∫ ∫ 𝑓(𝑥, 𝑦)𝑑𝑦𝑑𝑥𝑦=𝜓(𝑥)𝑦=𝜙(𝑥)𝑥=𝑏𝑥=𝑎    →  𝐼 = ∫ ∫ 𝑓(𝑥, 𝑦)𝑑𝑥𝑑𝑦𝑥=ℎ(𝑦)𝑥=𝑔(𝑦)𝑦=𝑑𝑦=𝑐  
+ In change of order of Integration, the order of the Integrating variables changes and the limits as well. 
+Note : When limits are constants, the order of integration does not matter,  
+   
+( , ) ( , )
+y d y dx b x b
+y c x a x a y c
+f x y dxdy f x y dydx
+== ==
+= = = =
+=     
+1.17 Jacobian of the Transformation 
+(i) The Jacobian of the transformation, 
+( )12 , , ( , )x f u v y f u v==  is defined as, 
+ 
+( , )
+( , )
+uv
+uv
+xxxyJ yyuv==  
+===== page 19 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 1.16 
+Engineering Mathematics 
+(ii) The Jacobian of the transformation,  
+ 
+1 2 3( , , ), ( , , ), ( , , )x f u v w y f u v w z f u v w= = =  is defined as 
+ 
+( , , )
+( , , )
+u v w
+u v w
+u v w
+x x x
+x y zJ y y yu v w z z z==  
+1.18 Change of Variables Formula 
+(i) 
+12( , ) ( ( , ), ( , ) | |
+RR
+f x y dx dy f f u v f u v J du dv=   
+(ii) 
+1 2 3( , , ) ( ( , , ), ( , , ), ( , , )) | |
+RR
+f x y z dxdydz f f u v w f u v w f u v w J du dv dw=   
+1.19 Change of Variables 
+(i) Cartesian to polar co-ordinates : 
+  
+cosxr=  
+  
+sinyr=  
+  J = r 
+ 
+dx dy rdrd=  
+(ii) Cartesian to cylindrical polar co-ordinate : 
+  
+cosxr=  
+  
+sinyr=   
+  z = z 
+  J = r 
+ 
+dxdydz rdr d dz=  
+(iii) Cartesian to spherical polar co-ordinates : 
+  
+sin cosx =     
+  
+sin siny =     
+  
+cosz =    
+  
+2 sinJ =    
+ 
+2 sindxdydz d d d=       
+❑❑❑
+ 
+  
+===== page 20 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Design Against Static Load 
+1.17 
+ 
+2 
+LINEAR ALGEBRA 
+   Matrix 
+An array of elements in horizontal lines (Rows) and Vertical Lines (Columns) is called a Matrix. 
+Example: 𝐴 =  [𝑖 𝑛 𝑑 𝑖 𝑎𝑗 𝑎 𝑝 𝑎 𝑛]  
+2.1.1 Size of Matrix  
+ If a matrix has 'm' rows and 'n' columns, then we say that the size of the matrix is m × n (read as m by n) 
+ 𝐴 =
+[
+ 
+ 
+ 
+ 
+𝑎11 𝑎12 𝑎13. . . . . . . . . 𝑎1𝑛
+𝑎21 𝑎22 𝑎23. . . . . . . . . 𝑎2𝑛
+. . . .
+. . . .
+𝑎𝑚1 𝑎𝑚2 𝑎𝑚3. . . . . . . . . 𝑎𝑚𝑛]
+ 
+ 
+ 
+ 
+ ;  𝐴 = [𝑎𝑖𝑗]𝑚×𝑛  such that 1 ≤ 𝑖 ≤ 𝑚, 1 ≤ 𝑗 ≤ 𝑛  and 𝑎𝑖𝑗 = 𝑓(𝑖, 𝑗)  
+2.1.2 Addition of Matrices 
+(i) Two matrices 𝐴 = [𝑎𝑖𝑗]𝑚×𝑛 & 𝐵 = [𝑏𝑖𝑗]𝑝×𝑞can be added only if m = p & n = q. 
+(ii) Matrix Addition is commutative (A + B = B + A) 
+(iii) Matrix Addition is Associative.  A + (B + C) = (A + B) + C 
+(iv) Existence of additive identity : If O be m × n matrix each of whose elements are zero. Then, A + O = A = O + A for every 
+m × n matrix A. 
+(v) Existence of additive inverse : Let 
+ij mnAa =  then the negative of matrix A is defined as matrix 
+ij mna −  and is 
+denoted by –A. 
+  Matrix –A is additive inverse of A. Because (–A) + A = O = A + (–A). Here O is null matrix of order m × n. 
+(vi) Cancellation laws holds good in case of addition of matrices, which is X = –A. 
+  A + X = B + X  A = B 
+ X + A = X + B  A = B 
+(vii) The equation A + X = 0 has a unique solution in the set of all m × n matrices. 
+2.1.3 Multiplication of Matrices  
+The multiplication of two matrices 𝐴 = [𝑎𝑖𝑗]𝑚×𝑛 and 𝐵 = [𝑏𝑖𝑗]𝑝×𝑞 (⇒ 𝐴𝐵𝑚×𝑞) is feasible only if n = P. 
+ 𝐴𝑚×𝑛 ⋅ 𝐵𝑝×𝑞 = 𝐶  
+===== page 21 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Engineering Mathematics 
+1.18 
+Engineering Mathematics 
+ A = [
+𝑎11 𝑎12 𝑎13
+𝑎21 𝑎22 𝑎23
+𝑎31 𝑎32 𝑎33
+]
+3×3
+   𝐵 = [
+𝑏11 𝑏12
+𝑏21 𝑏22
+𝑏31 𝑏32
+]
+3×2
+   𝐴3×3 ×  𝐵3×2  
+ ⇒ [
+𝑎11. 𝑏11 + 𝑎12 ⋅ 𝑏21 + 𝑎13. 𝑏31 𝑎11𝑏12 + 𝑎12𝑏22 + 𝑎13𝑏32
+𝑎21. 𝑏11 + 𝑎22. 𝑏21 + 𝑎23. 𝑏31 𝑎21𝑏12 + 𝑎22𝑏22 + 𝑎23𝑏32
+𝑎31.𝑏11 + 𝑎32 ⋅ 𝑏21 + 𝑎33 ⋅ 𝑏31 𝑎31𝑏12 + 𝑎32𝑏22 + 𝑎33𝑏32
+]
+3×2
+  
+2.1.4 Properties of Multiplication of Matrices 
+(i) Matrix Multiplication Need not be commutative. 
+(ii) Matrix Multiplication is Associative (A(BC)) = ((AB)C) 
+(iii) Matrix Multiplication is distributive A(B + C) = (AB + AC) 
+(iv) The product of two Matrices 𝐴𝑚×𝑛, 𝐵𝑛×𝑞 (i.e. 𝐴𝐵𝑚×𝑞) can be a zero matrix even if 𝐴 ≠ 𝑂&𝐵 ≠ 𝑂. 
+ Example:  𝐴 = [3 00 0] ; 𝐵 = [0 00 4] ⇒ 𝐴𝐵 = [0 00 0] 
+• For the multiplication of two matrices 𝐴𝑚×𝑛 & 𝐵𝑛×𝑞  
+  (i)  The No. of Multiplications required = m n q 
+  (ii)  The number of Additions required = m (n –1) q   
+2.2 Types of Matrices 
+(1) Upper triangular Matrix: A matrix 𝐴 = [𝑎𝑖𝑗]; 1 ≤ 𝑖, 𝑗 ≤ 𝑛 is said to be an upper triangular matrix if  
+      𝑎𝑖𝑗 = 0 ∀ 𝑖 > 𝑗  
+(2) Lower Triangular Matrix: A matrix 𝐴 = [𝑎𝑖𝑗]𝑛×𝑛; 1 ≤ 𝑖, 𝑗 ≤ 𝑛 is said to be a lower Triangular Matrix  
+      if 𝑎𝑖𝑗 = 0 ∀ 𝑖 < 𝑗 
+(3) Diagonal Matrix: A matrix 𝐴 = [𝑎𝑖𝑗], ∀ 1 ≤ 𝑖, 𝑗 ≤ 𝑛 is said to be a diagonal matrix if 𝑎𝑖𝑗 = 𝑂 ∀ 𝑖 ≠ 𝑗 
+ Example: 𝐴 = [
+𝑑1 0 0
+0 𝑑2 0
+0 0 𝑑3
+]. The diagonal Matrix is also denoted as 𝐴 = 𝑑𝑖𝑎𝑔 [𝑑1, 𝑑2, 𝑑3] 
+(4) Scalar Matrix: A Matrix 'A' = [𝑎𝑖𝑗] ;  1 ≤ 𝑖, 𝑗 ≤ 𝑛  is said to be a scalar Matrix if 𝑎𝑖𝑗 = {𝐾; 𝑖 = 𝑗0; 1 ≠ 𝑗  
+  If K = 1, then A → Identity Matrix,   
+  If K = 0, then A → Null Matrix. 
+(5) Idempotent Matrix: 
+ A Matrix '𝐴𝑛×𝑛' is said to be an idempotent matrix if 𝐴2 = 𝐴. 
+ Example: 𝐴 = [ 4 −112 −3] 
+ ⇒ 𝐴 ⋅ 𝐴 = [ 4 −112 −3] [ 4 −112 −3] = [ 4 −112 −3] = 𝐴 
+===== page 22 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Engineering Mathematics 
+1.19 
+Engineering Mathematics 
+(6) Nilpotent Matrix: A matrix A is said to be nilpotent of class x or index if Ax = 0 and Ax– 1  0 i.e. x is the smallest index 
+which makes Ax = 0. 
+ Example: The matrix A = 
+1 1 3
+5 2 6
+2 1 3
+
+
+
+− − −  is nilpotent class 3, since A  0 and A2  0, but A3 = 0. 
+(7) Orthogonal Matrix: A matrix A is said to be orthogonal if A. AT = I 
+ Example: [cos 𝜃 − sin 𝜃sin 𝜃 cos 𝜃 ] 
+(8) Involutory Matrix: A matrix A is said to be involutory if A2 = I 
+ Example: [ 2 3−1 −2] 
+2.3 Transpose of a Matrix 
+ For a given matrix = [𝑎𝑖𝑗]; 1 ≤ 𝑖 ≤ 𝑚, 1 ≤ 𝑗 ≤ 𝑛, we can say that 'B' where 𝐵 = [𝑏𝑖𝑗], 𝑖 ≤ 𝑖 ≤ 𝑛   𝑖 ≤ 𝑗 ≤ 𝑚  is the 
+transpose of the Matrix 'A' if 𝑎𝑖𝑗 = 𝑏𝑗𝑖 
+2.3.1 Properties of Transpose of a Matrix 
+ (i) (𝐴𝑇)𝑇 = 𝐴  
+ (ii) (𝐴𝐵)𝑇 = 𝐵𝑇 ⋅ 𝐴𝑇 
+ (iii) (𝐾𝐴)𝑇 = 𝐾𝐴𝑇 where 'K' is a scalar. 
+2.4  Conjugate of a matrix 
+ The matrix obtained by replacing each element of matrix by its complex conjugate. 
+2.4.1 Properties of conjugate matrix 
+ (a) 
+(A) A=  (b) 
+()A B A B+ = +  
+ (c) 
+()KA K A=  (d) 
+()AB AB=  
+ (e) 
+AA=  if A is real matrix 
+  
+AA=−  if A is purely imaginary matrix 
+2.5 Transposed Conjugate of a Matrix 
+ The transpose of conjugate of a matrix is called transposed conjugate. It is represented by A. 
+ (a) 
+()AA =        (b) 
+()A B A B  + = +    
+ (c) (KA) = 
+KA  (K : Complex number)  (d) 
+()AB B A  =  
+2.6 Trace of a Matrix  
+Trace is simply sum of all diagonal elements of a matrix.  
+===== page 23 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Engineering Mathematics 
+1.20 
+Engineering Mathematics 
+2.6.1 Properties of Trace of a matrix 
+Let A and B be two square matrices of order  and  is scalar then 
+1.  
+( ) ( )Tr A Tr A =   
+2.  
+( ) ( ) ( )Tr A B Tr A Tr B+ = +  
+3.  
+( ) ( )Tr AB Tr BA=  [If both AB and BA are defined] 
+2.7 Type of Real Matrix 
+(a) Symmetric matrix : (A)T = A 
+(b) Skew symmetric matrix : (AT) = –A 
+(c) Orthogonal matrix : (AT = A–1, AAT = I) 
+Note : (a) If A and B are symmetric, then (A + B) and (A – B) are also symmetric. 
+  (b) For any matrix AAT is always symmetric. 
+ (c) For any matrix, 
+2
+TAA +  is symmetric and 
+2
+TAA −  is skew symmetric. 
+ (d) For orthogonal matrices, |A| =  1 
+ (e) We can write any matrix A as a sum of symmetric and skew symmetric matrix 
+22
+TTA A A AA +−=+  
+2.8 Type of complex matrix 
+ (a)  Hermitian matrix : (A = A) 
+ (b)  Skew-Hermitian matrix: A = –A 
+ (c)  Unitary matrix : (A = A–1, AA = I) 
+Note : (a) 
+2
+AA +  is Hermitian and 
+2
+AA −  is skew Hermitian matrix. 
+  (b) We can write any matrix as a sum of Hermitian and skew Hermitian matrix 
+22
+A A A AA +−=+  
+2.9 Determinant  
+The summation of the product of elements of a row(or) column of a matrix with their corresponding Co-factors. 
+𝐴 ⋅ 𝑎𝑑𝑗(𝐴) = |𝐴| ⋅ I 
+Determinant can be calculated only if matrix is a square matrix. 
+Suppose, we need to calculate a 3 × 3 determinant, 
+      
+3 3 3
+1 1 2 2 3 3
+1 1 1
+( ) ( ) ( )j j j j j j
+j j j
+a cof a a cof a a cof a
+= = =
+ = = =    
+ We can calculate determinant along any row or column of the matrix. 
+===== page 24 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Engineering Mathematics 
+1.21 
+Engineering Mathematics 
+2.9.1 Properties of Determinants 
+(i)  If 'A' is a Square Matrix of size ' 𝑛 × 𝑛 ' and 'k' is a Scalar then 
+ |𝐾 ⋅ 𝐴𝑛×𝑛| = 𝐾𝑛 ⋅ |𝐴𝑛×𝑛| 
+(ii)  |𝑎𝑑𝑗(𝐴)| = |𝐴|(𝑛−1) 
+(iii)  |𝑎𝑑𝑗(𝑎𝑑𝑗(𝐴))| = (|𝐴|)(𝑛−1)2 
+(iv)  |𝐴𝐵| = |𝐴| ⋅ |𝐵| 
+(v) |(𝐴𝐵)𝑇| = |𝐵𝑇| ⋅ |𝐴𝑇| 
+(vi) If two rows (or) two columns of a determinant are interchanged, then the determinant changes its sign. 
+(vii) The determinant of an upper triangular Matrix/a lower triangular Matrix/a diagonal Matrix is the product of the 
+principal  diagonal elements of the Matrix. 
+(viii)  The determinant of Every Skew-Symmetric Matrix of odd order (𝐴𝑛×𝑛)(′𝑛′′𝑖𝑠 𝑜𝑑𝑑) is zero. 
+(ix) The determinant of an orthogonal Matrix 𝐴𝑛×𝑛 is ±1 
+(x) The determinant of an Idempotent Matrix is either 0 (or) 1. 
+(xi) The determinant of an Involuntary Matrix is ±1  
+(xii) The determinant of a Nilpotent Matrix is always zero. 
+(xiii) If the product of two Non-zero Matrices 𝐴𝑛×𝑛 ≠ 0; 𝐵𝑛×𝑛 ≠ 0 is a zero Matrix ((𝐴𝐵)𝑛×𝑛 = 0), then both |𝐴| = 0 & 
+|𝐵| = 0.  
+(xiv) If two rows (or) two columns of a Matrix are either equal or Proportional, then the determinant of the Matrix is equal to 
+zero. 
+(xv) The number of terms in the general expansion of an 'n × n' determinant is 𝑛! 
+(xvi) Value of the determinant is invariant under row and column interchange i.e., 
+TAA =  
+(xvii) If any row or column is completely zero, then |A| = 0. 
+(xviii) If any single row or column of the matrix is multiplied by k then the determinant the of new matrix = K|A| 
+(xix) In a determinant the sum of the product of the element of any row or column with its cofactor gives a determinant of 
+the matrix. 
+(xx)  In determinant the sum of the product of the element of any row or column with a cofactor of another row or column 
+will give zero. 
+(xxi) |AB| = |A| × |B| 
+(xxii) Elementary operations don’t effect the determinant that is 
+i i jR R KRAB =+⎯⎯⎯⎯⎯ →  then |A| = |B|  
+  
+i i jC C KCAB =+⎯⎯⎯⎯⎯ →  then |A| = |B| 
+===== page 25 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Engineering Mathematics 
+1.22 
+Engineering Mathematics 
+2.10 Minors, Cofactor and Adjoint of a Matrix 
+Minor of an element is equal to the determinant of the remaining elements of the matrix, after excluding the row and column 
+containing the particular element. The cofactor of an element can be calculated from the minor of the element. The cofactor of 
+an element is equal to the product of the minor of the element, and -1 to the power of position values of row and column of the 
+element. 
+   Cofactor of an Element 
+( )1 ij+= −   Minor of an Element 
+Here i and j are the positional values of the row and column of the element. 
+Example : 
+ If   
+11 12 13
+21 22 23
+31 32 33
+a a a
+a a a
+a a a
+=  
+ Minor of element 
+21a : 
+12 13
+21
+32 33
+aaM aa=  
+ Co-factor of an element, 
+( )1 ijij ijaM +=−  
+ • To design co-factor matrix, we replace each element by its co-factor. 
+ • Adjoint of a matrix = transpose of cofactor matrix 
+ • 
+1 ()
+||
+Adj AA A− =  
+2.11 Inverse of a matrix 
+Inverse of a matrix only exists for square matrices. 
+      
+( )
+1 ()Adj AA A− =  and 
+0A   
+Properties: 
+ (a)  
+11AA A A I−− ==  
+ (b)  
+1 1 1()AB B A− − −=  
+ (c)  
+1 1 1 1()ABC C B A− − − −=  
+ (d)  
+11( ) ( )TTAA −− =  
+ (e)  The inverse of 2 × 2 matrix should be remembered, 
+  
+( )
+1
+1a b d b
+c d c a ad bc
+− −    =    −−     
+  (i)  Interchange the diagonal elements and put negative sign on the rest. 
+  (ii)  Divide by determinant. 
+===== page 26 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Engineering Mathematics 
+1.23 
+Engineering Mathematics 
+2.12 Rank of a Matrix 
+•  The rank of the matrix refers to the number of linearly independent rows or columns in the matrix. ρ(A) is used to denote 
+the rank of matrix A.   
+•  A matrix is said to be of rank zero when all of its elements become zero.  
+•  The rank of the matrix is the dimension of the vector space obtained by its columns.  
+•  The rank of a matrix cannot exceed more than the number of its rows or columns. The rank of the null matrix is zero. 
+•  The nullity of a matrix is defined as the number of vectors present in the null space of a given matrix. In other words, it 
+can be defined as the dimension of the null space of matrix A called the nullity of A. Rank + Nullity is the number of all 
+columns in matrix A. 
+ A real Number 'r' is said to be the rank of a matrix '𝐴𝑚×𝑛' if  
+(1)  There is at least one square sub-matrix of A of order r whose determinant is not equal to zero.   
+(2)  If the matrix A contains any square sub-matrix of order (r + 1) and above, then the determinant of such a matrix 
+should be zero. 
+ It is mathematically denoted by 𝜌(𝐴) = 𝑟  
+2.12.1 Properties of Rank of a Matrix 
+(i) 𝜌(𝐴𝑚×𝑛) ≤ (𝑚, 𝑛) 
+(ii) 𝜌(𝐴𝐵) ≤ 𝑚𝑖𝑛{𝜌(𝐴), 𝜌(𝐵)} 
+(iii) Rank of transpose of matrix is equal to rank of matrix  
+(iv) Elementary operations do-not affect the rank the matrix  
+(v) 𝜌(𝐴 + 𝐵) ≤ {𝜌(𝐴) + 𝜌(𝐵)} 
+2.12.2 Row Echelon Form 
+A Matrix 𝐴𝑚×𝑛 is said to be in row-echelon form if  
+(i) Number of zeroes before the 1st Non-zero element in any row is less than the number of such zeroes in its succeeding row. 
+(ii) Zero rows (if any) should lie at the bottom of the Matrix. 
+ 𝜌(𝐴𝑚×𝑛) = Number of non-zero rows in the Row-Echelon form of A. 
+  System of Equations 
+The given system of equations 
+   𝑎11𝑥1 + 𝑎12𝑥12 + 𝑎13𝑥3 = 𝑏1  
+   𝑎21𝑥1 + 𝑎22𝑥2 + 𝑎23𝑥3 = 𝑏2    
+   𝑎31𝑥1 + 𝑎32𝑥2 + 𝑎33𝑥3 = 𝑏3  
+can be written in Matrix form as 
+===== page 27 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Engineering Mathematics 
+1.24 
+Engineering Mathematics 
+ [
+𝑎11 𝑎12 𝑎13
+𝑎21 𝑎22 𝑎23
+𝑎31 𝑎32 𝑎33
+] [
+𝑥1
+𝑥2
+𝑥3
+] = [
+𝑏1
+𝑏2
+𝑏3
+] 
+ [
+𝑎11 𝑎12 𝑎13
+𝑎21 𝑎22 𝑎23
+𝑎31 𝑎32 𝑎33
+] [
+𝑥1
+𝑥2
+𝑥3
+] = [
+𝑏1
+𝑏2
+𝑏3
+]  
+                  Ax = B 
+              Coefficient           Variable     Constants 
+          Matrix               Matrix         Matrix  
+ The system Ax = B is said to be a homogeneous system if B = 0. 
+ The system of Ax = B is said to be a non-homogeneous system if 𝐵 ≠ 0. 
+2.13.1 Consistency of a non-homogeneous system of Equations 
+For the above system of non – homogeneous equations, Ax = B; Augmented Matrix = [A/B] = [
+𝑎11 𝑎12 𝑎13 𝑏1
+𝑎21 𝑎22 𝑎23 𝑏2
+𝑎31 𝑎32 𝑎33 𝑏3
+] 
+(i) If 𝜌(𝐴) = 𝜌(𝐴/𝐵) = Number of unknowns, then the system Ax = B has a unique solution. 
+(ii) If 𝜌(𝐴) = 𝜌(𝐴/𝐵) < Number of unknowns, then the system has infinitely many solutions. 
+(iii) If 𝜌(𝐴) ≠ 𝜌(𝐴/𝐵), then the system has no solution.  
+ Number of linearly independent solutions for a system of 'n' equations given by Ax = B is 𝑛 − 𝜌(𝐴) 
+2.13.2 Consistency of Homogeneous System of Equations 
+ 𝑎11𝑥 + 𝑎12𝑦 + 𝑎13𝑧 = 0  
+ 𝑎21𝑥 + 𝑎22𝑦 + 𝑎23𝑧 = 0  
+ 𝑎31𝑥 + 𝑎32𝑦 + 𝑎33𝑧 = 0  
+      Ax = 0⇒ [
+𝑎11 𝑎12 𝑎13
+𝑎21 𝑎22 𝑎23
+𝑎31 𝑎32 𝑎33
+] [
+𝑥
+𝑦
+𝑧
+] = [
+0
+0
+0
+] [𝐴/𝐵] = [
+𝑎11 𝑎12 𝑎13 0
+𝑎21 𝑎22 𝑎23 0
+𝑎31 𝑎32 𝑎33 0
+]
+3×4
+ 
+ If 𝜌(𝐴) = 𝜌(𝐴/𝐵) = 𝑛 (𝑖. 𝑒 |𝐴| ≠ 0); the system has a unique solution.  
+ (Trivial solution; x = 0, y = 0, z = 0)  
+ If 𝜌(𝐴) = 𝜌(𝐴/𝐵) < 𝑛(|𝐴| = 0); the system has infinitely many solutions  (Non-trivial solution exists for the system). 
+2.14 Linear Combination of Vectors 
+If 𝑥1, 𝑥2, 𝑥3, . . . . . . , 𝑥𝑛  are 'n' rows vectors, then the combination 𝑘1𝑥1 + 𝑘2𝑥2 + 𝑘3𝑥3+. . . . . +𝑘𝑛𝑥𝑛  is called a linear   
+combination of 𝑥1, 𝑥2, . . . . , 𝑥𝑛(𝑘1, 𝑘2, 𝑘3, . . . . . 𝑘𝑛 are scalars) 
+(1)  The linear combination 𝑘1𝑥1 + 𝑘2𝑥2 + 𝑘3𝑥3+. . . . . +𝑘𝑛𝑥𝑛is said to be linearly dependent if 𝑘1𝑥1 + 𝑘2𝑥2 +
+𝑘3𝑥3+. . . . . +𝑘𝑛𝑥𝑛 = 0 when 𝑘1, 𝑘2, 𝑘3, . . . . . , 𝑘𝑛 (NOT All zeroes).  
+===== page 28 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Engineering Mathematics 
+1.25 
+Engineering Mathematics 
+ If 𝑥1 = [𝑎1 𝑏1 𝑐1]; 𝑥2[𝑎2 𝑏2 𝑐2]; 𝑥3 = [𝑎3 𝑏3 𝑐3], then the vectors 𝑥1, 𝑥2, 𝑥3are said to be linearly dependent if 
+|
+𝑎1 𝑏1 𝑐1
+𝑎2 𝑏2 𝑐2
+𝑎3 𝑏3 𝑐3
+| = 0. 
+(2)  The combination 𝑘1𝑥1 + 𝑘2𝑥2+. . . . . . +𝑘𝑛𝑥𝑛is said to be linearly independent if 𝑘1𝑥1 + 𝑘2𝑥2+. . . . . . . . +𝑘𝑛𝑥𝑛 = 0 when 
+𝑘1 = 𝑘2 = 𝑘3 =. . . . . 𝑘𝑛 = 0 
+ 2.14.1 Eigen Values and Eigen Vectors 
+For any square Matrix 𝐴𝑛×𝑛, the equation |𝐴 − 𝜆𝐼| = 0 where '' is a scalar is called the characteristic equation. 
+ The roots of the characteristic equation of a Matrix are called Eigen Values. 
+2.14.2 Properties of Eigen Values 
+(i) If 𝜆1, 𝜆2, 𝜆3, . . . . . . , 𝜆𝑛are 'n' Eigen Values of 𝐴𝑛×𝑛, then  
+ (a)  Sum of Eigen Values of 'A' = 𝜆1 + 𝜆2 + 𝜆3+. . . . +𝜆𝑛 = ∑ 𝜆𝑖 = 𝑡𝑟𝑎𝑐𝑒(𝐴)𝑛𝑖=1  = Sum of Principal diagonal elements 
+ (b)  Product of all the Eigen Values of 'A' = 𝜆1 ⋅ 𝜆2 ⋅ 𝜆3 ⋅. . . . . . 𝜆𝑛 = ∏ 𝜆𝑖 = |𝐴|𝑛𝑖=1  
+ (c)   Eigen Values of  𝐴𝑚 are 𝜆1𝑚, 𝜆2𝑚, 𝜆3𝑚, . . . . . . 𝜆𝑛𝑚 
+ (d)  Eigen Values of adj(A) are 
+|𝐴|
+𝜆1
+,
+|𝐴|
+𝜆2
+,
+|𝐴|
+𝜆3
+, . . . . . . ,
+|𝐴|
+𝜆𝑛
+ 
+ (e)  Eigen Values of A & AT are the same. 
+ (f)  Eigen Values of 𝑘1𝐴 + 𝑘2𝐼 (Where 𝑘1and 𝑘2are scalar) are  
+𝑘1𝜆1 + 𝑘2, 𝑘1𝜆2 + 𝑘2, 𝑘1𝜆3 + 𝑘2, 𝑘1𝜆4 + 𝑘2, . . . . . . . . 𝑘1𝜆𝑛 + 𝑘2 
+(ii) '0' is always an Eigen Value of an odd-order Skew-Symmetric Matrix. 
+(iii) Eigen Values of a Real Symmetric Matrix are always real. 
+(iv) Eigen Values of the Skew-Symmetric Matrix are either zero (or) purely Imaginary. 
+(v) The Eigen values of an Orthogonal Matrix are of unit modulus. 
+(vi) If the sum of all the elements in a row (or Column) is constant (= k) for all the rows (or columns) in the matrix 
+respectively, then 'k' is an Eigen Value of the Matrix. 
+ Example: If 𝐴 = [
+𝑎1 𝑏1 𝑐1
+𝑎2 𝑏2 𝑐2
+𝑎3 𝑏3 𝑐3
+] and if 𝑎1 + 𝑏1 + 𝑐1 = 𝑎2 + 𝑏2 + 𝑐2 = 𝑎3 + 𝑏3 + 𝑐3 = 𝑘,   
+ then 'k' is an Eigen Value of 'A'. 
+(vii) The Eigen Values of an upper triangular Matrix, a lower triangular Matrix, a diagonal Matrix are the Principal diagonal 
+elements of the Matrix. 
+===== page 29 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Engineering Mathematics 
+1.26 
+Engineering Mathematics 
+  Eigen Vector 
+A non-zero column vector 𝑋𝑛×1 is said to be an Eigen Vector of 𝐴𝑛×𝑛 corresponding to the Eigen Value '',  
+if 𝐴𝑋 = 𝜆𝑋(𝑋 ≠ 0). 
+2.15.1 Properties of Eigen Vectors 
+(i) Eigen Vectors of A & AT are not the same. 
+(ii) Eigen Vectors of A & AM are same. 
+(iii) The Eigen Vectors of a Real Symmetric Matrix are always orthogonal. 
+(iv) The number of linearly independent Eigen Vectors of '𝐴𝑛×𝑛' is equal to the number of distinct Eigen Values of '𝐴𝑛×𝑛'. 
+2.15.2 Cayley Hamilton Theorem 
+Every Matrix satisfies its characteristic equation. 
+This means that, if 
+1
+0 1 1 ... 0n nnc c c c − − +  + +  + = is the characteristic equation of a square matrix A of order n, then 
+1
+0 1 1 ... 0nn nnc A c A c A c I− −+ + + + =
+ …(i) 
+Note: When 𝜆 is replaced by A in the characteristic equation, the constant term cn should be replaced by cnI to get the result 
+of the Cayley-Hamilton theorem, where I is the unit matrix of order n. 
+  Also, 0 in the R.H.S. of (i) is a null matrix of order n. 
+2.16.  Subspace (Basis of Dimensions) 
+2.16.1 Vector 
+An ordered n-tuple of numbers is called an n-vector. 
+2.16.2 Linearly Independent and Dependent Vector 
+Let X1 and X2 be the non-zero vectors: 
+• {x1, x2, …., xk} are linearly independent if r1x1 + r2x2 + … + rk xk = 0 only for r1 = r2 = … + rk  = 0. 
+• The vectors x1, r2, …., xk = are linearly dependent if they are not linearly independent; that is, if there exist scalars r 1, r2, 
+… , rk which are not all zero such that 
+ r1x1 + r2x2 + …. + rk xk = 0 
+Note:  Let X1, X2…….Xn be ‘n’ vector of matrix A. 
+  • If rank (A) = number of vectors then vector X1, X2…..Xn are linearly independent. 
+  • If rank (A) ≠ number of vectors then vector X1, X2 ….. Xn are linearly dependent.  
+===== page 30 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Engineering Mathematics 
+1.27 
+Engineering Mathematics 
+2.16.3 Vector Space Rn 
+If n positive integer, then an ordered n-tuple is a sequence of n real numbers (α1, α2,…. αn). the set of all ordered n-tuples is 
+called n-space and is denoted by ℝn. 
+2.16.4 Subspaces of an N-vector space Vn 
+A non-empty set S, of vectors of Vn(F) ,is called a subspace of Vn(F), if 
+• 𝜉1, 𝜉2 are any two members of S, then ξ1 + ξ2 is also a member of S; and 
+• 𝜉 is a member of S, and k is a scalar then kξ is also a member of S. 
+ Briefly, we may say that a set S of vectors Vn(F) is a subspace of Vn(F) it closed w.r.t. the compositions of “addition” and 
+"multiplication with scalars". 
+ Every subspace of Vn contains the zero vector; being the product of any vector with the scalar zero. 
+2.16.5 Construction of Subspaces 
+• A subspace Spanned by a Set of Vectors: A subspace that arises as a set of all linear combinations of any given set  of 
+vectors is said to be spanned by the given set of vectors. 
+• Basis of a subspace: A set of vectors is said to be a basis of a subspace, if 
+➢ The subspace is spanned by the set, and 
+➢ The set is linearly independent. 
+Note: If we have N vectors and they are independent then they span N -dimension space. But if they are dependent then they 
+span only a subspace of N-dimension space. 
+2.16.6 Orthogonality of Vectors 
+• Two vectors are orthogonal if each is non-zero and 
+12 0TXX =  
+• If n vectors X1, X2 …. Xn each of n dimensions is orthogonal then they are surely linearly independent and form the basis 
+for n-dimension space. 
+• The set of the vector is orthonormal if they are orthogonal and have unit magnitude. 
+2.17  Similar Matrices 
+• Two matrix A and B are similar if there exist a non singular matrix P such that B = P–1AP 
+• Similar matrix has same eigen valves 
+• If A is similar to B then B is also similar to A 
+• If A is similar to B and B is similar to C then A is similar to C. 
+2.18 Diagonalization of a matrix 
+Finding a matrix D which is a diagonal matrix and which is similar to A is called diagonalization i.e., we wish to find a non-
+singular matrix M such that A = M–1DM where D is a diagonal matrix. 
+===== page 31 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Engineering Mathematics 
+1.28 
+Engineering Mathematics 
+ 2.18.1 Condition for a Matrix to be Diagonalizable 
+1. A necessary and sufficient condition for a matrix A n × n  to be diagonalizable is that the matrix must have n linearly 
+independent eigen vectors. 
+2. A sufficient (but not necessary) condition for a matrix A n × n to be diagonalizable is that the matrix must have n linearly 
+independent eigen values. 
+ This is because if a matrix has n linearly independent eigen values then it surely has n linearly independent eigen vectors 
+(although the converse of this is not true). 
+ 
+❑❑❑ 
+  
+===== page 32 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Engineering Mathematics 
+1.29 
+Engineering Mathematics 
+3 
+PROBABILITY 
+AND STATISTICS 
+3.1 Random Experiment  
+The experiment in which the outcome is uncertain is called a Random Experiment (RE). 
+Example: Flipping a coin, rolling a pair of dice, Picking a ball from a bag. 
+3.1.1 Sample Space 
+The set contains all the possible outcomes of a random experiment. It is denoted by 'S'. 
+If RE is flipping a coin, S = {Head, Tail} 
+If RE is rolling a dice, S = {1,2,3,4,5,6} 
+3.2 Event 
+Any subset of sample space 'S' is called an Event. 
+Example:  If RE is flipping a coin, then the occurring of a Head is an Event. 
+    If RE is rolling a dice, then getting an odd number is an Event.   
+3.2.1 Probability of an Event 
+If 'A' is any event with in the sample space 'S' of a Random experiment, then the probability of event 'A' is given by   
+     
+( ) ( )( )No. of outcomes favouring event 'A' to happenTotal number of elements in 'S' nAPA nS==   
+Probability of getting an Even Number when a dice is rolled. 
+   P(Even Number) = 
+3
+6 = 0.5 
+        S = {1,2,3,4,5,6},   
+        A = {2,4,6} 
+Note: Probability can also be expressed as odds if favour and odds against an event: 
+  •  Odds is favour of an event: 
+   Odds in favour of an event = Number of successes : Number of failures = m: (n – m). 
+  •  Odds against an event: 
+   Odds against an event = Number of failures : Number of successes = (n – m) : m. 
+===== page 33 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Engineering Mathematics 
+1.30 
+Engineering Mathematics 
+3.2.2 Axioms Probability 
+(i)  If 'A' is any event with in the sample space 'S' of a RE, then 0 ≤ 𝑃(𝐴) ≤ 1 
+ 
+0 n(A) n(S)
+n(S) n(S) n(S)
+  
+ 0 ≤ 𝑃(𝐴) ≤ 1   
+(ii) P(S) = 1 
+ When a RE is conducted the experiment yields a possible outcome. 
+3.2.3 Types of Events 
+(i)  Mutually Exclusive Events: 
+ If A, B are two events within a sample space 'S', then A & B are said to be mutually exclusive if A∩B = . 
+Example: If 'A' is the event of getting a prime number when a dice is rolled and 'B' is the event of getting a composite 
+number when a dice is rolled then  
+   S = {1,2,3,4,5,6}, A = {2,3,5},B = {4,6}  A  B =   P(A  B) = 0 
+ 
+Fig. 5.1. Mutually exclusive event 
+(ii) Mutually Exhaustive Events: 
+ If 'A', and 'B' are two events within a sample space 'S', then 'A' & 'B' are said to be mutually   exhaustive if A  B = S   
+Example:  If 'A' is the event of getting an odd number when a dice is rolled and 'B' is the event of getting an Even 
+Number, then 
+         = S  
+       S = {1,2,3,4,5,6} 
+       A = {1,3,5}, B ={2,4,6}                   
+         B = S 
+ 
+Fig. 5.2. Mutually exhaustive event 
+
+===== page 34 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Engineering Mathematics 
+1.31 
+Engineering Mathematics 
+(iii) Independent Events: 
+ Two events 'A' & 'B' within the sample space 'S' (or) within two different sample spaces 'S1' & 'S2' are said to be independent 
+if P(  ) = P(A)  P(B). 
+ 
+Fig. 5.3. Independent Event 
+(iv) Impossible Event (): 
+ The event with zero probability is called an Impossible Event P() = 0. 
+3.3 Addition Theorem of Probability 
+If A, and B are two events with a sample space 'S' of a Random Experiment, then 
+    P(  ) = P(A) + P(B) – P(  ) 
+    
+n(A B) n(A) n(B) n(A B)
+n(S) n(S) n(S) n(S)
+ =+ −  
+ 
+Fig. 5.4. Addition theorem 
+     P(A  B) = P(A) + P(B) – P(A  B)   
+ When  A, and B are mutually exclusive events, A  B = . 
+      P(A  B) = 0 
+     P(  ) = P(A) + P(B) 
+• If E1, E2, E3,…….En are mutually exclusive events (Ei  j = ), then P(E1  E2  E3  …….  En ) = ∑ 𝑃(𝐸𝑖)𝑛𝑖=1  
+ = P(E1) + P(E2) + P(E3) + …… p(En) 
+ 3.3.1   De Morgan’s Law 
+ • 
+( )
+C CCA B A B =   
+ • 
+( )
+C CCA B A B =   
+ 
+
+===== page 35 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Engineering Mathematics 
+1.32 
+Engineering Mathematics 
+3.3.2 Union and Intersection properties 
+For any two events A and B:   
+(a) 
+( ) ( ) ( ) ( )P A B P A P B P A B = + −   
+(b) 
+( ) 1 ( )ccP A B P A B = −   
+For any three events A, B and C: 
+(a) 
+( ) ( ) ( ) ( ) ( ) ( ) ( ) ( )P A B C P A P B P C P A B P B C P C A P A B C  = + + −  −  −  +    
+(b) 
+( ) 1 ( )c c cP A B C P A B C  = −    
+3.3.3 Conditional Probability:  
+The probability of the happening of event 'A' when it is known that event 'B' has already occurred is given by P(A/B) 
+𝑃(𝐴/𝐵) = 𝑃(𝐴 ∩ 𝐵)𝑃(𝐵) = 𝑛(𝐴 ∩ 𝐵)𝑛(𝐵)  
+3.3.4 Joint Probability: 
+ 
+➢ f(x, y) is the joint probability of two RV’S x, y. 
+➢ If the two RV are Independent then 
+ f(x, y) = f(x) ⋅ f(y) 
+➢ 
+( , ) ( , )
+bd
+ac
+P a x b c y d f x y dydx    =   
+➢ 
+( ) ( , )f x f x y dy
+
+−
+=   
+➢ 
+( ) ( , )f y f x y dx
+
+−
+=   
+3.3.5 Multiplication Theorem of Probability: 
+If A, and B are two events within a sample space 'S', then P(A/B)  P(B) = P(B/A)  P(A) 
+ P(A/B) = 
+𝑃(𝐴∩𝐵)
+𝑃(𝐵) ⇒ 𝑃(𝐴 ∩ 𝐵) = 𝑃(𝐴/𝐵) ⋅ 𝑃(𝐵) → (1)   
+ P(B/A) = 
+𝑃(𝐵∩𝐴)
+𝑃(𝐴) ⇒ 𝑃(𝐵 ∩ 𝐴) = 𝑃(𝐵/𝐴) ⋅ 𝑃(𝐴) → (2) 
+ From (1) & (2)  
+ 𝑃(𝐴/𝐵) ⋅ 𝑃(𝐵) = 𝑃(𝐵/𝐴) ⋅ 𝑃(𝐴)  
+3.3.6 Total Theorem of Probability: 
+ If E 1, E 2, E 3,……En are 'n' mutually exclusive (𝐸𝑖 ∩ 𝐸𝑗 = 𝜙; ∀𝑖 ≠ 𝑗) and collectively exhaustive event  (E1  E2  E3 
+ ……  En = S) and 'A' is any event with in the sample space 'S', then 
+ 𝑃(𝐴) = 𝑃(𝐸1) ⋅ 𝑃(𝐴/𝐸1) + 𝑃(𝐸2) ⋅ 𝑃(𝐴/𝐸2)+. . . . . . +𝑃(𝐸𝑛) ⋅ 𝑃(𝐴/𝐸𝑛) 
+1
+( ) ( ) ( / )
+n
+ii
+i
+P A P E P A E
+=
+=
+ 
+===== page 36 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Engineering Mathematics 
+1.33 
+Engineering Mathematics 
+3.3.7 Baye's Theorem 
+If E 1,E2,E3,……En are mutually exclusive (𝐸𝑖 ∩ 𝐸𝑗 = 𝜙∀𝑖 ≠ 𝑗) and collectively exhaustive event (𝐸1 ∪ 𝐸2 ∪ 𝐸3 ∪. . . . . . .∪
+𝐸𝑛 = 𝑆) and 'A' is any event with in the sample space 'S', then 
+  
+𝑃(𝐸𝑖/𝐴) = 𝑃(𝐸𝑖) ⋅ 𝑃(𝐴/𝐸𝑖)∑ 𝑃(𝐸𝑖) ⋅ 𝑃(𝐴/𝐸𝑖)𝑛𝑖=1  
+ 
+Fig. 5.5. Baye’s theorem 
+3.3.8  Use of permutation and combination 
+What is combination? 
+A combination of ‘n’ objects taken ‘r’ at a time (r-combination of ‘n’ objects is an unordered selection of ‘r’ of the objects). 
+Number of ways of combining of ‘r’ object out of ‘n’ objects without repetition 
+      
+!
+( )! !r
+nC n r r = −  
+What is permutation? 
+A combination of ‘n’ objects taken ‘r’ at a time (r-combination of ‘n’ objects is an ordered selection of ‘r’ of the objects). 
+Number of ways of selection of r object out of n objects without repetition 
+      
+!
+( )!r
+nP nr = −  
+ Result: 
+(i) 
+nn
+r n rCC −=  
+(ii)  
+0 1 2 .... 2n n n n n nC C C C+ + + + =  
+(iii)  
+1
+024 .... 2n n n nC C C −+ + + +=  
+(iv)  
+1
+1 3 5 .... 2n n n nC C C −+ + + +=  
+(v)  
+1
+0 1 20. 1. 2. .... . .2n n n n n nC C C n C n −+ + + + =  
+Permutations with Repetition  
+
+===== page 37 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Engineering Mathematics 
+1.34 
+Engineering Mathematics 
+The number of permutations of n objects, where p objects are of one kind, q objects are of another kind and the rest, if any, are 
+of a different kind is 
+!!
+n
+rP
+pq .  
+Combination with Repetition 
+Number of combinations of ‘n’ distinct things taking ‘r’ at a time when each thing may be repe ated any number of times is 
+given by
+1nr
+rC−+ . 
+3.4  STATISTICS 
+Statistics → Collection and  Analysis of Data 
+ 
+3.4.1 Analysis of Ungrouped Data 
+If x1, x2, x3, …….,xn are 'n' observations, then  
+(1)  The range of the data = R = max{x1, x2, …….,xn} – min{x1, x2, x3, ….., xn}  
+(2)  Arithmetic mean : Mean of the data is equal to sum of observaions divided by the total number of observations. 
+𝑥̄(𝑜𝑟)𝜇 = 𝑥1 + 𝑥2+. . . . . . +𝑥𝑛
+𝑛 =
+∑ 𝑥𝑖𝑛𝑖=1
+𝑛 = 𝑥̄ = 𝜇  
+• The mean of 1st 'n' natural numbers = (𝑛(𝑛+1)2 )𝑛 = 𝑛+12  
+• The mean of 1st 'n' odd numbers = 𝑛2
+𝑛 = 𝑛 
+• The mean of 1st 'n' even numbers = n +1 
+3.4.2 Median 
+The middle most observation of the data (𝑥1, 𝑥2, 𝑥3, . . . . . 𝑥𝑛) When the data is arranged in either ascending or descending order. 
+If 𝑥1, 𝑥2, 𝑥3, 𝑥4, . . . . . . . 𝑥𝑛 are 'n' observations that are arranged in ascending/descending order then 
+(i)  Median of the Data = (
+𝑛+1
+2 )
+𝑡ℎ
+observation, if 'n' is odd. 
+(ii)  Median of the Data = Mean of (
+𝑛
+2)
+𝑡ℎ
+& (
+𝑛
+2 + 1)
+𝑡ℎ
+observations, if 'n' is even. 
+3.4.3 Mode 
+The observation with highest frequency is called mode. 
+Any Data with two Modes is called → Bimodel Data 
+If 𝑥1, 𝑥2,𝑥3, . . . . . . , 𝑥𝑛 are 'n' data points, 𝑥̄ = 𝜇 =
+𝑥1+𝑥2+.......+𝑥𝑛
+𝑛   
+Mean Deviation of the observation (𝑥𝑖) = 𝑑𝑖 = 𝑥𝑖 − 𝑥̄ 
+
+===== page 38 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Engineering Mathematics 
+1.35 
+Engineering Mathematics 
+ 
+Fig. 5.6. Discrete data 
+Sum of derivations of all the observations = 𝛴𝑑𝑖 = (𝑥1 − 𝑥̄) + (𝑥2 − 𝑥̄)+. . . . . .0 + (𝑥𝑛 − 𝑥̄) 
+= 𝛴𝑑𝑖 = (𝑥1 + 𝑥2+. . . . . +𝑥𝑛) − 𝑛𝑥̄ 
+𝛴𝑑𝑖 = 0  
+The sum of mean deviations of all the observations is equal to zero. 
+3.4.4 Absolute Mean Deviation 
+If x1, x2, x3,…….,xn are 'n' data points with Mean = 𝑥̄, then the absolute mean deviation of 𝑥𝑖 about 𝑥̄ is given by |𝑑𝑖| = |𝑥 − 𝑥̄| 
+The sum of absolute mean derivations of given data is not zero. 
+(𝛴|𝑑𝑖| ≠ 0) ⇒ (|𝑥1 − 𝑥̄| + |𝑥2 − 𝑥̄|+. . . . . . . . +|𝑥𝑛 − 𝑥̄| ≠ 0) 
+3.4.5 Standard Deviation  
+If x1, x2, x3,……,xn ('n' is very large), then the standard deviation of the data is given by 
+Population Standard Deviation 𝜎 = √1𝑛 𝛴(𝑥𝑖 − 𝑥̄)2  ,  n → size of population 
+Sample Standard derivation: 𝜎 = √
+1
+(𝑛−1) 𝛴(𝑥𝑖 − 𝑥̄)2 , n→ size of sample  
+Generally (n > 29 → population) (n < 29 →sample) 
+ 
+Note: Measures of skewness (The degree of asymmetry) 
+  A lack of symmetry is skewness. 
+ • For symmetric distribution mean (M) = Median (Md) = Mode (Me) 
+ • For negatively skewed distribution mean (M) < Median (Md) < Mode (Me) 
+ • For positively skewed distribution Mean (M) > Median (Md) > Mode Me). 
+ 
+
+===== page 39 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Engineering Mathematics 
+1.36 
+Engineering Mathematics 
+3.5 Random Variables 
+The variable that connects the outcome of a Random Experiment to a real number. 
+Example: 'x' is the value of the number that a dice shows when it is rolled. 
+   Discrete RV      → The RV whose value is obtained by counting, defined by PMF 
+   Random Variable 
+   Continuous RV → The RV whose value is obtained by Measuring, defined by PDF 
+ 
+• If a data consists of 'f1' data points with value ′𝑥1′, ′𝑓2′ data points with value ′𝑥2′. . . . . . ′𝑓𝑛′ data point with value ′𝑥𝑛′ , then  
+ (i)  Expectation of 'x'  = 𝐸(𝑥) = ∑ 𝑥𝑖𝑃(𝑥 = 𝑥𝑖)𝑛𝑖=1  
+(ii)  Variance of ‘x’ = 𝜎2 = 𝐸(𝑥2) − (𝐸(𝑥))2 and σ is the standard deviation. 
+3.5.1 Probability Mass Function (PMF) 
+ The PMF p(x) of a discrete random variable X taking values 
+12, ,..... nx x x  is defined such that, 
+ (i) 
+( ) 0ipx   
+ (ii) 
+1
+( ) 1
+n
+i
+i
+px
+=
+=  
+ (iii) 
+( ) ( )iip x p X x==  
+3.5.2 Probability Density Function (PDF) 
+ The pdf f(x) of a continuous random variable X is defined such that, 
+ (i) 
+( ) 0fx   
+ (ii) 
+( ) 1f x dx
+
+−
+=  
+ (iii) 
+( ) ( )
+b
+a
+P a X b f x dx  =   
+3.5.3 Expected Value 
+1. Expected value of a random variable X, E [X], is defined as, 
+ 
+( ); X is discrete rv
+( ) ; X is continuous rv
+xp x
+EX xf x dx
+−
+
+
+
+
+
+
+  
+2. Expected value of X2 is,  
+     
+2
+2
+2
+( ); X is discrete rv
+[]
+( ) ; X is continuous rv
+x p x
+EX
+x f x dx
+
+−
+
+= 
+
+
+
+  
+ Note: 
+[] nEX  is called nth moment.  
+===== page 40 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Engineering Mathematics 
+1.37 
+Engineering Mathematics 
+3.5.4 Mean of Random Variable ‘X’ 
+  Mean 
+[]EX=  =  
+3.5.5 Variance of a Random Variable ‘X’ 
+ Var 
+2( ) [( ) ]X E X= −  
+Or,  Var 
+22( ) [ ]X E X= −  
+3.5.6 Properties of Expectation  
+ (i) E[c] = c, c is a constant. 
+ (ii) E[ax] = aE[X] 
+ (iii) E(aX + b) = aE(X) + b 
+ (iv) If X and Y are random variable E[X  Y] = E(x)  E(Y). 
+ (v) If X and Y are random variables E(X. Y) = E(X). E(Y / X). 
+ (vi) If X and Y independent random variables E(X. Y) = E(X). E (Y). 
+3.5.7 Properties of Variance 
+ (i) Var[C] = 0, C is constant. 
+ (ii) Var (aX) = a2V(X) where X is random variable and ‘a’ constant. 
+  Var(–X) = (–1)2 Var(X) = Var(X) Variance is always positive. 
+ (iii) Var(ax + b) = a2 Var(X) + 0 
+ (iv) If X and Y are independent random variables. 
+  Var(X + Y) = Var(X) + Var(Y) 
+  Var(X – Y) = Var(X) + Var(Y) 
+ (v) Var(ax + by) = a2 v(x) + b2 v(y) + 2ab Cov (x, y) 
+ (vi) Cov (x, y) = E(x, y) – E(x) E(y) 
+ (vii) For independent random variables Cov(x, y) = 0 
+3.5.8 Continuous RV 
+The value of the Random Variable is obtained by Measuring. 
+3.6 Probability Distribution Function (PDF)  
+A continuous & differentiable function P(x) is said to be a probability distribution/density function of a continuous random 
+variable 'x' if 𝑃(𝑎 ≤ 𝑥 ≤ 𝑏) = ∫ 𝑃(𝑥)𝑑𝑥
+𝑏
+𝑎    
+===== page 41 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Engineering Mathematics 
+1.38 
+Engineering Mathematics 
+3.6.1 Mean (or) Expectation 
+If P(x) is a probability distribution/density function of a continuous Random Variable 'x' then the Mean of 'x' = E(x) = ∫ 𝑥 ⋅
+∞
+−∞
+𝑃(𝑥)𝑑𝑥  
+3.6.2 Median  
+The value of 'x' for which the total probability is exactly divided into two equal halves is called Median. 
+3.6.3 Mode  
+The valueof 'x' at which P(x) is maximum is called mode. 
+3.6.4 Variance  
+ = 𝜎2 = 𝐸(𝑥2) − (𝐸(𝑥))2 
+( ) ( )( )
+2
+22 x P x dx x P x dx
+− −
+ =  − 
+ 
+ 
+Fig. 5.7. Continuous random variables 
+3.7 Continous RV distributions 
+(1) Gaussian/Normal Distributon: 
+ If 'x' is a continuous Random variable with mean ' ' and standard deviation '', then the probability distribution/density 
+function of normally distributed variable 'x' is given by  
+ 
+Fig. 5.8. Normal distribution 
+
+===== page 42 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Engineering Mathematics 
+1.39 
+Engineering Mathematics 
+Mean = Median = Mode =  
+𝑃(𝜇 − 𝜎 ≤ 𝑥 ≤ 𝜇 + 𝜎) = 0.6828 
+𝑃(𝜇 − 2𝜎 ≤ 𝑥 ≤ 𝜇 + 2𝜎) = 0.9544 
+𝑃(𝜇 − 3𝜎 ≤ 𝑥 ≤ 𝜇 + 3𝜎) = 0.9973 
+𝑃(𝑥) = 1
+𝜎 ⋅ √2𝜋
+. 𝑒
+−(𝑥−𝜇)2
+2𝜎2  
+(2)  Standard Normal Distribution: 
+ Assuming 𝑧 =
+𝑥−𝜇
+𝜎 ; 𝜇 = 0; 𝜎 = 1, 𝑃(𝑧) =
+1
+√2𝜋 ⋅ 𝑒
+−𝑧2
+2  
+𝑃(−1 ≤ 𝑧 ≤ 1) = 0.6828 
+𝑃(−2 ≤ 𝑧 ≤ 2) = 0.9544 
+𝑃(−3 ≤ 𝑧 ≤ 3) = 0.9973 
+Note: 
+1. The normal distribution curve is bell shaped curve 
+2. The points of infelection of the normal distribution curve are at 𝑥 = 𝜇 + 𝜎 𝑎𝑛𝑑 𝑥 = 𝜇 − 𝜎. 
+3. The cumulative function graph is of ‘S’ Shape. 
+4. For a given normal distribution, Mean = median = Mode 
+(3)  Uniform Distribution: 
+ If 'x' is a uniformly distrbuted random variable such that 𝑎 ≤ 𝑥 ≤ 𝑏 then the Pdf is given by 
+𝑃(𝑥) = 1(𝑏 − 𝑎) 
+ Mean = ∫ 𝑥 ⋅ 𝑃(𝑥)𝑑𝑥 =
+𝑏
+𝑎 ∫ 𝑥 ⋅
+1
+𝑏−𝑎 𝑑𝑥 =
+1
+(𝑏−𝑎)
+𝑏
+𝑎 ∫ 𝑥 ⋅ 𝑑𝑥
+𝑏
+𝑎  
+Mean2ba+ =
+ 
+  𝑉𝑎𝑟𝑖𝑎𝑛𝑐𝑒 = 𝜎2 = (𝑏−𝑎)2
+12   
+  Std. deviation = 𝜎 =
+(𝑏−𝑎)
+√12   
+ 
+Fig. 5.9. Uniform Distribution 
+3.7.1 Properties of Mean and Variance: 
+𝐸(𝑎𝑥 + 𝑏𝑦) = 𝑎 ⋅ 𝐸(𝑥) + 𝑏 ⋅ 𝐸(𝑦)  
+𝑉(𝑎𝑥 + 𝑏𝑦) = 𝑎2 ⋅ 𝑉(𝑥) + 𝑏2 ⋅ 𝑉(𝑦) − 2𝑎𝑏𝐶𝑂𝑉(𝑥, 𝑦) 
+where 𝐶𝑂𝑉(𝑥, 𝑦) = 𝐸(𝑥𝑦) − 𝐸(𝑥) ⋅ 𝐸(𝑦)  
+
+===== page 43 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Engineering Mathematics 
+1.40 
+Engineering Mathematics 
+If x,y are indpendent random variables, then 𝐸(𝑥𝑦) = 𝐸(𝑥) ⋅ 𝐸(𝑦) ⇒ 𝐶𝑂𝑉(𝑥, 𝑦) = 0 
+(1) Exponential Dirtibution: 
+If 'x' is a continous random variable with mean as 
+1
+𝜆 then the exponential distribution of 'x' is 
+given by the function  
+     𝑓(𝑥) = {𝜆 ⋅ 𝑒−𝜆𝑥 ; 𝑥 ≥ 00 : 𝑜𝑡ℎ𝑒𝑟𝑤𝑖𝑠𝑒 
+     Mean = 
+1
+𝜆 
+         𝜎2 = 1𝜆2 
+ Mean = Standard Deviation = 
+1
+𝜆 
+3.8 Discrete Random Variable Distributions 
+If a Random experiment has only two Possible outcomes , (one is Success & other is failure) and the Probability of Success  
+doesn't depend on time, then the probability of occuring of exactly 'r-successes' in 'n-trials' is given by  
+    𝑃(𝑋 = 𝑟) =𝑛 𝐶𝑟 ⋅ 𝑃𝑟 ⋅ 𝑞𝑛−𝑟  
+Where, P → Probability of Success,  
+           q → Probability of Failure 
+      p + q = 1 
+Mean = np,Variance = npq = 2, standard deviation = 
+npq=  
+ 3.8.1 Poisson Distribution 
+If a random experiment has only two possible outcomes, and the average number of successes in a given time 't' is , then the 
+probability that exactly 'r' successes occur within the same time 't' given by 
+ 𝑃(𝑥 = 𝑟)
+𝑒−𝜆⋅𝜆𝑟
+𝑟!   
+ Mean = . 
+ Mean = Variance = 𝜆  
+ ⇒ 𝜎 = √𝜆  
+❑❑❑ 
+Fig. 5.10. Exponential distribution 
+ 

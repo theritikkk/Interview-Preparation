@@ -1,0 +1,1390 @@
+
+===== page 1 =====
+AlgorithmsAlgorithmsAlgorithms
+===== page 2 =====
+Published By: 
+ 
+  Physics Wallah 
+ISBN: 978-93-94342-39-2 
+Mobile App: Physics Wallah (Available on Play Store) 
+  
+Website: www.pw.live 
+Email: support@pw.live 
+ 
+Rights 
+All rights will be reserved by Publisher. No part of this book may be used or reproduced in any manner 
+whatsoever without the written permission from author or publisher. 
+In the interest of student's community: 
+Circulation of soft copy of Book(s) in PDF or other equivalen t format(s) through any social media channels, 
+emails, etc. or any other channels through mobiles, laptops or desktop is a criminal offence. Anybody 
+circulating, downloading, storing, soft copy of the book on his device(s) is in breach of Copyright Act. Further 
+Photocopying of this book or any of its material is also illegal. Do not download or forward in case you come 
+across any such soft copy material. 
+ 
+Disclaimer 
+A team of PW experts and faculties with an understanding of the subject has worked hard for the books. 
+While the author and publisher have used their best efforts in preparing these books. The content has been 
+checked for accuracy. As the book is intended for educational purposes, the author shall not be responsible for 
+any errors contained in the book. 
+The publication is designed to provide accurate and authoritative information with regard to the subject matter 
+covered. 
+This book and the individual contribution contained in it are protected under copyright by the publisher. 
+(This Module shall only be Used for Educational Purpose.) 
+
+===== page 3 =====
+ 
+ 
+ 
+Design Against Static Load 
+ 
+ 
+ 
+ 
+ 
+1. Asymptotic Notation  ...........................................................................................................  6.1 – 6.18 
+2. Divide and Conquer ..............................................................................................................    6.19 – 6.25 
+3. Greedy Technique  ...............................................................................................................  6.26 – 6.29 
+4. Dynamic Programming .........................................................................................................    6.30 – 6.34 
+ 
+ 
+ 
+ 
+INDEX 
+GATE-O-PEDIA COMPUTER SCIENCE & INFORMATION TECHNOLOGY 
+===== page 4 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 6.1 
+Algorithm 
+1 
+ASYMPTOTIC 
+NOTATION 
+ 
+1.1 Introduction of Course 
+ 
+ 
+1.2  Algorithm Concept and Life Cycle Steps 
+1.2.1 Algorithm 
+• An Algorithm consists finite number of steps to solve any problem. 
+• Every step involves some operations and each operation must be definite and effective. 
+  
+
+===== page 5 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 6.2 
+Algorithm 
+1.2.2 Life Cycle Steps 
+ 
+1.3 Needs of Analysis 
+ 
+ 
+ 
+In performance comparison comparing different algorithms for optimal solution. 
+1.3.1 Time Complexity 
+Time complexity of an algorithm quantifies the amount of time taken by an algorithm to run as a function of the input size. 
+ 
+1.3.2 Space Complexity 
+Space complexity of an algorithm quantifies the amount of space or memory taken by an algorithm to run as a function of input 
+size. 
+ 
+Note: 
+To find the time complexity of an algorithm, find the loops and also consider larger loops. 
+Space complexity is dependent on two things input size and some extra space (stack space link, space list etc). 
+   
+
+===== page 6 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 6.3 
+Algorithm 
+1.4 Methodology of Analysis 
+ 
+ 
+ 
+1.5 Types of Analysis 
+Worst Case 
+The input class for which the algorithm does maximum work and hence, take maximum time. 
+Best Case 
+The input class for which the algorithm does minimum work hence, take minimum time. 
+Average Case 
+Average case can be calculated form best case to worst case. 
+1.6 Asymptotic Notations 
+Suppose, T(n) be a function of time for any algorithm. 
+ 
+ 
+
+===== page 7 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 6.4 
+Algorithm 
+1.7 Types of Asymptotic Notations 
+ 
+1.7.1 Big O – Notation 
+ Two Functions 
+( ), ( )f n g n  
+ 
+( ) ( ( ))f n O g n=  
+When the growth of 
+()gn is same or higher than 
+()fn  like 
+ba   
+Example: 
+ 
+2( ) 3 10, ( ) 2 5f n n g n n n= + = + +  
+ 
+( ) O( ( ))f n g n=  
+ 
+1.7.2 Ω - Notation 
+ 
+( ) ( ( ))f n g n=  
+ 
+( ) ( ) ( )f n C g n a b     
+Example: 
+3 (2 )nn=  
+ 
+1.7.3  - Notation 
+If  f(n) ≤ g(n) 
+           And  
+  f(n) ≥ g(n)   
+  
+ f(n) = g(n)   
+∴    f(n) = (g(n)) 
+ 
+Example:   
+ f(n) = 2n2, g(n) = n+10 
+ f(n) > g(n) here 
+so,  f(n) = Ω(g(n)) or g(n)=O(f(n)) 
+  
+
+===== page 8 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 6.5 
+Algorithm 
+1.7.4. Properties with respect to asymptotic notations 
+ Reflexive Symmetric Transitive Transpose symmetric 
+Big oh (O)  ×   
+Big omega ()  ×   
+Theta ()    × 
+Small oh (o) × ×   
+Small omega () × ×   
+ 
+Example 1.  Consider the following function 
+ 
+1
+()
+n
+p
+f n p q 
+=
+==  
+Which of the following is/are true for ‘q’ 
+ (a)  (n4) (b) (n5) (c) O(n5) (d) (n3) 
+Solution: (a, c, d) 
+  f (n) =
+3
+P1
+P
+n
+=
+  
+         = 13 + 23 + 33 + 43 ................. + n3 
+         = 
+2
+1
+2
+nn +   
+         = O(n4) or  (n4) 
+         =  (n4) 
+Example 2.  Consider the following functions: 
+                 f (n) = 
+½
+1
+n
+P
+P
+=
+ = q 
+Find the value of q in terms of asymptotic notation. 
+Solution:   f (n) = 
+½
+1
+n
+P
+P
+=
+  
+         = 
+( ) ( )
+½½1 2 3 .......+ + +  
+         = 
+322 13 n −  
+         = 
+3222
+33n −  
+         = O(n1.5) 
+         = 
+O( )nn  
+Example 3. Arrange the following functions in increasing order. 
+ 
+1 2 3 4 5 6 7 8log , , 2 , 3 , !, , log , 100 logn n nf n n f n f f f n f n f n f n n= = = = = = = =  
+ →
+7 2 8 3 4 5 6f f fl f f f f f  =      
+===== page 9 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 6.6 
+Algorithm 
+Example 4. Arrange the following functions in increasing order. 
+  
+22
+1 2 3 4 510, , loglog , (log ) ,f f n f n f n f n= = = = =  
+ 
+2
+6 7 8 9 10log , !, 2 , , log nnf n n f n f f n f n n= = = = =  
+ → 
+1 3 4 2 6 5 10 8 7 9f f f f f f f f f f          
+Example 5.  Arrange the following functions in increasing order. 
+ 
+19 log log log logf n f n n==  
+ 
+2
+2 10log logf n f n n==  
+ 
+23
+3 11(log )f n f n==  
+ 
+4 12 log 2 nf n f==  
+ 
+1/10
+5 13
+nf n f e==  
+ 
+6 14 !f n f n==  
+ 
+2
+7 15
+nf n f n==  
+ 
+3/2
+8 16 logf n n f n==  
+ f1 < f4 < f2 < f3 < f5 < f6 < f9 < f8 < f16 < f7 < f10 < f11 < f12 < f13 < f14 < f15 
+log logbbcaac 
+ 
+ 
+22log log 22 n nn  =  
+ 
+Example 6.  Arrange the following functions in increasing order. 
+ 
+1 !fn= ,
+2
+nfn =  
+ 
+1 ( 1)( 2) ... 3 2 1f n n n=  − −      
+ 
+2 ...f n n n n n n n=         
+ 
+21ff   
+ 
+12 O( )ff=   
+  
+2 3 4 !n n n n nn      
+Question. 
+ Which of following is TRUE? 
+(1) 
+2log 22 O(n )n =   TRUE 
+ (2) 
+23log25 2 O( )nnn=   TRUE 
+ (3) 
+22 O(2 )nn=    TRUE 
+ (4) 
+log O(log log )nn=   FALSE 
+ (5) 
+log log O( log )n n n=   TRUE 
+Solution: 
+ (1)  
+2log 22 O(n )n =  
+  
+2log 2n=  
+  
+n=  
+===== page 10 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 6.7 
+Algorithm 
+  
+2O( )nn==  
+ (2) 
+23log25 2 O( )nnn=  
+  
+23log 22nn=  
+  
+23nn=  
+  
+5n=  
+   
+55 O( )nn==  
+ 
+(3)
+       
+2
+2
+2
+22
+2 2 .2
+22
+2 (2 ) True
+nn
+n n n
+nn
+nn O
+=
+=
+
+=  
+ 
+ (4)    
+log loglog
+log (log )
+False
+nn
+n O n
+
+  
+ (5)   
+log log log
+loglog ( log )
+True
+n n n
+n O n n
+
+=  
+1.8.   Analysis of an Algorithm 
+ 
+      Algorithms 
+ 
+ Without Loop   Interactive Algorithm   Recursive Algorithm 
+ 
+1.8.1 Without loop  
+ 
+Example: int fun (in + n) 
+  { 
+   return n*(n+1)/2; 
+  } 
+  
+Solution. 
+    Here 1 multiply, 1 division, 1 addition 
+  ⸫ O (1) [no loops, no recursion] 
+1.8.2.  Iterative Algorithm Analysis 
+Example 1: 
+  for (i =1; i ≤ n; i=i*2) 
+printf(“Sushil”) 
+  
+===== page 11 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 6.8 
+Algorithm 
+Solution. 
+ i=1, 2, 22, 23 ..., 2k 
+ →  
+ 2k ≤ n 
+ k log 2 ≤ log n 
+ k ≤ 
+log
+log 2
+n  
+ ⸫ k ≤ 
+2log n   
+ k = 
+2log n  
+ So, this will execute 
+2log n +1 time and Complexity O (
+2log n ) 
+ 
+Example 2: 
+  For (i=1; i ≤ n; i=i*3) 
+printf(“Aaveg”);  
+ 
+Solution. 
+ So, this will execute 
+3log 1n +  time and complexity O (
+3log n ) 
+➢ i = 1→2→4→8→16→...→n 
+ i = n→n/2→n/4→n/8→...1 
+ 
+Example 3: 
+  for (i = 1; i ≤ n; i++) 
+ { 
+  for (j=1; j ≤ 10; j++) 
+   { 
+    printf(“Dhananjay”); 
+   } 
+  } 
+ 
+Solution. 
+ This will execute 10⸳n times and complexity O(n) 
+ 
+Example 4: 
+  for (i = 1; i <= n; i = i*3) 
+ for (j = 1; j ≤ n; j++) 
+  printf(“Prapti”); 
+Solution. 
+ Total 
+( )3log 1nn + time execute and Complexity = O (
+3lognn ) 
+  
+===== page 12 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 6.9 
+Algorithm 
+1.8.3.  Recursive Algorithm Analysis 
+Example 1: 
+   void fun (in + n) T(n)    
+  { 
+   if (n > 0)  1 compare; C1 time  
+   { 
+    if (“% d”, n);   C2 time 
+    fun (n - 1);  T(n-1) 
+   } 
+  } 
+Let T(n) be the Complexity time taken by algo for n size i/p 
+Solution. 
+T(n) = C1+C2+T(n-1) 
+      T(n) =T(n-1) + C   n > 0 
+       
+ T (0) = C   Constant 
+ 
+T(n) = C;  n = 0  
+T(n) = T (n - 1) + C; n > 0 
+  
+ 
+ Example 2: 
+   void fun (in + n) T (n) 
+  { 
+    if (n > 0)  C1 time 
+     { 
+    for (i = 1; i <= n; i + 1)    n time 
+     printf(“Hello”); 
+    fun (n - 1);  T (n - 1) 
+      } 
+  }  
+Solution. 
+  T(n) = C1 + n - 1 + T (n - 1)  
+        = T (n - 1) + n   n > 0 
+  T (0) = C    n = 0 
+  
+ Example 3: 
+  void fun (in + n)  T(n) 
+  { 
+    if (n > 0)  C1 
+      { 
+   for (i = 1; i < = n; i = i*2)  
+2log n  
+===== page 13 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 6.10 
+Algorithm 
+    printf(“Divyajyoti”); 
+   fun (n - 1);  T (n - 1) 
+        } 
+  } 
+ 
+Solution. T (n) = T (n - 1) + O (
+2log n );   n > 0 
+   or 
+  T (n) = T (n - 1) + 
+2log n  
+  T (0) = C  or n = 0 
+  T (0) = O (1) 
+1.9 Solving Recurrence Relation 
+1.9.1 Substitution Method 
+Example: (1)  
+  T (n) = T (n - 1) + C 
+      T (1) = C 
+ 
+n size on problem n – 1 size x1 convert them  
+ T (n) = T (n -1) + C 
+  
+           [ T (n - 2) + C] + C 
+ T (n) = T (n - 2) + 2C 
+   
+          = T (n - 3) +3C 
+ T (n) = T (n - k) + kC 
+ ⸫ n – k = 1 
+ T (n) = T (1) + (n - 1) C 
+ = C + (n - 1) C 
+ T (n) = O (n)  
+Example (2)  
+  T (n) = T (n - 1) + C⸳n 
+                T (1) = C 
+  Solution.    
+   ⸫ T (n)  = T (n - 1) + C⸳n 
+  = [T (n - 2) + C⸳(n – 1)] + C⸳n 
+  = [T (n - 3) + C⸳(n – 2)] + C (n - 1) + C⸳n 
+  = T (n - 3) + (n - 2)⸳C + (n - 1)⸳C + n⸳C 
+  = T (n - k) + C (n – k +1) + C (n – k + 2) + ... + C (n – k + k) 
+    ⸫ n – k =1 
+       T (n) = T (1) + T (2) + C (3) + C (4) + ... + C (n - 1) + C (n) 
+  = C + C (2) + (3) C + 4 (C) + ... + (n - 1) C + (n)⸳C 
+  = C [1 + 2 + 3 + ... + n] 
+===== page 14 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 6.11 
+Algorithm 
+  = C⸳n
+( 1)
+2
+n +  
+  = O (n2) 
+Example (3)  
+  T (n) = T (n/2) + C 
+          T (1) = 1 
+Solution. 
+       T (n)  = T (n/2) + C 
+   
+  = [T (n/22) + C] + C 
+  = T (n/4) + 2C 
+ 
+  = T (n/23) + 3C 
+       T (n)  = T (n/2k) + kC 
+  = (n/2k) = 2 
+       T (n) = T (2) + (
+2log n  - 1) C 
+  = 1 + (
+2log n  - 1) C 
+  = O (log n) 
+Example (4)  
+  T (1) = 1  
+  T (n)= 2T (n/2) + C 
+Solution.     T(n) = 2 
+22T C C2n  ++   
+            = 
+22
+22 T 2 C + C2n +  
+                   =
+2
+32 2T C 2C C2n  + + +   
+            = 
+32
+32 T 2 C + 2C + C2n +  
+           = 
+k k 1 k 2 1
+k2 T 2 C + 2 C ... 2 C C2n −− + + +  +  
+===== page 15 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 6.12 
+Algorithm 
+             
+k
+k 122n n=  =  
+            → T (n)         = nT (1) + 2k - 1⸳ C + 2k - 2⸳ C + ... + 2C + C 
+          = 2k + 2k - 1⸳ C + 2k – 2 + ... + 2C + C 
+          = 2k + C (2k-1 + 2k-2 + ... + 21 + 20) 
+          = 2k + C 
+(2 1)
+21
+k −
+−  
+          = 2k + C (2k - 1) 
+          = 2k + 2k⸳ C – C 
+           = n⸳C 
+           = O (n) 
+ 1.9.2 Master’s Method 
+ T (n) = aT 
+n
+b
+
+ + Θ (nk (log n) p) 
+  a ≥ 1, b > 1, k ≥ 0, p = real number 
+ 
+ 
+ 
+   If a > bk or 
+log kb a   
+   T (n) = Θ 
+( )
+logb an  
+ 
+Question 1. T (n) = 2T 
+2
+n  + (n)0log n 
+Solution. a = 2, b = 2, k = 0 
+   a > bk; 2 > 20; 2 > 1 
+   T (n) = Θ (n) 
+Question 2.  T (n) = 2T 
+2
+n n +  
+Solution. a = 2, b = 2, k = 1, p = 0 
+   T(n) = Θ (n ⸳log n) 
+   
+Question 3.   T(n)=2
+ +T log2n nn  
+  
+Solution. a = 2, b = 2, k = 1, p = 1 
+   
+   ⸫ T (n) = Θ( n (log n)2) 
+ 
+        (b) If p < 0 then T (n) 
+        T (n) = O (nk) 
+===== page 16 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 6.13 
+Algorithm 
+  
+Question 4.  
+=+ T( ) T 2nnC  
+Solution.   
+   T(n) = Θ (n2log n) 
+ 
+1.9.3.  Recursive Tree 
+(1) 
+T( ) 2T C 2nn =+   
+T (1) = C 
+ 
+ 
+  
+21 2 log2 kkn n k n= → = → =
+ 
+    Total Work done = C + 2C + 22C + 23C + ... + 2kC 
+= C (1 + 2 + 22 + ... + 2k) 
+=
+121
+21
+k
+c
++ − −
+= C (2k+1 - 1 
+= C (2⸳2k - 1) 
+= C (2n - 1) 
+= O (n) 
+ 
+
+===== page 17 =====
+ 
+ 
+ GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 6.14 
+Algorithm 
+(2)  
+( ) 2 2nT n T n =+   
+   
+21; 2 ; log2 kkn n k n− − −  
+⸫ n + n + n + ... + n 
+= k n 
+= n 
+2  nlog n  
+          = 
+2 )O(   nlog n  
+(3) 
+( ) 4 2nT n T n =+   
+ 
+ 
+n = 2k, k = log2 n 
+= 
+24 4 ... 42 2 2 kn n nn      + + + +            
+
+===== page 18 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK  
+Algorithm 
+6.15 
+= 
+231 2 2 2 ... 2 kn+ + + + +  
+= 
+121
+21
+k
+n
++ − −  
+= n (2  2k−1 ) 
+= n ( 2n ) − 1 
+                                          = O (n2 ) 
+ 
+(4) 
+2() 33nnT n T T n   = + +         T(1) = 1 
+ 
+31 ; 3 ; log3n n i i ni − − −
+ 3 
+= n + n +...+ log3  n T (n)  
+= (n + n + n +...+ log3 n) ≥ n + ... + log3 n 
+Ω(n⸳ log3/ 2  n ) 
+  
+
+===== page 19 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK  
+Algorithm 
+6.16 
+1.10  Recurrence Relations and their Time Complexity 
+T (n) = C; n = 2 
+T(n) = 2 T(√𝑛) + C; n > 2 O (logn) 
+T (n) = C; n = 2 
+T(n) = T(n – 1) + C ; n > 2 O(n) 
+T (n) = C; n = 1 
+T(n) = T(n – 1) + n + C ; n > 2 O(n2) 
+T (n) = C; n = 1 
+T(n) = 2T(n – 1) + C ; n > 1 O(2n) 
+T (n) = C; n = 1 
+T(n) = 2T
+2
+n
+  + C ; n > 1 (n) 
+T (n) = C; n = 1 
+T(n) = 2T
+2
+n
+  + n ; n > 1 (nlogn) 
+T (n) = C; n = 1 
+T(n) = T
+2
+n
+  + C; n > 1 (logn) 
+T (n) = 1; n = 2 
+T(n) = T
+( )n  + C; n > 2 (loglogn) 
+ 
+1.11 Space Complexities 
+ 
+  
+  
+
+===== page 20 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK  
+Algorithm 
+6.17 
+ Int n, A[n]; 
+ Algorithm Rsum(A, n) 
+ { 
+    if (n = 1) return (A(1)); 
+    else; 
+    return (A[n] + RSum(A, (n–1)); 
+  } 
+ 
+• Time Complexity = O(n) 
+• Space Complexity 
+• We need stack space 
+• Stack is used to store activation records of function calls 
+• Size of activation records is trivial 
+• Stack size that we need = O(n) 
+• Space complexity = O(n) 
+ 
+ Algorithm A(n) 
+  { 
+     if (n = 1) return; 
+     else; 
+  { 
+     A
+2
+n
+ ; 
+   } 
+   } 
+ 
+ Recurrence relation  
+         T(n) = C; n = 1 
+                                          T(n) = T
+2
+n
+ + C; n > 1 
+ Time Complexity = O(log n) 
+Space Complexity 
+• Space complexity will depend on number of activation record pushed into the stack 
+Suppose, n = 16 
+A (1) 
+For n = 2K we are pushing 
+the ‘K’ activation record 
+A (2) 
+A (4) 
+A (8) 
+A (16) 
+ 
+ 
+ 
+===== page 21 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK  
+Algorithm 
+6.18 
+  Space Complexity 
+    
+   n = 2K 
+                             log n = 
+2Klog 2  
+   K = 
+2log n  
+                        
+Space Complexity O(log )n=   
+Example 3 
+ Algorithm A(n) 
+  { 
+     if (n = 2) return; 
+    else; 
+    return (A
+n ); 
+   } 
+Solution: 
+                           T (n) = 1; n =2 
+         T (n) = T
+( )n +C; n > 2 
+        Time Complexity = O (loglogn) 
+Space Complexity 
+Suppose n = 16 
+  
+A(1) 
+A(2) 
+A(4) 
+A(16) 
+ For 
+22
+n k manner we are pushing in stack 
+  
+222
+n k
+   
+  
+22log 2 log 22k
+n     
+ n  2K   
+ K  
+2log n  
+     
+( )2Space complexity O log n=  
+❑❑❑ 
+  
+===== page 22 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK  
+Algorithm 
+6.19 
+2 
+DIVIDE AND CONQUER 
+ 
+2.1 DAC Application 
+ 
+2.2 Finding Maximum Minimum element 
+Recurrence Relation: 
+  
+1 if 1 or 2
+() 2 1 ; 22
+nn
+Tn nTn
+==
+=   +   
+Time Complexity: 
+  
+( ) ( )T n O n=  
+• Time complexity is same for every case (Best case/Worst case). 
+ 
+Space Complexity: 
+ 
+ 
+ 
+
+===== page 23 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK  
+Algorithm 
+6.20 
+ Space Complexity  
+( ) (log )
+()
+O n O n
+On
+=+
+=   
+ 
+Number of comparisons to find maximum / minimum element on an given array of n elements: 
+                          Comparison =  
+3 22n −  
+2.3 Power of an Element 
+Recurrence relation:  
+  
+1 if 1
+() 1 ; 12
+n
+Tn nTn
+=
+=   +   
+Time Complexity: 
+  
+() 2
+( ) (log )
+nT n T C
+T n O n
+=+ 
+=  
+Space Complexity:  
+ 
+Space Complexity  = 4B + O(logn) 
+  = O(logn) 
+Number of multiplications to find an  
+Multiplication = O(logn) 
+2.4 Binary Search 
+Given a sorted array and an element x, need to return the index of element x if it is present then 1, otherwise – 1.  
+Recurrence relation: 
+   
+1; 1
+() ;12
+n
+Tn nT C n
+=
+=   +   
+  
+
+===== page 24 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK  
+Algorithm 
+6.21 
+Time Complexity: 
+ 
+Space Complexity: 
+ 
+Space complexity = O(n) + O(1) 
+          = O (n) 
+2.5 Merge Algorithm 
+• Merging two sorted sub arrays of input size m,n. 
+• Number of comparisons to merge two sorted sub arrays of size m,n. 
+ Comparisons = m + n – 1 (worst case) 
+     Number of moves =m + n (Outplace Algorithm) 
+ 
+Number of comparisons in best case of merging two sorted subarrays of size m, n. 
+ comparisons = min (m, n) 
+          Moves = m + n (Always) 
+Note: 
+Best Case comes in comparisons no effect on moves. 
+ 
+  
+
+===== page 25 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK  
+Algorithm 
+6.22 
+2.5.1 Merge Sort Algorithm: 
+ 
+ 
+ 
+Note: 
+• In GATE exam if merge sort given then always consider outplace.  
+• If array size very large, merge sort preferable.  
+• If array size very small, then prefer insertion sort.  
+• Merge sort is stable sorting technique. 
+ 
+ 
+ 
+ 
+
+===== page 26 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK  
+Algorithm 
+6.23 
+2.6 Quick Sort Algorithm 
+ 
+Example 1: In Quick for sorting n elements, the 
+th
+16
+n
+ smallest element is selected as pivot. what is the worst-case time       
+Complexity? 
+Solution. 
+   T (n) = T 
+16
+n
+  + T 
+15
+16
+n
+ +O (n) 
+        = (solve by recursive tree method) 
+Example 2: The median of n elements can be found in O (n) time then, what is the time complexity of quick sort algo in 
+which median selected as pivot? 
+Solution. 
+ T (n) = O (n)         +         C         +            O (n)           + T (n/2) + T (n/2) 
+               
+                     Find median     swap median         Partition algo 
+                                       with last 
+ = 2T (n/2) + C ∙ n 
+ = O(n log n)  
+ 
+ 
+
+===== page 27 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK  
+Algorithm 
+6.24 
+2.6.1 Randomized Quick Sort 
+• In Randomized quick short algorithm selection of pivot element can be taken randomly.  
+ 
+2.7 Counting Number of Inversion 
+• Counting number of inversion on given an array of an element. 
+Time complexity T(n) = O(nlogn)  
+2.8 Selection Procedure 
+Find Kth smallest on given an array of an element and integer K. 
+Time Complexity: 
+ T(n) = O(n2) 
+Space complexity: 
+ Space Complexity = O(n) 
+ 
+2.9 Strassen’s matrix Multiplication 
+ 
+ 
+
+===== page 28 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK  
+Algorithm 
+6.25 
+ 
+2.10 Comparison Based Sorting Algorithms 
+Sorting 
+Algorithm 
+Basic logic of sorting Algo BC AC WC Stable 
+sorting 
+Inplace 
+sorting 
+Quick sort Choose pivot element place in 
+correct position 
+(nlogn) (nlogn) (n2) No Yes 
+Merge sort Divide to equal parts recursively sort 
+each sub part & marge them 
+(nlogn) (nlogn) = 
+n logn 
+(nlogn) = n 
+log n 
+Yes No 
+Heap sort Build heap(max) delete max place (nlogn) (nlogn) (nlogn) No Yes 
+Bubble sort Compare exchange (n) (n2) (n2) Yes Yes 
+Selection sort Find position of min element 
+from [1 to n] 
+(n2) (n2) (n2) No Yes 
+Insertion sort Insert a [i + 1] into correct position (n) (n2) (n2) Yes Yes 
+ 
+❑❑❑ 
+  
+
+===== page 29 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK  
+Algorithm 
+6.26 
+3 
+GREEDY 
+TECHNIQUE 
+ 
+3.1 Greedy Technique 
+• Greedy method is an algorithm design strategy used for solving problems where solution are see n as result of making 
+a sequence of decisions. 
+• A problem may contain more than one solution. 
+3.2 Terminology 
+ 
+3.3 Applications of greedy 
+ 
+ 
+
+===== page 30 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK  
+Algorithm 
+6.27 
+3.4 Knapsack Problem 
+  Time complexity T(n) = O(nlogn) 
+3.5 Job Sequence with Deadline 
+• Single CPU only. 
+• Arrival time of each job is same. 
+• No pre-emption.  
+ 
+3.6 Optimal Merge Pattern 
+• This is a problem related to merging of files. Given a set of n-files in sorted order. It is required to merge 
+them into a single sorted file with 2-way merging. 
+• This problem is like merging process in merge sort. In merge sort we were interested in number of 
+comparisons but in optimal merge pattern we are interested in record movement (i.e moving a record from 
+one file to another file). 
+o If file F1 has 'n' records and file 'F2 ' has 'm' records then number of record movement will be 'm+n'. 1 2 
+The problem of optimal merge pattern involves merging of n-files (n≥2). 
+• At any point choose two records with least weight merge them and put them in list and continue it until all records are 
+merged. 
+• Time complexity T(n) = O(nlogn) 
+• Space complexity = O(n) 
+3.7 Huffman Coding 
+• Huffman coding is essentially a non-uniform encoding with convention that the character with higher 
+frequency (probability) of occurrence will be enclosed with less number of bits. 
+• It comes under data compression technique. 
+• Time complexity T(n) = O(nlogn) 
+ 
+
+===== page 31 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK  
+Algorithm 
+6.28 
+3.8 Minimum Cost Spanning Tree   
+3.8.1 Graph 
+   Graph (V., E) 
+ 
+     Set of vertices      set of edges 
+•  Let G(V, E) be a simple graph then 
+    Maximum edges = 
+V(V-1)
+2  
+         E 
+V(V-1)
+2  
+        E  C.V2 C is constant 
+Note: 
+           E = O(V2)               
+           Log E = O(logV) 
+    3.8.2 Graph Representation 
+      Graph Representation 
+   
+Adjacency matrix      Adjacency list 
+• For more edges (Dense Graph) Adj. matrix is better (density more). 
+• For less edge (sparse graph) Adj list is better. 
+(1) Finding degree of vertex Time Complexity 
+   
+Matrix List 
+O(V) Every Case O(1) Best Case 
+O(V1) Worst Case 
+(2)Finding total edges  Time Complexity  
+O(V2) Every Case O(V+2E) Worst Case  
+O(V) Best Case 
+(3) Finding 2-vertices adjacent (or)not  Time Complexity 
+O(1)  O(V-1) Worst Case 
+O(1) Best Case 
+(4) G(V,E)  space O(V2) Every Case O(V+E) Every Case 
+ 
+3.8.3 What is Spanning Tree 
+A subgraph T(V, E’) of G(V, E) where E’ is the subset of (Eʹ E) is a spanning tree iff ‘T’ is a tree. 
+A sub graph G(‘V, E’) of G(V, E) is said to be spanning tree.  
+(1) T’ should contain all vertices of G 
+(2) T’ should contain (V-1) edged where V is number of vertices without cycle. 
+===== page 32 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK  
+Algorithm 
+6.29 
+(3) T’ should connected. 
+3.8.4 Minimum Cost Spanning Tree 
+Minimum cost spanning tree is the one in which cost of the spanning tree formed should be minimum. 
+3.8.5 Prims Algorithm 
+• Select Any vertex 
+ Time complexity = V + VlogV + 2E + ElogV 
+ = O(E + V)logV 
+Using Sorted Array & Adjacency List 
+V + 2E + E × V = O(EV) 
+Using Sorted Array & Adjacency List 
+V × O(1) + V2 + E × V= O(EV) 
+3.8.6 Kruskal algorithm 
+• Take first minimum edge 
+ Time complexity = E log E + (V + E) 
+  = O(E log E) = O(ElogV) 
+ If edges are already sorted 
+ TC = O(E + V) 
+3.9 Single Source Shortest Path 
+3.9.1 Dijkstra Algorithm  
+• Using min heap & adjacency list  = O(E + V)logV 
+• Using adjacency Matrix & Min heap = O(V2 ElogV) 
+• Using adjacency list & Unsorted Array = O(V2) 
+• Using adjacency list & Sorted Doubly Linked List = O(EV) 
+3.9.2 Bellman-Ford 
+• Time Complexity = O(EV) 
+• If negative edge weight cycle then for some vertices Incorrect answer. 
+❑❑❑ 
+ 
+===== page 33 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK  
+Algorithm 
+6.30 
+4 
+DYNAMIC 
+PROGRAMMING 
+ 
+4.1 Dynamic Programming 
+In dynamic programming for optimal solution always computes distinct function calls. 
+4.2 Terminology 
+ 
+4.3 Application of Dynamic Programming 
+ 
+4.4 Fibonacci Series 
+• Time complexity T(n) = O(nlogn) 
+• Computes distinct function calls.  
+
+===== page 34 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK  
+Algorithm 
+6.31 
+4.5 Job Sequence with Deadline 
+• Single CPU only 
+• Arrival time of each job is same 
+• No pre-emption  
+ 
+4.6 Longest Common Sub sequence (LCS) 
+• For common subsequence always consider two strings:  
+• P = <ABCDB> – Q = <BDCABA>  
+• Common subsequences for both ‘p’ are  
+• S = <A>  
+• S = <AB>  
+• S = <CAB>  
+• S = <BDAB>  
+• A common subsequence of longest length is known as longest common subsequence. 
+• For above problem longest common subsequence will be of length u. 
+4.6.1 Applications of LCS 
+1. Genomics  
+2. Software engineering applications  
+3. Plagiarism  
+4. Data gathering system of search engines  
+4.6.2 Algorithm for LCS 
+LCS (p,q) 
+{ 
+1.
+  
+01
+[ 1] 0
+For i to n
+Li
+−
+−=  
+2.
+  
+01
+[ 1, ] 0
+For j to m
+Lj
+−
+−=  
+
+===== page 35 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK  
+Algorithm 
+6.32 
+3. 
+ 
+01
+01
+For i to n
+For j to m
+−
+−  
+ 
+( [ ] [ ])
+[ , ] 1 ( 1, 1];
+[ , ] { , 1 , [ 1, ]}
+If p i q j then
+L i j L i j
+else
+L i j max L i j L i j
+=
+= + − −
+= − −
+ 
+} 
+• Time complexity of step 1 = O(n) 
+• Time complexity of step 2 = O(m) 
+• Time complexity of step 3 = O(mn) 
+• Total Time complexity = O(n) + O(m) + O(mn) 
+  = O(mn) 
+• Space complexity = O[(M+1).(n+1)] 
+  = O(mn) 
+4.7 Matrix Chain Multiplications 
+Two matrices ‘A’ and ‘B’ are compatible if and only number of column of first matrix must be equal to number of rows of 
+second matrix. 
+4.7.1 Brute force method 
+Number of parenthesizing for a given chain is given by Catalan number: 
+21
+1
+n
+nCn
+
+ +  
+Time complexity = O(nn)  
+Space complexity = O(n) 
+4.7.2 Algorithm For Matrix Chain Multiplication 
+The time complexity of multiply the given chain of n matrices <A1, A2 A3…. An> using dynamic programming (district 
+function call) is O(n3)  
+Space complexity = O(n2) 
+ 
+ 
+
+===== page 36 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK  
+Algorithm 
+6.33 
+4.8 O/1 Knapsack Problem 
+The maximum profit can be achieved by O/1 knapsack problem where capacity of problem is ‘p’ and number of objects are 
+‘q’. 
+ 
+4.9 Sum of Subset Problem 
+• Given n-elements and an integer 'm', it is required to determine whether there exists a subset of given n elements,  whose 
+sum equal M. 
+• This is a decision problem (True/False). 
+4.9.1 Algorithm for Sum of Subset Problem 
+SoS(n, M, A) 
+// A [1 . . . n] is an array of elements 
+ { 
+1. for i = 0 to n 
+  for j = 0 to M 
+  if (i > =0 and j = 0) 
+  SoS [i, j] = T 
+ else 
+  if (i = 0 and j > 0) 
+  SoS [i, j] = F; 
+ else 
+  if (A[i] > j) 
+  SoS [i, j] = SoS [i – 1, j] 
+ else 
+  SoS [i, j] = SoS [i – 1, j] or 
+  SoS [i – 1, j – A[i]] 
+ } 
+ 
+
+===== page 37 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK  
+Algorithm 
+6.34 
+4.9.2 Time Complexity of SoS 
+Two for loops are there thus repeating for (n * m) times. Thus, time complexity = O(n * m) 
+Time complexity of SoS becomes exponential if M = 2n 
+  T.C = O(n × 2n) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

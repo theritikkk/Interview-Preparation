@@ -1,0 +1,1957 @@
+
+===== page 1 =====
+DatabaseDatabase
+ManagementManagement
+SystemsSystems
+Database
+Management
+Systems
+===== page 2 =====
+Published By: 
+ 
+  Physics Wallah 
+ISBN: 978-93-94342-39-2 
+Mobile App: Physics Wallah (Available on Play Store) 
+  
+Website: www.pw.live 
+Email: support@pw.live 
+ 
+Rights 
+All rights will be reserved by Publisher. No part of this book may be used or reproduced in any manner 
+whatsoever without the written permission from author or publisher. 
+In the interest of student's community: 
+Circulation of soft copy of Book(s) in PDF or other equivalen t format(s) through any social media channels, 
+emails, etc. or any other channels through mobiles, laptops or desktop is a criminal offence. Anybody 
+circulating, downloading, storing, soft copy of the book on his device(s) is in breach of Copyright Act. Further 
+Photocopying of this book or any of its material is also illegal. Do not download or forward in case you come 
+across any such soft copy material. 
+ 
+Disclaimer 
+A team of PW experts and faculties with an understanding of the subject has worked hard for the books. 
+While the author and publisher have used their best efforts in preparing these books. The content has been 
+checked for accuracy. As the book is intended for educational purposes, the author shall not be responsible for 
+any errors contained in the book. 
+The publication is designed to provide accurate and authoritative information with regard to the subject matter 
+covered. 
+This book and the individual contribution contained in it are protected under copyright by the publisher. 
+(This Module shall only be Used for Educational Purpose.) 
+
+===== page 3 =====
+ 
+ 
+ 
+Design Against Static Load 
+ 
+ 
+ 
+ 
+ 
+ 
+1. Database Design ...................................................................................................................  10.1 – 10.9 
+2. ER Model  ............................................................................................................................. 10.10 – 10.13 
+3. Relation Model and SQL  ......................................................................................................  10.14 – 10.25 
+4. File Organization and Indexing [B and B+ Tree] ................................................................... 10.26 – 10.31 
+5. Transactions and Concurrency Control ................................................................................ 10.31 – 10.46 
+ 
+ 
+ 
+ 
+INDEX 
+GATE-O-PEDIA COMPUTER SCIENCE & INFORMATION TECHNOLOGY 
+===== page 4 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Design Against Static Load 
+10.1 
+1 
+DATABASE DESIGN 
+1.1  Introduction 
+A database is an organized collection of structured data or related data. 
+1.2  Limitations of File System 
+• The physical details of the data to access the database  are managed by the user.  
+• File system can be used to manage small database. 
+• When database is large, the operating system fails to control the concurrency.  
+• Only single user can access the whole data of the file system at a time. 
+1.3  Integrity Constraints Of RDBMS 
+• According to codd, data in database file must be stored in tabular format (set of row’s and column’s). 
+• According to codd, no two row’s/records of the table should be equal.  
+ 
+1.3.1 Arity 
+Number of attributes of database table. 
+1.3.2 Cordinality 
+Number of records of database table. 
+1.4 Keys in database 
+• Condidate Key: A minimal set of attributes that differentiate records/row’s of DB table uniquely. 
+• Primary Key : One of the candidate key whose field value cannot be null. 
+• Simple Candidate Key: A candidate key with only one attribute. 
+• Compound Candidate Key: A candidate key with atleast two attributes. 
+• Overlapped Candidate Key: Two or more candidate key with some common attribute. 
+• Prime attribute: The attribute that belongs to some candidate keys of a relation. 
+• Non-prime attribute: The attribute that does not belongs to any of the candidate keys of the relation. 
+ 
+Example :  
+ Consider a relation R (ABCDE) 
+1. Assume candidate key : {AB, BC} 
+===== page 5 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.2 
+2. The above candidate keys are compound and overlapped. 
+3. Prime attribute {A, B, C} 
+4. Non-prime attribute : {D, E} 
+1.4.1 Difference between Primary key and Alternative key 
+Primary Key Alternative Key 
+1. Any one candidate key whose field value can not be null. 
+2. Atmost one primary key allowed for any DB table. 
+1. All candidate key of relation except primary key, whose 
+field value can be null. 
+2. Many (o or more) alternative keys are allowed for DB 
+table. 
+ 
+1.4.2 Super key 
+The set of attributes which can differentiate records/tuples uniquely or super set of candidate key. 
+Example 1: R (ABCD) with CK = {A} 
+  Super key = CK ⸱ [Any subset of other attributes (BCD)] 
+  = A ⸱ [23] = 8 Super key. 
+Example 2 : Let R be the relational schema with n-attibutes, R (A1, A2, ....... An) then number of superkeys possible: 
+(I) With (A1) as candidate key : 2n–1 
+(II) With {A1, A2} as candidate key : 2n–1 –2n–2 + 2n–1 
+(III) With {A1A2, A3A4} as candidate key: 2n–2 – 2n–4 + 2n–2 
+(IV) The maximum number of super keys possible when each attribute of R is candidate key : 2n–1 
+(V) The minimum number of super key possible when all the attributes combined form single candidate key: 
+1 {A1A2 ..... An : candidate key} 
+1.5  Referential Integrity Constraints 
+1.5.1 Foreign key 
+Foreign key is a set of attributes that references primary key or alternative key of the same relation or other relation. 
+ 
+Referenced Relation 
+Sid Sname Age Sid Cid FeeStudent
+Referencing relationReferencing relation
+Referential
+key must be
+(PK or AK)
+Sid is foreign
+key in Enroll
+Enroll
+Note: 
+        For any RDBMS table there must be atleast one candidate key, whose field value can not be null. 
+         
+(Unique + Not Null) Primary key 
+ 
+===== page 6 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.3 
+1. Insertion : No violation 
+2. Deletion : [May cause violation] 
+ (a) On delete no action : Means if it cause problem on delete then deletion is not allowed on table. 
+ (b) On delete cascade : If we want to delete primary key value from referenced table then it will delete that value from 
+referencing table also. 
+ (c) On delete set null : If we want to delete primary key  value from referenced table then it will try to set the null 
+values in place of that value in referencing table. 
+Note: 
+         If foreign key field is not null attribute then “On delete set null” is same as” on delete no action.” 
+ 
+3. Updation : [May cause violation] 
+ (a) On update no action 
+ (b) On update cascade 
+ (c) On update set null 
+Referencing Relation 
+1. Insertion : [May cause violation] 
+2. Deletion : No violation 
+3. Updation : [May cause violation] 
+Note 
+If integrity violation occurs because of insertion or updation in referencing table then restrict insertion and updation. 
+ 
+Example: 
+ 
+ 
+So, If we delete (2, 4) then PK “2”. gets deleted from the table and all the tuples in which B is referencing PK.2” also gets  
+deleted. 
+ 
+1.6 Database Design Goals 
+1. 0% redundancy 
+2. Loss-less join 
+3. Dependency preservation 
+  
+A
+2
+3
+4
+5
+6
+B
+4
+4
+5
+4
+2
+F.KP .K
+B is foreign key referencing
+A  delete (2, 4) and on delete cascade..
+A
+3
+4
+5
+B
+4
+5
+4
+Result
+===== page 7 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.4 
+1.6.1 Functional Dependency 
+Let R be the relational shcema and x, y be the non-empty set of attributes. Consider t 1, t2 are any tuples of relation then x → y 
+(y functionally determined by x): 
+If 
+ t1, t2 t1⸱x = t2⸱x then t1⸱y = t2.y 
+1.6.2 Types of Functional Dependency 
+1. Trivial Functional Dependency 
+Consider relational schema R(ABCD) 
+A FD x → y is trivial FD only if x  y. 
+ 
+Example :  
+  AB  → A 
+    A → A 
+    B → B 
+   
+2. Non-trivial Functional Dependency 
+Consider relational schema R(ABCD) 
+A FD x → y is non-trivial only if 
+x  y =  means no common attributes between x and y attribute sets. 
+ 
+Example :  
+    A → B 
+  AB → CD 
+3. Semi-Non-Trivial Functional Dependency 
+A combination of both trivial FD and non-trivial FD. 
+Example :  
+  A → AB  {A → A, A→B} 
+1.6.3 Attribute Closure (X+) 
+The set of all possible attributes determined by x. 
+Example :  
+  R (ABCD) {A → B, B → C, C → D} 
+   (A)+ = {A, B, C, D} 
+1.6.4 Armstrong’s Axioms 
+1. Reflexive : If x  y then x → y or x → x 
+2. Transitivity : If x → y and y → z then x → z 
+3. Augmentation : If x → y then xz → yz 
+4. Splitting : If x → yz then x → y, x → z 
+5. Union : If x → y and x → z then x → yz 
+6. Pseudo transitivity : If x → y, yw → z then xw → z 
+ 
+===== page 8 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.5 
+1.6.5 Finding Candidate Key [Minimal Super Key] 
+X is candidate key of R 
+If and only if 
+1. x must be super key of relation R 
+ (x)+ = {determine all attributes of R} 
+2. No proper subset of ‘x’ is super key of relation R. 
+  y  x : (y)+ = {not determine all attributes of R} 
+• x → y is a non-trivial FD in R with y is a prime attribute then relation R has atleast two candidate key. 
+ 
+  (x → y) : Non – trivial FD 
+           ↓ 
+    Prime-attribute 
+1.7  Membership of FD 
+A FD x → y is member (logically implied) of FD set F if and only if (x)+ should determine ‘y’ in FD set F. 
+Example : Given FD Set F : { ….} 
+    ↓ 
+    x → y FD belongs to F or not ?  
+          ↓ 
+    x+ = {…y…} 
+    then x → y is member of F. 
+1.7.1 Testing of Two FD Sets whether they are equal or not 
+F and G FD sets equality test:  
+F and G FD sets logically equal if and only  
+1. F cover’s G : All FD’s of G set must be member’s of F set. 
+ F  G 
+2. G cover’s F : All FD’s of F set must be member’s of G set. 
+ F G 
+F Cover G G Cover F Result 
+True True F  G 
+True False F  G 
+False  True F  G 
+False False F & G are not comparable 
+1.7.2 Minimal Cover or Canonical Cover 
+• Minimal Cover of given FD Set (F) is minimum possible FD’s (Fm), which is logically equal to ‘F’ : (F = Fm) 
+• Remove extraneous attribute (useless attribute) from each determinant of FD set F. 
+ {wxy →z, w→x}  {wy → z, w → x} 
+• Every FD must be simple (RHS of any FD should have single attribute). 
+w  y  zx →
+Extraneous
+attribute
+===== page 9 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.6 
+Example : F = {A → CD} then {A → C, A→ D} 
+• FD set must be non-redundant FD. (eliminating unnecessary FD’s) 
+Example : F = {A → B, B → C, A→ C} then  
+ F = {A → B, B→ C} because A → C is redundant. 
+ 
+Note: 
+         Minimal Cover of FD Set (F) may not unique, but all minimal cover’s logically equal. 
+         
+12Fm Fm F  =  
+ 
+1.8  Normalization 
+Normalization used to eliminate/reduce redundency in DB relations. 
+The normalization is especially meant to eliminate the following anomalies: 
+• Insertion anomaly 
+• Deletion anomaly 
+• Update anomaly 
+• Join anomaly 
+1.8.1 Normalization of DB table 
+Decompose relation into two or more sub-relations in-order to reduce or eliminate redundancy and DB anomalise. 
+1.8.2 Properties of Decomposition 
+• Loss-less Join decomposition: Relational Schema R decomposed into R1, R2, R3, .... Rn sub-relations. 
+• In general [R1 ⋈ R2 ⋈ R3 ......... Rn]  R 
+1. If [R1 ⋈ R2 ⋈ R3.......⋈ Rn]  R then loss-less join decomposition. 
+2. If [R1 ⋈ R2 ⋈ R3 ........ ⋈ Rn]  R then lossy join decomposition. 
+ 
+Example :  
+ Let R be the relational schema decomposed into R1 and R2. 
+ Given decomposition is loss-less join if– 
+1. R1  R2 = R (all attributes covers) 
+2. R1  R2   
+3. 
+1 2 1
+1 2 1
+R R  is SK of R
+R R R  
+
+→
+  or 
+1 2 2
+1 2 2
+R R  is SK of R
+R R R
+
+→
+  
+1.8.3 Dependency Preserving Decompostion 
+Relational Schema R with FD set F decomposed into R1, R2, ......... Rn sub relations 
+Assume F1, F2, ......... Fn FD sets of sub relations respectively. 
+In general  
+ [F1  F2  ....... Fn]  F 
+1. If [F1  F2  ....... Fn]  F then dependency preserving decomposition. 
+2. If [F1  F2  ....... Fn]  F then not dependency preserving decompostion. 
+===== page 10 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.7 
+1.9  Normal Forms 
+Used to find degree of redundancy  
+ 
+ 
+• BCNF relations have 0% redundancy over FD’s where as 4NF relations have 0% redundancy over FD and MVD. 
+• To Eliminate redundancy over Non -Trivial FD, relation should decompose into BCNF but BCNF may not avoid the 
+redundancy due to MVD. 
+• To eliminate redundancy over non-trivial MVD, relation should decompose into 4NF (4th Normal Form). 
+1.9.1 First Normal Form 
+• Default NF of RDBMS relations. 
+• Relation (DB Table) R is in 1 NF if and only if no multivalued attributes in R. [Every attribute of R must be atomic/single 
+valued]. 
+ 
+Note: 
+         Degree of redundancy is very high in 1NF relation. 
+ 
+ 
+Important Point 1 
+• x → y FD forms redundancy in relational schema R if and only if – 
+(i) Non-Trivial FD 
+ and 
+(ii) X is not super key. 
+• x → y FD not forms any redundancy in relation R if and only if– 
+(i) Trivial FD [x  y] or Semi-trivial  
+   or 
+(ii) x : super key 
+1.9.2 Second Normal Form (2NF) 
+Relational Schema R is in 2 NF iff 
+• R should be 1NF 
+• R should not contain any partial dependency 
+Partial Dependency 
+Let R be the relational schema and x, y, z are non-empty set of attributes. 
+ X : Any candidate key of R. 
+ Y : Non-prime attribute 
+ Z : Proper subset of candidate key 
+
+===== page 11 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.8 
+ 
+  z → y is said to be partial dependency iff– 
+• z is proper subset of candidate key 
+• y should be non-prime attribute. 
+Important Point 2 
+   
+Not super key
+Proper subset of Candidate key Non-Prime attribute→
+ 
+The above FD forms redundancy in R. 
+1.9.3 Third Normal Form (3NF) 
+Relational schema R is in 3NF iff every non-trivial FD x → y in R with– 
+(i) x must be super key (SK) 
+or 
+(ii) y must be prime attribute. 
+ {SK → Prime/Non-Prime, (Not SK) → Prime attribute} 
+Important Point 3 
+ 3NF allow FD set: 
+ [Proper subset of candidate key] → [Proper subset of other candidate key] 
+ which forms redundancy in R. 
+1.9.4 Boyce codd Normal Form (BCNF) 
+Relational schema R is in BCNF iff every non-trivial FD “x → y” with x must be super key. 
+ Prime/ Non-prime attributes must be determine by super key. 
+Important Point 4 
+If R is in 3NF but not BCNF then [Proper subset of candidate key] → [Proper subset of other candidate key] 
+must exists in R. 
+Important Point 5 
+If relational shcema are with only simple candidate key then R always in: 
+ I. 2NF 
+ II. May or may not 3NF/BCNF 
+Reason : [Proper subset of candidate key] → [Non-prime attribute] 
+From the above statement, we can conclude that “partial dependency” not possible if all CK’s are simple candidate key. 
+Important Point 6 
+If relational schema R with only prime attribute (No non-prime attribute in R) then R always in: 
+ I. 3NF 
+ II. May or may not BCNF 
+ 
+z y
+x
+===== page 12 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.9 
+Important Point 7 
+If relational schema R with no non-trivial FD’s then R always in BCNF. 
+ 
+1.9.5 Database design Table 
+DB design goal 1NF 2NF 3NF BCNF 
+1. Loss-less jon decomposition Yes Yes Yes Yes 
+2. Dependency preserving decomposition Yes Yes Yes May not 
+3. O% redundency No No No Yes [Over FD] 
+ 
+• Every relation possible to decompose into 1NF, 2NF, 3NF, BCNF with loss-less join decomposition. 
+• Every relation possible to decompose into 1NF, 2NF, 3NF with Dependency preserving decomposition. 
+• Not every relation can decompose into BCNF and 4NF with dependency preserving decompostion. 
+• Most accurate normal form to design simple database is 3NF because every relation is possible to decompose into 3NF 
+with loss-less join and dependency preserving. 
+ 
+ 
+❑❑❑ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+===== page 13 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.10 
+2 
+ER MODEL 
+ 
+2.1  Introduction 
+Entity relationship diagram used to represent diagrametic design (High level design) of DB. 
+2.2 Main components in ER Diagram 
+(i) Attributes 
+(ii) Entity sets 
+(iii) Relationship sets 
+(a) Entity sets 
+It is a set of entities of the same type denoted by a rectangular box in ER diagram. Entity can be identified by a list of 
+attributes which are placed in ovals. 
+Represent by :
+  
+Example : 
+   
+(b) Attributes  
+(i) Attribute :   
+(ii) Key attribute :        
+(iii) Derived attribute :        
+ 
+ 
+ 
+ 
+ 
+eid
+Emp
+DOB
+Age
+A
+A
+
+===== page 14 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.11 
+ 
+(iv) Composite attribute: Attribute which can be represented as two or more attributes. 
+   
+ 
+(v) Multivalued attribute:  
+(c) Relationship set: It is used to relate two or more entity set. 
+ Represented by :  
+  
+ Example: 
+     
+2.3 Participation 
+• If every entities of entity set are participated with relationship set then it is total participation (100% participation) 
+otherwise it will be partial participation (< 100% participation) 
+Example :  
+ Consider Emp and Dept entity set. 
+ Manages relationship set such that each dept must have manager. 
+ 
+2.4 Mapping [Cardinality constraints of relationship set] 
+One mapping : Atmost one (0 or 1) 
+Many mapping : 0 or more (0 ...... *) 
+1. Binary Relationship Mapping (One : One) 
+ 
+2. Binary Relationship Mapping (One : Many) 
+A
+B C D
+A
+E1 R E2
+Binary relationship
+Candidate
+key of R : {A, B}
+A B
+1 1E1 E2
+A B
+E1 E2R Ror
+===== page 15 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.12 
+ 
+3. Binary Relationship Mapping (Many to One) 
+ 
+4. Binary Relationship Mapping (Many to Many) 
+ 
+2.5 RDBMS Design of Given ER Diagram 
+(For binary relationship) 
+1. Partial participation on both side of binary relationship 
+• One to Many : Merge relationship set towards many side. So, 2 relational tables. 
+• Many to one : Merge relationship set towards many side. So, 2 relational tables. 
+• One to one : Merge relationship set any one side. So, 2 relational tables. 
+• Many to Many : Separate table for each entity set and relationship set. so, 3 relational tables. 
+2. Full participation on “one” side of many to one relationship 
+Merge the entities and relationship set into single relational table. So, 1 table. 
+3. Full participation on “Many” side of Many-to-one relationship 
+Merge relationship set towards many side. So, 2 relational tables. 
+4. Full participation on any “one” side in one-to-one relationship 
+Merge the entity sets and relationship set into single table. So, 1 table. 
+5. Full participation on any “Many” side of Many-to-Many relationship 
+Merge relationship set towards any “Many” side of relationship. So, 2 table. 
+ 
+ 
+ 
+ 
+ 
+Candidate
+key of R:{B}
+A B
+1 ME1 E2
+A B
+E1 E2R R1 Mor
+Candidate
+key of R:{A}
+A B
+M 1E1 E2
+A B
+E1 E2R RM 1or
+Candidate
+key of R:{ }AB
+A B
+M NE1 E2
+A B
+E1 E2R RM Nor
+===== page 16 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.13 
+6. Full participation on both side of relationship 
+1:1 Merge the entity sets and1:M relationship set into singleM:1 relational table so, 1 relational tableM:N• • • • 
+ 
+2.6 Self-Referencial Relationship Set 
+(Recursive entity set) 
+Entities of entity set (E) related to some other entity of same entity set (E). 
+ 
+2.7 Weak Entity Set and Weak Relationship Set 
+The entity set with no key. (Attributes of weak entity sets are not sufficient to differenciate entities uniquely). 
+ 
+ Points: 
+(a) For each weak entity set there must be owner entity set, which is strong entity set. 
+(b) Relationship set between weak entity set and identifier entity set is also “weak relationship set”. 
+(c) The participation towards weak entity set end must be “total participation”. 
+(d) The mapping between identifier entity set and weak entity set must be one : many (1 : M) 
+Example: 
+ 
+ 
+Note: 
+         Weak entity set and multivalued attributes allowed to represent in ER diagram but not allowed in RDBMS table. 
+          
+ 
+ 
+ 
+❑❑❑ 
+ 
+
+===== page 17 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.14 
+3 
+RELATION MODEL AND SQL 
+ 
+3.1 Procedural Query Language and Non-procedural Query Language 
+Procedural Query Language Non-procedural Query Language 
+Formulation of how to access data from the database table and 
+what data required to retrieve from DB tables. 
+“Relational Algebra” 
+Formulation of what data retrieve from DB tables. 
+“Relational Calculus” 
+3.2 Relational Algebra 
+(Always generate distinct tuples) 
+Relational algebra refers to a procedural query language that takes relation instances as input and returns relation instances as 
+output. 
+3.2.1 Basic operators 
+ : Projection operator 
+ : Selection operator 
+× : Cross-product operator 
+U : Union 
+– : Set difference 
+ƍ : Rename operator 
+3.2.2 Derived operators 
+ : Intersection {using “_”} 
+⋈ : Join {using X, } 
+/ or ÷ : Division {using , x, –} 
+I.  : Projection 
+•  attribute_name (R): It is used to project required attribute from relation R. 
+•  Condition(P) (R): It is used to select records from relation R, those satisfied the condition (P). 
+ 
+ 
+===== page 18 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.15 
+Example: 
+ 
+II. Cross product (×): 
+• R × S : It result all attributes of R followed by all attributes of S, and each record of R paired with every record of S. 
+• Degree (R × S) = Degree (R) + Degree (S) 
+• 
+( )R S R S =   
+Note: 
+• Relation R with n tuples and 
+• Relation S with 0 tuples then 
+number of tuples in R × S = 0 tuples 
+3.3 Join (⋈) 
+I. Natural join (⋈) 
+R⋈S  distinct attributes(equality between common attributes of R and S (R × S)) 
+Example: 
+• T1 (ABC) and T2 (BCDE) 
+  T1⋈T2 = ABCDE 
+( )1212
+12
+T B T B TT
+T C T C
+= 
+
+
+  =
+
+  
+• T1 (AB) and T2 (CD) 
+ T1 ⋈ T2  T1 × T2 = ABCD (T1 × T2) 
+Note: 
+Natural join equal to cross-product if join condition is empty. 
+II. Conditional Join (⋈c) 
+• R ⋈c S  c (R × S) 
+III Outer Joins: 
+(a) LEFT OUTER JOIN 
+R ⟕ S : It produces 
+ (R ⋈ S)  {Records of R those are failed join condition with remaining attributes null} 
+(b) RIGHT OUTER JOIN (⟖) 
+R ⟖S : It produces] 
+ (R ⋈ S)  {Records of S those are failed join condition with remaining attributes null} 
+A B C
+8 4 5
+2 4 5
+7 4 6
+3 5 5
+πB,C(R) :
+σA>S(R) :
+R B C
+45
+46
+55
+A B C
+8 4 5
+7 4 6
+===== page 19 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.16 
+(C) FULL OUTER JOIN (⟗) 
+ R ⟗ S = (R ⟕ S)  (R ⟖ S) 
+3.4 Rename operator (ƍ) 
+• It is used to rename table name and attribute names for query processing. 
+Example: 
+(I) Stud (Sid, Sname, age) 
+ƍ(Temp, Stud) : Temp (Sid, Sname, age) 
+(II) ƍ
+I,N,A  (Stud) : Stud (I, N, A) 
+All attributes renaming 
+(III) ƍ 
+Sid I
+age A        
+→
+→  (Stud) : Stud (I, Sname, A) 
+ age →A 
+Some attribute renaming 
+Example:  
+Retrieve eicls of female employees whoose salary more than every male employee? 
+ Result : 
+  
+3.5 Division 
+• It is used to retrieve attribute value of R which has paired with every attribute value of other relation S. 
+AB(R)/B(S): It will retrieves values of attribute ‘A’ from R for which there must be pairing ‘B’ value for every ‘B’ of S. 
+Expansion of ‘/’ by using basic operator 
+• Example: Retrieve sid’s who enrolled every course. 
+Result:  
+sidcid(Enroll)/ cid(Course) 
+Step 1: Sid’s not enrolled every course of course relation. 
+(Sid’s enrolled proper subset of course) 
+sid((sid(Enroll) × cid (course)) – sidcid (Enroll)) 
+
+===== page 20 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.17 
+Step 2: 
+[sid’s enrolled every course] = [sid’s enrolled some course] – [sid’s not enrolled every course] 
+ sidcid (E)/ cid(c) = sid(E) – sid((sid(E)× cid(C) – sidcid (E)) 
+3.6 Set operator 
+U: Union operator 
+– : Except minus 
+ : Intersection operator 
+• To apply set operations relations must be union compatable. 
+• R and S relations union compatable 
+• If and only if- 
+(i) Arity of R equal to Arity iof S and 
+(ii) Domain of attributes of R must be same as domain of attributes of s respectively. 
+ 
+Example 1:  
+Sid Sname Sid(..........) (..........)
+ 
+ {Arity not same so, set operation not allowed} 
+Example 2:  
+ 
+Sid S name Sid marks(.......) (.....)  
+ {Arity same but Sname domain is different from marks so, not allowed} 
+Example 3:  
+ 
+Sid Sname Stud ID, Stud name(.......) (.....)   
+{Arity and domains are same so, allowed for set operation} 
+• 1. Set operation on relation: 
+2 22 22 43
+R A S B
+ 
+===== page 21 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.18 
+:{ / } }
+2
+3
+4
+– :{ / ^ }
+3
+: { / ^ }
+2
+R S x x R V x s A
+AR S x x R x S
+AR S x x R x S
+   
+  
+   
+ 
+ 
+3.7 Cardinality Table 
+Assume relation R with n Distinct tuples and relation S with m distinct tuples: 
+RA Expression Cardinality 
+R × S n * m tuples 
+R ⋈ S {0 to n * m tuples} 
+R =⋈ S {n to n* m tuples} 
+R ⋈= S {m to n*m tuples} 
+R =⋈= S {max (n,m) to n*m tuples} 
+RS {max(n,m) to n + m} 
+R S {0 to min (m, n} 
+R–S {0 to n tuples} 
+R/S {0 to [n/m] tuples} 
+ 
+3.8 SQL 
+3.8.1 [Structure Query Lang] 
+ 
+ 
+ 
+3.8.2 Relational Query and SQL query 
+• SQL :  SELECT DISTINCT A1, A2, …… An   
+
+===== page 22 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.19 
+FROM R1, R2, …… Rn  
+WHERE P; 
+Equivalent RA : 
+( )( )A , A ..... A p 1 2 n1 2 n R R .....R     
+• SELECT 
+  projection of RA ()   
+FROM 
+  Cross-product (x) 
+WHERE 
+  Selection operator of RA ()   
+ 
+3.8.3 Basic SQL Clauses  
+SELECT DISTINCT A1, A2, …… An 
+FROM R1, R2, …… Rn 
+WHERE condition  
+GROUP BY (attributes) 
+HAVING condition  
+ORDER BY (attributes) (DESC) 
+     
+3.8.4 Execution Flow 
+FROM  cross-product of relations 
+ 
+WHERE  Selection operator () to apply condition for each record  
+ 
+GROUP BY  
+ 
+HAVING  
+  
+SELECT  
+ 
+DISTINCT  
+  
+ORDER BY 
+ 
+3.8.5 GROUP BY: 
+• It is used to group records data a based on specific attribute.  
+• It GROUP BY clause used then 
+(a) Every attribute of GROUP BY clause must be selected in SELECT clause.  
+(b) Not allowed to select any other attribute in SELECT clause.  
+Allowed to select aggregate function along with GROUP BY attribute in SELECT Clause. 
+===== page 23 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.20 
+ 
+ 
+ 
+3.8.6 HAVING Clause  
+• HAVING clause must be followed by GROUP BY clause.  
+• HAVING clause used to select groups those are satisfied having clause condition. 
+• HAVING clause condition must be over aggregation function such as some ( ), Every ( ) etc. but not allowed direct attribute 
+comparison  
+ 
+Example:  
+1. SELECT A  
+FROM R  
+GROUP BY A  
+HAVING AVG (c) > 60;  
+ 
+2. SELECT A, AVG (c) 
+FROM R  
+GROUP BY A 
+HAVING some (c) > 50; 
+ 
+3. SELECT A  
+FROM R  
+GROUP BY A  
+HAVING C> 60; 
+Error 
+===== page 24 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.21 
+   
+Not allowed 
+ 
+ 
+Note:  
+       WHERE clause condition tested for each record but HAVING clause condition tested for each GROUP. 
+ 
+3.8.7 WITH Clause  
+• WITH clause is used to create sub-query result that can be re-used many times in query processing.  
+ 
+Example: 
+ WITH Temp (Al, A2) as 
+ (SELECT T1 . A1, T2 . A2 
+ FROM Emp T1, Emp T2  
+ WHERE T1 . A1 < T2 . A1) 
+ 
+Note:  
+       Every Query which is written by using HAVING clause can be re-written by using WHERE clause. 
+ 
+3.8.8 Nested Query Without Co-relations 
+• Inner query independent of outer query. 
+ 
+ 
+ 
+• Execution flow must be Bottom to Top mean first bottom (Inner query) evaluated then outer query executed.  
+ 
+3.8.9 Co-related Nested Query  
+• In Nested Co-related query inner query uses attributes from outer query tables.  
+• In Co-related Nested query inner query allowed in WHERE, HAVING clause of outer query. 
+Example: SELECT A 
+FROM R  
+WHERE (SELECT count(*)  
+    FROM S 
+    WHERE S.B < R.A) < 5; 
+ 
+ 
+
+===== page 25 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.22 
+Important point 1  
+• If co-relation in WHERE clause then inner query re-computes for each record of outer query From clause.  
+• If correlation in HAVING clause then inner query re-computes for each group of outer query. 
+ 
+3.9 Function used for nested Queries 
+ 
+ 
+ 
+ 
+1. IN Function  
+It is used for membership testing.  
+ 
+ 
+Note:  
+       Queries of "equi Join" can implement by IN function 
+  (R  S) 
+ 
+2. ANY Function (operator  “<, ≤, >, ≥, =, < >”)   
+ 
+ 
+ 
+3. ALL Function 
+ 
+
+===== page 26 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.23 
+ 
+Note:  
+       ANY function can be used as queries of conditional join query. 
+ 
+Example: 
+  
+ 
+ 
+Important point 2 
+• IN function equal to ‘= ANY’ function  
+ 
+• IN function not equal to ‘= ANY’ if more than one attribute used for IN comparison. 
+ 
+• NOT IN function equal to “< > ALL”. 
+ 
+ 
+ 
+ 
+4. EXISTS clause  
+• It is used to test result of inner query is empty or not empty. 
+•  
+
+===== page 27 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.24 
+ 
+ 
+Example: 
+ 
+ 
+Note:  
+       EXISTS function can use as conditional join queries with join condition in inner query WHERE clause. 
+ 
+Emp (eid sal dno. Gen) Retrieve eids of femal’s whose salary more than (some) male emp. 
+ 
+ 
+ 
+ 
+ 
+SQL
+JOIN Query
+ 
+SELECT DISTINCT T1 . eid  
+FROM EMP T1, Emp T2 
+WHERE 
+  T1.gen = Female and  
+      T2.gen = male and 
+       T1.sal > T2 . sal 
+ 
+ 
+SQL
+Mested Query
+ 
+SELECT Eid 
+FROM Emp 
+WHERE gen = Female 
+and sal > ANY (SELECT sal  
+FROM Emp 
+WHERE gen = male); 
+ 
+SQL
+Co related Nested Query−
+ 
+
+===== page 28 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.25 
+SELECT Eid 
+FROM Emp T1 
+WHERE T1.gen = Female and 
+     EXISTS (SELECT * 
+       FROM Emp T2  
+      WHERE T2.gen = male and T1. Sal > T2 . sal); 
+ 
+ 
+❑❑❑ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+===== page 29 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.26 
+4 
+FILE ORGANIZATION AND 
+INDEXING [B AND B+ TREE] 
+ 
+4.1  File Organization 
+• Database is collection of files [Tables]. 
+• File is collection of blocks [Pages]. 
+• Block is collection of records. 
+Note: 
+         Data access from disk (DB file) to main memory block by block. 
+ 
+ 
+4.2  Records organization of DB file 
+Spanned Organization  Unspanned Organization 
+1.   Record allowed to span in more than one       
+      block. 
+1. Complete record must be in one block. 
+2.   Advantage: Possible to allocate file  
+      without any internal fragmentation. 
+2. Advantage: less access cost and easy to  
+    organize DB file. 
+3. Disadvantage: More access cost to     
+    access spanned records. 
+3. Disadvantage: May not possible to    
+    allocate DB file without any internal   
+     fragmentation. 
+ 
+ 
+Note: 
+        1.  Spanned organization prefer to store database record of the file with variable length record. 
+
+===== page 30 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.27 
+        2.  Unspanned organization prefer to store DB record of file with fixed length record. 
+4.3  Block factor [BF] 
+The maximum possible records which can store in block (maximum record per block). 
+ 
+Consider record size = R bytes 
+1. 
+Block size Header sizeBlock Factor Record size −=   
+             For unspanned organization 
+2. 
+Block size Header sizeBlock Factor Record size −=   
+              For spanned organization 
+4.4  Categories of Index 
+4.4.1 Dense Index 
+For each DB record of DB file there must be index entry in index file. 
+4.4.2 Sparse Index 
+For set of DB records (blocks) of DB file there exists index entry in index file. 
+Important Point I 
+• Sparse index possible only over ordered field of DB file. 
+• In Sparse indexing 
+ 
+No. of index No. of records
+file entries of DB file
+            
+4.4.3 Block Factor of Index 
+Assume Block size = B Bytes 
+Header size = H Bytes 
+Search key = K Bytes 
+Pointer size = P Bytes 
+Block Factor of index = BHKP −  +
+ 
+Note: 
+         By default header size will be 0 bytes, if not given in problem. 
+4.5  I/O Cost [Access cost] 
+
+===== page 31 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.28 
+The number of secondary memory block (DB file block) required to transfer from disk to main memory in order to access 
+required record.  
+1. I/O cost to access data record without index from DB file of n blocks  
+ (a) Over ordered field: 
+   Access cost = 
+2[log n]  block 
+ (b) Over unordered field: 
+   Access cost = n blocks  
+2. If Dense Index Used: 
+• Number of Dense Index block = 
+number of records
+Block Factor of Index
+
+  
+• Access cost (Number of Block access) 
+       = 
+( )
+st
+2log number of Dense index blocks at 1 level 1 +  
+3. If sparse Index Used: 
+• Number of DB blocks = 
+number of records
+BF of DB
+
+  
+• Number of sparse Index block (At 1st level) 
+ 
+number of DB blocks
+BF of Index
+=  
+• Access cost (Number of block access) 
+ 
+( )
+st
+2log number of sparse index blocks at 1 level 1 +  
+4.6  Types of Index 
+• Search key: Fields of DB file which is used for indexing 
+ 
+ 
+
+===== page 32 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.29 
+4.6.1 Primary Index 
+Search Key: Ordered field and key (candidate key) 
+• I/O cost to access record using primary index with multilevel indexing is (k + 1) blocks.  
+ Where k is level of indexing. 
+• For any database relation at most one primary index is possible because, search key must be ordered field. 
+• Primary index can be either dense or sparse but sparse primary index preferred. 
+4.6.2 Clustered Index 
+Search Key: Ordered field and non-key. 
+• I/O cost: 
+Single level index blocks :
+No.of distinct valuesover non-key
+BFof Index
+
+  
+ Access cost = 
+2log (singlelevelindexblocks) 1+   
+• I/O cost to access cluster of record using clustered index with multilevel index is: 
+k (oneor moreblockof DB)
+Untilnext cluster begins
++
+ 
+• For any DB relation at most one clustering index is possible because search key is ordered field. 
+Note: 
+        For any DB relation either primary index or clustering index is possible but not both simultaneously. 
+4.6.3 Secondary Index [over key] 
+Search Key : Unordered field and key. 
+• Secondary index is alternative index to access data records even primary or clustering index already exists. 
+• Secondary index over key is always dense index. 
+• I/O cost to access record using secondary index over key with multilevel index: (k + 1) blocks. 
+4.6.4 Secondary Index [over non-key] 
+Search Key: Unordered field and non-key. 
+• I/O cost to access record using secondary index over non -key with multilevel index = [k blocks from k level of index] + 
+[some more DB blocks] 
+ 
+Note: 
+         Many secondary index’s possible for DB file. 
+4.7  Balanced Search Tree [ Height Restricted Search Tree] 
+• The maximum height of search tree for n distinct keys should not exceed O (log n) 
+• Worst case search cost to search element is : O (log n) 
+4.7.1 Why B/B+ Tree Index preferred rather than balanced BST/AVL for DB index 
+(a) AVL: If AVL tree (balanced BST) used for DB index: 
+===== page 33 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.30 
+ 
+• Disadvantage: Each index block with only one key so the number of levels of index is high. (I/O cost to access data is also 
+very high). 
+• Wastage of disc space, which is allocated for index (only one key stored per block)  
+(b) B/B+ Tree:  
+  
+• The access cost (I/O cost) is less because many keys store in one node (number of levels of index will be less). 
+• The wastage of disk space is less. 
+4.7.2 B Tree Definition 
+• Order P (degree): The maximum possible child printers can be stored in B Tree node. 
+Node structure: P child pointer, P – 1 Key and P – 1 Record Pointer (Rp).  
+ 
+ 
+   order of node  
+  P  (size of block pointer) + (P - 1) (size of key field + size of record pointer)  Block size 
+1. Every internal node except root must be atleast 
+p
+2
+
+  block pointer and 
+p
+2
+
+ - 1 keys and at most P block pointer and (P – 
+1) keys. 
+2. Root can have at least 2 child/block pointer and 1 keys and at most P block pointer and (p - 1) keys. 
+3. Every leaf node must be at same level. 
+ 
+• Advantages: 
+B Tree index best suitable for random access of any one record. 
+ 
+Example: 
+  SELECT * 
+         FROM R 
+         WHERE A = 15; 
+  Worst case access cost = (k + 1) blocks 
+     Best case access cost = 2 blocks 
+• Disadvantages: 
+
+===== page 34 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.31 
+B Tree index not suitable for sequential access of range of records. 
+ 
+ 
+4.7.3 B+ Tree 
+Order P: The maximum possible pointers can be store in B+ tree node. 
+1. Node Structure: 
+• Leaf node: (set of (key, RP) pairs and one block pointer)     
+  
+    
+  Order of leaf node = (P –1) [ K + RP] + 1 * BP  Block size. 
+• Internal Node: 
+ Order of internal node = P * BP + (P – 1) * K  Block size. 
+• B+ Tree best suitable for random access of any one record and sequential access of range of records. 
+• I/O cost to access range of ‘x’ records sequential: 
+  
+ 
+Important point 2 
+If disk block allocation for B and B+ tree nodes are equal size then  
+1. Order P of B tree < order P of B+ Tree. 
+2. [number of index blocks of B tree index for n keys]  [number of index blocks of B+ Tree nodes for n keys] 
+3. I/O cost  I/O cost 
+Important point 3 
+If order P of B Tree is equal to order P of B+ Tree then 
+1. [number of B Tree node n distinct keys]  [ number of B+ Tree nodes for n distinct keys] 
+2. [B Tree level for n keys]  [ B+ Tree levels for n keys] 
+ 
+❑❑❑  
+K1R1 K2R2 ………. KP-1RP-1 BP →Block Pointer {pointer to next leaf} 
+===== page 35 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.32 
+5 
+TRANSACTIONS AND 
+CONCURRENCY CONTROL 
+ 
+5.1  Transaction 
+A set of logically related operation to perform unit of work. 
+5.2 Degree of concurrency 
+The number of users (Transactions) using data bases simultaneously (concurrently). 
+5.2.1 Flat File System 
+In flat file system 1 file is a resource so, only one user allowed at a time. 
+5.2.2 DBMS File System 
+• In DBMS file system 1 record is a resource so, it allows as many users as the number of records. 
+• More degree of concurrency. 
+5.3 Main Operations in Transactions 
+5.3.1 Read (A) 
+Access the data item ‘A’ from DB file ‘Disk’ to programmed variable (main memory) in order to use current value of ‘A’ in 
+transaction logic. 
+ 
+5.3.2 Write (A) 
+Modification of data item ‘A’ in DB file.  
+ 
+5.4 ACID Properties 
+To preserve integrity (correctness) each transaction must satisfy ACID properties 
+ 
+ 
+ 
+ 
+===== page 36 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.33 
+ 
+ 
+DBMS Software 
+A∶Atomicity 
+D∶Durability} Recovery management component of DBMS 
+software take cares of atomicity and durability 
+I : Isolation} Concurrency control component of DBMS 
+software is responsible for isolation. 
+ 
+DBA User 
+C : Consistency} User (DBA or DB developer) is 
+responsible for consistency. 
+ 
+5.5 Atomicity 
+Execute all operations of transaction including commit or execute none of the operation of transaction by the time of transaction 
+termination. 
+Recovery management component should roll back, if transaction fails anywhere before commit. 
+5.5.1 Redo Operation 
+• It performs all the modification of database file because of transaction commit. 
+• Clean all the log entries of committed transaction. 
+• Redo is not performed after every commit but after every check point. 
+5.5.2 Undo Operation 
+• Undone all the write operation performed by the transaction. 
+• Convert dirty block (updated block) into clean block. 
+ 
+5.5.3 Check point 
+• Check point issued by DBMS software in regular interval. 
+• If checkpoint issued 
+(I) Performs Redo operation on all the committed transaction until previous checkpoint. 
+ 
+Example : 
+ 9 : 00  AM  DB Started 
+    : 
+ 9 : 05 AM  1st checkpoint 
+    : 
+ 9 : 10 AM  2nd checkpoint 
+    : 
+ 9 : 15 AM  System Crash 
+ 
+5.5.4 System Crash 
+If System crash/failure happen, required operation to recover are 
+(I) All committed transaction until previous checkpoint will perform Redo. 
+(II) All uncommitted transaction in entire system will perform undo. 
+(III) Clean all log entries.  
+ 
+===== page 37 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.34 
+5.5.5 Roll back (Abort) 
+Undo modification of database file which are done by failure transaction. 
+ 
+5.6 Durability 
+• Durability maintained by Recovery management component of DBMS Software. 
+• The transaction should able to recover under any case of failure. 
+• Transaction fails because of  
+1. Power failure 
+2. Software crash 
+➢  OS restarted 
+➢ DBMS restarted 
+3. OS/DBMS concurrency controller may kill transaction. 
+4. Hardware Crash (Disk failure) 
+ RAID architecture of disk design is used to overcome the problem. 
+5.7 Consistency 
+• User responsible for consistency. 
+• Database should be consistent before and after the execution of the transaction. 
+• DB operations requested by user (SQL queries/transaction operation) must be logically correct.  
+5.8 Isolation 
+• Isolation maintained by concurrency control component. 
+• Isolation means concurrent execution of 2 or more transaction result must be equal to result of some serial schedule. 
+ 
+5.9 Schedules 
+Time order execution sequence of two or more transactions. 
+Example :  
+ S : R2(A) R1(A) W3(A)  
+ 
+ 
+ 
+ 
+
+===== page 38 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.35 
+5.9.1 Serial Schedule 
+• After Commit of one transaction, begins (Start) another transaction. 
+• Number of possible serial Schedules with ‘n’ transactions is “n!” 
+• The execution sequence of Serial Schedule always generates consistent result. 
+ 
+Example 
+S : R1(A)  W1(A) Commit (T1) R2(A)W2(A) commit (T2). 
+5.9.2 Advantage 
+• Serial Schedule always produce correct result (integrity guaranteed) as no resource sharing. 
+5.9.3 Disadvantage 
+• Less degree of concurrency. 
+• Through put of system is low. 
+• It allows transactions to execute one after another. 
+5.10  Concurrent Schedule 
+Transactions can execute concurrently or simultaneously 
+• May result inconsistency. 
+• Better through put and less response time. 
+• To maintain consistency transaction should satisfy ACID property. 
+• If T1 and T2 transaction with ‘n’ and ‘m’ operations each, then 
+No. of concurrent Schedule = 
+(𝑛+ 𝑚)!
+𝑛!  𝑚!  
+5.11  Schedule Classification 
+ 
+5.12  Serializable Schedule 
+A Schedule is serializable Schedule if it is equivalent to a Serial Schedule. 
+(i) Conflict Serializability 
+(ii) View Serializability 
+
+===== page 39 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.36 
+ 
+5.13  Conflict Serializability 
+5.13.1 Topological order 
+Graph traversal algorithm for directed graph  
+(i) Visit vertex (v), whose indegree is ‘O’ and delete ‘V’ from the graph. 
+(ii) Repeate (i) for all the vertices of graph.  
+ 
+5.13.2 Conflict Pairs 
+Two operations form Schedule (s) are conflict pair if and only if 
+(i) Atleast one write operation. 
+(ii) Operation on different data item. 
+(iii) Operations are from different transactions. 
+ij
+ij
+ij
+S: r (A)..........w (A)
+S: w (A)..........r (A) Conflict Pairs
+S: w (A)..........w (A)
+
+
+
+ 
+5.13.3 Precedence Graph 
+A graph G in which vertex (v) represent the transaction of Schedule and edges (E) represent conflict pair precedence’s. 
+Example: 
+ S : R2(A)  R2(B) W1(A) W2(B) W3(A) W3(B) 
+ 
+5.13.4 Conflict Equal Schedule 
+Schedule S1 and S2 are conflict equal Schedule if and only if Schedule S2 can derived by inter changing consecutive non-conflict 
+pairs of Schedule S1. 
+ 
+Interchange
+12 Consecutive non conflict pairSS −⎯⎯⎯⎯⎯⎯⎯⎯ →  
+ 
+  
+
+===== page 40 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.37 
+Note: 
+         If Schedule S1 and S2 have 
+         (i)     Same set of transactions, and 
+         (ii)    Same precedence graph and 
+         (iii)  A cyclic precedence graph then 
+                 S1 and S2 are conflict equal Schedule.  
+ 
+Important Point 1: 
+1. If S1, S2 Schedule are conflict equal then precedence graph of S1 and S2 must be same. 
+2. If S1 and S2 have same precedence graph then S1 and S2 may or may not conflict equal.  
+ 
+5.14  Conflict Serializable Schedule 
+Schedule (s) is conflict serializable Schedule if and only if some serial Schedule (S) must be conflict equal to Schedule (S). 
+( )
+Conflict '
+Equal
+Conflict Serializable
+Scchedule
+Schedule (s) S Serial Schedule⎯⎯⎯ →
+ 
+Important Point 2: 
+Schedule (s) is conflict serializable Schedule if and only if  
+1. Precedence graph is a cyclic and  
+2. Conflict equal serial schedule are to apological order of precedence graph.  
+ 
+Note: 
+       [No. of serial schedule conflict equal to schedule s] = [No. of topological order of schedules precedence graph]  
+ 
+5.15  View Serializable Schedule 
+• Schedule (s) is view serializable if and only if some serial schedule (s’) view equal to schedule (s). 
+• Let S1 and S2 be two schedule with the same set of transactions, S1 and S2 are view equal view equivalent if the following 
+three conditions are met:  
+5.15.1 Initial Read 
+ 
+For each data item A, if transaction Ti reads the initial value of A in Schedule S1, then transaction Ti must, in Schedule S2, also 
+read the initial value of A. 
+ 
+ 
+
+===== page 41 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.38 
+5.15.2 Updated Read 
+ 
+For each data item A if transaction T i perform Read (A) in Schedule S 1 and that value was produced by transaction T j, then 
+transaction Ti must in Schedule S2 also read the value of A that is produce by the transaction Tj. 
+5.15.3 Final Write 
+ S1 : ……… Ti …….    S2 : …….. Ti….   
+  Final write of A : 
+( )
+Last write
+wA    Final write of A : 
+( )
+Last write
+wA  
+For each data item A, the transaction that perform  the final write (A) operation in schedule (S 1) must perform the final write 
+(A) operation in schedule S2. 
+Important Point 3 
+• If schedule S is conflict serializable schedule, then S is also view serializable schedule. 
+• If schedule s is not conflict serializable then it may or may not view serializable 
+• Every view serializable schedule that is not conflict serializable. 
+5.16  Classification based on Recoverability 
+The concurrent execution may leads: 
+1. Irrecoverable schedule 
+2. Cascading rollback problem 
+3. Lost update problem 
+The above problems can occur even if the schedule is serializable (Integrity satisfied) 
+5.16.1 Irrecoverable Schedule 
+• A schedule(s) is irrecoverable if and only if transaction T j reads data item ‘x’, which is updated by T i and commit of T j 
+before commit/rollback of transaction Ti. 
+• Irrecoverable means unable to recover or rollback. 
+ 
+ 
+ 
+ 
+
+===== page 42 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.39 
+5.16.2 Recoverable Schedule 
+A schedule(s) is recoverable if and only if 
+(I) No uncommitted read (no dirty ready in schedule(s). 
+Or 
+(II) If transaction T j reads data item ‘x’ which is updated by transaction ‘T i’, then commit of T j must be delayed until 
+commit/rollback of Ti. 
+ 
+5.16.3 Uncommitted Read (Dirty Read) 
+Transaction Tj reads data item ‘x’ which is updated by uncommitted transaction. Ti. 
+ 
+ 
+ 
+5.17 Cascading Rollback Schedule (Problem) 
+When some transaction reads data items which is updated by some other transaction then because of failure of the transaction 
+that updated the data item may rollback all the dependent transaction. 
+ 
+ 
+T1 T2 T3T3T3 T4 T5 T6
+w(A)
+R(A)
+w(A)
+w( )B
+Rollback 
+Failed 
+w(A)
+R( )B
+R( )B
+w( )C
+R( )C
+Roll back 
+===== page 43 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.40 
+Failure of T1 forced to rollback T2, T4, T5 and T6. 
+• Disadvantage of Cascading Rollback 
+1. It waste the CPU execution time. 
+2. Wastage of I/O access cost. 
+5.17.1 Cascadeless Rollback Recoverable Schedule 
+• No dirty read in the schedule. 
+• Transaction Tj should delay read (x) which is updated by Ti, until Ti commit or rollback. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+5.18  Lost Update Problem 
+Lost update problem occur if Tj write (x) which is already written by uncommitted transaction Ti. 
+ 
+ 
+5.19  Strict Recoverable schedule 
+A schedule must satisfy 
+1. Cascadeless rollaback recoverable schedule and 
+2. If Ti writes (x) then other transaction Tj write (x) must be delayed until Ti commit or rollback. 
+ 
+Recoverable 
+Cascade less 
+
+===== page 44 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.41 
+ 
+ 
+ 
+ 
+ 
+ 
+Note: 
+1. Strict recoverable schedule may or may not be serializable. 
+2. Serializable schedule may or may not be recoverable. 
+ 
+ 
+ 
+serial schedule 
+cascade less Roll back 
+Schedule 
+Schedule 
+Schedule 
+Recoverable 
+Concurrent 
+Irrecoverable 
+schedule 
+
+===== page 45 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.42 
+5.20  Concurrency control protocol 
+Concurrency control protocol should not allow to execute: 
+1. Non-serializable schedule (Violate Isolation). 
+2. Non-strict recoverable schedule (Violate atomicity and Durability). 
+5.21  Locking Protocol 
+Lock is as variable used to identify the status of data item. 
+Transaction (T1)  
+         Lock (A):  
+                R(A) 
+                W(A) 
+Granted by concurrency controller  
+            Lock(B): Denied by concurrency controller 
+5.22  Types of Lock 
+1. Shared Lock(s): Read only lock. 
+2. Exclusive lock (x): Read/write lock. 
+1. Shared (s mode) 
+• Exists when concurrent transaction granted READ access. 
+• Produce no conflict for Read only transactions. 
+• Issued when transaction wants to read and exclusive lock not held on item. 
+2. Exclusive (x) mode 
+• Exists when access reserved for locking transaction. 
+• Used when potential for conflict exists. 
+• Issued when transaction wants to updated unlocked data. 
+ 
+Example: 
+ Transaction (T1) 
+ S(A) :  Granted shared lock 
+ R(A) } only read allowed 
+ X(B) :  Granted exclusive lock 
+ 
+R(B) Read and writeW(B)  
+5.22.1 Lock compatible table 
+ 
+ 
+Data item A
+S
+X
+S
+Y es
+No
+X
+No
+No
+Holded by Ti
+Requested
+by Tj {
+===== page 46 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.43 
+5.23  Phase Locking Protocol (2PL) 
+• It guaranteed serializability. 
+• Transaction (T) allowed to request lock on any data item in any mode (x/s) until first unlock of transaction (T). 
+1. Growing Phase 
+Acquires all the required locks without unlocking any data. Once all locks have been acquired, the transaction is in it locked 
+point. 
+2. Shrinking phase 
+Release all locks and can not obtain any new lock governing rules of 2 PL. 
+Example: 
+ 
+ 
+Important point 1 
+1. If schedule (s) is executed by 2PL then schedule guaranteed is conflict serializable schedule.  
+2. Conflict equal schedule is based on lock points order of the transaction. 
+3. If schedule is not conflict serializable schedule (cyclic precedence graph) then schedule not allowed to execute by 2 PL. 
+ 
+Note: Every schedule which is allowed by 2PL is always conflict serializable, but not every conflict serializable schedule is 
+allowed by 2PL. 
+ 
+ 
+ 
+ 
+ 
+ 
+Transaction (T)
+S(A)
+X(B)
+S(C)
+X(D)
+U(C)
+U(D)
+U(A)
+U(B)
+Growing phase
+(locking phase)
+Locking point
+Strriking phase
+(unlocking phase)
+Conflict
+ serializable
+ schedule
+2PL
+===== page 47 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.44 
+5.23.1 Limitations of 2PL 
+1. 2PL restriction may leads to deadlock. 
+2. 2PL restriction may leads to starvation. 
+3. 2PL condition not sufficient to avoid 
+ (I) Ir-recoverable schedules 
+ (II) Cascading rollback problem 
+ (III) lost updated problem 
+5.24  Strict 2PL protocol 
+• Basic 2PL: Lock request of transaction (T) not allowed in shrinking phase of transaction T 
+and 
+Strict recoverable: All exclusive lock of transaction must hold until commit/Rollback of transaction T. 
+5.24.1 Strict 2PL protocol guarantees 
+(a) Serializability.  
+(b) Strict recoverable. 
+Disadvantage:  
+It is not free form deadlock and starvation.  
+Example:   
+ Transaction (T) 
+ 
+( )
+( )
+( )
+( )
+SA
+XB growing phaseSC
+XD
+
+
+
+  
+( )
+( )
+( )
+( )
+UA
+UB
+Strinking phaseCommit
+UB
+UD
+
+
+
+
+
+
+ 
+5.25  Rigorous 2PL 
+Basic 2 PL : A lock request allowed only in growing phase of transaction and  
+all locks (shared/Exclusive) of transaction T must be hold until commit or Rollback.  
+5.26  Conservative 2PL 
+Transaction (T) must lock all required data itmes in starting phase.  
+If locks are not available then unlock all data items and re-request all data item lock again.  
+===== page 48 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.45 
+  Basic 2PL Strict 2PL Rigorous 2PL Conservative 2PL 
+Guaranteed 
+Serializability 
+Yes Yes Yes Yes 
+Guaranteed strict 
+Recoverable 
+No Yes Yes No 
+Free from dead lock No No No Yes 
+Free from starvation No No No NO 
+   
+5.27  Time stamp ordering protocol   
+Assign global unique time stamp value to each transaction and produces order for transaction submission.  
+The time stamp values of transaction can be used for transaction identification and to set priority between the transaction.  
+ 
+5.27.1 Time stamp value for each data item    
+• Assume data item is A 
+I. Read TS value (A): It is the highest transaction time stamp value that has executed R(A) successfully.  
+II. Write TS value (A): It is the highest transaction TS value that has executed W(A) successfully. 
+1. Basic Time stamp ordering protocol:   
+a. If transaction T issues R(A) operation.  
+If (WTS(A)) > TS(T)  
+then Rollback T 
+else  
+{Allow to execute R(A) successfully  
+set RTS (A) = max {RTS(A), TS(T)}} 
+b. If transaction T issues W(A) operation  
+if (RTS(A)) > TS (T) 
+{then Rollback trans (T)} 
+else if (WTS(A) > TS(T)) 
+{then Roll back T} 
+Else  
+{Allow to execute W(A) successfully  
+set WTS(A) = {TS(T)}} 
+2. Thomas write rule stamp ordering protocol  
+a. If transaction T issues R(A operation  
+if (WTS(A)) > TS(T)   
+{then Rollback transaction T} 
+else 
+===== page 49 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Data Base Management System 
+10.46 
+{allow to execute R(A) successfully 
+set RTS (A) = max {TS(T), RTS (A)} 
+b. If transaction T issue W(A) operation  
+if (RTS (A) > TS(T)) 
+{then roll back T} 
+else if (WTS(A)) > TS(T) 
+{then ignore w(A) of transaction T and continue.} 
+else  
+{Allow to execute w(A) successfully  
+set WTS(A) = TS(T)} 
+3. Strick time stamp ordering protocol  
+A transition T2 that issues a R(A) or W(A) such that TS (T2) > WTS (A) has it read operation delayed until the transaction 
+1T  
+that write the value x has committed or rolled back.  
+Basic TS ordering protocol Thomas write TS ordering protocol Strict TS ordering protocol 
+1. Ensue conflict serialization  1. Ensure view serialization 1. Ensure conflict serialization  
+2. Free from deadlock 2. Free from deadlock 2. Free from deadlock 
+3. Not free from starvation  3. Not free from starvation 3. Not free from starvation 
+4. Not guaranteed strict recoverable    4. Not guaranteed strict recoverable   4. Guaranteed strict recoverable 
+ 
+ 
+❑❑❑ 

@@ -1,0 +1,997 @@
+
+===== page 1 =====
+CompilerCompiler
+DesignDesign
+Compiler
+Design
+===== page 2 =====
+Published By: 
+ 
+  Physics Wallah 
+ISBN: 978-93-94342-39-2 
+Mobile App: Physics Wallah (Available on Play Store) 
+  
+Website: www.pw.live 
+Email: support@pw.live 
+ 
+Rights 
+All rights will be reserved by Publisher. No part of this book may be used or reproduced in any manner 
+whatsoever without the written permission from author or publisher. 
+In the interest of student's community: 
+Circulation of soft copy of Book(s) in PDF or other equivalen t format(s) through any social media channels, 
+emails, etc. or any other channels through mobiles, laptops or desktop is a criminal offence. Anybody 
+circulating, downloading, storing, soft copy of the book on his device(s) is in breach of Copyright Act. Further 
+Photocopying of this book or any of its material is also illegal. Do not download or forward in case you come 
+across any such soft copy material. 
+ 
+Disclaimer 
+A team of PW experts and faculties with an understanding of the subject has worked hard for the books. 
+While the author and publisher have used their best efforts in preparing these books. The content has been 
+checked for accuracy. As the book is intended for educational purposes, the author shall not be responsible for 
+any errors contained in the book. 
+The publication is designed to provide accurate and authoritative information with regard to the subject matter 
+covered. 
+This book and the individual contribution contained in it are protected under copyright by the publisher. 
+(This Module shall only be Used for Educational Purpose.) 
+
+===== page 3 =====
+ 
+ 
+ 
+Design Against Static Load 
+ 
+ 
+ 
+ 
+ 
+1. Introduction and Lexical Analysis .........................................................................................  8.1 – 8.2 
+2. Parsing  .................................................................................................................................    8.3 – 8.11 
+3. Lexical Analysis  ....................................................................................................................  8.12 – 8.13 
+4. Syntax Directed Transaction  ................................................................................................    8.14 – 8.16 
+5. Intermediate, Code Optimization  ........................................................................................    8.17 – 8.23 
+ 
+ 
+ 
+ 
+ 
+INDEX 
+GATE-O-PEDIA COMPUTER SCIENCE & INFORMATION TECHNOLOGY 
+===== page 4 =====
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 
+ 
+ 
+Compiler Design 
+8.1 
+1 
+INTRODUCTION AND LEXICAL 
+ANALYSIS 
+ 
+1.1 CD Introduction 
+1.1.1 Definition 
+Convert High Level Language to Low Level Language. 
+ 
+ 
+ High Level Language can perform more than one operation in a single Statement. 
+ lol Level Language can perform atmost one operation in a statement. 
+1.2 Analysis and Synthesis model of Compiler 
+ 
+ There are 6 phases of the Compiler 
+ 
+ 
+ 
+
+===== page 5 =====
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 
+ 
+ 
+Compiler Design 
+8.2 
+1.  Lexical Analyzer: 
+ Program of DFA, it checks for spelling mistakes of program. 
+ Divides source code into stream of tokens. 
+2. Syntax Analyzer: 
+ Checks grammatical errors of the program (Parser). 
+ Parser is a DPDA. 
+3. Semantic Analyzer: 
+ Checks for meaning of the program. 
+ 
+Example:  
+ Type miss match, stack overflow 
+4. Intermediate Code Generation: 
+ This phase makes the work of next 2 phases much easier. 
+ Enforces reusability and portability. 
+5.  Code optimization: 
+ Loop invariant construct 
+ Common sub expression elimination 
+ Strength Reduction 
+ Function in lining 
+Deadlock elimination 
+6. Symbol Table: 
+(1) Data about Data (Meta data) 
+(2) Data structure used by compiler and shared by all the phrase. 
+ 
+
+ 
+  
+===== page 6 =====
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 
+ 
+ 
+Compiler Design 
+8.3 
+2 
+PARSING 
+2.1 CD - Grammar 
+ In compiler we only use: Type – 2 (CFG) and Type – 3 Regular grammar. 
+ Compiler = Program of Grammar 
+ Compiler = Membership algorithm 
+• Every programming Language is Context Sensitive Grammar (Context Sensitive Language) 
+2.1.1 Parse Tree and Syntax Tree 
+G:   E  E + T / T         E  E + T  T + T  T * F + T  F * F + T  2 * F + T  2 * 3 + T  2 * 3 + F 
+T  T * F / F   
+    E  2 * 3 + 4 
+Parse Tree: 
+ 
+ 
+ 
+Syntax Tree: 
+ 
+ To check to priority / Associativity: 
+ Randomly derive till you have enough operators, then check which one is done first. 
+ If priority of 2 operators is same and both Left and Right associative  Ambiguous Grammar [Useless] 
+ 
+ 
+ 
+ 
+ 
+
+===== page 7 =====
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 
+ 
+ 
+Compiler Design 
+8.4 
+2.1.2  Types of Parsers in Bottom Up: [CD - Parser] 
+ 
+ 
+2.2 CD-Syntax Analysis / Parsing 
+Grammatical Errors are checked by the help of parsers. 
+ Parsers are basically DPDA 
+ 
+ 
+ All of these parsers are table driven. 
+2.2.1  Mathematical Model of Parser 
+ 
+ Parsers generate Parse Tree, for a given string by the given grammar. 
+ 
+ 
+ 
+
+===== page 8 =====
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 
+ 
+ 
+Compiler Design 
+8.5 
+2.2.2  Top-Down Parser (LL (1)) 
+ It uses LMD and is equivalent to DFS in graph. 
+2.2.3  Algorithm to construct Parsing Table 
+1.    Remove Left Recursion if any. 
+2.    Left Factor [Remove Common Prefix] 
+3.    Find first and follow set 
+4.    Construct the table. 
+ If we increase the look ahead symbol: 
+2.2.4  Removal of common Prefix: (Left Factor) 
+1. S  a | a b | a A S  a Y 
+ Y   |b| A 
+2. A  a b A | a A | b 
+ A  a  | b      A  a  | b 
+ X  b A | A    X  b A | a x | b 
+ A  a X | b  
+ X  a X | b  
+ Y Y  A | 
+2.2.5 First and Follow 
+ First Set  extreme Left terminal from which the string of that variable starts. 
+  it never contains variable, but may contain ‘’. 
+  we can always find the first of any variable. 
+ Follow set  Follow set contains terminals and $. 
+It can never contain variable and ‘’. 
+How to find follow set? 
+1.    Include $ in follow of start variable. 
+2.    If production is of type  
+A  B   strings of grammar symbol]. 
+follow (B) = first (). 
+If,   , i.e. A  B, then follow(B) = follow(A). 
+ Productions like: A  A gives no follow set. 
+ 
+ 
+===== page 9 =====
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 
+ 
+ 
+Compiler Design 
+8.6 
+ First Follow 
+E C, id $, ) 
+E’ +,  $, ) 
+T C, id +, $, ) 
+T’ *,  +, $, ) 
+F C, id *, +, $, ) 
+ 
+2.2.6 Example of first and follow set 
+1. S  AB | CD 
+ A   aA | a 
+B  bB | b 
+C  cC | c 
+D  dD | d 
+ 
+ 
+2.2.7 Entity into Table: Top Down 
+1.    No of Rows = number of unique variable in Grammar. 
+2.    No of columns = [Terminals + $] 
+3.    For a Variable (Row) fill the column (Terminal) if its P, there in its first with the production required. 
+4.    If  is in first put V   under $ and its follow. 
+ 
+ If any cell has multiple items, then its not possible to have LL (1) Parser, since that will be ambiguous. 
+ In top down we do: Derivation 
+In Bottom up we do: Production. 
+ 
+Question: Construct LL (1) Parsing Table for the given Grammar: E  E + T | T; T  T * F | F; F  (E) | id;  G0 
+ Removing Left Recursion: 
+E  TE’ 
+E’ + TE’ | 
+T  FT’            G1 
+T’ *FT’| 
+F  (E) | id 
+ 
+ 
+ Left Factoring not Required: 
+ Construction of Table: [LL (1)] 
+ + * ( ) id $ 
+E Error Error ETE’ Error ETE’ Error 
+E’ E’TE’ Error Error E’ Error E’ 
+T Error Error TFT’ Error TFT’ error 
+T’ T’ T’*FT’ Error T’ Error T’ 
+F Error Error F() Error Fid error 
+ 
+ Since for G1, Table constructed with no multiple entries. Hence successfully completed. Hence G 1 is LL (1) 
+ 
+ 
+Question:         Construct LL (1) Parsing Table for the following Grammar: 
+S  L = R | R; L  * R | id; R  L  G0 
+Solution:        Left Factoring: 
+ First Follow 
+S a, c $ 
+A a b 
+B b $ 
+C c D 
+D D $ 
+===== page 10 =====
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 
+ 
+ 
+Compiler Design 
+8.7 
+ 
+ 
+Construction of Table: 
+ 
+ * = Id $ 
+S SLX Error SL 
+X 
+Error 
+L L*R Error Lid Error 
+R RL Error RL Error 
+ Error X = R Error X 
+ G1 is a LL (1) Grammar. 
+ 
+2.2.8 Hierarchy of Parsers: [for - free Grammar] 
+ 
+ 
+ For  - producing grammars every LL (1) may not be LALR (1). 
+ 
+ 
+ 
+ 
+ 
+ 
+Example: 
+ G: S  a S a | b S b | a | b (Unambiguous but no parser) L(G) = (a + b)  R 
+(Odd palindrome) 
+ Every RG is not LL (1) as it may be ambiguous, or Recursive or Common Prefix. 
+ Parsers exists only for the grammar if its Language is DCFL. 
+ There are some grammars whose Language is DCFL but no parser is possible for it. 
+ 
+Note: 
+          We can’t construct any parser for ambiguous grammar. Except: Operator precedence, parser possible for some      
+        ambiguous grammar. 
+===== page 11 =====
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 
+ 
+ 
+Compiler Design 
+8.8 
+2.4.9 Operator Precedence Grammar 
+Format: (1) No 2 or more variable side by side 
+ (2) No  production. 
+ 
+Example: 
+   
+ 
+ 
+ 
+ 
+2.2.10 Checking LL (1) without Table 
+ 
+A 1|1|1 then   A 1|2|3|
+
+first (1)  first (2) =   first (1)  first (2) =   
+first (1)  first (3) =     first (1)  first (3) =  
+first (2)  first (3) =   first (2)  first (3) = 
+     follow (A)  first (1) = 
+     follow (A)  first (2) = 
+     follow (A)  first (3) = 
+  
+2.2.11 Bottom-UP Parser 
+ It uses RMD in reverse and has no problem with:  
+(a) Left recursion (b) Common Prefix 
+  
+ LR (1) = LR(0) +1 Lookahead 
+ No parser possible for ambiguous grammar.  
+ There are some unambiguous grammars for which, there are no Parser. 
+ 
+2.2.12 Basic Algorithm for Construction 
+ Augment the grammar and expand it, and give numbers to it 
+ Construct LR (0) or LR (1) item set. 
+ From that fill the entries in the Table Accordingly. 
+ 
+SLR (1) 
+ LR (0) 
+LR (0) 
+ items 
+CLR (1) 
+ LR (1) 
+LALR (1) 
+ items 
+===== page 12 =====
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 
+ 
+ 
+Compiler Design 
+8.9 
+2.2.13 Types of Entries 
+(1) Shift Entries: Transitions or Terminals 
+   
+  
+ 
+ 
+Entry: 
+ 
+ a 
+I0 S1 
+ a Terminal I0, I1: Item sets.  
+
+ Shift entries are some for all Bottom – up Parser. 
+ 
+ 
+(2) State Entry: Transition or non – terminal (variable) 
+  A  Variable 
+Entry:  
+ 
+ A 
+I0 1 
+ Same for all Bottom-up Parser. 
+(3) Reduce Entity: done for each separate production in the item set of type: 
+ i > ×    
+ where,  i  Production Number 
+  
+  ×  Producing Variable 
+    Grammar String 
+ 
+(a) LR (0) Parser: 
+ Put Ri in every cell of the set-in action table (ALL). 
+(b) SLR (1) Parser: 
+ Put Ri only in the follow(x) form the Grammar. (Follow(x)) 
+(c) LALR (1) and CLR (1): 
+ Put Ri only in the look ahead of the production (Lookaheads) 
+ 
+ 
+ 
+
+===== page 13 =====
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 
+ 
+ 8.10 
+Compiler Design 
+2.2.14 Conflicts 
+LR (0) Parser: 
+ SR: Shift Reduce Conflict 
+ S    X    t       then SR 
+ R  Y  δ                conflict 
+ RR: Reduce Reduce conflict 
+ R  X                 then RR 
+ R  X   
+SLR (1) Parser: 
+ SR: 
+  
+t  follow (Y) 
+ RR: 
+  
+  Follow (x)n follow (y)  
+LALR (1) and CLR (1): Same as SLR (1), but instead  
+ 
+SR:  
+   
+   T  L2 
+RR: 
+   
+  L1  L2  
+
+
+2.4.15 Inadequate Static 
+A static having ANY conflict is called a conflicting state or independent state. 
+ 
+ 
+ 
+ 
+ The only difference between CLR (1) and LALR (1) is that, the states with the similar items, but different Lookaheads are 
+merged together to Reduce space. 
+ 
+Important Points 
+1. If CLR (1) doesn’t have any conflict, then conflict may or may not arise after merging in LALR (1). 
+2. If LALR (1) has SR – conflict, then we can conclude that CLR (1) also has SR – Conflict. 
+3. LALR (1) has SR – conflict if and only if CLR (1) also has SR. 
+  
+Note: 
+         The state S’  S. or S'  S.,$ is accepted state, and this is not a reduction. 
+===== page 14 =====
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 
+ 
+ 8.11 
+Compiler Design 
+• We can construct parser for every unambiguous regular grammar: [CLR (1) Parser]. 
+ 
+ 
+ 
+ 
+ 
+ 
+S 
+Simple 
+L 
+L to R 
+Scan 
+R 
+Using 
+Reverse  
+RMD 
+(1) 
+Lookahead 
+ 
+L 
+Look 
+A  
+Ahead 
+L 
+L to R  
+Scan 
+R 
+Revers 
+RMD 
+(1) 
+Lookahead  
+C 
+Canonical 
+L 
+L to R 
+Scan 
+R 
+reverse 
+RMD 
+(1) 
+Lookahead 
+ 
+ 
+Very Important Point: 
+ LALR (1) Parser can Parse non LALR (1) grammar, when only non-SR – Conflict by favouring shift over reduce. 
+Example: E  E + E | E * E | id | 2 + 3 * 5  E + E  * 5 
+ 
+
+ 
+  
+
+===== page 15 =====
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 
+ 
+ 8.12 
+Compiler Design 
+3 
+LEXICAL ANALYSIS 
+ 
+3.1 Lexical Analysis 
+ 
+3.1.1 Definition 
+Scan the whole program, char by char and produces the corresponding token. 
+ 
+ Also produces /Lexical Errors (if any). 
+ Functions of Lexical Analyzer. 
+(1) Scans all the character of the program. 
+(2) Token recognizer.  
+(3) Ignores the comment & spaces. 
+(4) Maximal Munch Rule [Longest Prefix Match]. 
+ 
+ 
+ 
+ 
+ 
+  
+ Lexeme  smallest unit of program or Logic. 
+ Token  internal representation of Lexeme. 
+3.1.2 Types of Token 
+(1) Identifier  
+(2) Keywords 
+(3) Operators 
+(4) Literals/Constants 
+(5) Special Symbol 
+ 
+Note: 
+          The Lexical Analyser uses, the Regular Expression. 
+ Prioritization of Rules. 
+    Longest Prefix match . 
+===== page 16 =====
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 
+ 
+ 8.13 
+Compiler Design 
+3.1.3 Token Separation 
+(1) Spaces 
+(2) Punctuation 
+ 
+3.1.4 Implementation 
+ LEX tool  Lex.yy.e 
+ 
+ All identifiers will have entry in symbol Table/ LA, gives entries into the symbol Table. 
+Regular Expression  DFA  Lexical Analyzer 
+ 
+3.1.5 Find number of Tokens 
+(1) void main () { 
+ Printf(“gate”); 
+   } 
+  {11 Tokens} 
+(2)    int x, *P; 
+  x = 10; p = &x; x++; 
+  [18 Tokens] 
+ (3) int x; 
+  x = y; 
+  x == y; 
+  [11 Tokens] 
+(4) int 1x23; [Lexical Error] 
+(5) char ch = ‘A’; 
+ [5 Token] 
+(6) char ch = ‘A; 
+ Lexical Error. 
+(7) char *p = “gate”; 
+ [6 Tokens] 
+(8) char * p = “gate; 
+ Error. 
+(9)  int x = 10; 
+ /* comment x = x + 1; ERROR 
+ x = x + 1; [11 Tokens] 
+ 
+ 
+
+ 
+ 
+===== page 17 =====
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 
+ 
+ 8.14 
+Compiler Design 
+4 
+SYNTAX  
+DIRECTED TRANSACTION 
+4.1 Syntax Directed Transaction  
+  
+ SDT: CFG + Transition → 1) Meaning 2) Semantic 
+ 
+4.1.1 Application of SDTL 
+(1) Used to perform Semantic Analysis. 
+(2) Produce Parse Tree. 
+(3) Produce intermediate representation. 
+(4) Evaluate an expression. 
+(5) Convert infix to prefix or postfix. 
+ 
+Example: S  S1S2 [S.count = S1.count + S2.count] 
+    S  (S1) [S.count = S1.count + 1] 
+    S   [S.count = 0] 
+ Count is an attribute for non–terminal  
+ 
+4.1.2 Attributes 
+(1) Inherited Attribute 
+(2) Synthesized Attribute 
+ 
+(1) Inherited Attribute: (RHS) 
+   
+ The computation at any node (non-terminal) depends on parent or siblings (S). 
+
+===== page 18 =====
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 
+ 
+ 8.15 
+Compiler Design 
+ In above Example, x is inherited attribute. 
+(2) Synthesized Attribute: (LHS) 
+   
+x is synthesized attribute. 
+The computation at any node (non-terminal) depends on children. 
+ 
+4.1.3 Identifying Attribute Type 
+ Always check every Translation. 
+       
+ 
+4.1.4 Syntax Directed Definitions (SDDs): (Attribute Grammar) 
+(1) L-Attributed Grammar 
+ Attribute is synthesized or restricted inherited. (1) Parent 2) Left sibling only). 
+ Translation can be appended anywhere is RHS of production. 
+ Example: S  AB {A.x = S.x + 2} 
+   or, S  AB {B.x = f (A.x | S.x)} 
+   or, S  AB {S.x = f (A.x | B.x)} 
+ Evaluation: In Order (Topological). 
+ 
+(2) S-Attributed Grammar: 
+ Attribute is synthesized only. 
+ The transaction is placed only at the end of production. 
+ Example: S  AB {S.x = f (Ax | Bx)}. 
+ Evaluation: Reverse RMD (Bottom-Up Parsing). 
+ 
+1) D  T : L ; {L.Type = T.Type} inherited 
+L  L1, id ; {L1.Type = L.Type} inherited 
+L  id 
+T  integer {T.Type = int} synthezised 
+Type is neither inherited 
+nor synthesized 
+ 
+2) 
+ 
+E  E1 + T {E.val = E1.val + T.val} synthesized 
+E  T {E.val = T.val} Synthesized 
+T  T1 – F {T.val = T1.val – F.val} Synthesized 
+F  id {F.val = id.val} synthesized 
+ 
+Val is 
+synthesized attribute 
+ 
+3) 
+ 
+S  AB {Aa = B.x; S.y = A.x} x is inherited | y is 
+synthesized 
+A  a {A.y = a} y is synthesized 
+B  b {B.y = a.y} y is synthesized 
+ 
+x  inherited 
+y  synthesized 
+4) D  T L {L.in = T.type} inherited(in) 
+T  int {T.type = int} /synthesized 
+L  id {Add type(id.entry,L.in)} 
+in  inherited 
+type  synthesized 
+
+===== page 19 =====
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 
+ 
+ 8.16 
+Compiler Design 
+4.1.5 Identify SDD 
+(1) E  E1 + E2 {E.type = if (E1.type = = int & & E.type = = int) then int}    Synthesizer else type – error. 
+ E  id {E.type = Lookup (id.entry)}  synthesizer. 
+ type is synthesized, hence S-attribute and also L-attributed Grammar. 
+ Every S-attributed Grammar is also L-attributed Grammar. 
+ For L-attributed Evaluation, use the In-order of annotated Parser Tree. 
+ For S-attributed, reverse of RMD is used. 
+ find RMD Order. 
+ Consider its reverse. 
+ 
+
+
+ 
+  
+===== page 20 =====
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 
+ 
+ 8.17 
+Compiler Design 
+5 
+INTERMEDIATE, CODE 
+OPTIMIZATION 
+ 
+5.1 Introduction 
+ 
+Example Expression: 
+  
+ Syntax Tree 
+  
+ DAG 
+  
+3-address Code: Code in which, at most 3 addresses. [including LHS] 
+
+===== page 21 =====
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 
+ 
+ 8.18 
+Compiler Design 
+ 
+ 
+ 
+ 3AC done using operator precedence. 
+Find minimum number of variables required in equivalent 3AC: 
+1.  
+ 
+ 
+u u t u t z
+v u * u z w * v
+w v w
+   
+ 
+    5 variables only  
+ Evaluating the expression: 
+  a      c + b  d – b + b  b + c – b + b 
+          b + a + d – b + b 
+          b + b + c + d – b + b 
+          b + b + c + d 
+
+===== page 22 =====
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 
+ 
+ 8.19 
+Compiler Design 
+ 
+    Minimum: 
+  
+b b b
+c b c
+a c d
+
+ 
+    only 3 variables [most optimal]  
+5.1.1 Static Single Assignment Code: (SSA Code) 
+Every variable (address) in the code has single assignment [single meaning] + 3AC. 
+1. 
+ 
+ 
+ [u, t, v, w, z] are already assigned so we can’t use them. 
+  Equivalent SSA Code: 
+  x = u – t y = x * v 
+  p = y + w 
+  q = t – x 
+  r = p * q 
+  in use: x, y, p, q, r  additional 
+   Total Variable  10. 
+ 
+2. 
+ 
+ 
+  [a, b, c, u, v] are already assigned, 
+  Equivalent SSA Code: 
+  p = a – b 
+  q = p * c 
+  p1 = v * u 
+  q2 = p1 + q 
+  in use: p, q, p1, q2 
+ Total Variable = 9 
+ 
+
+===== page 23 =====
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 
+ 
+ 8.20 
+Compiler Design 
+5.1.2 Control Flow Graphs 
+ CFG contain group of basic blocks and controls. CFG has nodes and edges to define basic blocks and controls. 
+ Basic Blocks: Sequence of 3 -address code statements, in which control enters only from 1st statement (called as leader), 
+and leaves from last statement. 
+ 
+ 
+Example: 
+  
+5.2 Code Optimization 
+Saves space / time. (Basic Objective) 
+ 
+  
+5.2.1 Optimization Methods 
+1. Constant folding 
+2. Copy propagation 
+3. Strength Reduction 
+4. Dead code elimination 
+5. Common sub expression elimination. 
+6. Loop Optimization 
+7. Peephole Optimization 
+ 
+ 
+1. i = 1 LB1 
+2. j = 1 LB2 
+3. t1 = 5 * i 
+4. t2 = t1 + 5 
+5. t3 = 4*t2 
+6. t4 = t3 
+7. a[t4] = 1 
+8. j = j + 1 
+9. if j ≤ 5 goto 3  LB4 
+10. i = i + 1 LB5 
+11. if i < 5 goto 2 LB6 
+LB3 
+===== page 24 =====
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 
+ 
+ 8.21 
+Compiler Design 
+1.    Constant Folding 
+ (i) x = 2 * 3 + y  x = 6 + y 
+ Folding 
+ ii) x = 2 + y * 3} can’t fold the constant 
+ 
+2. Copy Propagation 
+ i) Variable Propagation: 
+ x = y;   
+ z = y + 2; 
+   z = x + 2; 
+ ii) Constant Propagation: 
+  x = 3 
+   z = 3 + a; 
+   z = x + a 
+3.    Strength Reduction: 
+ Replace expensive statement / instruction with cheaper one. 
+(i) x = 2 * y costly  x = y + y; Cheap 
+(ii) x = 2 * y  x = y < < 1; Much Cheaper 
+(iii) x = y / 8  x = y > > 3; 
+4. Dead Code Elimination: 
+  
+• Hence, above dead code never executes during execution. We can always delete such code. 
+ 
+5. Common Sub Expression Elimination: 
+ DAG is used to eliminate common sub expression. 
+Example:  x = (a + b) + (a + b) + c; 
+     t1 = a + b 
+   x = t1 + t1 + c 
+
+
+ 
+ 
+ 
+
+===== page 25 =====
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+ 
+ 
+ 8.22 
+Compiler Design 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+6.    Loop Optimization: 
+(i)   Code Motion – Frequency Reduction: 
+Move the loop invariant code outside of loop. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(ii)  Induction Variable elimination: 
+  
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+(iii) Loop Merging / Combining: (Loop Jamming) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(iv) Loop Unrolling: 
+ 
+1) for (i = 0; i < 3; i++) 
+printf(“CD”); 
+printf(“CD”); 
+printf(“CD”); 
+printf(“CD”); 
+ 3  3 + 2 = 11 Statements 3 statements 
+ 
+2) 
+ 
+for (i = 0; i < 2n; i ++) { 
+printf(“CD”); 
+} 
+ 
+for (i = 0; i < n; i++) { 
+printf(“CD”); 
+printf(“CD”); 
+} 
+ (2  3n + 2) = 6n + 2 (4n + 2) 
+7.  Peephole Optimization: 
+Examines a short sequence of target instructions in a window (peephole) and replaces the instructions by a faster and/or 
+shorter sequence when possible. 
+• Applied to intermediate code or target code 
+• Following Optimizations can be used: 
+===== page 26 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Compiler Design 
+5.23 
+• Redundant instruction elimination 
+• Flow-of-control optimizations 
+• Algebraic simplifications 
+• Use of machine idioms 
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  

@@ -1,0 +1,1033 @@
+
+===== page 1 =====
+GENERAL
+APTITUDE
+GENERAL
+APTITUDE
+===== page 2 =====
+Published By: 
+ 
+  Physics Wallah 
+ISBN: 978-93-94342-39-2 
+Mobile App: Physics Wallah (Available on Play Store) 
+  
+Website: www.pw.live 
+Email: support@pw.live 
+ 
+Rights 
+All rights will be reserved by Publisher. No part of this book may be used or reproduced in any manner 
+whatsoever without the written permission from author or publisher. 
+In the interest of student's community: 
+Circulation of soft copy of Book(s) in PDF or other equivalen t format(s) through any social media channels, 
+emails, etc. or any other channels through mobiles, laptops or desktop is a criminal offence. Anybody 
+circulating, downloading, storing, soft copy of the book on his device(s) is in breach of Copyright Act. Further 
+Photocopying of this book or any of its material is also illegal. Do not download or forward in case you come 
+across any such soft copy material. 
+ 
+Disclaimer 
+A team of PW experts and faculties with an understanding of the subject has worked hard for the books. 
+While the author and publisher have used their best efforts in preparing these books. The content has been 
+checked for accuracy. As the book is intended for educational purposes, the author shall not be responsible for 
+any errors contained in the book. 
+The publication is designed to provide accurate and authoritative information with regard to the subject matter 
+covered. 
+This book and the individual contribution contained in it are protected under copyright by the publisher. 
+(This Module shall only be Used for Educational Purpose.) 
+
+===== page 3 =====
+ 
+ 
+ 
+Design Against Static Load 
+ 
+ 
+ 
+ 
+ 
+1. Percentages  .....................................................................................................................  12.1 – 12.5 
+2. Averages & Ages  ..............................................................................................................  12.6 
+3. Profit & Loss  ....................................................................................................................  12.7 – 12.9 
+4. Ratio and Proportions  ......................................................................................................  12.10 
+5. Time and Distance  ...........................................................................................................  12.11 – 12.12 
+6. Time and Work  ................................................................................................................  12.13 – 12.14 
+7. Clocks  ...............................................................................................................................  12.15 – 12.16 
+8. Calendars  .........................................................................................................................  12.17 – 12.19 
+9. Blood Relations   ...............................................................................................................  12.20       
+10. Directions  ........................................................................................................................  12.21 – 12.22 
+11. Data Interpretation  ..........................................................................................................  12.23 – 12.24 
+12. Data Sufficiency   ..............................................................................................................  12.25 
+ 
+INDEX 
+GATE-O-PEDIA COMPUTER SCIENCE & INFORMATION TECHNOLOGY 
+===== page 4 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+Design Against Static Load 
+12.1 
+1 
+PERCENTAGES 
+ 
+1.1. Understanding Percentages 
+The word percent can be understood as follows: 
+Per cent  for every 100. 
+So, when percentage is calculated for any value, it means that that you calculate the value for every 100 of the reference 
+value. 
+Why Percentage? 
+Percentage is a concept evolved so that there can be a uniform platform for comparison of various things. (Since each value is 
+taken to a common platform of 100.) 
+Example: 
+• To compare three different students depending on the marks they scored we cannot directly compare their marks until 
+we know the maximum marks for which they took the test. But by calculating percentages they can directly be 
+compared with one another. 
+• Before going deeper into the concept of percentage, let u have a look at some basics and tips for faster calculations: 
+1.2. Calculation of Percentage 
+Value Percentage 100
+Total value
+
+ 
+Example: 50 is what % of 200? 
+Solution: 
+50 Percentage 100 25%
+200
+   . 
+1.2.1. Calculation of Value: 
+Percentage Value  total value 
+100
+
+ 
+Example: What is 20% of 200? 
+Solution: 
+20 Value 200 
+100
+   
+===== page 5 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+General Aptitude 
+12.2 
+Note: Percentage is denoted by “%”, which means “/100”. 
+Example: What is the decimal notation for 35%? 
+Solution: 
+3535% 0.35
+100
+ . 
+For faster calculations we can convert the percentages or decimal equivalents into their respective fraction notations. 
+1.3. Percentages – Fractions Conversions: 
+The following is a table showing the conversions of percentages and decimals into fractions: 
+Percentage Decimal Fraction 
+10% 0.1 
+1
+10  
+12.5% 0.125 
+1
+8  
+16.66% 0.1666 
+1
+6  
+20% 0.2 
+1
+5  
+25% 0.25 
+1
+4  
+30% 0.3 
+3
+10  
+33.33% 0.3333 
+1
+3  
+40% 0.4 
+2
+5  
+50% 0.5 
+1
+2  
+60% 0.6 
+3
+5  
+62.5% 0.625 
+5
+8  
+66.66% 0.6666 
+2
+3  
+ 
+Similarly we can go for converting decimals more than 1 from the knowledge of the above cited conversions as follows: 
+We know that 
+112.5%  0.125  
+8
+  
+Then, 
+ 8 1 1 91.125    
+88
+    (i.e., the denominator will add to numerator once, denominator remaining the same.  
+===== page 6 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+General Aptitude 
+12.3 
+Also, 
+ 8 2 1 172.125    
+88
+
+   (here the denominator is added to numerator twice) 
+ 
+ 8 3 1 253.125    
+88
+
+   and so on. 
+Thus we can derive the fractions for decimals more than 1 by using those les than 1. 
+We will see how use of fractions will reduce the time for calculations: 
+Example: What is 62.5% of 320? 
+Solution: 
+55Value    320 since 62.5%    200
+88
+          . 
+1.4. Percentage Change 
+A change can be of two types – an increase or a decrease. 
+When a value is changed from initial value to a final value, 
+% change = (Difference between initial and final value/initial value) × 100 
+Example: If 20 changes to 40, what is the % increase? 
+Solution: 
+ 40 20%     100  100%
+20
+  increase . 
+Note:  
+1. If a value is doubled the percentage increase is 100. 
+2. If a value is tripled, the percentage change is 200 and so on. 
+1.5. Percentage Difference 
+% Difference = (Difference between values/value compared with) × 100. 
+Example: By what percent is 40 more than 30? 
+Solution: % difference = 
+ 40 30   100  33.33%
+30
+   
+ (Here 40 is compared with 30. So 30 is taken as denominator) 
+Example: By what % is 60 more than 30? 
+Solution: % difference = 
+ 60 30 100  100%
+30
+  . 
+ (Here is 60 is compared with 30.) 
+===== page 7 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+General Aptitude 
+12.4 
+Hint: To calculate percentage difference the value that occurs after the word “than” in the question can directly be used as the 
+denominator in the formula. 
+1.6. Important Points to Note 
+1. When any value increases by  
+(a) 10%, it becomes 1.1 times of itself. (since 100+10 = 110% = 1.1) 
+ (b) 20%, it becomes 1.2 times of itself. 
+ (c) 36%, it becomes 1.36 times of itself. 
+ (d) 4%, it becomes 1.04 times of itself. 
+ Thus we can see the effects on the values due to various percentage increases. 
+2. When any value decreases by 
+(a) 10%, it becomes 0.9 times of itself. (Since 100 – 10 = 90% = 0.9) 
+ (b) 20%, it becomes 0.8 times of itself 
+ (c) 36%, it becomes 0.64 times of itself 
+ (d) 4%, it becomes 0.96 times of itself. 
+ Thus we can see the effects on a value due to various percentage decreases. 
+Note: 
+1. When a value is multiplied by a decimal more than 1 it will be increased and when multiplied by less than 1 it 
+will be decreased. 
+2. The percentage increase or decrease depends on the decimal multiplied. 
+Example: 0.7  30% decrease, 0.67  33% decrease, 0. 956  4.4% decrease and so on. 
+Example: When the actual value is x, find the value when it is 30% decreased. 
+Solution: 30% decrease  0.7 x.  
+Example: A value after an increase of 20% became 600. What is the value? 
+Solution: 1.2x = 600 (since 20% increase) 
+  x = 500. 
+Example: If 600 is decrease by 20%, what is the new value? 
+Solution: New value = 0.8 × 600 = 480. (Since 20% decrease) 
+Thus depending on the decimal we can decide the % change and vice versa. 
+===== page 8 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+General Aptitude 
+12.5 
+Example: When a value is increased by 20%, by what percent should it be reduced to get the actual value? 
+Solution: (It is equivalent to 1.2 reduced to 1 and we can use % decrease formula) 
+ % decrease = 
+ 1.2 –  1   100  16.66%
+1.2
+ . 
+3. When a value is subjected multiple changes, the overall effect of all the changes can be obtained by multiplying all the 
+individual factors of the changes. 
+Example: The population of a town increased by 10%, 20% and then decreased by 30%. The new population is what 
+% of the original? 
+Solution: The overall effect = 1.1 × 1.2 × 0.7   (Since 10%, 20% increase and 30% decrease) 
+ = 0.924 = 92.4%. 
+Example: Two successive discounts of 10% and 20% are equal to a single discount of ___ 
+Solution: Discount is same as decrease of price. 
+ So, decrease = 0.9 × 0.8 = 0.72  28% decrease (Since only 72% is remaining). 
+
+ 
+===== page 9 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+General Aptitude 
+12.6 
+2 
+AVERAGES & AGES 
+ 
+2.1. What is Average? 
+The concept of average is equal distribution of the overall value among all the things or  persons present there. So the formula 
+for finding the average is as follows: 
+Average, 
+Total of all things,   
+Number of things, 
+TA
+N
+  
+Therefore,       Total, T = AN 
+If any person joins a group with more value than the average of the group then the overall average increases. T his is because 
+the value in excess than the average will also be distributed equally among all the members. 
+Similarly when any value less than the average joins the group the overall group decreases as the deficit is divided equally 
+among all the people present there. 
+Example: 
+Consider three people A, B and C with total of Rs. 30/ -. Their average becomes Rs. 10/ - for each. If another person D joins 
+them with Rs. 50/- then he has Rs. 40/- more than actual average of Rs. 10/-. 
+So this Rs. 40/- will get distributed among those four and each gets Rs. 10/-. Thus the average becomes Rs. 20/- each. 
+Example: 
+The average age of a class of 30 students is 12. If the teacher is also included the average becomes 13 years. Find the teacher’s 
+age. 
+Solution: 
+• When the teacher is included there are totally 31 members in the class and the average is increased by 1 year. This 
+means that everyone got 1 extra year after distributing the extra years of the teacher. 
+• So extra years of the teacher are as follow: 31 × 1 = 31 years. 
+• Age of the teacher = actual avg + extra years = 12 + 31 = 43 years. 
+ 
+===== page 10 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+General Aptitude 
+12.7 
+3 
+PROFIT AND LOSS 
+ 
+3.1. What is Profit? 
+When a person does a business transaction and gets more than what he had invested, then he is said to have profit. The profit  
+he gets will be equal to the additional money he gets other than his investment. 
+So profit can be understood as the extra money one gets other than what he had invested. 
+Example: A person bought an article for Rs. 100 and sold it for Rs. 120. Then he got Rs. 20 extra and so his profit is Rs. 20. 
+3.2. What is Loss? 
+When a person gets an amount less than what he had invested, then he is said to have a loss. The loss will be equal to the deficit 
+he got than the investment. 
+Example: A person bought an article at Rs. 100 and sold it for Rs. 90. Then he got a deficit of Rs. 10 and so his loss is Rs. 10. 
+3.3. Cost Price (CP) 
+• The money that the trader puts in his business is called Cost Price. The price at which the articles are bought is called 
+Cost Price. 
+• In other words, Cost Price is nothing but the investment in the business. 
+3.4 Selling Price (SP) 
+• The price at which the articles are sold is called the Selling Price. The money that the trader gets from the business is 
+called Selling Price. 
+• In other words, Selling Price is nothing but the returns from a business. 
+3.5. Marked/Market/List Price (MP): 
+• The price that a trader marks or lists his articles to is called the Marked Price. 
+• This is the only price known to the customer. 
+3.6. Discount 
+The waiver of cost from the Marked Price that the trader allows a customer is called Discount. 
+===== page 11 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+General Aptitude 
+12.8 
+Note: 
+1. Profit or loss percentage is to be applied always to the Cost Price only.  
+2. Discount percentage is to be applied always to the Marked Price only. 
+3.7. Relationship Among CP, SP and MP: 
+A trader adds his profit to the investment and sells it at that increased price. 
+Also he allows a discount on Marked Price and sells at the discounted price. 
+So, we can say that, 
+• SP = CP + Profit. (CP applied with profit is SP) 
+• SP = MP – Discount. (MP applied with discount is SP) 
+3.8. Understanding Profit and Loss: 
+So, by now we came to know that if CP is increased and sold it would result in profit and vice versa. 
+Also whatever increase is applied to CP, that increase itself is the profit. 
+For Rs. 10 profit, CP is to be increased by RS. 10 and the increased price becomes SP. 
+For 10% profit, CP is to be increased by 10% and it is the SP. 
+(From previous chapter we know that any value increased by 10% becomes 1.1 times.) 
+So, for 10% profit, CP increased by 10%  1.1CP = SP. 
+• SP = 
+1.1  SPCP
+CP  = 1.1  10% profit 
+• SP = 
+1.07  SPCP
+CP  = 1.07  7% profit 
+• SP = 
+1.545  SPCP
+CP  = 1.545  54.5% profit and so on. 
+Similarly,  
+• SP = 
+0.9  SPCP
+CP  = 0.9  10% loss (Since 10% decrease) 
+• SP =
+0.7  SPCP
+CP  = 0.76  24% loss and so on. 
+So, to calculate profit % or loss %, it is enough for us to find the ratio of SP to CP. 
+Note: 
+1. If SP/CP > 1, it indicates profit. 
+2. If SP/CP < 1, it indicates loss. 
+3.9. Multiple Profits or Losses 
+A trader may sometimes have multiple profits or losses simultaneously. This is equivalent to having multiple changes and so 
+all individual changes are to be multiplied to get the overall effect. 
+===== page 12 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+General Aptitude 
+12.9 
+Examples: A trader uses a 800gm weight instead of 1 kg. Find his profit %. 
+Solution: (He is buying 800 gm but selling 1000 gm. 
+So, CP is for 800 gm and SP is for 1000 gm.) 
+   
+1000      1.25 25%
+  800
+  SP
+CP  profit. 
+Examples: A trader uses 1 kg weight for 800 gm and increases the price by 20%. Find his profit/loss %. 
+Solution: 1 kg weight for 800 gm  loss (decrease)  800/1000 = 0.8 
+ 20% increase in price  profit (increase)  1.2 
+ So, net effect = (0.8) × (1.2) = 0.96  4% loss. 
+Examples: A milk vendor mixes water to milk such that he gains 25%. Find the percentage of water in the mixture. 
+Solution:  To gain 25%, the volume has to be increased by 25%. 
+ So, for 1 lt of milk, 0.25 lt of water is added  total volume = 1.25 lt 
+   % of water = 
+0.25 100  20%
+1.25
+ . 
+Examples: A trader bought an item for Rs. 200. If he wants a profit of 22%, at what price must he sell it? 
+Solution:  CP=200, Profit = 22%. 
+ So,  SP = 1.22CP = 1.22 × 200 = 244/-. 
+Examples: A person buys an item at Rs. 120 and sells to another at a profit of 25%. If the sec ond person sells the I
+ tem to another at Rs. 180, what is the profit % of the second person? 
+Solution:  SP of 1st person = CP of 2nd person = 1.25 × 120 = 150. 
+ SP of 2nd person = 180. 
+  Profit % =  
+180    1.2 20%
+150
+  SP
+CP . 
+
+  
+===== page 13 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+General Aptitude 
+12.10 
+4 
+RATIOS AND 
+PROPORTIONS 
+ 
+4.1. What is a Ratio? 
+A ratio is a representation of distribution of a value present among the persons present and is shown as follows: 
+If a total is divided among A, B and C such that A got 4 parts, B got 5 parts and C got 6 parts then it is represented in ratio as 
+A:B:C = 4:5:6. 
+So, 4:5:6 means that the total value is divided into 4+5+6 = 15 equal parts and then distributed as per the ratio. 
+Example 1: Divide Rs. 580 between A and B in the ratio of 14:15. 
+Solution: A:B = 14:15  580 is divided into 29 equal parts  each part = Rs. 20. 
+ So A’s share = 14 parts = 14 × 20 = Rs. 280 
+ B’s share = 15 parts = Rs. 300. 
+Example 2: If A:B = 2:3 and B:C = 4:5 then find A:B:C. 
+Solution: To combine two ratios the proportions common for them s hall be in equal parts. Here the common proportion is 
+B for the given ratios. 
+ Making B equal in both ratios they become 8:12 and 12:15  A:B:C = 8:12:15. 
+Example 3: Three numbers are in the ratio of 3: 4 : 8 and the sum of these numbers is 975. Find the three numbers. 
+Solution: Let the numbers be 3x, 4x and 8x. Then their sum = 3x + 4x + 8x = 15x = 975  x = 65. 
+ So the numbers are 3x = 195, 4x = 260 and 8x = 520. 
+Example 4: Two numbers are in the ratio of 4 : 5. If  the difference between these numbers is 24, then find the numbers. 
+Solution: Let the numbers be 4x and 5x. Their difference = 5x – 4x = x = 24 (given). 
+ So the numbers are 4x = 96 and 5x = 120. 
+Example 5: Given two numbers are in the ratio of 3 :  4. If 8 is added to each of them, their ratio is changed to 5 : 6. Find two 
+numbers. 
+Solution: Let the numbers be a and b. 
+ 
+3:   3 : 4
+4
+   AAB
+B . Also, 
+ 
+ 
+8 5  
+86
+ 
+
+A
+B . 
+ Solving we get, A=12 and B = 16. 
+
+===== page 14 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+General Aptitude 
+12.11 
+5 
+TIME AND DISTANCE 
+ 
+5.1. Speed 
+We have the relation between speed, time and distance as follows: 
+   
+DistanceSpeed = 
+Time  
+So the distance covered in unit time is called speed. 
+This forms the basis for Time and Distance. It can be re-written as Distance = Speed X Time or  
+   
+DistanceTime = 
+Speed . 
+5.1.1. Units of Speed 
+The units of speed are kmph (km per hour) or m / s. 
+   
+51 kmph =  m/s
+18  
+   
+181 m/s =  kmph
+5  
+5.1.2. Average Speed 
+When the travel comprises of various speeds then the concept of average speed is to be applied. 
+   a
+Total distance coveredAverage Speed = 
+Total time of travel  
+Note: In the total time above, the time of rest is not considered. 
+Example 1: If a car travels along four sides of a square at 100 kmph, 200 kmph, 300 kmph and 400 kmph find its average 
+speed. 
+Solution: 
+Total distanceAverage Speed = 
+Total time . 
+ Let each side of square be x km. Then the total distance = 4x km. 
+ The total time is sum of individual times taken to cover each side.  
+===== page 15 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+General Aptitude 
+12.12 
+ To cover x km at 100 kmph, 
+time    
+100
+x . 
+ For the second side time 
+200
+ x . 
+ Using this we can write average speed = 
+4   192 kmph
+100 200 300 400
+x
+x x x x   . 
+Example 2: A man if travels at 
+5
+6  th of his actual speed takes 10 min more to travel a distance. Find his usual time. 
+Solution: Let s be the actual speed and t be the actual time of the man. 
+ Now the speed is 
+5
+6
+
+ s and time is (t +10) min. But the distance remains the same. 
+ So distance 1 = distance 2  s × t = 
+5
+6
+
+ s × (t+10)  t = 50 min. 
+Example 3: If a person walks at 30 kmph he is 10 min late to his office. If he travels at 40 kmph then he reaches to his office 
+5 min early. Find the distance to his office. 
+Solution: Let the distance to his office be d. The difference between the two timings is given as 15 min = 
+1  hr
+4 . 
+ Now if d km are covered at 30 kmph then time = d/30. Similarly second time = d/40. 
+ So, 
+1 –      30 km
+30 40 4
+dd d   . 
+Note: When two objects move with speeds s1 and s2 
+• In opposite directions their combined speed = s1 + s2 
+• In same direction their combined speed = s1 ~ s2. 
+Example 4: Two people start moving from the same point at the same time at 30 kmph and 40 kmph in opposite directions. 
+ Find the distance between them after 3 hrs. 
+Solution: Speed = 30 + 40 = 70 kmph (since in opposite directions) 
+   Time = 3 hrs 
+ So distance = speed × time = 70 × 3 = 210 km. 
+Example 5: A starts from X to Y at 6 am at 40 kmph and at the same time B starts from Y to X at 50 kmph. When will they 
+meet if X and Y are 360 km apart? 
+Solution: Distance = 360 km, Speed = 40 + 50 = 90 kmph. 
+ 
+distance 360Time =  =  = 4hrs from 6 am 10 am
+speed 90
+ . 
+
+===== page 16 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+General Aptitude 
+12.13 
+6 
+TIME AND WORK 
+ 
+6.1. Introduction 
+If a person can complete a work in ‘n’ days then he can do 
+1
+n  part of the work in one day. 
+The amount of work done be a person in 1 day is called his efficiency. 
+Example: A can do a work in 10 days. Then the efficiency of A is given by 
+1  
+10
+A . 
+Note: Number of days required to do a work = work to be done/work per day. 
+Example 1: If A can do a work in 10 days, B can do it in 20 days and C in 30 days in how many days will the three together 
+do it? 
+Solution: The efficiencies are 
+1 1 1  ,        
+10 20 30
+  A B and C  
+ So work done per day by the three = 
+1 1 1 11 60           5.45 
+10 20 30 60 11
+      No of days days . 
+Example 2: If A and B can do a work in 10 days, B and C can do it in 20 days and C and A can do it in 40 days in what time 
+all the three can do it? 
+Solution: 
+1  
+10
+AB  
+ 
+1  
+20
+BC  
+ 
+1  
+40
+CA  
+ Adding all the three we get 
+  7 7 802        40 80 7        A B C A B C No of days days . 
+ 
+  
+===== page 17 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+General Aptitude 
+12.14 
+Note:  If all the people do not work for all the time then the principle below can be used: 
+  mA + nB + oC = 1.    (1 is the total work) 
+Here, m = no of days A worked 
+n = no of days B worked 
+o = no of days C worked 
+A, B, C = efficiencies 
+Example 3: If A can do a work in 12 days, B can do it in 18 days and C in 24 days. All the three started the work. A left after 
+two days and C left three days before the completion of the work. How man y days are required to complete the 
+work? 
+Solution: Let the total no of days be x. 
+ A worked only for 2 days, B worked for x days and C worked for x – 3 days. 
+ So, mA + nB + oC = 1 
+ 
+ 1 1 12     3   112 18 24                 xx  
+  12 + 4x + 3(x-3) = 72 
+ 
+69  
+7
+x days . 
+Note: The ratio of dividing wages = ratio of efficiencies = ratio of parts of work done 
+Example 4: A can do a work in 10 days and B can do it in 30 days and C in 60 days. If the total wages for the work is Rs. 1800 
+what is the share of A? 
+Solution: Ratio of wages = 
+1 1 1 :   :    6 :  2 :  1
+10 30 60
+   (Multiplying each term by LCM 60) 
+ So total 9 equal parts in Rs. 1800  each part = Rs. 200  share of A = 6 parts = Rs. 1200. 
+Note: When pipes are used filling the tank they are treated similar to the men worki ng but some outlet pipes emptying the 
+tank are present whose work will be considered negative. 
+Example 5: A pipe can fill a tank in 5 hrs but because of a leak a the bottom it takes 1 hr extra. In what time can the leak alone 
+empty the tank? 
+Solution: Let the filling pipe be A. 
+          
+1  
+5
+A  
+ But with the leak L,  
+1–   
+6
+AL   ( A-L because leak is outlet) 
+ So, 
+1 1 1 1–
+5 6 30
+  
+L  Leak can empty the tank in 30 hrs. 
+
+===== page 18 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+General Aptitude 
+12.15 
+7 
+CLOCKS 
+ 
+7.1. Introduction 
+In a clock the most important hands are the minutes hand and the hours hand. Whatever may be the shape of the dial they 
+move in a circular track.  
+The total angle of 360 degrees in a watch is divided into 1 sectors, one for each hour. 
+So one hour sector = 
+360   30
+12
+  degrees. 
+For every one hour (60 min), 
+• The minutes hand moves through 360 deg. 
+• The hours hand moves through 30 deg. 
+So for every minute, 
+• The minutes hand moves through 6 deg 
+• The hours hand moves through 0.5 deg. 
+They move in same direction. So their relative displacement for every minute is 5.5 deg. 
+This 5.5 deg movement constitutes the movements of both the hands. 
+So for every minute both the hands give a displacement of 5.5 deg. 
+Note: 
+1. Between every two hours i.e., between 1 and 2, 2 and 3 and so on the hands of the clock coincide with each other for 
+one time except between 11, 12 and 12, 1. 
+ In a day they coincide for 22 times. 
+2. Between every two hours they are perpendicular to each other two times except between 2, 3 and 3, 4 and 8, 9 and 9, 
+10. 
+ In a day they will be perpendicular for 44 times. 
+3. Between every two hours they will be opposite to each other one time except between 5, 6 and 6, 7. 
+ In a day they will be opposite for 22 times. 
+Examples: At what time between 5 and 6 will the hands of the clock coincide? 
+Solution: At 5 the angle between the hands is 150 deg. 
+ To coincide, they collectively have to travel this distance. Every minute they travel 5.5 deg.  
+===== page 19 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+General Aptitude 
+12.16 
+ So no. of minutes required to coincide =
+150 300 3  27  
+5.5 11 11
+ min . 
+Examples: At what time between 6 and 7 will the hands be perpendicular? 
+Solution: At 6 the angle between the hands is 180 deg. 
+ To form 90 deg they have to cover 90 deg (out of 180 if 90 is covered 90 will remain) 
+ So no. of minutes required = 
+90 180 16  4
+5.5 11 11
+ min . 
+But they will be perpendicular for two times. The second one will happen after the minutes hand crosses the hours 
+hand and then for 90 deg. 
+ So it has to travel 180 + 90 = 270 deg. 
+ So time = 
+270 540 1   49
+5.5 11 11
+ min . 
+Examples: What is the angle between the hands of the clock at 3.45? 
+Solution: At 3, the angle between the hands = A = 90 deg. 
+ In 45 min the hands will move angle of B = 45 × 5.5 deg (since 5.5 deg for 1 min) 
+ B = 247.5 deg. 
+ Required angle = A ~ B = 157.5 deg. 
+Examples: What is the angle between the hands at 4.40? 
+Solution: At 4 the angle between the hands, A = 120 deg. 
+ In 40 min, B = 40 × 5.5 = 220 deg. 
+ The required angle = A ~ B = 100 deg. 
+Examples: A clock loses 5 min for every hour and another gains 5 min for every hour. If they are set correct at 10 am on 
+Monday then when will they be 12 hrs apart? 
+Solution: For every hour watch A loses 5 min and watch B gains 5 min. 
+ So for every hour they will differ by 10 min. 
+ For 12 hrs (720 min) difference between them the time required = 
+720 72 
+10
+ hrs  
+ So they will be 12 hrs apart after 3 days i.e., at 10 am on Thursday. 
+
+  
+===== page 20 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+General Aptitude 
+12.17 
+8 
+CALENDARS 
+ 
+8.1. Calendars 
+Here you mainly deal in finding the day of the week on a particular given date. 
+The process of finding this depends on the number of odd days. 
+Odd days are quite different from the odd numbers. 
+• Odd Days: The days more than the complete number of weeks in a given period are called odd days. 
+• Ordinary Year: An year that has 365 days is called Ordinary Year. 
+• Leap Year: The year which is exactly divisible by 4 (except century) is called a leap year. 
+Example:  1968, 1972, 1984, 1988 and so on are the examples of Leap Years.  
+1986, 1990, 1994, 1998, and so on are the examples of non leap years.  
+Note: The Centuries divisible by 400 are leap years.  
+Important Points: 
+• An ordinary year has 365 days = 52 weeks and 1 odd day. 
+• A leap year has 366 days = 52 weeks and 2 odd days. 
+• Century = 76 Ordinary years + 24 Leap years. 
+• Century contain 5 odd days. 
+• 200 years contain 3 odd days. 
+• 300 years contain 1 odd day. 
+• 400 years contain 0 odd days. 
+• Last day of a century cannot be Tuesday, Thursday or Saturday. 
+• First day of a century must be Monday, Tuesday, Thursday or Saturday. 
+Explanation: 
+100 years  = 76 ordinary years + 24 leap years  
+            = 76 odd days + 24 × 2 odd days  
+  = 124 odd days = 17 weeks + 5 days  
+===== page 21 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+General Aptitude 
+12.18 
+
+  100 years contain 5 odd days.  
+No. of odd days in first century = 5  
+
+  Last day of first century is Friday.  
+   No. of odd days in two centuries = 3  
+
+  Wednesday is the last day.  
+   No. of odd days in three centuries = 1  
+
+  Monday is the last day.  
+   No. of odd days in four centuries = 0  
+
+  Sunday is the last day.  
+Since the order is continually kept in successive cycles, the last day of a century  cannot be Tuesday, Thursday or 
+Saturday.  
+So, the last day of a century should be Sunday, Monday, Wednesday or Friday.  
+Therefore, the first day of a century must be Monday, Tuesday, Thursday or Saturday.  
+8.2. Working Rules 
+Working rule to find the day of the week on a particular date when reference day is given: 
+Step 1:  Find the net number of odd days for the period between the reference date and the given date (e xclude the 
+reference day but count the given date for counting the number of net odd days).  
+Step 2:  The day of the week on the particular date is equal to the number of net odd days ahead of the reference 
+day (if the reference day was before this date) but  behind the reference day (if this date was behind the 
+reference day).  
+Working rule to find the day of the week on a particular date when no reference day is given 
+Step 1:  Count the net number of odd days on the given date  
+Step 2:  Write:  
+ For 0 odd days – Sunday  
+ For 1 odd day – Monday  
+ For 2 odd days – Tuesday  
+   
+  
+  
+  
+ For 6 odd days - Saturday  
+Examples:  If 11 th January 1997 was a Sunday then what day of the week was on 10 th January 2000?  
+Solution :  Total number of days between 11 th January 1997 and 10 th January 2000  
+  = (365 – 11) in 1997 + 365 in 1998 + 365 in 1999 + 10 days in 2000  
+===== page 22 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+General Aptitude 
+12.19 
+  = (50 weeks + 4 odd days) + (52 weeks + 1 odd day) + (52 weeks + 1 odd day) + (1 week + 3 odd days)  
+        Total number of odd days = 4 + 1 + 1 + 3 = 9 days = 1 week + 2 days  
+        Hence, 10 th January, 2000 would be 2 days ahead of Sunday i.e. it was on Tuesday.  
+Examples:  What day of the week was on 10 th June 2008?  
+Solution : 10th June 2008 = 2007 years + First 5 months up to May 2008 + 10 days of June  
+ 2000 years have 0 odd days.  
+ Remaining 7 years has 1 leap year and 6 ordinary years
+ 2 + 6 = 8 odd days  
+ So, 2007 years have 8 odd days.  
+ No. of odd days from 1 st January 2008 to 31 st May 2008 = 3+1+3+2+3 = 12  
+ 10 days of June has 3 odd days.  
+ Total number of odd days = 8+12+3 = 23  
+ 23 odd days = 3 weeks + 2 odd days.  
+ Hence, 10 th June, 2008 was Tuesday.  
+
+  
+===== page 23 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+General Aptitude 
+12.20 
+9 
+BLOOD RELATIONS 
+ 
+9.1. Introduction 
+The standard definitions of relations are given below 
+A/An  is related to a PERSON as  
+Grandfather The father of his/her mother or father 
+Grandmother The mother of his/her mother or father 
+Grandson The son of his/her daughter/son 
+Granddaughter The daughter of his/her daughters/son 
+Uncle The brother of his/her mother or father 
+Aunt The sister of his/her mother or father 
+Nephew The son of his/her brother or sister 
+Cousin The son or daughter of his/her aunt of uncle 
+Niece The daughter of his/her brother or sister 
+Spouse as her husband or his wife 
+Father-in-law the father of his/her spouse 
+Mother-in-law the mother of his/her spouse 
+Sister-in-law the sister of his/her spouse 
+Brother-in-law the brother of his/her spouse 
+Son-in-law the spouse of his/her daughter 
+Daughter-in-law the spouse of his/her son 
+
+===== page 24 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+General Aptitude 
+12.21 
+10 
+DIRECTIONS 
+ 
+10.1. Introduction 
+ 
+Examples: 
+Example 1: Ravi traveled 4 km straight towards south. He turned left and traveled 6 km straight, then turned right and traveled 
+4 km straight. How far is he from the starting point? 
+ (a) 8 km (b) 10 km (c) 18 km (d) 12 km 
+Solution. 10 km. B is the finishing point and A is starting point. The distance of A from B is 
+ 
+Example 2. A is to the South-East of C, B is to the East of C and North-East of A. If D is to the North of A and North-West 
+of B. In which direction of C is D located? 
+ (a) North-West (b) South-West (c) North-East (d) South-East 
+
+===== page 25 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+General Aptitude 
+12.22 
+Solution. North-East D is located to the North-East of C. 
+ 
+Example 3. A rat runs 20’ towards East and turns to right, runs 10’ and turns to right, runs 9’ and again turns to left, runs 5’ 
+and then runs to left, runs 12’ and finally turns to left and runs 6’. Now, which direction is the rat facing? 
+ (a) East (b) West 
+ (c) North (d) South 
+Solution. North. The movements of the rat from A to G are as shown in the fig. It is clear, rat is walking in one direction 
+FG, i.e., North. 
+ 
+Example 4. From his house, Lokesh went 15 km to the North. Then he turned west and covered 10 km, then he turned South 
+and covered 5 km. Finally, turning to East, he covered 10 km. In which direction is he from his house? 
+ (a) East (b) South 
+ (c) North (d) West 
+Solution. North. Starting point is A and ending point is E. E is to the north of his house at A. 
+ 
+
+
+===== page 26 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+General Aptitude 
+12.23 
+11 
+DATA 
+INTERPRETATION 
+ 
+11.1.  Data Interpretation 
+ It deals with careful reading, understanding, organizing and interpreting the data provided so as to derive meaningful 
+conclusions. 
+ Mostly used tools for interpretation of a data are 
+ Ratio 
+ Percentage 
+ Rate 
+ Average 
+11.2. Types of Data Interpretation: 
+The numerical data pertaining to any event can be presented by any one or more of the following methods. 
+1. Tables 
+2. Line Graphs 
+3. Bar Graphs or Bar Charts 
+4. Pie Charts or Circle Graphs 
+11.2.1. Tables 
+It is the systematic presentation of data in tabular form to understand the given information and to make clear the problem in 
+a certain field of study. It has six elements namely: 
+• Title: It is the heading of the table. 
+• Stule: It is the section of the table containing row headings 
+• Column Captions: It is the heading of each column 
+• Body: It consists the numerical figures 
+• Footnotes: It is for further explanation of the table 
+• Source: It is the authority of the data 
+Example: Study the following table and answer the questions given below it. 
+ 
+===== page 27 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+General Aptitude 
+12.24 
+Annual Income of Five Schools 
+Figures in ’00 rupees 
+Sources of Income School A School B School C School D School E 
+Tuition Fee 120 60 210 90 120 
+Term Fee 24 12 45 24 30 
+Donations 54 21 60 51 60 
+Funds 60 54 120 42 55 
+Miscellaneous 12 3 15 3 15 
+Total 270 150 450 210 280 
+Example: The income by way of donation to school D is what per-cent of its miscellaneous? 
+Solution:  Required percentage = 
+%27
+300
+5100   
+11.2.2.  Line Graph 
+A line graph indicates the variation of a quantity w.r.t two parameters calibrated on X and Y-axis respectively. 
+Note:  
+1. Any part of the line graph parallel to X-axis represents no change in the value of Y parameter w.r.t the value of X 
+parameter. 
+2. The steepest or maximum part of the line graph indicates maximum percentage change of the value during the two 
+consecutive period in which the related part lies. 
+3. If the steepest part is a rise slope, then it is the highest percentage growth. 
+4. If the steepest part is a decline slope, it will represent a maximum percentage fall of the value calibrated in the 
+other axis. 
+11.2.3.  Bar Graph 
+Bar graphs are diagrammatic representation of a discrete data.  
+Types of Bar Graphs: 
+• Simple Bar Graphs: A simple bar graph relates to only one variable. The values of the variables may relate to different 
+years or different terms. 
+• Sub-divided Bar Graph: It is used to represent various parts of sub-classes of total magnitude of the given variable. 
+• Multiple Bar Graphs: In this type, two or more bars are constructed adjoining each other, to represent either different 
+components of a total or to show multiple variables.  
+11.2.4.  Pie Chart 
+In this method of representation, the total quantity is distributed over a total angle of 
+o
+360  which is one complete circle or pie. 
+  
+===== page 28 =====
+ 
+ 
+GATE WALLAH COMPUTER SCIENCE & INFORMATION TECHNOLOGY HANDBOOK 
+General Aptitude 
+12.25 
+12 
+DATA 
+SUFFICIENCY 
+ 
+12.1. Introduction 
+Data sufficiency questions are designed to measure your ability to analyze a quantities problem, recognize which given 
+information is relevant, and determine at what point there is sufficient information to solve a problem. In these questions, you 
+are to classify each problem according to the five or four fixed answer choice, rather than find a solution to the problem. 
+Each Data suffi ciency question consists of a question, often accompanied by some initial information, and two statements, 
+labeled    (1) and (2), which contain additional information. You must decide whether the information in each statement is 
+sufficient to answer the q uestion or- if neither statement provides enough information –whether the information in the two 
+statements together is sufficient. It is also possible that the statements in combination do not give enough information answ er 
+the question. 
+Begin by reading the initial information and the question carefully. Next, consider the first statement. Does the information 
+provided by the first statement is sufficient to answer the question? Go on the statement. Try to ignore the information given in 
+the first statement when you consider the second statement. Now you should be able to say, for each statement, whether it is 
+sufficient to determine the answer. 
+Next, consider the two statements in tandem. Do they, together, enable you to answer the question? 
+Give our answers as per the following  statements 
+A  Statement (1) alone is sufficient but    
+      Statement (2) alone is not sufficient 
+B   Statement (2) alone is sufficient but    
+      Statement (1) alone is not sufficient 
+C  Both statements  together are sufficient  
+   but neither  statement  alone is  sufficient 
+D   Each statement alone  is sufficient 
+E  Both statement together are still not  sufficient. 
+ 
