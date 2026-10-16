@@ -1,6 +1,6 @@
-# 17 — DSU (Disjoint Set Union)
+# 25 — DSU (Disjoint Set Union)
 
-> Numbered 17 in this handbook. Pre-contest revision lives in `22_PRE_CONTEST_REVISION.md`.
+> Pre-contest revision lives in `17_PRE_CONTEST_REVISION.md`; the DSU-flavored offline LCA is in `30_SUFFIX_STRUCTURES_AND_PERSISTENCE.md`.
 
 ---
 
@@ -145,10 +145,10 @@ Store a parity bit instead of a weight: `w[x] ∈ {0,1}` = color relative to the
 
 Drop path compression (keep union by size, O(log n) find), and push every change onto a stack so you can undo it:
 ```cpp
-vector<pair<int,int>> history;         // (node whose parent changed, old size of the new root)
+vector<pair<int,int>> history;         // push {b, sz[b]} right before each merge
 void rollback() {
     auto [b, oldsz] = history.back(); history.pop_back();
-    sz[p[b]] -= oldsz; p[b] = b;
+    sz[p[b]] -= oldsz; p[b] = b;       // oldsz = size of the attached component at merge time
 }
 ```
 **Needed for:** offline dynamic connectivity (divide & conquer over time), "DSU on a segment tree".

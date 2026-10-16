@@ -54,12 +54,12 @@ int mid = lo + (hi - lo) / 2;     // ✅ midpoint, no (lo+hi) overflow
 | Product of two values ≤ 1e9 | 1e18 | `long long` |
 | Product of two values ≤ 1e18 | 1e36 | `__int128` |
 | Graph distance, n ≤ 2e5, w ≤ 1e9 | 2e14 | `long long` |
-| Floyd `INF + INF` with `INF = 1e9` | 2e9 | **overflows `int`** → use `0x3f3f3f3f` |
+| Floyd distance sums, n = 500, w ≤ 1e9 | 5e11 | **`long long`** — `int` overflows on real paths (`INF + INF` = 2e9 alone still fits) |
 | `lcm(a, b)` unguarded | a·b | divide first |
 | `nCr` without a modulus | 20! = 2.4e18 is the ceiling | `long long` up to n=20 |
 | Squared distance, coords ≤ 1e9 | 8e18 | `long long`, barely |
 | Cross product, coords ≤ 1e9 | 2e18 | `long long` |
-| `i * i` in a sieve with N ≈ 1e9 | overflows at i > 46341 | cast to `ll` |
+| `i * i` in a sieve with N ≈ 1e9 | overflows from i = 46341 | cast to `ll` |
 
 **Useful INF constants:**
 ```cpp

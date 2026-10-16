@@ -105,7 +105,7 @@ void sieve() {
     }
 }
 ```
-**Trap:** start the inner loop at `i*i`, and make it `ll` if `N` is near 1e9 (`i*i` overflows int at i > 46341).
+**Trap:** start the inner loop at `i*i`, and make it `ll` if `N` is near 1e9 (`i*i` overflows int from i = 46341).
 **Memory:** `vector<bool>` for 1e7 = 1.25 MB. `bool[]` for 1e7 = 10 MB. Here the bit-packing actually helps.
 
 ### Smallest prime factor sieve — factorize in O(log n)

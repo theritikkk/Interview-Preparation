@@ -37,7 +37,16 @@ struct BIT {
 ```
 **1-indexed, always.** `i & -i` with `i = 0` is 0 → infinite loop in `add`. This is the #1 Fenwick bug.
 
-**O(n) build:** `t[i] += t[i-1]` style — or just do n `add` calls, it's O(n log n) and usually fine.
+**O(n) build:** copy `a` into `t`, then push each entry up to its parent in one pass — O(n) instead of n `add` calls:
+
+```cpp
+vector<ll> t(a.begin(), a.end());         // t[i] = a[i] initially (a must be size n+1)
+for (int i = 1; i <= n; i++) {
+    int j = i + (i & -i);
+    if (j <= n) t[j] += t[i];
+}
+```
+**Trap:** this is not prefix sums — `t[i-1]` plays no role in a Fenwick.
 
 ### Range update, point query
 

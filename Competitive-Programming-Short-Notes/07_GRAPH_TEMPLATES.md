@@ -252,7 +252,7 @@ for (int k = 1; k <= n; k++)
           d[i][j] = d[i][k] + d[k][j];
 ```
 **Trap 1 — the loop order is `k, i, j`.** `k` outermost. Any other order is wrong. Memory hook: *the intermediate node goes on the outside.*
-**Trap 2 — INF overflow.** With `int INF = 1e9`, `d[i][k] + d[k][j]` = 2e9 → overflow → negative → false "shortest path". Use `0x3f3f3f3f`, or `long long`, or guard `if (d[i][k] < INF && d[k][j] < INF)`.
+**Trap 2 — INF arithmetic.** `int INF = 1e9` doubled is 2e9 — that still **fits** in `int` (max 2.147e9), so this addition alone won't overflow. The real overflow is **real path sums**: n = 500 paths of weight ≤ 1e9 reach 5e11, so distances belong in `long long`. If you insist on `int`, use `0x3f3f3f3f` as the sentinel — even `IINF + IINF` stays under `INT_MAX` — and guard `if (d[i][k] < INF && d[k][j] < INF)`.
 **Complexity:** O(n³). n = 500 → 1.25e8, fine. n = 1000 → 1e9, too slow (and 8 MB with int, 4 MB... actually `int d[1000][1000]` = 4 MB, fine memory-wise, but too slow).
 
 **Also computes:** transitive closure (with `|=` and bool/bitset), min-max path (replace `+` with `max`, `min` with `min`), and any semiring variant.
