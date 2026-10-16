@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="780" viewBox="0 0 1060 780" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif">
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/></marker>
+<marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/></marker>
+<marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#16a34a"/></marker>
+<marker id="arrow-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#d97706"/></marker>
+</defs>
+<rect x="0.5" y="0.5" width="1059" height="779" rx="14" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="530.0" y="42" font-size="23" font-weight="700" fill="#0f172a" text-anchor="middle">The pixel path: screenshot in, synthetic input out</text>
+<text x="530.0" y="68" font-size="14" fill="#475569" text-anchor="middle">Everything the model knows arrives as pixels; everything it does leaves as low-level input events</text>
+<rect x="40" y="130" width="225" height="128" rx="10" fill="#ffffff" stroke="#2563eb" stroke-width="1.6"/>
+<rect x="40" y="130" width="225" height="30" rx="10" fill="#2563eb" opacity="0.12"/>
+<text x="152.5" y="150" font-size="15" font-weight="700" fill="#2563eb" text-anchor="middle">Virtual display</text>
+<text x="152.5" y="178" font-size="12.5" fill="#0f172a" text-anchor="middle">Xvfb :99 — 1024×768×24</text>
+<text x="152.5" y="197" font-size="12.5" fill="#0f172a" text-anchor="middle">a real X server with no</text>
+<text x="152.5" y="216" font-size="12.5" fill="#0f172a" text-anchor="middle">physical monitor</text>
+<text x="152.5" y="235" font-size="12.5" fill="#0f172a" text-anchor="middle">every GUI app runs here</text>
+<rect x="292" y="130" width="225" height="128" rx="10" fill="#ffffff" stroke="#2563eb" stroke-width="1.6"/>
+<rect x="292" y="130" width="225" height="30" rx="10" fill="#2563eb" opacity="0.12"/>
+<text x="404.5" y="150" font-size="15" font-weight="700" fill="#2563eb" text-anchor="middle">Capture</text>
+<text x="404.5" y="178" font-size="12.5" fill="#0f172a" text-anchor="middle">XGetImage / scrot / API</text>
+<text x="404.5" y="197" font-size="12.5" fill="#0f172a" text-anchor="middle">full-screen PNG</text>
+<text x="404.5" y="216" font-size="12.5" fill="#0f172a" text-anchor="middle">≈ 100–400 KB on the wire,</text>
+<text x="404.5" y="235" font-size="12.5" fill="#0f172a" text-anchor="middle">then re-encoded by the API</text>
+<rect x="544" y="130" width="225" height="128" rx="10" fill="#ffffff" stroke="#7c3aed" stroke-width="1.6"/>
+<rect x="544" y="130" width="225" height="30" rx="10" fill="#7c3aed" opacity="0.12"/>
+<text x="656.5" y="150" font-size="15" font-weight="700" fill="#7c3aed" text-anchor="middle">Tokenize inside model</text>
+<text x="656.5" y="178" font-size="12.5" fill="#0f172a" text-anchor="middle">image chopped into fixed</text>
+<text x="656.5" y="197" font-size="12.5" fill="#0f172a" text-anchor="middle">patches (e.g. 28×28 in</text>
+<text x="656.5" y="216" font-size="12.5" fill="#0f172a" text-anchor="middle">Qwen2-VL lineage);</text>
+<text x="656.5" y="235" font-size="12.5" fill="#0f172a" text-anchor="middle">cost grows quadratically</text>
+<rect x="796" y="130" width="225" height="128" rx="10" fill="#ffffff" stroke="#7c3aed" stroke-width="1.6"/>
+<rect x="796" y="130" width="225" height="30" rx="10" fill="#7c3aed" opacity="0.12"/>
+<text x="908.5" y="150" font-size="15" font-weight="700" fill="#7c3aed" text-anchor="middle">Model (vision + text)</text>
+<text x="908.5" y="178" font-size="12.5" fill="#0f172a" text-anchor="middle">reasons over the image</text>
+<text x="908.5" y="197" font-size="12.5" fill="#0f172a" text-anchor="middle">+ conversation history</text>
+<text x="908.5" y="216" font-size="12.5" fill="#0f172a" text-anchor="middle">and emits a tool call:</text>
+<text x="908.5" y="235" font-size="12.5" fill="#0f172a" text-anchor="middle">click(x, y) / type('…')</text>
+<line x1="269" y1="194.0" x2="286" y2="194.0" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="521" y1="194.0" x2="538" y2="194.0" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="773" y1="194.0" x2="790" y2="194.0" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M 908.5 264 L 908.5 318 L 530.0 318 L 530.0 354" fill="none" stroke="#d97706" stroke-width="2" marker-end="url(#arrow-amber)"/>
+<rect x="320.0" y="358" width="420" height="150" rx="10" fill="#ffffff" stroke="#d97706" stroke-width="1.6"/>
+<rect x="320.0" y="358" width="420" height="30" rx="10" fill="#d97706" opacity="0.12"/>
+<text x="530.0" y="378" font-size="15" font-weight="700" fill="#d97706" text-anchor="middle">Executor (outside the model)</text>
+<text x="530.0" y="406" font-size="12.5" fill="#0f172a" text-anchor="middle">validate call → translate coordinates</text>
+<text x="530.0" y="425" font-size="12.5" fill="#0f172a" text-anchor="middle">from model image space to display space</text>
+<text x="530.0" y="444" font-size="12.5" fill="#0f172a" text-anchor="middle">→ inject the event → wait → re-capture</text>
+<text x="530.0" y="463" font-size="12.5" fill="#0f172a" text-anchor="middle"></text>
+<text x="530.0" y="482" font-size="12.5" fill="#0f172a" text-anchor="middle">no intelligence here — just plumbing</text>
+<rect x="70" y="568" width="300" height="128" rx="10" fill="#ffffff" stroke="#16a34a" stroke-width="1.6"/>
+<rect x="70" y="568" width="300" height="30" rx="10" fill="#16a34a" opacity="0.12"/>
+<text x="220.0" y="588" font-size="15" font-weight="700" fill="#16a34a" text-anchor="middle">Linux · X11</text>
+<text x="220.0" y="616" font-size="12.5" fill="#0f172a" text-anchor="middle">XTEST extension:</text>
+<text x="220.0" y="635" font-size="12.5" fill="#0f172a" text-anchor="middle">XTestFakeMotionEvent /</text>
+<text x="220.0" y="654" font-size="12.5" fill="#0f172a" text-anchor="middle">XTestFakeButtonEvent /</text>
+<text x="220.0" y="673" font-size="12.5" fill="#0f172a" text-anchor="middle">XTestFakeKeyEvent</text>
+<rect x="380" y="568" width="300" height="128" rx="10" fill="#ffffff" stroke="#16a34a" stroke-width="1.6"/>
+<rect x="380" y="568" width="300" height="30" rx="10" fill="#16a34a" opacity="0.12"/>
+<text x="530.0" y="588" font-size="15" font-weight="700" fill="#16a34a" text-anchor="middle">Windows · Win32</text>
+<text x="530.0" y="616" font-size="12.5" fill="#0f172a" text-anchor="middle">SendInput():</text>
+<text x="530.0" y="635" font-size="12.5" fill="#0f172a" text-anchor="middle">INPUT records, absolute coords</text>
+<text x="530.0" y="654" font-size="12.5" fill="#0f172a" text-anchor="middle">normalized to 0–65535</text>
+<text x="530.0" y="673" font-size="12.5" fill="#0f172a" text-anchor="middle">across the virtual desktop</text>
+<rect x="690" y="568" width="300" height="128" rx="10" fill="#ffffff" stroke="#16a34a" stroke-width="1.6"/>
+<rect x="690" y="568" width="300" height="30" rx="10" fill="#16a34a" opacity="0.12"/>
+<text x="840.0" y="588" font-size="15" font-weight="700" fill="#16a34a" text-anchor="middle">macOS · CoreGraphics</text>
+<text x="840.0" y="616" font-size="12.5" fill="#0f172a" text-anchor="middle">CGEvent → CGEventPost:</text>
+<text x="840.0" y="635" font-size="12.5" fill="#0f172a" text-anchor="middle">mouse/keyboard events post</text>
+<text x="840.0" y="654" font-size="12.5" fill="#0f172a" text-anchor="middle">straight into the event tap</text>
+<text x="840.0" y="673" font-size="12.5" fill="#0f172a" text-anchor="middle">(needs Accessibility trust)</text>
+<line x1="220.0" y1="563" x2="452.5" y2="512" stroke="#d97706" stroke-width="2" marker-end="url(#arrow-amber)"/>
+<line x1="530.0" y1="563" x2="530.0" y2="512" stroke="#d97706" stroke-width="2" marker-end="url(#arrow-amber)"/>
+<line x1="840.0" y1="563" x2="607.5" y2="512" stroke="#d97706" stroke-width="2" marker-end="url(#arrow-amber)"/>
+<path d="M 314.0 436.0 L 152.5 436.0 L 152.5 264" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow-blue)"/>
+<text x="234" y="401.0" font-size="12" fill="#475569" text-anchor="middle">events land on the</text>
+<text x="234" y="417.0" font-size="12" fill="#475569" text-anchor="middle">display the capture came from</text>
+<text x="530.0" y="754" font-size="12.5" fill="#475569" text-anchor="middle">the executor is plumbing — all intelligence lives in the model, and every action loops back through the display</text>
+</svg>

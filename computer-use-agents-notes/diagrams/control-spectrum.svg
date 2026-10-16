@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="460" viewBox="0 0 1100 460" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif">
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/></marker>
+<marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/></marker>
+<marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#16a34a"/></marker>
+<marker id="arrow-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#d97706"/></marker>
+</defs>
+<rect x="0.5" y="0.5" width="1099" height="459" rx="14" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="550.0" y="42" font-size="23" font-weight="700" fill="#0f172a" text-anchor="middle">The control spectrum: five ways an agent can touch a GUI</text>
+<text x="550.0" y="68" font-size="14" fill="#475569" text-anchor="middle">From pure pixels (most universal, most fragile) to native commands (most precise, most restricted)</text>
+<rect x="49" y="140" width="186" height="232" rx="10" fill="#ffffff" stroke="#2563eb" stroke-width="1.6"/>
+<rect x="49" y="140" width="186" height="30" rx="10" fill="#2563eb" opacity="0.12"/>
+<text x="142.0" y="160" font-size="13.5" font-weight="700" fill="#2563eb" text-anchor="middle">Raw pixels</text>
+<text x="142.0" y="188" font-size="11.5" fill="#0f172a" text-anchor="middle">screenshot →</text>
+<text x="142.0" y="207" font-size="11.5" fill="#0f172a" text-anchor="middle">coordinates</text>
+<text x="142.0" y="226" font-size="11.5" fill="#0f172a" text-anchor="middle"></text>
+<text x="142.0" y="245" font-size="11.5" fill="#0f172a" text-anchor="middle">any app works,</text>
+<text x="142.0" y="264" font-size="11.5" fill="#0f172a" text-anchor="middle">even games and</text>
+<text x="142.0" y="283" font-size="11.5" fill="#0f172a" text-anchor="middle">video walls</text>
+<text x="142.0" y="302" font-size="11.5" fill="#0f172a" text-anchor="middle"></text>
+<text x="142.0" y="321" font-size="11.5" fill="#0f172a" text-anchor="middle">slow, imprecise,</text>
+<text x="142.0" y="340" font-size="11.5" fill="#0f172a" text-anchor="middle">breaks on layout</text>
+<text x="142.0" y="359" font-size="11.5" fill="#0f172a" text-anchor="middle">change</text>
+<rect x="253" y="140" width="186" height="232" rx="10" fill="#ffffff" stroke="#7c3aed" stroke-width="1.6"/>
+<rect x="253" y="140" width="186" height="30" rx="10" fill="#7c3aed" opacity="0.12"/>
+<text x="346.0" y="160" font-size="13.5" font-weight="700" fill="#7c3aed" text-anchor="middle">Pixels + Set-of-Mark</text>
+<text x="346.0" y="188" font-size="11.5" fill="#0f172a" text-anchor="middle">boxes drawn on the</text>
+<text x="346.0" y="207" font-size="11.5" fill="#0f172a" text-anchor="middle">screenshot, model</text>
+<text x="346.0" y="226" font-size="11.5" fill="#0f172a" text-anchor="middle">picks a number</text>
+<text x="346.0" y="245" font-size="11.5" fill="#0f172a" text-anchor="middle"></text>
+<text x="346.0" y="264" font-size="11.5" fill="#0f172a" text-anchor="middle">better grounding,</text>
+<text x="346.0" y="283" font-size="11.5" fill="#0f172a" text-anchor="middle">still only what is</text>
+<text x="346.0" y="302" font-size="11.5" fill="#0f172a" text-anchor="middle">visible</text>
+<text x="346.0" y="321" font-size="11.5" fill="#0f172a" text-anchor="middle"></text>
+<text x="346.0" y="340" font-size="11.5" fill="#0f172a" text-anchor="middle">needs draw +</text>
+<text x="346.0" y="359" font-size="11.5" fill="#0f172a" text-anchor="middle">re-screenshot pass</text>
+<rect x="457" y="140" width="186" height="232" rx="10" fill="#ffffff" stroke="#0d9488" stroke-width="1.6"/>
+<rect x="457" y="140" width="186" height="30" rx="10" fill="#0d9488" opacity="0.12"/>
+<text x="550.0" y="160" font-size="13.5" font-weight="700" fill="#0d9488" text-anchor="middle">DOM / a11y refs</text>
+<text x="550.0" y="188" font-size="11.5" fill="#0f172a" text-anchor="middle">tree dump with</text>
+<text x="550.0" y="207" font-size="11.5" fill="#0f172a" text-anchor="middle">stable refs:</text>
+<text x="550.0" y="226" font-size="11.5" fill="#0f172a" text-anchor="middle">click(ref=e12)</text>
+<text x="550.0" y="245" font-size="11.5" fill="#0f172a" text-anchor="middle"></text>
+<text x="550.0" y="264" font-size="11.5" fill="#0f172a" text-anchor="middle">text-cheap, robust,</text>
+<text x="550.0" y="283" font-size="11.5" fill="#0f172a" text-anchor="middle">works in background</text>
+<text x="550.0" y="302" font-size="11.5" fill="#0f172a" text-anchor="middle"></text>
+<text x="550.0" y="321" font-size="11.5" fill="#0f172a" text-anchor="middle">only when the app</text>
+<text x="550.0" y="340" font-size="11.5" fill="#0f172a" text-anchor="middle">exposes a tree;</text>
+<text x="550.0" y="359" font-size="11.5" fill="#0f172a" text-anchor="middle">refs go stale</text>
+<rect x="661" y="140" width="186" height="232" rx="10" fill="#ffffff" stroke="#16a34a" stroke-width="1.6"/>
+<rect x="661" y="140" width="186" height="30" rx="10" fill="#16a34a" opacity="0.12"/>
+<text x="754.0" y="160" font-size="13.5" font-weight="700" fill="#16a34a" text-anchor="middle">Native API actions</text>
+<text x="754.0" y="188" font-size="11.5" fill="#0f172a" text-anchor="middle">UIA patterns,</text>
+<text x="754.0" y="207" font-size="11.5" fill="#0f172a" text-anchor="middle">AXPress, AT-SPI</text>
+<text x="754.0" y="226" font-size="11.5" fill="#0f172a" text-anchor="middle">DoAction / Value</text>
+<text x="754.0" y="245" font-size="11.5" fill="#0f172a" text-anchor="middle"></text>
+<text x="754.0" y="264" font-size="11.5" fill="#0f172a" text-anchor="middle">no pointer at all,</text>
+<text x="754.0" y="283" font-size="11.5" fill="#0f172a" text-anchor="middle">works minimized</text>
+<text x="754.0" y="302" font-size="11.5" fill="#0f172a" text-anchor="middle"></text>
+<text x="754.0" y="321" font-size="11.5" fill="#0f172a" text-anchor="middle">app must implement</text>
+<text x="754.0" y="340" font-size="11.5" fill="#0f172a" text-anchor="middle">the pattern</text>
+<rect x="865" y="140" width="186" height="232" rx="10" fill="#ffffff" stroke="#d97706" stroke-width="1.6"/>
+<rect x="865" y="140" width="186" height="30" rx="10" fill="#d97706" opacity="0.12"/>
+<text x="958.0" y="160" font-size="13.5" font-weight="700" fill="#d97706" text-anchor="middle">CLI / protocol</text>
+<text x="958.0" y="188" font-size="11.5" fill="#0f172a" text-anchor="middle">ssh, shell tools,</text>
+<text x="958.0" y="207" font-size="11.5" fill="#0f172a" text-anchor="middle">CDP, app APIs</text>
+<text x="958.0" y="226" font-size="11.5" fill="#0f172a" text-anchor="middle"></text>
+<text x="958.0" y="245" font-size="11.5" fill="#0f172a" text-anchor="middle">fast, scriptable,</text>
+<text x="958.0" y="264" font-size="11.5" fill="#0f172a" text-anchor="middle">testable</text>
+<text x="958.0" y="283" font-size="11.5" fill="#0f172a" text-anchor="middle"></text>
+<text x="958.0" y="302" font-size="11.5" fill="#0f172a" text-anchor="middle">not GUI at all —</text>
+<text x="958.0" y="321" font-size="11.5" fill="#0f172a" text-anchor="middle">the endpoint of</text>
+<text x="958.0" y="340" font-size="11.5" fill="#0f172a" text-anchor="middle">automation</text>
+<line x1="236" y1="256.0" x2="250" y2="256.0" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="440" y1="256.0" x2="454" y2="256.0" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="644" y1="256.0" x2="658" y2="256.0" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="848" y1="256.0" x2="862" y2="256.0" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="550.0" y="414" font-size="13" fill="#475569" text-anchor="middle">most agents ship a hybrid: tree or DOM first, pixels as fallback and verifier</text>
+</svg>

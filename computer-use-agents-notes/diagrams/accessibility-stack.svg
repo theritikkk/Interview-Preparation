@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="660" viewBox="0 0 1060 660" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif">
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/></marker>
+<marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/></marker>
+<marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#16a34a"/></marker>
+<marker id="arrow-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#d97706"/></marker>
+</defs>
+<rect x="0.5" y="0.5" width="1059" height="659" rx="14" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="530.0" y="42" font-size="23" font-weight="700" fill="#0f172a" text-anchor="middle">The structure path on Linux: AT-SPI over D-Bus</text>
+<text x="530.0" y="68" font-size="14" fill="#475569" text-anchor="middle">Applications publish what they are, so the agent can act on elements instead of guessing coordinates</text>
+<rect x="40" y="110" width="430" height="60" rx="10" fill="#ffffff" stroke="#2563eb" stroke-width="1.6"/>
+<rect x="40" y="110" width="430" height="30" rx="10" fill="#2563eb" opacity="0.12"/>
+<text x="255.0" y="130" font-size="15" font-weight="700" fill="#2563eb" text-anchor="middle">Application</text>
+<text x="255.0" y="158" font-size="11.5" fill="#0f172a" text-anchor="middle">GTK / Qt / Electron / Firefox — the app being controlled</text>
+<rect x="40" y="214" width="430" height="88" rx="10" fill="#ffffff" stroke="#0d9488" stroke-width="1.6"/>
+<rect x="40" y="214" width="430" height="30" rx="10" fill="#0d9488" opacity="0.12"/>
+<text x="255.0" y="234" font-size="15" font-weight="700" fill="#0d9488" text-anchor="middle">Toolkit bridge</text>
+<text x="255.0" y="262" font-size="11.5" fill="#0f172a" text-anchor="middle">ATK objects live inside the app;</text>
+<text x="255.0" y="281" font-size="11.5" fill="#0f172a" text-anchor="middle">atk-adaptor publishes them on D-Bus</text>
+<text x="255.0" y="300" font-size="11.5" fill="#0f172a" text-anchor="middle">at paths like /org/a11y/atspi/accessible/12</text>
+<rect x="40" y="346" width="430" height="128" rx="10" fill="#ffffff" stroke="#7c3aed" stroke-width="1.6"/>
+<rect x="40" y="346" width="430" height="30" rx="10" fill="#7c3aed" opacity="0.12"/>
+<text x="255.0" y="366" font-size="15" font-weight="700" fill="#7c3aed" text-anchor="middle">AT-SPI D-Bus interfaces</text>
+<text x="255.0" y="394" font-size="11.5" fill="#0f172a" text-anchor="middle">org.a11y.atspi.Accessible  (Name, Role, State, children…)</text>
+<text x="255.0" y="413" font-size="11.5" fill="#0f172a" text-anchor="middle">org.a11y.atspi.Action  (DoAction — a real, coordinate-free click)</text>
+<text x="255.0" y="432" font-size="11.5" fill="#0f172a" text-anchor="middle">org.a11y.atspi.Component  (GetExtents — screen rectangle)</text>
+<text x="255.0" y="451" font-size="11.5" fill="#0f172a" text-anchor="middle">org.a11y.atspi.Text / Value  (read and set content)</text>
+<rect x="510" y="110" width="200" height="368" rx="10" fill="#ffffff" stroke="#d97706" stroke-width="1.6"/>
+<rect x="510" y="110" width="200" height="30" rx="10" fill="#d97706" opacity="0.12"/>
+<text x="610.0" y="130" font-size="14" font-weight="700" fill="#d97706" text-anchor="middle">Accessibility bus</text>
+<text x="610.0" y="158" font-size="12.5" fill="#0f172a" text-anchor="middle">a private D-Bus</text>
+<text x="610.0" y="177" font-size="12.5" fill="#0f172a" text-anchor="middle"></text>
+<text x="610.0" y="196" font-size="12.5" fill="#0f172a" text-anchor="middle">started per session</text>
+<text x="610.0" y="215" font-size="12.5" fill="#0f172a" text-anchor="middle"></text>
+<text x="610.0" y="234" font-size="12.5" fill="#0f172a" text-anchor="middle">registryd tracks all</text>
+<text x="610.0" y="253" font-size="12.5" fill="#0f172a" text-anchor="middle"></text>
+<text x="610.0" y="272" font-size="12.5" fill="#0f172a" text-anchor="middle">apps and their object</text>
+<text x="610.0" y="291" font-size="12.5" fill="#0f172a" text-anchor="middle"></text>
+<text x="610.0" y="310" font-size="12.5" fill="#0f172a" text-anchor="middle">trees; clients connect</text>
+<text x="610.0" y="329" font-size="12.5" fill="#0f172a" text-anchor="middle"></text>
+<text x="610.0" y="348" font-size="12.5" fill="#0f172a" text-anchor="middle">once, then walk</text>
+<text x="610.0" y="367" font-size="12.5" fill="#0f172a" text-anchor="middle"></text>
+<text x="610.0" y="386" font-size="12.5" fill="#0f172a" text-anchor="middle">thousands of nodes</text>
+<rect x="790" y="110" width="230" height="255" rx="10" fill="#ffffff" stroke="#16a34a" stroke-width="1.6"/>
+<rect x="790" y="110" width="230" height="30" rx="10" fill="#16a34a" opacity="0.12"/>
+<text x="905.0" y="130" font-size="15" font-weight="700" fill="#16a34a" text-anchor="middle">Agent client</text>
+<text x="905.0" y="158" font-size="12.5" fill="#0f172a" text-anchor="middle">connects via libatspi</text>
+<text x="905.0" y="177" font-size="12.5" fill="#0f172a" text-anchor="middle">or raw D-Bus</text>
+<text x="905.0" y="196" font-size="12.5" fill="#0f172a" text-anchor="middle"></text>
+<text x="905.0" y="215" font-size="12.5" fill="#0f172a" text-anchor="middle">1 · enumerate windows</text>
+<text x="905.0" y="234" font-size="12.5" fill="#0f172a" text-anchor="middle">2 · recurse the tree</text>
+<text x="905.0" y="253" font-size="12.5" fill="#0f172a" text-anchor="middle">3 · find the element</text>
+<text x="905.0" y="272" font-size="12.5" fill="#0f172a" text-anchor="middle">4 · act on it directly</text>
+<text x="905.0" y="291" font-size="12.5" fill="#0f172a" text-anchor="middle">5 · actions re-enter the bus</text>
+<text x="905.0" y="310" font-size="12.5" fill="#0f172a" text-anchor="middle"></text>
+<text x="905.0" y="329" font-size="12.5" fill="#0f172a" text-anchor="middle">reads text; needs no</text>
+<text x="905.0" y="348" font-size="12.5" fill="#0f172a" text-anchor="middle">screenshot at all</text>
+<rect x="790" y="400" width="230" height="205" rx="10" fill="#ffffff" stroke="#16a34a" stroke-width="1.6"/>
+<rect x="790" y="400" width="230" height="30" rx="10" fill="#16a34a" opacity="0.12"/>
+<text x="905.0" y="420" font-size="15" font-weight="700" fill="#16a34a" text-anchor="middle">Why it wins</text>
+<text x="905.0" y="448" font-size="12.5" fill="#0f172a" text-anchor="middle">no cursor hijacking</text>
+<text x="905.0" y="467" font-size="12.5" fill="#0f172a" text-anchor="middle">works in background</text>
+<text x="905.0" y="486" font-size="12.5" fill="#0f172a" text-anchor="middle">several agents can</text>
+<text x="905.0" y="505" font-size="12.5" fill="#0f172a" text-anchor="middle">share one machine</text>
+<text x="905.0" y="524" font-size="12.5" fill="#0f172a" text-anchor="middle"></text>
+<text x="905.0" y="543" font-size="12.5" fill="#0f172a" text-anchor="middle">but: stale nodes, and</text>
+<text x="905.0" y="562" font-size="12.5" fill="#0f172a" text-anchor="middle">apps that expose</text>
+<text x="905.0" y="581" font-size="12.5" fill="#0f172a" text-anchor="middle">nothing useful</text>
+<line x1="474" y1="200" x2="504" y2="200" stroke="#0d9488" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="474" y1="350" x2="504" y2="350" stroke="#0d9488" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="714" y1="220" x2="784" y2="220" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow-green)"/>
+<line x1="784" y1="330" x2="716" y2="330" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow-green)"/>
+<text x="750" y="318" font-size="11.5" fill="#16a34a" text-anchor="middle">DoAction</text>
+<text x="630.0" y="516" font-size="12" fill="#475569" text-anchor="middle">actions travel back down the same stack</text>
+<text x="530.0" y="636" font-size="13" fill="#475569" text-anchor="middle">Windows equivalent: UI Automation control patterns  ·  macOS equivalent: AXUIElement + AXPress</text>
+</svg>

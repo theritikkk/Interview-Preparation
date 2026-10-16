@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="620" viewBox="0 0 1100 620" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif">
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/></marker>
+<marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/></marker>
+<marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#16a34a"/></marker>
+<marker id="arrow-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#d97706"/></marker>
+</defs>
+<rect x="0.5" y="0.5" width="1099" height="619" rx="14" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="550.0" y="42" font-size="23" font-weight="700" fill="#0f172a" text-anchor="middle">Lifecycle of an agent computer in the cloud</text>
+<text x="550.0" y="68" font-size="14" fill="#475569" text-anchor="middle">Templates fork into microVMs; snapshots make stop, resume and clone nearly instant</text>
+<rect x="42" y="120" width="235" height="125" rx="10" fill="#ffffff" stroke="#7c3aed" stroke-width="1.6"/>
+<rect x="42" y="120" width="235" height="30" rx="10" fill="#7c3aed" opacity="0.12"/>
+<text x="159.5" y="140" font-size="15" font-weight="700" fill="#7c3aed" text-anchor="middle">Template</text>
+<text x="159.5" y="168" font-size="12.5" fill="#0f172a" text-anchor="middle">golden disk image:</text>
+<text x="159.5" y="187" font-size="12.5" fill="#0f172a" text-anchor="middle">OS + browser + agent</text>
+<text x="159.5" y="206" font-size="12.5" fill="#0f172a" text-anchor="middle">runtime + VM config</text>
+<text x="159.5" y="225" font-size="12.5" fill="#0f172a" text-anchor="middle">never modified</text>
+<rect x="302" y="120" width="235" height="125" rx="10" fill="#ffffff" stroke="#2563eb" stroke-width="1.6"/>
+<rect x="302" y="120" width="235" height="30" rx="10" fill="#2563eb" opacity="0.12"/>
+<text x="419.5" y="140" font-size="15" font-weight="700" fill="#2563eb" text-anchor="middle">Launch</text>
+<text x="419.5" y="168" font-size="12.5" fill="#0f172a" text-anchor="middle">Firecracker microVM on KVM</text>
+<text x="419.5" y="187" font-size="12.5" fill="#0f172a" text-anchor="middle">~125 ms class boot;</text>
+<text x="419.5" y="206" font-size="12.5" fill="#0f172a" text-anchor="middle">disk = copy-on-write overlay</text>
+<text x="419.5" y="225" font-size="12.5" fill="#0f172a" text-anchor="middle">on top of the template</text>
+<rect x="562" y="120" width="235" height="125" rx="10" fill="#ffffff" stroke="#16a34a" stroke-width="1.6"/>
+<rect x="562" y="120" width="235" height="30" rx="10" fill="#16a34a" opacity="0.12"/>
+<text x="679.5" y="140" font-size="15" font-weight="700" fill="#16a34a" text-anchor="middle">Run</text>
+<text x="679.5" y="168" font-size="12.5" fill="#0f172a" text-anchor="middle">agent works; every write</text>
+<text x="679.5" y="187" font-size="12.5" fill="#0f172a" text-anchor="middle">lands in the overlay;</text>
+<text x="679.5" y="206" font-size="12.5" fill="#0f172a" text-anchor="middle">secrets injected here,</text>
+<text x="679.5" y="225" font-size="12.5" fill="#0f172a" text-anchor="middle">not into the template</text>
+<rect x="822" y="120" width="235" height="125" rx="10" fill="#ffffff" stroke="#d97706" stroke-width="1.6"/>
+<rect x="822" y="120" width="235" height="30" rx="10" fill="#d97706" opacity="0.12"/>
+<text x="939.5" y="140" font-size="15" font-weight="700" fill="#d97706" text-anchor="middle">Snapshot</text>
+<text x="939.5" y="168" font-size="12.5" fill="#0f172a" text-anchor="middle">freeze: memory image +</text>
+<text x="939.5" y="187" font-size="12.5" fill="#0f172a" text-anchor="middle">disk state; VM state file;</text>
+<text x="939.5" y="206" font-size="12.5" fill="#0f172a" text-anchor="middle">cheap to keep, near-zero</text>
+<text x="939.5" y="225" font-size="12.5" fill="#0f172a" text-anchor="middle">CPU while idle</text>
+<line x1="281" y1="182.5" x2="296" y2="182.5" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="541" y1="182.5" x2="556" y2="182.5" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="801" y1="182.5" x2="816" y2="182.5" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="40" y="315" width="330" height="165" rx="10" fill="#ffffff" stroke="#2563eb" stroke-width="1.6"/>
+<rect x="40" y="315" width="330" height="30" rx="10" fill="#2563eb" opacity="0.12"/>
+<text x="205.0" y="335" font-size="15" font-weight="700" fill="#2563eb" text-anchor="middle">Resume (stop → start)</text>
+<text x="205.0" y="363" font-size="12.5" fill="#0f172a" text-anchor="middle">restore memory pages lazily via</text>
+<text x="205.0" y="382" font-size="12.5" fill="#0f172a" text-anchor="middle">userfaultfd; VMGenID changes →</text>
+<text x="205.0" y="401" font-size="12.5" fill="#0f172a" text-anchor="middle">guest reseeds its RNG;</text>
+<text x="205.0" y="420" font-size="12.5" fill="#0f172a" text-anchor="middle">open sockets are dead, clocks jump,</text>
+<text x="205.0" y="439" font-size="12.5" fill="#0f172a" text-anchor="middle">so the agent must retry, not trust</text>
+<rect x="400" y="315" width="330" height="165" rx="10" fill="#ffffff" stroke="#0d9488" stroke-width="1.6"/>
+<rect x="400" y="315" width="330" height="30" rx="10" fill="#0d9488" opacity="0.12"/>
+<text x="565.0" y="335" font-size="15" font-weight="700" fill="#0d9488" text-anchor="middle">Clone / fork (×N)</text>
+<text x="565.0" y="363" font-size="12.5" fill="#0f172a" text-anchor="middle">each clone gets a fresh overlay</text>
+<text x="565.0" y="382" font-size="12.5" fill="#0f172a" text-anchor="middle">off the same base + a fresh</text>
+<text x="565.0" y="401" font-size="12.5" fill="#0f172a" text-anchor="middle">VMGenID; secrets are re-injected</text>
+<text x="565.0" y="420" font-size="12.5" fill="#0f172a" text-anchor="middle">per clone — never baked into</text>
+<text x="565.0" y="439" font-size="12.5" fill="#0f172a" text-anchor="middle">the shared image</text>
+<rect x="760" y="315" width="330" height="165" rx="10" fill="#ffffff" stroke="#dc2626" stroke-width="1.6"/>
+<rect x="760" y="315" width="330" height="30" rx="10" fill="#dc2626" opacity="0.12"/>
+<text x="925.0" y="335" font-size="15" font-weight="700" fill="#dc2626" text-anchor="middle">Destroy</text>
+<text x="925.0" y="363" font-size="12.5" fill="#0f172a" text-anchor="middle">delete overlay + snapshot;</text>
+<text x="925.0" y="382" font-size="12.5" fill="#0f172a" text-anchor="middle">the template and siblings</text>
+<text x="925.0" y="401" font-size="12.5" fill="#0f172a" text-anchor="middle">are untouched (copy-on-write</text>
+<text x="925.0" y="420" font-size="12.5" fill="#0f172a" text-anchor="middle">means isolation for free)</text>
+<line x1="939.5" y1="251" x2="939.5" y2="285" stroke="#475569" stroke-width="2"/>
+<path d="M 939.5 285 L 205.0 285 L 205.0 309" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M 939.5 285 L 565.0 285 L 565.0 309" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M 939.5 285 L 925.0 285 L 925.0 309" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="550.0" y="592" font-size="13" fill="#475569" text-anchor="middle">one small snapshot per branch lets a fleet of agents start from the same worked-through state</text>
+</svg>
