@@ -136,4 +136,4 @@ Extend §8 to a table over $M\in\{2,3,4,5\}$ and SNR from $-10$ to $30$ dB in 5 
 
 ---
 
-[← Lesson 52](lesson-52-handover.md) · [Table of Contents](../README.md)
+[← Lesson 52](lesson-52-handover.md) · [Table of Contents](../README.md) · [Lesson 54 →](lesson-54-outer-loop-link-adaptation.md)

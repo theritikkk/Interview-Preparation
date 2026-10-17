@@ -81,6 +81,9 @@ A living roadmap from backend/systems engineering to job-readiness for **PHY, ba
 - [Lesson 50 — Uplink Power Control: Open-Loop, Closed-Loop, Fractional Compensation](lessons/lesson-50-uplink-power-control.md) *(Stage 7/8)*
 - [Lesson 51 — DRX: The Latency-vs-Battery Trade-off, Derived](lessons/lesson-51-drx.md) *(Stage 7/8)*
 - [Lesson 52 — Handover: Hysteresis, Time-to-Trigger, and Ping-Pong](lessons/lesson-52-handover.md) *(Stage 7/8)*
+- [Lesson 53 — Carrier Aggregation: Why More Bandwidth Doesn't Always Mean More Throughput](lessons/lesson-53-carrier-aggregation.md) *(Stage 7/8)*
+- [Lesson 54 — Outer-Loop Link Adaptation: Hitting a BLER Target Without Knowing the Bias](lessons/lesson-54-outer-loop-link-adaptation.md) *(Stage 7/8)*
+- [Lesson 55 — PRACH Contention: Sizing the Preamble Pool with Slotted-ALOHA Math](lessons/lesson-55-prach-contention.md) *(Stage 7/8)*
 
 ---
 
