@@ -50,11 +50,11 @@ fork()
  +--------+
  |        |
  Shell   Child
-         |
-       execve()
-         |
-         v
-        ls
+          |
+        execve()
+          |
+          v
+         ls
 ```
 `fork` makes a new process; `exec` replaces an existing one's image, same PID. Kept separate specifically to leave room for fd setup — redirection, pipes — in between. *(File 08.)*
 

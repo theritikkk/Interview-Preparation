@@ -200,9 +200,43 @@ Every lab referenced across this handbook, consolidated. Each follows the same f
 
 ---
 
+## Extension labs: terminal parsing and multiplexers (files 45-48)
+
+### Lab 25 — Build a VT parser
+**Objective:** implement Williams' state machine and reproduce its error-recovery behaviors.
+**Commands:** compile file 45, Section 10's parser; feed it `printf '\033[31Hello' | ./vtparse` and the other cases in Section 5.
+**Expected observation:** the `H` is dispatched as a cursor-positioning command, not printed.
+**Internally:** file 45 — final bytes dispatch; a missing final byte changes the meaning of the next one.
+**Questions:** Add the `osc string` state. Should BEL terminate it? (DEC says no; xterm says yes.)
+
+### Lab 26 — A toy multiplexer
+**Objective:** see that a multiplexer's output is regenerated, not relayed.
+**Commands:** run file 46, Section 4.1's script; then, with real tmux, Section 4.2's `pipe-pane` + `script` comparison.
+**Expected observation:** the program's bytes and the client's bytes differ — the latter adds cursor positioning and clears.
+**Internally:** file 46, Section 3 — parse, grid, regenerate.
+**Questions:** Why does the program's `\n` arrive at the multiplexer as `\r\n`?
+
+### Lab 27 — Replicated terminal state machines
+**Objective:** test what keeps terminal replicas identical, and what breaks them.
+**Commands:** run file 47, Section 11's script.
+**Expected observation:** convergence under different chunkings; divergence for a grid-only mid-sequence snapshot, for a dropped control byte, and for different geometry.
+**Internally:** file 47, Sections 6.1-6.2; file 45, Section 9.
+**Questions:** Add a sequence counter so a client can detect loss — then reproduce Case 4b. Does your client notice?
+
+---
+
+### Lab 28 — Run and extend minimux
+**Objective:** run a working multiplexer, then close one of its documented gaps.
+**Commands:** from `code/`: `python3 test_minimux.py`; then `python3 minimux.py start work` and `python3 minimux.py attach work` (detach with `Ctrl+B d`, reattach from a second terminal).
+**Expected observation:** 37/37 checks pass; the session survives detaching, and a second client sees the same shell.
+**Internally:** file 48 — a PTY owner, a server, a terminal model, snapshot-on-attach, fan-out.
+**Questions:** Pick one of file 48's exercises (alternate screen, divergence detection, backpressure) and make a failing test pass.
+
+---
+
 ## Summary
 
-Twenty-four labs, each tied to the specific file(s) that explain *why* the expected observation happens — not just *that* it does. If an expected observation doesn't match what you actually see, that's not necessarily a mistake on your part; it's a prompt to re-read the linked section and figure out what's different about your specific setup.
+Twenty-four core labs plus four extension labs (25-28), each tied to the specific file(s) that explain *why* the expected observation happens — not just *that* it does. If an expected observation doesn't match what you actually see, that's not necessarily a mistake on your part; it's a prompt to re-read the linked section and figure out what's different about your specific setup.
 
 ---
 

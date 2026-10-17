@@ -56,7 +56,7 @@ Terminal emulator (local)
 
 **Where it actually lives:** typically under `/tmp/tmux-<uid>/default` (naming can vary/be configured) — a real filesystem entry, of a distinct **socket** type, visible in `ls -l` with a leading `s` (the same convention that shows `d` for directories and `l` for symlinks). Both the server (listening on it) and any client (connecting to it) reference this same path to find each other.
 
-**Attach/detach, now mechanically precise:** running `tmux attach` connects a client process to the server's *existing* socket — from that point, the client forwards your terminal's input to the server (which routes it to whichever pane is focused) and renders whatever the server sends back. Detaching (`Ctrl+B`, `D` by default) simply **disconnects the client from the socket and exits it** — the server, and everything running in its panes, is completely unaffected, since it was never dependent on that one connection to keep running. It goes back to having zero attached clients, patiently listening on that same socket, until something connects again.
+**Attach/detach, now mechanically precise:** running `tmux attach` connects a client process to the server's *existing* socket and **identifies itself** — and, crucially, **passes its own terminal's file descriptor to the server over that socket** (file descriptor passing via `SCM_RIGHTS`, carried in tmux's `imsg` message layer; tmux's own commit history records the change as "have the client pass its stdin fd to the server when identifying itself and have the server use that rather than reopening the tty"). From then on, **the server itself reads your keystrokes from that terminal and writes screen updates straight to it** — the client process mostly just sits there as the thing holding that terminal open, relaying things like resize notifications and exit. (An earlier version of this file described the client as forwarding input and output; that was imprecise. File 46 gives the full picture.) Detaching (`Ctrl+B`, `D` by default) simply **disconnects the client from the socket and exits it** — the server, and everything running in its panes, is completely unaffected, since it was never dependent on that one connection to keep running. It goes back to having zero attached clients, patiently listening on that same socket, until something connects again.
 
 ---
 
@@ -124,5 +124,7 @@ The next time you SSH back in and run `tmux attach`, a **brand-new** client, ins
 ---
 
 ## What's next
+
+(For tmux's internals — it is itself a full terminal emulator, what its server therefore owns, and the control-mode protocol — see `46_MULTIPLEXER_INTERNALS.md`; for the newer designs that separate the session from the view, `47_SESSION_VIEW_SEPARATION.md`.)
 
 `28_DAEMONS_SYSTEMD.md` contrasts tmux's persistence against a *true* daemon — the classic double-fork-and-`setsid()` recipe in full, and why modern `systemd`-managed services don't need to implement it themselves anymore.

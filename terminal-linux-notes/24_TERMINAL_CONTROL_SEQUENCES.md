@@ -127,4 +127,6 @@ This means any program doing manual cursor-positioning math — the terminal emu
 
 ## What's next
 
+(For *how* a terminal recognizes these sequences byte by byte — the state machine behind all of this, including what happens when a sequence is malformed or cut short — see `45_TERMINAL_PARSER_STATE_MACHINE.md`.)
+
 `25_INTERACTIVE_TERMINAL_PROGRAMS.md` pulls files 23 and 24 together: exactly why `vim`, `top`, `less`, and `ssh` need raw mode *and* the alternate screen *and* signal handling all at once, in a way `ls`/`cat` simply never do.

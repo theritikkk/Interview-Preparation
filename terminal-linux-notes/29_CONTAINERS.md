@@ -35,7 +35,7 @@ A kernel mechanism letting a group of processes have their own, isolated **view*
 
 ## 3. PID namespaces, and why a container's PID 1 is special
 
-Normally, host PID 1 carries a special kernel-level responsibility: it's the designated **reaper** for orphaned processes — ones whose original parent exited before they did. The kernel re-parents these to PID 1 specifically, so *someone* is always around to eventually `wait()` for them and prevent permanent zombies (full depth: file 40).
+Normally, host PID 1 carries a special kernel-level responsibility: it's the designated **reaper** for orphaned processes — ones whose original parent exited before they did. The kernel re-parents these to PID 1 specifically, so *someone* is always around to eventually `wait()` for them and prevent permanent zombies (full depth: file 44).
 
 A PID namespace creates an entirely separate PID numbering scheme for the processes inside it. The **first** process started inside a new PID namespace is assigned PID 1 *within that namespace* — even though it also has a completely different, ordinary-looking PID from the *host's* perspective. A single process genuinely has multiple, different PID values simultaneously, one per PID namespace it's visible within.
 

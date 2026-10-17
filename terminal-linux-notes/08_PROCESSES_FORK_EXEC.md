@@ -62,7 +62,7 @@ Conceptually (exact field names shift across kernel versions), every `task_struc
 | **S** — Sleeping | Blocked, waiting for something (I/O, a signal), interruptibly |
 | **D** — Uninterruptible sleep | Blocked in a way that can't even be interrupted by a signal — typically waiting on I/O |
 | **T** — Stopped | Suspended, e.g. by `SIGSTOP`/`Ctrl+Z` (file 15) |
-| **Z** — Zombie | Exited, but not yet reaped by its parent (Section 10; full treatment: file 40) |
+| **Z** — Zombie | Exited, but not yet reaped by its parent (Section 10; full treatment: file 44) |
 
 `ps -o stat` shows these directly. Full scheduler mechanics: file 22.
 
@@ -176,7 +176,7 @@ if (child == 0) {
 
 `WIFEXITED`/`WEXITSTATUS`/`WIFSIGNALED`/`WTERMSIG` are the standard macros for pulling apart the packed `status` value — was this a normal exit, and with what code, or did a signal kill it, and which one.
 
-**A process that has exited but hasn't yet been `wait`ed for by its parent is a zombie** (state `Z`, Section 5) — it's kept around purely so the parent can eventually collect its exit status. File 40 covers this, and the related case of an *orphan* (a child whose parent exited first), in full.
+**A process that has exited but hasn't yet been `wait`ed for by its parent is a zombie** (state `Z`, Section 5) — it's kept around purely so the parent can eventually collect its exit status. File 44 covers this, and the related case of an *orphan* (a child whose parent exited first), in full.
 
 ---
 

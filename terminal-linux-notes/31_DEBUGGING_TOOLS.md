@@ -23,7 +23,7 @@
 - **Use when:** something is using unexpected resources and you need to watch it change over time.
 
 **`pstree -p`**
-- **Observes:** the process tree, visually (files 08, 40).
+- **Observes:** the process tree, visually (files 08, 44).
 - **Reveals:** parent/child relationships at a glance, without manually correlating PID/PPID columns yourself.
 - **Use when:** you need the shape of a process hierarchy, not just a flat list.
 

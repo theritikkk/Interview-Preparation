@@ -39,6 +39,9 @@ The mechanisms underneath the one-liners above:
 - **ELF loading order** — for a dynamically linked binary, the kernel runs `ld.so` *before* the program's own entry point (file 08).
 - **Namespaces vs cgroups** — isolation of view vs. bounding of actual resource usage; a container needs both to be more than just an unusually isolated process (file 29).
 - **`AF_UNIX` vs `AF_INET`** — local-file-path-addressed, never network-capable, vs IP-and-port-addressed (files 27, 30).
+- **The parser state machine** — a terminal tells control from data purely by parser *state*; final bytes (`40`-`7E`) dispatch, ESC/CAN cancel, C0 controls execute even mid-sequence, and one missing byte can turn the next byte into a command (file 45).
+- **A multiplexer is a terminal emulator** — tmux and zellij parse every pane's output into their own grid and *regenerate* a fresh stream for your terminal; the server therefore owns the screen, the geometry (one PTY size), and the feature set (files 46-47).
+- **Session vs view** — a PTY has one size and only the program can redraw, so geometry is per-session while layout can be per-client; identical terminal replicas need ordered complete bytes, identical geometry, and a snapshot that includes parser state (file 47).
 - **VFS** — one syscall interface, dispatched by the kernel to whichever filesystem actually owns a given path — ext4, NFS, or a kernel-generated pseudo-filesystem, indistinguishably from userspace (file 19).
 
 ---
@@ -121,6 +124,9 @@ No answers here — this is the self-check. If any of these stall you, that's th
 - Can I explain why stdout sometimes doesn't appear immediately?
 - Can I explain what `docker exec -it` actually does, underneath?
 - Can I explain how tmux survives a dropped SSH connection?
+- Can I explain why a terminal emulator must be a state machine, and what one missing byte can do to the bytes after it?
+- Can I explain why tmux is itself a terminal emulator, and what that means the tmux server owns?
+- Can I explain why a PTY can't have a different size for each viewer, and what a "session vs view" multiplexer does about it?
 - Can I explain why `Ctrl+D` isn't a signal, despite behaving like one?
 - Can I explain the three-layer fd / open-file-description / inode model, with an example where it actually matters?
 - Can I explain why a container is not a lightweight VM, precisely?
@@ -177,9 +183,13 @@ No answers here — this is the self-check. If any of these stall you, that's th
 | 42 | `SHELL_GOTCHAS_AND_EXIT_STATUS` | Traps, `$?`, `set -e`, operators |
 | 43 | `MACOS_COMPARISON` | Linux vs macOS, side by side |
 | 44 | `PROCESS_TREE_ZOMBIES_ORPHANS` | The process tree, zombies, orphans |
+| 45 | `TERMINAL_PARSER_STATE_MACHINE` | The DEC VT500 parser, error recovery, determinism |
+| 46 | `MULTIPLEXER_INTERNALS` | tmux/zellij as terminal emulators, what the server owns, control mode |
+| 47 | `SESSION_VIEW_SEPARATION` | Session-vs-view designs, Rex (reported architecture), replicated state machines |
+| 48 | `MINI_MULTIPLEXER_PROJECT` | A tested, staged build of a persistent multiplexer (code in `code/`) |
 
 ---
 
 ## This is the end of the handbook
 
-Forty-five files, `00` through `44`. Every mechanism is traced to a syscall or a kernel concept, and every syscall is tied back to something you can run and observe yourself. The pressure test in file 00 and the checklist above are the two places to return to, periodically, long after the first read-through.
+Forty-nine files, `00` through `48` (plus the `code/` folder holding the tested multiplexer and its test suite). Every mechanism is traced to a syscall or a kernel concept, and every syscall is tied back to something you can run and observe yourself. The pressure test in file 00 and the checklist above are the two places to return to, periodically, long after the first read-through.

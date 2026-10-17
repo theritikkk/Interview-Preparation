@@ -199,6 +199,9 @@ A genuinely full implementation (arrow-key browsing, live editing) needs raw mod
 
 ## Where to go from here
 
+For the other half of the picture — a persistent *multiplexer* built the same staged way — see `48_MINI_MULTIPLEXER_PROJECT.md`.
+
+
 The 12 stages above already exercise every major OS primitive this handbook covers. If you want to keep extending: `;`/`&&`/`||` sequencing (file 42 preview), `$VAR` expansion, and combined redirection-plus-pipe parsing are natural next steps — all built on mechanisms already fully covered, none requiring anything new conceptually.
 
 ---
