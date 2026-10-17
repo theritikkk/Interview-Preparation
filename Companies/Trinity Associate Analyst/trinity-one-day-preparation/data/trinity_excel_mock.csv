@@ -1,0 +1,31 @@
+RepID,RepName,Region,Specialty,Product,Month,TRx,TargetTRx,Calls
+R-001,Aarav,North,Cardiologist,CardioX,Jan-26,1250,1200,40
+R-002,Bhavna,North,Cardiologist,CardioX,Jan-26,980,1050,36
+R-003,Chirag,north ,Neurologist,NeuroY,Jan-26,640,600,30
+R-004,Divya,South,Cardiologist,CardioX,Jan-26,1420,1300,45
+R-005,Eshan,South,Neurologist,NeuroY,Jan-26,880,900,38
+R-006,Fatima,East,Oncologist,OncoZ,Jan-26,260,300,22
+R-007,Gaurav,East,Cardiologist,CardioX,Jan-26,1105,1100,41
+R-008,Hina,West,Neurologist,NeuroY,Jan-26,720,750,33
+R-009,Irfan,West,Oncologist,OncoZ,Jan-26,410,380,28
+R-010,Jaya,N,Cardiologist,CardioX,Jan-26,1320,1250,44
+R-011,Kabir,North,Oncologist,OncoZ,Jan-26,355,340,26
+R-012,Lavanya,South,Cardiologist,CardioX,Jan-26,,1150,39
+R-013,Manish,South,Oncologist,OncoZ,Jan-26,298,320,24
+R-014,Neha,East,Neurologist,NeuroY,Jan-26,540,520,31
+R-014,Neha,East,Neurologist,NeuroY,Jan-26,540,520,31
+R-015,Omkar,West,Cardiologist,CardioX,Jan-26,"1,510",1450,47
+R-016,Priya,North,Neurologist,NeuroY,Feb-26,760,700,35
+R-017,Qadir,South,Neurologist,NeuroY,Feb-26,915,880,37
+R-018,Rhea,East,Cardiologist,CardioX,Feb-26,1180,1200,42
+R-019,Sahil,West,Oncologist,OncoZ,Feb-26,455,430,29
+R-020,Tara,North,Cardiologist, CardioX,Feb-26,1275,1200,43
+R-021,Uday,South,Cardiologist,CardioX,Feb-26,1340,1350,44
+R-022,Vidhi,East,Neurologist,NeuroY,Feb-26,605,580,32
+R-023,Waseem,West,Neurologist,NeuroY,Feb-26,690,720,34
+R-024,Xenia,North,Oncologist,OncoZ,Feb-26,330,350,25
+R-025,Yash,South,Oncologist,OncoZ,Feb-26,275,300,23
+R-026,Zara,East,Cardiologist,CardioX,Feb-26,1220,1150,40
+R-027,Aman,West,Cardiologist,CardioX,Feb-26,1390,1400,46
+R-028,Bela ,North,Neurologist,NeuroY,Feb-26,705,680,33
+R-029,Chetan,South,Oncologist,OncoZ,Feb-26,285,,27

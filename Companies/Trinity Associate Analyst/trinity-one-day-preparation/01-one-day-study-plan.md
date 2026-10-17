@@ -47,6 +47,8 @@ Tags: schedule is **PRACTICE** (built around the **CONFIRMED** process: proctore
 
 Total: 240 min = exactly 4 hours.
 
+**If the behavioral round could also land this week:** add 30 minutes tonight — write the two behavioral stories from [`12` §12.1](12-behavioral-interview-and-hr.md) and one project pitch from [`13` §13.6](13-resume-and-project-discussion.md). These are the two cheapest points in the whole process.
+
 ---
 
 ## §1.3 Final 30-minute review checklist
@@ -66,8 +68,31 @@ Do this immediately before the assessment (or the night before, then sleep — s
 - [ ] **Chart selection** — trend→line; comparison→bar; part-of-whole→stacked bar (only few categories); relationship→scatter ([`05`](05-power-bi-tableau-and-data-visualization.md) §5.8)
 - [ ] **Case framework** — the 8 steps, in order ([`07`](07-life-sciences-business-analytics-and-cases.md) §7.3)
 - [ ] **Communication pattern** — What did I find? Why does it matter? What should we do? What are the limits? ([`08`](08-powerpoint-and-business-communication.md) §8.3)
-- [ ] **2 behavioral stories** — one teamwork, one deadline/attention-to-detail ([`09`](09-technical-interview-question-bank.md) §9.15)
+- [ ] **2 behavioral stories** — one teamwork, one deadline/attention-to-detail ([`12` §12.1](12-behavioral-interview-and-hr.md), [`09`](09-technical-interview-question-bank.md) §9.15)
+- [ ] **1 project pitch, spoken aloud** — 60 seconds, with one real number ([`13` §13.6](13-resume-and-project-discussion.md))
 - [ ] **Questions to ask them** — have 2 ready ([`09`](09-technical-interview-question-bank.md) §9.16)
+- [ ] **Traps prevention checklist** skimmed ([`15`](15-errors-mistakes-and-traps.md))
 
 ### What to skip if you're behind schedule
 In priority order, sacrifice: (1) case Case-2 deep work → replace with reading the solution; (2) SQL/Python snippets → read only; (3) PowerPoint file → read only the 4-question framework; (4) DI practice set → cheatsheet formulas only. **Never skip:** Excel hands-on block, the cheatsheet, and one timed mock.
+
+---
+
+## §1.4 Extended plan — when the drive is later in the week
+
+> The drive can land any day this week, so don't stop at one day. This schedule spreads the core (§1.1) over two days, then adds three consolidation days using files [`12`](12-behavioral-interview-and-hr.md)–[`17`](17-mock-and-interview-score-rubric.md). Keep the order; move the dates freely.
+> **Already done 02, 03 + Mock B?** Start at Day 2.
+
+| Day | Blocks | What you do | Output to produce |
+|---|---|---|---|
+| **Day 1** (core, part 1) | [`02`](02-aptitude-reasoning-and-data-interpretation.md) → [`03`](03-excel-complete-revision.md) + Mock B | Per §1.1 morning blocks | Mixed set ≥ 10/12; completed workbook + score |
+| **Day 2** (core, part 2) | [`04`](04-statistics-survey-and-market-research.md) → [`05`](05-power-bi-tableau-and-data-visualization.md) → [`06`](06-sql-python-and-automation-for-analysts.md) | CI by hand; Power BI vs Tableau table from memory; 2 SQL queries from memory | One CI computed; dashboard spec re-drawn; queries written |
+| **Day 3** (core, part 3) | [`07`](07-life-sciences-business-analytics-and-cases.md) (framework + Case 1, then **Case 2 unaided**) → **Mock A timed** ([`10`](10-mock-assessment-and-excel-test.md)) → review with [`17`](17-mock-and-interview-score-rubric.md) | Case 2 ≤ 25 min; Mock A without peeking; score and log misses | Case recommendation; Mock A ≥ 24/30 or a trap list |
+| **Day 4** (consolidation 1) | [`16`](16-case-practice-workbook.md) → [`15`](15-errors-mistakes-and-traps.md) | Relivax case: 25 min timed, then compare with §16.3; read all traps | Case self-score (§16.5); prevention checklist read |
+| **Day 5** (consolidation 2) | [`12`](12-behavioral-interview-and-hr.md) → [`13`](13-resume-and-project-discussion.md) | Write the 15 answer skeletons; record 4 answers; fill both pitch sheets | 5 stories, 2 project pitches, 2 questions to ask |
+| **Day 6** (consolidation 3) | **Mock C timed** ([`14`](14-second-mock-assessment-mcq-60-min.md)) → key review → redo Mock B from `data/trinity_excel_mock.csv` (time permitting) | Second 30-Q mock in MCQ format; real CSV import | Mock C ≥ 24/30; misses logged by trap number |
+| **Day 7 / final** | [`11`](11-final-revision-cheatsheet.md) cover-to-cover + [`09`](09-technical-interview-question-bank.md) starred Qs aloud + 2 stories aloud + [`15`](15-errors-mistakes-and-traps.md) checklist | Light, spoken, no new material | Confidence + freshness |
+
+**Priority if the week compresses to 2–3 days:** [`12`](12-behavioral-interview-and-hr.md) (behavioral answers) → [`15`](15-errors-mistakes-and-traps.md) (traps) → [`13`](13-resume-and-project-discussion.md) (two pitches) → [`14`](14-second-mock-assessment-mcq-60-min.md) (Mock C) → [`16`](16-case-practice-workbook.md) → [`17`](17-mock-and-interview-score-rubric.md).
+
+**Never skip the behavioral stories** — it is a scored round with no other coverage in this pack. If the drive is announced for tomorrow, do §1.2 plus 30 minutes of [`12` §12.1](12-behavioral-interview-and-hr.md) + [`13` §13.6](13-resume-and-project-discussion.md).
