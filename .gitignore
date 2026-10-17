@@ -1,1 +1,10 @@
 .DS_Store*
+
+# Regenerable lab build artifacts — recreated on demand by the folders' own
+# scripts (run-demo.sh / run-stress.sh download and build these themselves)
+distributed-systems/distributed-systems-practice/09-chaos-engineering/stress-ng
+distributed-systems/distributed-systems-practice/09-chaos-engineering/tcpchaos/tcpchaos
+
+# Python caches
+__pycache__/
+*.pyc
