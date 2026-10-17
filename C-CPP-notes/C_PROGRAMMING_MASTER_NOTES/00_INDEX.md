@@ -48,6 +48,11 @@ actually uploaded. This is flagged in detail in `01_BOOK_ANALYSIS.md` §1.
 The `Papyrus-C++/` folder alongside this one is a separate, pre-existing project
 (unrelated notes on a C++ load-testing tool) and is untouched by this handbook.
 
+**See also:** `../STUDY_GAP_MAP.md` — written after measuring your 13 other note sets (OSTEP,
+Linux kernel, networking, Raft, competitive programming, …). It lists what this C vault does
+*not* cover that those notes depend on — chiefly concurrency, the language-level memory model,
+kernel-style C idioms, and the whole C++ object model — and suggests a study order.
+
 ## How to read the notation used throughout this vault
 
 - `[Book-derived]` / `[External]` / `[Synthesis]` / `[Needs verification]` — source-

@@ -127,14 +127,26 @@ described.
 
 ## 6. What this vault deliberately left out
 
-`[Synthesis, an honest scope statement]` A few genuinely important topics were judged
-outside this vault's core scope, either because the three source books don't touch them
-and the brief's own priority list didn't name them, or because they're each large enough to
-deserve their own dedicated treatment rather than a rushed aside:
+`[Synthesis, an honest scope statement]` A few genuinely important topics are not
+covered. Most were judged outside this vault's core scope, because the three source books
+don't touch them or because each is large enough to deserve its own dedicated treatment
+rather than a rushed aside. **One of them — concurrency — is a real gap against the
+original brief, not just a scoping choice** (see the first bullet):
 
-- **Multithreading** (`<threads.h>`, POSIX `pthread`, data races, memory models beyond
-  single-threaded reasoning) — mentioned only in passing (`advanced/04_modern_c_vs_historical_c.md`
-  §2's table).
+- **Concurrency: threads, mutexes, semaphores, condition variables, C11 atomics and the
+  memory model, data races, deadlock, ThreadSanitizer.** **Not covered at all** — the vault
+  mentions threads only in passing (`<threads.h>` in `advanced/04_modern_c_vs_historical_c.md`
+  §2's table, `-lpthread` in `systems/04_system_calls_vs_libc_vs_posix.md`, and the
+  thread-unsafety of `strtok`/`gethostbyname`). An earlier draft of this section said the
+  brief's priority list didn't name concurrency; that was wrong — the brief's closing list
+  of intended uses includes "concurrent programming", and its debugging section mentions
+  "race-like symptoms where relevant". Treat this as an omission to fill, not a deliberate
+  exclusion.
+- **OS-development topics:** inline assembly, linker scripts, interrupt/context-switch
+  mechanics, bootloaders, and hardware-register access patterns. The vault's only nearby
+  material is the freestanding-vs-hosted distinction (`libraries/10_limits_float_stddef.md`
+  §1), `volatile` (`fundamentals/02_types.md` §6), and the bit-field portability warning
+  (`memory/06_struct_union_layout.md` §8).
 - **Full regular expressions** (`<regex.h>`) — named once, in
   `projects/03_systems_projects.md` §7, as a natural extension to the grep-like project.
 - **Networking beyond basic TCP sockets** — `systems/07_sockets_and_networking.md` is
