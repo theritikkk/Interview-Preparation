@@ -1,0 +1,48 @@
+--- safe: txntool bank    server-side sabotage: none   kill a shard leader mid-run: no
+  seed 1: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=89 fault-felt=0
+  seed 2: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=95 fault-felt=0
+  seed 3: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=96 fault-felt=0
+  seed 4: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=62 fault-felt=0
+  seed 5: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=89 fault-felt=0
+
+--- safe-leaderkill: txntool bank    server-side sabotage: none   kill a shard leader mid-run: yes
+  seed 1: kill -9 leader of shard 2 (node 3, pid 13665) at t=7s
+  seed 1: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=107 fault-felt=33
+  seed 2: kill -9 leader of shard 3 (node 1, pid 27657) at t=7s
+  seed 2: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=86 fault-felt=38
+  seed 3: kill -9 leader of shard 1 (node 2, pid 9559) at t=7s
+  seed 3: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=79 fault-felt=49
+  seed 4: kill -9 leader of shard 2 (node 2, pid 25323) at t=7s
+  seed 4: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=84 fault-felt=41
+  seed 5: kill -9 leader of shard 3 (node 2, pid 7471) at t=7s
+  seed 5: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=93 fault-felt=50
+
+--- naive: txntool bank --naive   server-side sabotage: none   kill a shard leader mid-run: no
+  seed 1: audit-skew=13 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0  committed=447 fault-felt=0
+  seed 2: audit-skew=20 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0  committed=416 fault-felt=0
+  seed 3: audit-skew=15 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0  committed=464 fault-felt=0
+  seed 4: audit-skew=17 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0  committed=456 fault-felt=0
+  seed 5: audit-skew=19 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0  committed=440 fault-felt=0
+
+--- plain-audit: txntool bank --plain-audit   server-side sabotage: none   kill a shard leader mid-run: no
+  seed 1: audit-skew=16 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=135 fault-felt=0
+  seed 2: audit-skew=38 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=122 fault-felt=0
+  seed 3: audit-skew=33 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=135 fault-felt=0
+  seed 4: audit-skew=30 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=123 fault-felt=0
+  seed 5: audit-skew=27 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=108 fault-felt=0
+
+--- ablate-nolock: txntool bank    server-side sabotage: nolock   kill a shard leader mid-run: no
+  seed 1: audit-skew=69 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0  committed=236 fault-felt=0
+  seed 2: audit-skew=71 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0  committed=233 fault-felt=0
+  seed 3: audit-skew=61 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0  committed=240 fault-felt=0
+  seed 4: audit-skew=67 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0  committed=217 fault-felt=0
+  seed 5: audit-skew=65 negative-balance=0 final-total=1 final-per-account=11 stuck-locks=0 unresolved-txns=0 protocol=0  committed=225 fault-felt=0
+
+================ SUMMARY (seeds: 1 2 3 4 5, 20s per run, 12 accounts in 4 groups, 8 workers) ================
+safe               0/5 runs w/ violations | audit-skew=0    final-total=0  final-per-account=0   stuck=0 unresolved=0 protocol=0 | ok
+safe-leaderkill    0/5 runs w/ violations | audit-skew=0    final-total=0  final-per-account=0   stuck=0 unresolved=0 protocol=0 | ok
+naive              5/5 runs w/ violations | audit-skew=84   final-total=5  final-per-account=60  stuck=0 unresolved=0 protocol=0 | ok
+plain-audit        5/5 runs w/ violations | audit-skew=144  final-total=0  final-per-account=0   stuck=0 unresolved=0 protocol=0 | ok
+ablate-nolock      5/5 runs w/ violations | audit-skew=333  final-total=5  final-per-account=59  stuck=0 unresolved=0 protocol=0 | ok
+
+BANK STRESS PASSED: real protocol clean in every run (including with a shard leader killed); every broken variant caught with its expected symptom

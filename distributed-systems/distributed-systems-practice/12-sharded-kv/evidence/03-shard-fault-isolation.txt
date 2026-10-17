@@ -1,0 +1,38 @@
+Shard fault isolation: kill -9 the leader of shard 2 at t=3s while probing every shard (one GET / 100ms / shard).
+3 shards x 3 nodes, 1500 keys. Three independent runs (election timeouts are randomized, so outage length varies).
+
+================ run 1 ================
+== probing all shards for 14s; at t=3s kill -9 shard 2's leader (node 2, pid 13223) ==
+probe: one GET every 100ms per shard for 14s (rpc timeout 300ms)
+shard    attempts  failures   outage windows (first failure -> next success)
+1             138         0   none
+2             137        17   [t=3.04s -> t=4.85s, 1.81s] 
+3             138         0   none
+census: PASS (every key on exactly its ring owner, none missing)
+verify: 1500 keys in 1.4s -> correct=1500 missing=0 wrong-value=0 errors=0
+census: PASS (every key on exactly its ring owner, none missing)
+
+================ run 2 ================
+== probing all shards for 14s; at t=3s kill -9 shard 2's leader (node 2, pid 26472) ==
+probe: one GET every 100ms per shard for 14s (rpc timeout 300ms)
+shard    attempts  failures   outage windows (first failure -> next success)
+1             139         0   none
+2             138        16   [t=3.03s -> t=4.65s, 1.62s] 
+3             139         0   none
+census: PASS (every key on exactly its ring owner, none missing)
+verify: 1500 keys in 1.4s -> correct=1500 missing=0 wrong-value=0 errors=0
+census: PASS (every key on exactly its ring owner, none missing)
+
+================ run 3 ================
+== probing all shards for 14s; at t=3s kill -9 shard 2's leader (node 3, pid 7140) ==
+probe: one GET every 100ms per shard for 14s (rpc timeout 300ms)
+shard    attempts  failures   outage windows (first failure -> next success)
+1             139         0   none
+2             136        23   [t=3.03s -> t=5.65s, 2.62s] 
+3             139         0   none
+census: PASS (every key on exactly its ring owner, none missing)
+verify: 1500 keys in 1.2s -> correct=1500 missing=0 wrong-value=0 errors=0
+census: PASS (every key on exactly its ring owner, none missing)
+
+Reading the table: 'failures' counts GETs that failed (300ms client timeout); the window is first failure -> next success.
+Shards 1 and 3 never failed a request. Shard 2's outage is one Raft re-election (timeout 1.5-3s) and it recovered by itself.

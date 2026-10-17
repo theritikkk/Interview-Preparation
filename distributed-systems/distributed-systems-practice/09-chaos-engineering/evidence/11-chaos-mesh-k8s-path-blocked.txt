@@ -1,0 +1,38 @@
+=== helm binary: not GitHub-released, confirmed ===
+helm's own Makefile 'fetch-dist' target downloads from:
+fetch-dist:
+	mkdir -p _dist
+
+helm's release workflow uploads only to Azure Blob Storage, never to GitHub Releases:
+62:        uses: bacongobbler/azure-blob-storage-upload@50f7d898b7697e864130ea04c303ca38b5751c50 # pin@3.0.0
+73:        uses: bacongobbler/azure-blob-storage-upload@50f7d898b7697e864130ea04c303ca38b5751c50 # pin@3.0.0
+110:        uses: bacongobbler/azure-blob-storage-upload@50f7d898b7697e864130ea04c303ca38b5751c50 # pin@3.0.0
+
+get.helm.sh reachability test:
+curl: (56) CONNECT tunnel failed, response 403
+000
+
+github.com/helm/helm/releases/download/* probes (all real tags, all 404 -- helm genuinely doesn't attach binaries to its GitHub releases):
+  v3.14.0 -> 404
+  v3.16.4 -> 404
+  v4.3.0 -> 404
+
+=== Chaos Mesh's real Helm chart: confirmed pulls from ghcr.io, already-confirmed-blocked in Project 7 ===
+49:  registry: "ghcr.io"
+78:    registry: ""
+158:    registry: ""
+280:    registry: ""
+439:    registry: ""
+580:    registry: ""
+607:    registry: ""
+
+=== cross-reference: Project 7 already independently confirmed TWO more blockers that are not image-specific ===
+1. ghcr.io/docker.io/quay.io/registry.k8s.io all return 403 at the egress proxy CONNECT step
+2. this sandbox's cgroup hierarchy is not unified for its own process placement, which breaks
+   runc's ability to create a child cgroup for ANY pod -- confirmed with an unprivileged pod
+   (cilium-operator) in Project 7, independent of which image or chart is used
+
+Combined: even with a working helm binary, a real Chaos Mesh install attempt in this sandbox's
+k3s would be stopped by the same cgroup-delegation wall before ever reaching the registry step --
+re-running the full k3s+install sequence here would not surface new information beyond what
+Project 7 already established and what this file independently confirms for Chaos Mesh's own chart.

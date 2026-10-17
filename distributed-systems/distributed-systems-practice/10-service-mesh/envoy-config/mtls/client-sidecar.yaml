@@ -1,0 +1,57 @@
+## client-sidecar.yaml — the "calling" side of a mesh mTLS pair. Listens
+## on 20000 for plain local traffic (what the calling app actually sends —
+## it doesn't know or care about mTLS, same as a real app behind an Istio
+## sidecar) and originates real mTLS to server-sidecar:20001, presenting
+## its own client-sidecar.pem identity and validating the server's
+## certificate against the mesh CA. This is the outbound half of the pair
+## in mtls-demo.sh.
+admin:
+  address:
+    socket_address: { address: 127.0.0.1, port_value: 9903 }
+
+static_resources:
+  listeners:
+    - name: mtls_outbound
+      address:
+        socket_address: { address: 127.0.0.1, port_value: 20000 }
+      filter_chains:
+        - filters:
+            - name: envoy.filters.network.http_connection_manager
+              typed_config:
+                "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+                stat_prefix: mtls_outbound
+                route_config:
+                  name: local_route
+                  virtual_hosts:
+                    - name: upstream
+                      domains: ["*"]
+                      routes:
+                        - match: { prefix: "/" }
+                          route: { cluster: server_sidecar_mtls }
+                http_filters:
+                  - name: envoy.filters.http.router
+                    typed_config:
+                      "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
+
+  clusters:
+    - name: server_sidecar_mtls
+      connect_timeout: 1s
+      type: STATIC
+      lb_policy: ROUND_ROBIN
+      transport_socket:
+        name: envoy.transport_sockets.tls
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.UpstreamTlsContext
+          common_tls_context:
+            tls_certificates:
+              - certificate_chain: { filename: "certs/client-cert.pem" }
+                private_key: { filename: "certs/client-key.pem" }
+            validation_context:
+              trusted_ca: { filename: "certs/ca-cert.pem" }
+      load_assignment:
+        cluster_name: server_sidecar_mtls
+        endpoints:
+          - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address: { address: 127.0.0.1, port_value: 20001 }

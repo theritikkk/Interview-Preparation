@@ -1,0 +1,6 @@
+# Starvation of a large no-wait read set: every audit snapshots ALL 12 accounts (--groups 1), 20 s runs
+# Compare: with 4 groups of 3 accounts the safe runs completed 206 consistent audits in 5 runs (~41 per run), evidence/03
+
+(output of: txntool bank ring.conf --groups 1 --seconds 20 --seed N)
+seed 1: audits: consistent=2 skewed=0 unavailable=1   | 101 transfers committed, 6 gave up
+seed 2: audits: consistent=1 skewed=0 unavailable=1   | 111 transfers committed, 3 gave up

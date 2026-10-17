@@ -1,0 +1,39 @@
+shard 1: leader is node 2
+shard 2: leader is node 3
+shard 3: leader is node 3
+load: wrote 1500 keys with 48 threads in 3.6s, 0 failed
+
+== 1. before: 3 shards, every key on its ring owner ==
+shard      holds  ring says   misplaced   missing
+1            502        502           0         0
+2            493        493           0         0
+3            505        505           0         0
+distinct keys across all shards: 1500   keys held by more than one shard: 0
+census: PASS (every key on exactly its ring owner, none missing)
+
+== 2. start shard 4 (empty). Judged against the 4-shard ring, the keys that must move show up as 'misplaced' on 1-3 and 'missing' on 4 ==
+shard 4: leader is node 2
+shard      holds  ring says   misplaced   missing
+1            502        367         135         0
+2            493        312         181         0
+3            505        396         109         0
+4              0        425           0       425
+distinct keys across all shards: 1500   keys held by more than one shard: 0
+census: FAIL
+
+== 3. rebalance (safe protocol) ==
+migration: candidates=425 copied=425 destination-had-newer=0 nothing-to-move=0 failed=0 tombstones-cleaned=0  (8.0s)
+ring prediction for key-0..key-1499: 425 keys change owner (28.33%); migrator copied 425 -> MATCH
+for contrast, hash(key) % N (3 -> 4 shards) would have moved 1116 keys (74.40%)
+
+== 4. after: 4 shards, every key on its ring owner, every value intact ==
+shard      holds  ring says   misplaced   missing
+1            367        367           0         0
+2            312        312           0         0
+3            396        396           0         0
+4            425        425           0         0
+distinct keys across all shards: 1500   keys held by more than one shard: 0
+census: PASS (every key on exactly its ring owner, none missing)
+verify: 1500 keys in 1.2s -> correct=1500 missing=0 wrong-value=0 errors=0
+
+REBALANCE DEMO PASSED

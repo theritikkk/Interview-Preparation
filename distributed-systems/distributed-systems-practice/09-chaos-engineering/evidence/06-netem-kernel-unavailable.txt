@@ -1,0 +1,30 @@
+=== CAP_NET_ADMIN presence (bit 12 of CapEff) ===
+CAP_NET_ADMIN present: True
+
+=== netchaos inject lo 150 20 10 0  (real attempt) ===
+[netchaos] adding real netem qdisc on lo: delay=150ms jitter=20ms loss=10.0%
+[netchaos] error: QdiscAdd: no such file or directory
+
+=== probing other qdisc kinds (prio/fq/fq_codel/netem) on lo ===
+prio       -> no such file or directory
+fq         -> no such file or directory
+fq_codel   -> no such file or directory
+netem      -> no such file or directory
+
+=== /proc/kallsyms: qdisc infra present, but zero scheduler implementations registered ===
+present (core qdisc framework):
+ffffffff81de5e20 t pfifo_fast_init
+ffffffff81de7730 T qdisc_alloc
+ffffffff81de9c70 T register_qdisc
+ffffffff81dea730 T unregister_qdisc
+
+absent (checked explicitly, zero matches each):
+  sch_netem: 0 matches
+  sch_prio: 0 matches
+  sch_fq_codel: 0 matches
+  sch_sfq: 0 matches
+  sch_htb: 0 matches
+  sch_tbf: 0 matches
+  netem_init: 0 matches
+  prio_init: 0 matches
+  fq_codel_init: 0 matches

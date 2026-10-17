@@ -1,0 +1,69 @@
+failover_read_test.sh: after a forced failover (write, kill -9 leader immediately, hammer every survivor
+with raw GETs), is the FIRST successful read the acknowledged value? Pre-seeded with an old value so a
+stale answer is distinguishable from absence.
+
+=== A. first read-index version (step-0 precondition removed; scratch copy), 20 trials ===
+(an earlier identical run on the shipped-at-the-time build gave correct=0 stale=20; this re-capture: 19/20)
+trial 1: STALE  first answer from node 3 = "old-1"  (acknowledged write was "new-1-4400", previous value "old-1")
+trial 2: STALE  first answer from node 4 = "old-2"  (acknowledged write was "new-2-27640", previous value "old-2")
+trial 3: STALE  first answer from node 4 = "old-3"  (acknowledged write was "new-3-25401", previous value "old-3")
+trial 4: STALE  first answer from node 5 = "old-4"  (acknowledged write was "new-4-1270", previous value "old-4")
+trial 5: STALE  first answer from node 1 = "old-5"  (acknowledged write was "new-5-8871", previous value "old-5")
+trial 6: STALE  first answer from node 4 = "old-6"  (acknowledged write was "new-6-11099", previous value "old-6")
+trial 7: STALE  first answer from node 2 = "old-7"  (acknowledged write was "new-7-7128", previous value "old-7")
+trial 8: STALE  first answer from node 3 = "old-8"  (acknowledged write was "new-8-27310", previous value "old-8")
+trial 9: STALE  first answer from node 3 = "old-9"  (acknowledged write was "new-9-114", previous value "old-9")
+trial 10: STALE  first answer from node 3 = "old-10"  (acknowledged write was "new-10-13635", previous value "old-10")
+trial 11: STALE  first answer from node 4 = "old-11"  (acknowledged write was "new-11-12619", previous value "old-11")
+trial 12: STALE  first answer from node 1 = "old-12"  (acknowledged write was "new-12-8078", previous value "old-12")
+trial 13: STALE  first answer from node 4 = "old-13"  (acknowledged write was "new-13-1942", previous value "old-13")
+trial 14: STALE  first answer from node 3 = "old-14"  (acknowledged write was "new-14-28314", previous value "old-14")
+trial 15: STALE  first answer from node 3 = "old-15"  (acknowledged write was "new-15-5677", previous value "old-15")
+trial 16: STALE  first answer from node 1 = "old-16"  (acknowledged write was "new-16-25642", previous value "old-16")
+trial 17: STALE  first answer from node 3 = "old-17"  (acknowledged write was "new-17-27675", previous value "old-17")
+trial 18: ok     first answer from node 4 = "new-18-4146"
+trial 19: STALE  first answer from node 4 = "old-19"  (acknowledged write was "new-19-7021", previous value "old-19")
+trial 20: STALE  first answer from node 4 = "old-20"  (acknowledged write was "new-20-3862", previous value "old-20")
+
+raft_node: 20 trials -> correct=1 stale=19 inconclusive=0
+
+=== B. FINAL raft_node (read-index + own-term-commit precondition), 20 trials ===
+trial 1: ok     first answer from node 5 = "new-1-3876"
+trial 2: ok     first answer from node 2 = "new-2-4956"
+trial 3: ok     first answer from node 4 = "new-3-14279"
+trial 4: ok     first answer from node 5 = "new-4-30425"
+trial 5: ok     first answer from node 5 = "new-5-8729"
+trial 6: ok     first answer from node 4 = "new-6-29261"
+trial 7: ok     first answer from node 3 = "new-7-23738"
+trial 8: ok     first answer from node 3 = "new-8-31320"
+trial 9: ok     first answer from node 4 = "new-9-18085"
+trial 10: ok     first answer from node 3 = "new-10-10417"
+trial 11: ok     first answer from node 5 = "new-11-28887"
+trial 12: ok     first answer from node 3 = "new-12-31683"
+trial 13: ok     first answer from node 4 = "new-13-21106"
+trial 14: ok     first answer from node 3 = "new-14-12161"
+trial 15: ok     first answer from node 1 = "new-15-18350"
+trial 16: ok     first answer from node 5 = "new-16-3691"
+trial 17: ok     first answer from node 5 = "new-17-10177"
+trial 18: ok     first answer from node 3 = "new-18-20460"
+trial 19: ok     first answer from node 5 = "new-19-32700"
+trial 20: ok     first answer from node 5 = "new-20-12038"
+
+raft_node: 20 trials -> correct=20 stale=0 inconclusive=0
+
+=== C. control: raft_node_unsafe (Project 1's check, which has the termStartIndex_ wait), 10 trials ===
+trial 1: ok     first answer from node 4 = "new-1-32577"
+trial 2: ok     first answer from node 1 = "new-2-1909"
+trial 3: ok     first answer from node 5 = "new-3-17938"
+trial 4: ok     first answer from node 2 = "new-4-27822"
+trial 5: ok     first answer from node 2 = "new-5-28859"
+trial 6: ok     first answer from node 4 = "new-6-30165"
+trial 7: ok     first answer from node 4 = "new-7-8586"
+trial 8: ok     first answer from node 1 = "new-8-28239"
+trial 9: ok     first answer from node 2 = "new-9-5727"
+trial 10: ok     first answer from node 4 = "new-10-25177"
+
+raft_node_unsafe: 10 trials -> correct=10 stale=0 inconclusive=0
+
+NOTE: the first version of this test script looped on 'value is non-empty', which skipped stale-EMPTY
+answers and falsely reported 8/8 and 20/20 correct. Fixed to loop on 'a node answered ok=true' (see ANALYSIS.md).

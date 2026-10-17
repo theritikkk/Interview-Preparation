@@ -1,0 +1,58 @@
+## server-sidecar.yaml — the "receiving" side of a mesh mTLS pair. Listens
+## on 20001 for mTLS only (requires a client cert signed by the mesh CA —
+## require_client_certificate: true), terminates TLS, and forwards
+## plaintext to the real backend app on 9005. This is exactly the shape
+## of an Istio sidecar's inbound listener when PeerAuthentication is set
+## to STRICT mTLS — same TLS semantics, just configured statically
+## instead of pushed by istiod over SDS.
+admin:
+  address:
+    socket_address: { address: 127.0.0.1, port_value: 9902 }
+
+static_resources:
+  listeners:
+    - name: mtls_inbound
+      address:
+        socket_address: { address: 127.0.0.1, port_value: 20001 }
+      filter_chains:
+        - transport_socket:
+            name: envoy.transport_sockets.tls
+            typed_config:
+              "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.DownstreamTlsContext
+              require_client_certificate: true
+              common_tls_context:
+                tls_certificates:
+                  - certificate_chain: { filename: "certs/server-cert.pem" }
+                    private_key: { filename: "certs/server-key.pem" }
+                validation_context:
+                  trusted_ca: { filename: "certs/ca-cert.pem" }
+          filters:
+            - name: envoy.filters.network.http_connection_manager
+              typed_config:
+                "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+                stat_prefix: mtls_inbound
+                route_config:
+                  name: local_route
+                  virtual_hosts:
+                    - name: backend
+                      domains: ["*"]
+                      routes:
+                        - match: { prefix: "/" }
+                          route: { cluster: backend_app }
+                http_filters:
+                  - name: envoy.filters.http.router
+                    typed_config:
+                      "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
+
+  clusters:
+    - name: backend_app
+      connect_timeout: 1s
+      type: STATIC
+      lb_policy: ROUND_ROBIN
+      load_assignment:
+        cluster_name: backend_app
+        endpoints:
+          - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address: { address: 127.0.0.1, port_value: 9005 }

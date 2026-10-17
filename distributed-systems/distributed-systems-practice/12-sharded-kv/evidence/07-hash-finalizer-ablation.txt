@@ -1,0 +1,10 @@
+Balance with and without the fmix64 finalizer (20 salted rings x 100000 keys; cv = stddev/mean of per-shard load, lower is better)
+
+  FNV-1a only            shards=3 vnodes=16    mean cv=0.6109  mean max/mean=1.784
+  FNV-1a + fmix64        shards=3 vnodes=16    mean cv=0.2015  mean max/mean=1.246
+  FNV-1a only            shards=3 vnodes=128   mean cv=0.4105  mean max/mean=1.500
+  FNV-1a + fmix64        shards=3 vnodes=128   mean cv=0.0721  mean max/mean=1.084
+  FNV-1a only            shards=10 vnodes=16    mean cv=0.6965  mean max/mean=2.613
+  FNV-1a + fmix64        shards=10 vnodes=16    mean cv=0.2352  mean max/mean=1.438
+  FNV-1a only            shards=10 vnodes=128   mean cv=0.5536  mean max/mean=2.187
+  FNV-1a + fmix64        shards=10 vnodes=128   mean cv=0.0851  mean max/mean=1.133

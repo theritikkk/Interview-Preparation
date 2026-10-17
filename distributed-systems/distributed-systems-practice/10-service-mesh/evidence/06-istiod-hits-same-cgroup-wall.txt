@@ -1,0 +1,36 @@
+=== istioctl install output (minimal profile, real Istio 1.31.1 against real k3s v1.31.4) ===
+        |\          
+        | \         
+        |  \        
+        |   \       
+      /||    \      
+     / ||     \     
+    /  ||      \    
+   /   ||       \   
+  /    ||        \  
+ /     ||         \ 
+/______||__________\
+____________________
+  \__       _____/  
+     \_____/        
+
+
+The Kubernetes version v1.31.4+k3s1 is not supported by Istio 1.31.1. The minimum supported Kubernetes version is 1.32.
+Proceeding with the installation, but you might experience problems. See https://istio.io/latest/docs/releases/supported-releases/ for a list of supported versions.
+
+
+- Processing resources for Istio core.
+✔ Istio core installed ⛵️
+- Processing resources for Istiod.
+- Processing resources for Istiod. Waiting for Deployment/istio-system/istiod
+=== istiod pod status ===
+NAME                      READY   STATUS              RESTARTS   AGE    IP       NODE   NOMINATED NODE   READINESS GATES
+istiod-7884b5cc9f-47tlj   0/1     ContainerCreating   0          2m9s   <none>   vm     <none>           <none>
+
+=== istiod pod events: identical FailedCreatePodSandBox signature as CoreDNS ===
+LAST SEEN   TYPE      REASON                   OBJECT                        MESSAGE
+2m9s        Normal    Scheduled                pod/istiod-7884b5cc9f-47tlj   Successfully assigned istio-system/istiod-7884b5cc9f-47tlj to vm
+7s          Warning   FailedCreatePodSandBox   pod/istiod-7884b5cc9f-47tlj   Failed to create pod sandbox: rpc error: code = Unknown desc = failed to create containerd task: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: can't get final child's PID from pipe: EOF: unknown
+
+=== istiod image reference actually scheduled (for the record — never got far enough to pull it) ===
+docker.io/istio/pilot:1.31.1

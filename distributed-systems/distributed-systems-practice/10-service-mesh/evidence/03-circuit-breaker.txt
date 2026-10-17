@@ -1,0 +1,21 @@
+=== Circuit breaker: max_connections=2, max_pending_requests=2 on cb_service ===
+Backend has an artificial 500ms delay so concurrent requests genuinely overlap.
+
+2 sequential requests (within limits): both HTTP 200
+
+10 concurrent requests (limit allows 4 in flight: 2 active + 2 pending):
+  200 x 4, 503 (overflow) x 6
+
+=== Envoy's own circuit-breaker counters (proves Envoy itself rejected these before the backend saw them) ===
+cluster.cb_service.circuit_breakers.default.rq_pending_open: 0
+cluster.cb_service.circuit_breakers.high.rq_pending_open: 0
+cluster.cb_service.upstream_cx_overflow: 6
+cluster.cb_service.upstream_cx_pool_overflow: 0
+cluster.cb_service.upstream_cx_total: 7
+cluster.cb_service.upstream_rq_active_overflow: 4
+cluster.cb_service.upstream_rq_pending_active: 0
+cluster.cb_service.upstream_rq_pending_failure_eject: 0
+cluster.cb_service.upstream_rq_pending_overflow: 2
+cluster.cb_service.upstream_rq_pending_total: 7
+cluster.cb_service.upstream_rq_retry_overflow: 0
+cluster.cb_service.upstream_rq_total: 6

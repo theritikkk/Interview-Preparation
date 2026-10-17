@@ -1,0 +1,25 @@
+=== mTLS: real CA, real client/server identity certs, genuinely enforced ===
+
+1. Full path: client-sidecar(20000, plaintext in) -> mTLS -> server-sidecar(20001) -> backend(9005)
+   curl http://127.0.0.1:20000/
+secure-backend
+   [HTTP 200]
+
+2. Bypass attempt: plain HTTP straight at the mTLS-only port (no client-sidecar involved)
+curl: (52) Empty reply from server
+   [HTTP 000]
+   -> connection fails; the listener only speaks TLS, plaintext gets nothing
+
+3. Real TLS handshake, NO client certificate presented (require_client_certificate: true)
+CONNECTED(00000003)
+Verify return code: 0 (ok)
+40870198777F0000:error:0A00045C:SSL routines:ssl3_read_bytes:tlsv13 alert certificate required:../ssl/record/rec_layer_s3.c:1599:SSL alert number 116
+
+4. Real TLS handshake with an UNTRUSTED cert (self-signed, not signed by the mesh CA), real HTTP request sent
+4017759DED7F0000:error:0A000418:SSL routines:ssl3_read_bytes:tlsv1 alert unknown ca:../ssl/record/rec_layer_s3.c:1599:SSL alert number 48
+   -> TLS alert 48 'unknown ca' — rejected before any HTTP request is even processed
+
+5. Real TLS handshake WITH the legitimate CA-signed client-sidecar cert, real HTTP request sent
+HTTP/1.1 200 OK
+secure-backend
+   -> real HTTP 200 from the real backend, over a real mutually-authenticated TLS connection

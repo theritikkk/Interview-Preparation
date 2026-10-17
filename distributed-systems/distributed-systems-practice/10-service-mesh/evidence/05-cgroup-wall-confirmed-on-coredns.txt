@@ -1,0 +1,12 @@
+=== node status: real, Ready, default flannel CNI, no registry involved ===
+NAME   STATUS   ROLES                  AGE   VERSION        INTERNAL-IP   EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION    CONTAINER-RUNTIME
+vm     Ready    control-plane,master   59s   v1.31.4+k3s1   192.0.2.2     <none>        Ubuntu 24.04.5 LTS   6.18.44-fc-v114   containerd://1.7.23-k3s2
+
+=== coredns pod (k3s's own airgap-bundled image, zero external registry contact) ===
+NAME                      READY   STATUS              RESTARTS   AGE
+coredns-ccb96694c-49tjc   0/1     ContainerCreating   0          65s
+
+=== the exact failure, same signature as Project 7's cilium-operator finding ===
+LAST SEEN   TYPE      REASON                   OBJECT                        MESSAGE
+58s         Normal    Scheduled                pod/coredns-ccb96694c-49tjc   Successfully assigned kube-system/coredns-ccb96694c-49tjc to vm
+3s          Warning   FailedCreatePodSandBox   pod/coredns-ccb96694c-49tjc   Failed to create pod sandbox: rpc error: code = Unknown desc = failed to create containerd task: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: can't get final child's PID from pipe: EOF: unknown

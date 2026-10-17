@@ -1,0 +1,392 @@
+# Bank stress: full run, seeds 1-5, 20 s per run, 12 accounts in 4 groups, 8 workers (scripts/bank_stress.sh)
+# This is the second complete run; the first run's summary is kept in 03-bank-stress-first-run-summary.txt (same pattern, different counts: runs are not deterministic).
+
+--- safe: txntool bank    server-side sabotage: none   kill a shard leader mid-run: no
+  seed 1: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=81 fault-felt=0
+  seed 2: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=86 fault-felt=0
+  seed 3: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=95 fault-felt=0
+  seed 4: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=78 fault-felt=0
+  seed 5: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=100 fault-felt=0
+
+--- safe-leaderkill: txntool bank    server-side sabotage: none   kill a shard leader mid-run: yes
+  seed 1: kill -9 leader of shard 2 (node 2, pid 30563) at t=7s
+  seed 1: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=108 fault-felt=38
+  seed 2: kill -9 leader of shard 3 (node 1, pid 12964) at t=7s
+  seed 2: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=86 fault-felt=58
+  seed 3: kill -9 leader of shard 1 (node 1, pid 27010) at t=7s
+  seed 3: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=88 fault-felt=175
+  seed 4: kill -9 leader of shard 2 (node 1, pid 9866) at t=7s
+  seed 4: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=92 fault-felt=96
+  seed 5: kill -9 leader of shard 3 (node 1, pid 24445) at t=7s
+  seed 5: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=82 fault-felt=54
+
+--- naive: txntool bank --naive   server-side sabotage: none   kill a shard leader mid-run: no
+  seed 1: audit-skew=21 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0  committed=475 fault-felt=0
+  seed 2: audit-skew=15 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0  committed=581 fault-felt=0
+  seed 3: audit-skew=19 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0  committed=565 fault-felt=0
+  seed 4: audit-skew=16 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0  committed=556 fault-felt=0
+  seed 5: audit-skew=18 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0  committed=547 fault-felt=0
+
+--- plain-audit: txntool bank --plain-audit   server-side sabotage: none   kill a shard leader mid-run: no
+  seed 1: audit-skew=7 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=119 fault-felt=0
+  seed 2: audit-skew=7 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=128 fault-felt=0
+  seed 3: audit-skew=4 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=116 fault-felt=0
+  seed 4: audit-skew=5 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=132 fault-felt=0
+  seed 5: audit-skew=14 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=117 fault-felt=0
+
+--- ablate-nolock: txntool bank    server-side sabotage: nolock   kill a shard leader mid-run: no
+  seed 1: audit-skew=82 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0  committed=216 fault-felt=0
+  seed 2: audit-skew=78 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0  committed=231 fault-felt=0
+  seed 3: audit-skew=67 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0  committed=234 fault-felt=0
+  seed 4: audit-skew=72 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0  committed=232 fault-felt=0
+  seed 5: audit-skew=72 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0  committed=225 fault-felt=0
+
+================ SUMMARY (seeds: 1 2 3 4 5, 20s per run, 12 accounts in 4 groups, 8 workers) ================
+safe               0/5 runs w/ violations | audit-skew=0    final-total=0  final-per-account=0   stuck=0 unresolved=0 protocol=0 | ok
+safe-leaderkill    0/5 runs w/ violations | audit-skew=0    final-total=0  final-per-account=0   stuck=0 unresolved=0 protocol=0 | ok
+naive              5/5 runs w/ violations | audit-skew=89   final-total=5  final-per-account=60  stuck=0 unresolved=0 protocol=0 | ok
+plain-audit        5/5 runs w/ violations | audit-skew=37   final-total=0  final-per-account=0   stuck=0 unresolved=0 protocol=0 | ok
+ablate-nolock      5/5 runs w/ violations | audit-skew=371  final-total=5  final-per-account=60  stuck=0 unresolved=0 protocol=0 | ok
+
+BANK STRESS PASSED: real protocol clean in every run (including with a shard leader killed); every broken variant caught with its expected symptom
+
+=== aggregates over the 5 runs of each variant (computed from the per-seed logs below) ===
+| Variant | runs | transfers attempted | committed (2PC / single-shard) | gave up after 8 tries | aborted attempts (mismatch / conflict / other) | in doubt | audits consistent / skewed / unavailable | p50 ms cross / single (range over runs) |
+|---|---|---|---|---|---|---|---|---|
+| `safe` | 5 | 504 | 440 (267 / 173) | 35 | 175 / 721 / 0 | 0 | 206 / 0 / 5 | 580-599 / 147-148 |
+| `safe-leaderkill` | 5 | 562 | 456 (259 / 197) | 77 | 174 / 640 / 8 | 0 | 193 / 0 / 34 | 552-581 / 148-148 |
+| `naive` | 5 | 2724 | 2724 (n/a) | 0 | 0 / 0 / 0 | 0 | 2 / 89 / 21 | n/a / n/a |
+| `plain-audit` | 5 | 657 | 612 (394 / 218) | 17 | 190 / 624 / 0 | 0 | 2205 / 37 / 0 | 573-599 / 144-147 |
+| `ablate-nolock` | 5 | 1160 | 1138 (748 / 390) | 1 | 628 / 0 / 0 | 0 | 44 / 371 / 0 | 573-599 / 118-127 |
+
+
+=== per-seed logs ===
+
+----- logs/bank/safe-seed1.txt
+bank: mode=safe audit=snapshot accounts=12 groups=4 workers=8 seconds=20 seed=1 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=96 committed=81 (cross-shard 2PC=45, single-shard=36) gave-up-after-8-tries=9  aborted attempts: mismatch=40 conflict=141 other=0  insufficient-funds=0  read-failures=0
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard 597/604 (n=45)   single-shard 148/151 (n=36)
+audits: consistent=46 skewed=0 unavailable=1   final: total=12000 (expected 12000) unreadable-accounts=0
+VIOLATIONS: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: CLEAN (0 violations)
+
+----- logs/bank/safe-seed2.txt
+bank: mode=safe audit=snapshot accounts=12 groups=4 workers=8 seconds=20 seed=2 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=96 committed=86 (cross-shard 2PC=56, single-shard=30) gave-up-after-8-tries=5  aborted attempts: mismatch=36 conflict=141 other=0  insufficient-funds=0  read-failures=0
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard 599/609 (n=56)   single-shard 148/151 (n=30)
+audits: consistent=38 skewed=0 unavailable=0   final: total=12000 (expected 12000) unreadable-accounts=0
+VIOLATIONS: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: CLEAN (0 violations)
+
+----- logs/bank/safe-seed3.txt
+bank: mode=safe audit=snapshot accounts=12 groups=4 workers=8 seconds=20 seed=3 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=109 committed=95 (cross-shard 2PC=52, single-shard=43) gave-up-after-8-tries=7  aborted attempts: mismatch=35 conflict=152 other=0  insufficient-funds=0  read-failures=0
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard 585/623 (n=52)   single-shard 147/150 (n=43)
+audits: consistent=36 skewed=0 unavailable=2   final: total=12000 (expected 12000) unreadable-accounts=0
+VIOLATIONS: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: CLEAN (0 violations)
+
+----- logs/bank/safe-seed4.txt
+bank: mode=safe audit=snapshot accounts=12 groups=4 workers=8 seconds=20 seed=4 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=90 committed=78 (cross-shard 2PC=55, single-shard=23) gave-up-after-8-tries=6  aborted attempts: mismatch=25 conflict=156 other=0  insufficient-funds=0  read-failures=0
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard 584/609 (n=55)   single-shard 148/150 (n=23)
+audits: consistent=49 skewed=0 unavailable=1   final: total=12000 (expected 12000) unreadable-accounts=0
+VIOLATIONS: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: CLEAN (0 violations)
+
+----- logs/bank/safe-seed5.txt
+bank: mode=safe audit=snapshot accounts=12 groups=4 workers=8 seconds=20 seed=5 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=113 committed=100 (cross-shard 2PC=59, single-shard=41) gave-up-after-8-tries=8  aborted attempts: mismatch=39 conflict=131 other=0  insufficient-funds=0  read-failures=0
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard 580/604 (n=59)   single-shard 147/151 (n=41)
+audits: consistent=37 skewed=0 unavailable=1   final: total=12000 (expected 12000) unreadable-accounts=0
+VIOLATIONS: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: CLEAN (0 violations)
+
+----- logs/bank/safe-leaderkill-seed1.txt
+bank: mode=safe audit=snapshot accounts=12 groups=4 workers=8 seconds=20 seed=1 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=122 committed=108 (cross-shard 2PC=62, single-shard=46) gave-up-after-8-tries=8  aborted attempts: mismatch=38 conflict=127 other=2  insufficient-funds=0  read-failures=36
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard 552/602 (n=62)   single-shard 148/150 (n=46)
+audits: consistent=34 skewed=0 unavailable=4   final: total=12000 (expected 12000) unreadable-accounts=0
+VIOLATIONS: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: CLEAN (0 violations)
+
+----- logs/bank/safe-leaderkill-seed2.txt
+bank: mode=safe audit=snapshot accounts=12 groups=4 workers=8 seconds=20 seed=2 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=104 committed=86 (cross-shard 2PC=54, single-shard=32) gave-up-after-8-tries=13  aborted attempts: mismatch=30 conflict=133 other=0  insufficient-funds=0  read-failures=58
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard 581/619 (n=54)   single-shard 148/150 (n=32)
+audits: consistent=43 skewed=0 unavailable=3   final: total=12000 (expected 12000) unreadable-accounts=0
+VIOLATIONS: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: CLEAN (0 violations)
+
+----- logs/bank/safe-leaderkill-seed3.txt
+bank: mode=safe audit=snapshot accounts=12 groups=4 workers=8 seconds=20 seed=3 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=122 committed=88 (cross-shard 2PC=44, single-shard=44) gave-up-after-8-tries=27  aborted attempts: mismatch=33 conflict=120 other=5  insufficient-funds=0  read-failures=170
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard 575/615 (n=44)   single-shard 148/165 (n=44)
+audits: consistent=39 skewed=0 unavailable=12   final: total=12000 (expected 12000) unreadable-accounts=0
+VIOLATIONS: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: CLEAN (0 violations)
+
+----- logs/bank/safe-leaderkill-seed4.txt
+bank: mode=safe audit=snapshot accounts=12 groups=4 workers=8 seconds=20 seed=4 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=116 committed=92 (cross-shard 2PC=50, single-shard=42) gave-up-after-8-tries=18  aborted attempts: mismatch=40 conflict=126 other=0  insufficient-funds=0  read-failures=96
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard 557/603 (n=50)   single-shard 148/173 (n=42)
+audits: consistent=38 skewed=0 unavailable=8   final: total=12000 (expected 12000) unreadable-accounts=0
+VIOLATIONS: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: CLEAN (0 violations)
+
+----- logs/bank/safe-leaderkill-seed5.txt
+bank: mode=safe audit=snapshot accounts=12 groups=4 workers=8 seconds=20 seed=5 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=98 committed=82 (cross-shard 2PC=49, single-shard=33) gave-up-after-8-tries=11  aborted attempts: mismatch=33 conflict=134 other=1  insufficient-funds=0  read-failures=53
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard 580/611 (n=49)   single-shard 148/150 (n=33)
+audits: consistent=39 skewed=0 unavailable=7   final: total=12000 (expected 12000) unreadable-accounts=0
+VIOLATIONS: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: CLEAN (0 violations)
+
+----- logs/bank/naive-seed1.txt
+bank: mode=NAIVE(no transactions) audit=snapshot accounts=12 groups=4 workers=8 seconds=20 seed=1 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=475 committed=475 (cross-shard 2PC=0, single-shard=0) gave-up-after-8-tries=0  aborted attempts: mismatch=0 conflict=0 other=0  insufficient-funds=0  read-failures=0
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard -1/-1 (n=0)   single-shard -1/-1 (n=0)
+audits: consistent=0 skewed=21 unavailable=4   final: total=11608 (expected 12000) unreadable-accounts=0
+  e.g. audit of group 1 saw total 3053 (should be 3000)
+  e.g. audit of group 1 saw total 3048 (should be 3000)
+  e.g. audit of group 2 saw total 2686 (should be 3000)
+  e.g. audit of group 0 saw total 2843 (should be 3000)
+  e.g. audit of group 3 saw total 2942 (should be 3000)
+  e.g. acct-0 ended at 878, committed transfers say 984
+  e.g. acct-1 ended at 863, committed transfers say 857
+  e.g. acct-2 ended at 1174, committed transfers say 1031
+VIOLATIONS: audit-skew=21 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: VIOLATIONS DETECTED (34 violations)
+
+----- logs/bank/naive-seed2.txt
+bank: mode=NAIVE(no transactions) audit=snapshot accounts=12 groups=4 workers=8 seconds=20 seed=2 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=581 committed=581 (cross-shard 2PC=0, single-shard=0) gave-up-after-8-tries=0  aborted attempts: mismatch=0 conflict=0 other=0  insufficient-funds=0  read-failures=0
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard -1/-1 (n=0)   single-shard -1/-1 (n=0)
+audits: consistent=0 skewed=15 unavailable=6   final: total=11464 (expected 12000) unreadable-accounts=0
+  e.g. audit of group 3 saw total 2985 (should be 3000)
+  e.g. audit of group 2 saw total 2824 (should be 3000)
+  e.g. audit of group 1 saw total 2988 (should be 3000)
+  e.g. audit of group 0 saw total 2953 (should be 3000)
+  e.g. audit of group 3 saw total 2981 (should be 3000)
+  e.g. acct-0 ended at 1020, committed transfers say 1175
+  e.g. acct-1 ended at 885, committed transfers say 904
+  e.g. acct-2 ended at 596, committed transfers say 933
+VIOLATIONS: audit-skew=15 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: VIOLATIONS DETECTED (28 violations)
+
+----- logs/bank/naive-seed3.txt
+bank: mode=NAIVE(no transactions) audit=snapshot accounts=12 groups=4 workers=8 seconds=20 seed=3 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=565 committed=565 (cross-shard 2PC=0, single-shard=0) gave-up-after-8-tries=0  aborted attempts: mismatch=0 conflict=0 other=0  insufficient-funds=0  read-failures=0
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard -1/-1 (n=0)   single-shard -1/-1 (n=0)
+audits: consistent=0 skewed=19 unavailable=4   final: total=12343 (expected 12000) unreadable-accounts=0
+  e.g. audit of group 3 saw total 2971 (should be 3000)
+  e.g. audit of group 2 saw total 3078 (should be 3000)
+  e.g. audit of group 3 saw total 2926 (should be 3000)
+  e.g. audit of group 1 saw total 2917 (should be 3000)
+  e.g. audit of group 2 saw total 3053 (should be 3000)
+  e.g. acct-0 ended at 858, committed transfers say 747
+  e.g. acct-1 ended at 1215, committed transfers say 1037
+  e.g. acct-2 ended at 812, committed transfers say 493
+VIOLATIONS: audit-skew=19 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: VIOLATIONS DETECTED (32 violations)
+
+----- logs/bank/naive-seed4.txt
+bank: mode=NAIVE(no transactions) audit=snapshot accounts=12 groups=4 workers=8 seconds=20 seed=4 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=556 committed=556 (cross-shard 2PC=0, single-shard=0) gave-up-after-8-tries=0  aborted attempts: mismatch=0 conflict=0 other=0  insufficient-funds=0  read-failures=0
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard -1/-1 (n=0)   single-shard -1/-1 (n=0)
+audits: consistent=0 skewed=16 unavailable=3   final: total=11945 (expected 12000) unreadable-accounts=0
+  e.g. audit of group 2 saw total 2988 (should be 3000)
+  e.g. audit of group 1 saw total 3035 (should be 3000)
+  e.g. audit of group 3 saw total 2938 (should be 3000)
+  e.g. audit of group 2 saw total 2935 (should be 3000)
+  e.g. audit of group 1 saw total 3346 (should be 3000)
+  e.g. acct-0 ended at 786, committed transfers say 1016
+  e.g. acct-1 ended at 1249, committed transfers say 1139
+  e.g. acct-2 ended at 1147, committed transfers say 1292
+VIOLATIONS: audit-skew=16 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: VIOLATIONS DETECTED (29 violations)
+
+----- logs/bank/naive-seed5.txt
+bank: mode=NAIVE(no transactions) audit=snapshot accounts=12 groups=4 workers=8 seconds=20 seed=5 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=547 committed=547 (cross-shard 2PC=0, single-shard=0) gave-up-after-8-tries=0  aborted attempts: mismatch=0 conflict=0 other=0  insufficient-funds=0  read-failures=0
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard -1/-1 (n=0)   single-shard -1/-1 (n=0)
+audits: consistent=2 skewed=18 unavailable=4   final: total=11751 (expected 12000) unreadable-accounts=0
+  e.g. audit of group 1 saw total 3066 (should be 3000)
+  e.g. audit of group 0 saw total 2963 (should be 3000)
+  e.g. audit of group 0 saw total 3065 (should be 3000)
+  e.g. audit of group 3 saw total 2994 (should be 3000)
+  e.g. audit of group 0 saw total 3002 (should be 3000)
+  e.g. acct-0 ended at 705, committed transfers say 699
+  e.g. acct-1 ended at 1088, committed transfers say 1154
+  e.g. acct-2 ended at 816, committed transfers say 958
+VIOLATIONS: audit-skew=18 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: VIOLATIONS DETECTED (31 violations)
+
+----- logs/bank/plain-audit-seed1.txt
+bank: mode=safe audit=plain accounts=12 groups=4 workers=8 seconds=20 seed=1 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=127 committed=119 (cross-shard 2PC=77, single-shard=42) gave-up-after-8-tries=2  aborted attempts: mismatch=42 conflict=124 other=0  insufficient-funds=0  read-failures=0
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard 584/603 (n=77)   single-shard 147/150 (n=42)
+audits: consistent=437 skewed=7 unavailable=0   final: total=12000 (expected 12000) unreadable-accounts=0
+  e.g. audit of group 1 saw total 2997 (should be 3000)
+  e.g. audit of group 3 saw total 2987 (should be 3000)
+  e.g. audit of group 2 saw total 2985 (should be 3000)
+  e.g. audit of group 2 saw total 3043 (should be 3000)
+  e.g. audit of group 2 saw total 2991 (should be 3000)
+VIOLATIONS: audit-skew=7 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: VIOLATIONS DETECTED (7 violations)
+
+----- logs/bank/plain-audit-seed2.txt
+bank: mode=safe audit=plain accounts=12 groups=4 workers=8 seconds=20 seed=2 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=136 committed=128 (cross-shard 2PC=78, single-shard=50) gave-up-after-8-tries=2  aborted attempts: mismatch=47 conflict=114 other=0  insufficient-funds=0  read-failures=0
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard 599/608 (n=78)   single-shard 147/151 (n=50)
+audits: consistent=462 skewed=7 unavailable=0   final: total=12000 (expected 12000) unreadable-accounts=0
+  e.g. audit of group 3 saw total 3031 (should be 3000)
+  e.g. audit of group 0 saw total 2985 (should be 3000)
+  e.g. audit of group 0 saw total 3024 (should be 3000)
+  e.g. audit of group 2 saw total 3044 (should be 3000)
+  e.g. audit of group 1 saw total 3034 (should be 3000)
+VIOLATIONS: audit-skew=7 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: VIOLATIONS DETECTED (7 violations)
+
+----- logs/bank/plain-audit-seed3.txt
+bank: mode=safe audit=plain accounts=12 groups=4 workers=8 seconds=20 seed=3 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=129 committed=116 (cross-shard 2PC=71, single-shard=45) gave-up-after-8-tries=8  aborted attempts: mismatch=31 conflict=140 other=0  insufficient-funds=0  read-failures=0
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard 594/605 (n=71)   single-shard 146/150 (n=45)
+audits: consistent=478 skewed=4 unavailable=0   final: total=12000 (expected 12000) unreadable-accounts=0
+  e.g. audit of group 1 saw total 2996 (should be 3000)
+  e.g. audit of group 1 saw total 2973 (should be 3000)
+  e.g. audit of group 2 saw total 3017 (should be 3000)
+  e.g. audit of group 1 saw total 2992 (should be 3000)
+VIOLATIONS: audit-skew=4 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: VIOLATIONS DETECTED (4 violations)
+
+----- logs/bank/plain-audit-seed4.txt
+bank: mode=safe audit=plain accounts=12 groups=4 workers=8 seconds=20 seed=4 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=140 committed=132 (cross-shard 2PC=91, single-shard=41) gave-up-after-8-tries=3  aborted attempts: mismatch=29 conflict=128 other=0  insufficient-funds=0  read-failures=0
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard 573/619 (n=91)   single-shard 147/150 (n=41)
+audits: consistent=427 skewed=5 unavailable=0   final: total=12000 (expected 12000) unreadable-accounts=0
+  e.g. audit of group 0 saw total 2951 (should be 3000)
+  e.g. audit of group 3 saw total 2965 (should be 3000)
+  e.g. audit of group 0 saw total 3003 (should be 3000)
+  e.g. audit of group 3 saw total 3049 (should be 3000)
+  e.g. audit of group 2 saw total 2983 (should be 3000)
+VIOLATIONS: audit-skew=5 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: VIOLATIONS DETECTED (5 violations)
+
+----- logs/bank/plain-audit-seed5.txt
+bank: mode=safe audit=plain accounts=12 groups=4 workers=8 seconds=20 seed=5 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=125 committed=117 (cross-shard 2PC=77, single-shard=40) gave-up-after-8-tries=2  aborted attempts: mismatch=41 conflict=118 other=0  insufficient-funds=0  read-failures=0
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard 586/649 (n=77)   single-shard 144/151 (n=40)
+audits: consistent=401 skewed=14 unavailable=0   final: total=12000 (expected 12000) unreadable-accounts=0
+  e.g. audit of group 2 saw total 3008 (should be 3000)
+  e.g. audit of group 1 saw total 3045 (should be 3000)
+  e.g. audit of group 2 saw total 2950 (should be 3000)
+  e.g. audit of group 3 saw total 2991 (should be 3000)
+  e.g. audit of group 1 saw total 2975 (should be 3000)
+VIOLATIONS: audit-skew=14 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: VIOLATIONS DETECTED (14 violations)
+
+----- logs/bank/ablate-nolock-seed1.txt
+bank: mode=safe audit=snapshot accounts=12 groups=4 workers=8 seconds=20 seed=1 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=220 committed=216 (cross-shard 2PC=145, single-shard=71) gave-up-after-8-tries=0  aborted attempts: mismatch=133 conflict=0 other=0  insufficient-funds=0  read-failures=0
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard 584/604 (n=145)   single-shard 126/149 (n=71)
+audits: consistent=6 skewed=82 unavailable=0   final: total=12198 (expected 12000) unreadable-accounts=0
+  e.g. audit of group 0 saw total 2985 (should be 3000)
+  e.g. audit of group 3 saw total 3044 (should be 3000)
+  e.g. audit of group 3 saw total 3038 (should be 3000)
+  e.g. audit of group 0 saw total 2964 (should be 3000)
+  e.g. audit of group 3 saw total 3081 (should be 3000)
+  e.g. acct-0 ended at 1148, committed transfers say 1333
+  e.g. acct-1 ended at 806, committed transfers say 720
+  e.g. acct-2 ended at 1009, committed transfers say 1001
+VIOLATIONS: audit-skew=82 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: VIOLATIONS DETECTED (95 violations)
+
+----- logs/bank/ablate-nolock-seed2.txt
+bank: mode=safe audit=snapshot accounts=12 groups=4 workers=8 seconds=20 seed=2 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=236 committed=231 (cross-shard 2PC=140, single-shard=91) gave-up-after-8-tries=1  aborted attempts: mismatch=136 conflict=0 other=0  insufficient-funds=0  read-failures=0
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard 573/604 (n=140)   single-shard 127/150 (n=91)
+audits: consistent=10 skewed=78 unavailable=0   final: total=11878 (expected 12000) unreadable-accounts=0
+  e.g. audit of group 0 saw total 3012 (should be 3000)
+  e.g. audit of group 1 saw total 2967 (should be 3000)
+  e.g. audit of group 2 saw total 2998 (should be 3000)
+  e.g. audit of group 0 saw total 3012 (should be 3000)
+  e.g. audit of group 2 saw total 2972 (should be 3000)
+  e.g. acct-0 ended at 1061, committed transfers say 1082
+  e.g. acct-1 ended at 876, committed transfers say 965
+  e.g. acct-2 ended at 1245, committed transfers say 1195
+VIOLATIONS: audit-skew=78 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: VIOLATIONS DETECTED (91 violations)
+
+----- logs/bank/ablate-nolock-seed3.txt
+bank: mode=safe audit=snapshot accounts=12 groups=4 workers=8 seconds=20 seed=3 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=239 committed=234 (cross-shard 2PC=160, single-shard=74) gave-up-after-8-tries=0  aborted attempts: mismatch=130 conflict=0 other=0  insufficient-funds=0  read-failures=0
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard 599/607 (n=160)   single-shard 120/149 (n=74)
+audits: consistent=12 skewed=67 unavailable=0   final: total=12088 (expected 12000) unreadable-accounts=0
+  e.g. audit of group 2 saw total 2951 (should be 3000)
+  e.g. audit of group 2 saw total 2951 (should be 3000)
+  e.g. audit of group 2 saw total 2951 (should be 3000)
+  e.g. audit of group 1 saw total 2976 (should be 3000)
+  e.g. audit of group 2 saw total 2951 (should be 3000)
+  e.g. acct-0 ended at 1055, committed transfers say 1137
+  e.g. acct-1 ended at 1269, committed transfers say 1255
+  e.g. acct-2 ended at 923, committed transfers say 862
+VIOLATIONS: audit-skew=67 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: VIOLATIONS DETECTED (80 violations)
+
+----- logs/bank/ablate-nolock-seed4.txt
+bank: mode=safe audit=snapshot accounts=12 groups=4 workers=8 seconds=20 seed=4 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=236 committed=232 (cross-shard 2PC=152, single-shard=80) gave-up-after-8-tries=0  aborted attempts: mismatch=117 conflict=0 other=0  insufficient-funds=0  read-failures=0
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard 596/603 (n=152)   single-shard 118/149 (n=80)
+audits: consistent=7 skewed=72 unavailable=0   final: total=12056 (expected 12000) unreadable-accounts=0
+  e.g. audit of group 0 saw total 2957 (should be 3000)
+  e.g. audit of group 0 saw total 2957 (should be 3000)
+  e.g. audit of group 3 saw total 2951 (should be 3000)
+  e.g. audit of group 2 saw total 3010 (should be 3000)
+  e.g. audit of group 0 saw total 2963 (should be 3000)
+  e.g. acct-0 ended at 842, committed transfers say 756
+  e.g. acct-1 ended at 1093, committed transfers say 1154
+  e.g. acct-2 ended at 993, committed transfers say 902
+VIOLATIONS: audit-skew=72 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: VIOLATIONS DETECTED (85 violations)
+
+----- logs/bank/ablate-nolock-seed5.txt
+bank: mode=safe audit=snapshot accounts=12 groups=4 workers=8 seconds=20 seed=5 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=229 committed=225 (cross-shard 2PC=151, single-shard=74) gave-up-after-8-tries=0  aborted attempts: mismatch=112 conflict=0 other=0  insufficient-funds=0  read-failures=0
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard 592/603 (n=151)   single-shard 120/149 (n=74)
+audits: consistent=9 skewed=72 unavailable=0   final: total=12233 (expected 12000) unreadable-accounts=0
+  e.g. audit of group 2 saw total 2997 (should be 3000)
+  e.g. audit of group 3 saw total 2967 (should be 3000)
+  e.g. audit of group 0 saw total 2985 (should be 3000)
+  e.g. audit of group 2 saw total 2997 (should be 3000)
+  e.g. audit of group 1 saw total 3045 (should be 3000)
+  e.g. acct-0 ended at 1140, committed transfers say 1081
+  e.g. acct-1 ended at 1054, committed transfers say 890
+  e.g. acct-2 ended at 1041, committed transfers say 1025
+VIOLATIONS: audit-skew=72 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: VIOLATIONS DETECTED (85 violations)

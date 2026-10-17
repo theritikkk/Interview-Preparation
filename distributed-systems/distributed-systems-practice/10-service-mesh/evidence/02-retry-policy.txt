@@ -1,0 +1,22 @@
+=== Retry policy: comparing a 40%-flaky backend with and without Envoy's retry_policy ===
+retry_on: 5xx, num_retries: 3, per_try_timeout: 1s
+
+Direct to backend (no retry), 100 requests: success=69 fail=31
+Through Envoy /retry (retry_policy active), 100 requests: success=98 fail=2
+
+=== Envoy's own retry counters for this run (proves retries actually happened, not just that failures stopped) ===
+cluster.flaky_service.circuit_breakers.default.rq_retry_open: 0
+cluster.flaky_service.circuit_breakers.high.rq_retry_open: 0
+cluster.flaky_service.external.upstream_rq_5xx: 2
+cluster.flaky_service.retry.upstream_rq_503: 65
+cluster.flaky_service.retry.upstream_rq_5xx: 65
+cluster.flaky_service.retry.upstream_rq_completed: 65
+cluster.flaky_service.retry_or_shadow_abandoned: 0
+cluster.flaky_service.upstream_rq_5xx: 2
+cluster.flaky_service.upstream_rq_retry: 65
+cluster.flaky_service.upstream_rq_retry_backoff_exponential: 65
+cluster.flaky_service.upstream_rq_retry_backoff_ratelimited: 0
+cluster.flaky_service.upstream_rq_retry_limit_exceeded: 2
+cluster.flaky_service.upstream_rq_retry_overflow: 0
+cluster.flaky_service.upstream_rq_retry_success: 39
+cluster.flaky_service.upstream_rq_total: 165

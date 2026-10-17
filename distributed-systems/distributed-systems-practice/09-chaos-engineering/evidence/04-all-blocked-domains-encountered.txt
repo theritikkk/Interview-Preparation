@@ -1,0 +1,12 @@
+cloud.google.com:443
+collectd.org:443
+go.etcd.io:443
+go.mozilla.org:443
+go.opentelemetry.io:443
+golang.org:443
+gonum.org:443
+google.golang.org:443
+gopkg.in:443
+gotest.tools:443
+mirrors.chaos-mesh.org:443
+sigs.k8s.io:443

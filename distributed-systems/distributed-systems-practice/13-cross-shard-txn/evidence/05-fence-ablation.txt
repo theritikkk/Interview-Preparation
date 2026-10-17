@@ -1,0 +1,18 @@
+== fence ON (the real protocol)
+
+  ok    late PREPARE after an abort is refused  (ABORTED)
+  ok    alice is not locked  (0)
+  ok    a client read returns at once (<500 ms)  (yes)
+        (read took 5 ms)
+  ok    no leaked prepared txn  (0)
+
+== fence OFF (RAFT_TXN_ABLATE=nofence)
+
+  ok    ABLATION: the late PREPARE is accepted  (PREPARED)
+  ok    ABLATION: alice is locked for a txn that was already aborted  (1)
+  ok    ABLATION: a client read stalls for ~the ttl until it resolves the leak  (yes)
+        (read took 1499 ms, ttl 1500 ms)
+  ok      ...and then reads the right value  (100)
+  ok      ...and the leak is gone  (0)
+
+FENCE ABLATION PASSED

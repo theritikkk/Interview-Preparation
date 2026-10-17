@@ -1,0 +1,116 @@
+# Leader-kill on shard 2, seeds 11-20 (ONLY=safe-leaderkill KILL_SHARD=2 scripts/bank_stress.sh 11..20)
+# kill -9 of shard 2's leader at t=7s of a 20 s run; 12 accounts / 4 groups / 8 workers
+
+--- safe-leaderkill: txntool bank    server-side sabotage: none   kill a shard leader mid-run: yes
+  seed 11: kill -9 leader of shard 2 (node 2, pid 19187) at t=7s
+  seed 11: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=84 fault-felt=62
+  seed 12: kill -9 leader of shard 2 (node 2, pid 1823) at t=7s
+  seed 12: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=90 fault-felt=15
+  seed 13: kill -9 leader of shard 2 (node 3, pid 15383) at t=7s
+  seed 13: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=107 fault-felt=84
+  seed 14: kill -9 leader of shard 2 (node 2, pid 28905) at t=7s
+  seed 14: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=88 fault-felt=44
+  seed 15: kill -9 leader of shard 2 (node 1, pid 11165) at t=7s
+  seed 15: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=90 fault-felt=69
+  seed 16: kill -9 leader of shard 2 (node 3, pid 24839) at t=7s
+  seed 16: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=81 fault-felt=39
+  seed 17: kill -9 leader of shard 2 (node 2, pid 6336) at t=7s
+  seed 17: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=97 fault-felt=36
+  seed 18: kill -9 leader of shard 2 (node 2, pid 19665) at t=7s
+  seed 18: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=79 fault-felt=63
+  seed 19: kill -9 leader of shard 2 (node 2, pid 1084) at t=7s
+  seed 19: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=68 fault-felt=29
+  seed 20: kill -9 leader of shard 2 (node 1, pid 15267) at t=7s
+  seed 20: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0  committed=86 fault-felt=52
+
+================ SUMMARY (seeds: 11 12 13 14 15 16 17 18 19 20, 20s per run, 12 accounts in 4 groups, 8 workers) ================
+safe-leaderkill    0/10 runs w/ violations | audit-skew=0    final-total=0  final-per-account=0   stuck=0 unresolved=0 protocol=0 | ok
+
+BANK STRESS PASSED: real protocol clean in every run (including with a shard leader killed); every broken variant caught with its expected symptom
+
+=== per-seed detail ===
+--- logs/bank/safe-leaderkill-seed11.txt
+bank: mode=safe audit=snapshot accounts=12 groups=4 workers=8 seconds=20 seed=11 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=102 committed=84 (cross-shard 2PC=53, single-shard=31) gave-up-after-8-tries=13  aborted attempts: mismatch=46 conflict=107 other=1  insufficient-funds=0  read-failures=61
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard 576/604 (n=53)   single-shard 148/159 (n=31)
+audits: consistent=40 skewed=0 unavailable=4   final: total=12000 (expected 12000) unreadable-accounts=0
+VIOLATIONS: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: CLEAN (0 violations)
+--- logs/bank/safe-leaderkill-seed12.txt
+bank: mode=safe audit=snapshot accounts=12 groups=4 workers=8 seconds=20 seed=12 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=105 committed=90 (cross-shard 2PC=52, single-shard=38) gave-up-after-8-tries=11  aborted attempts: mismatch=37 conflict=133 other=0  insufficient-funds=0  read-failures=15
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard 584/615 (n=52)   single-shard 145/151 (n=38)
+audits: consistent=37 skewed=0 unavailable=4   final: total=12000 (expected 12000) unreadable-accounts=0
+VIOLATIONS: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: CLEAN (0 violations)
+--- logs/bank/safe-leaderkill-seed13.txt
+bank: mode=safe audit=snapshot accounts=12 groups=4 workers=8 seconds=20 seed=13 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=128 committed=107 (cross-shard 2PC=65, single-shard=42) gave-up-after-8-tries=14  aborted attempts: mismatch=34 conflict=119 other=1  insufficient-funds=0  read-failures=82
+in doubt after timeouts/failures: 1 resolved via decision record -> committed=0 aborted=1 unresolved=0
+commit latency ms (p50/p95): cross-shard 588/618 (n=65)   single-shard 149/150 (n=42)
+audits: consistent=33 skewed=0 unavailable=4   final: total=12000 (expected 12000) unreadable-accounts=0
+VIOLATIONS: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: CLEAN (0 violations)
+--- logs/bank/safe-leaderkill-seed14.txt
+bank: mode=safe audit=snapshot accounts=12 groups=4 workers=8 seconds=20 seed=14 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=106 committed=88 (cross-shard 2PC=48, single-shard=40) gave-up-after-8-tries=11  aborted attempts: mismatch=38 conflict=128 other=2  insufficient-funds=0  read-failures=42
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard 555/603 (n=48)   single-shard 147/151 (n=40)
+audits: consistent=39 skewed=0 unavailable=4   final: total=12000 (expected 12000) unreadable-accounts=0
+VIOLATIONS: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: CLEAN (0 violations)
+--- logs/bank/safe-leaderkill-seed15.txt
+bank: mode=safe audit=snapshot accounts=12 groups=4 workers=8 seconds=20 seed=15 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=110 committed=90 (cross-shard 2PC=56, single-shard=34) gave-up-after-8-tries=14  aborted attempts: mismatch=36 conflict=123 other=0  insufficient-funds=0  read-failures=69
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard 588/604 (n=56)   single-shard 148/187 (n=34)
+audits: consistent=35 skewed=0 unavailable=5   final: total=12000 (expected 12000) unreadable-accounts=0
+VIOLATIONS: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: CLEAN (0 violations)
+--- logs/bank/safe-leaderkill-seed16.txt
+bank: mode=safe audit=snapshot accounts=12 groups=4 workers=8 seconds=20 seed=16 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=95 committed=81 (cross-shard 2PC=52, single-shard=29) gave-up-after-8-tries=10  aborted attempts: mismatch=32 conflict=138 other=1  insufficient-funds=0  read-failures=38
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard 573/604 (n=52)   single-shard 148/150 (n=29)
+audits: consistent=43 skewed=0 unavailable=6   final: total=12000 (expected 12000) unreadable-accounts=0
+VIOLATIONS: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: CLEAN (0 violations)
+--- logs/bank/safe-leaderkill-seed17.txt
+bank: mode=safe audit=snapshot accounts=12 groups=4 workers=8 seconds=20 seed=17 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=112 committed=97 (cross-shard 2PC=64, single-shard=33) gave-up-after-8-tries=8  aborted attempts: mismatch=32 conflict=130 other=0  insufficient-funds=0  read-failures=36
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard 599/610 (n=64)   single-shard 149/150 (n=33)
+audits: consistent=32 skewed=0 unavailable=5   final: total=12000 (expected 12000) unreadable-accounts=0
+VIOLATIONS: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: CLEAN (0 violations)
+--- logs/bank/safe-leaderkill-seed18.txt
+bank: mode=safe audit=snapshot accounts=12 groups=4 workers=8 seconds=20 seed=18 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=101 committed=79 (cross-shard 2PC=55, single-shard=24) gave-up-after-8-tries=16  aborted attempts: mismatch=25 conflict=139 other=0  insufficient-funds=0  read-failures=63
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard 585/611 (n=55)   single-shard 149/150 (n=24)
+audits: consistent=41 skewed=0 unavailable=5   final: total=12000 (expected 12000) unreadable-accounts=0
+VIOLATIONS: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: CLEAN (0 violations)
+--- logs/bank/safe-leaderkill-seed19.txt
+bank: mode=safe audit=snapshot accounts=12 groups=4 workers=8 seconds=20 seed=19 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=86 committed=68 (cross-shard 2PC=44, single-shard=24) gave-up-after-8-tries=13  aborted attempts: mismatch=35 conflict=141 other=0  insufficient-funds=0  read-failures=29
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard 572/605 (n=44)   single-shard 148/150 (n=24)
+audits: consistent=52 skewed=0 unavailable=3   final: total=12000 (expected 12000) unreadable-accounts=0
+VIOLATIONS: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: CLEAN (0 violations)
+--- logs/bank/safe-leaderkill-seed20.txt
+bank: mode=safe audit=snapshot accounts=12 groups=4 workers=8 seconds=20 seed=20 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=106 committed=86 (cross-shard 2PC=48, single-shard=38) gave-up-after-8-tries=14  aborted attempts: mismatch=28 conflict=133 other=0  insufficient-funds=0  read-failures=52
+in doubt after timeouts/failures: 0 resolved via decision record -> committed=0 aborted=0 unresolved=0
+commit latency ms (p50/p95): cross-shard 593/638 (n=48)   single-shard 148/150 (n=38)
+audits: consistent=42 skewed=0 unavailable=4   final: total=12000 (expected 12000) unreadable-accounts=0
+VIOLATIONS: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0
+RESULT: CLEAN (0 violations)
+
+=== totals ===
+transfers committed across 10 runs: 870
+read-failures (client could not read during failover): 487
+in-doubt txns across 10 runs: 1  (resolved committed: 0, resolved aborted: 1)

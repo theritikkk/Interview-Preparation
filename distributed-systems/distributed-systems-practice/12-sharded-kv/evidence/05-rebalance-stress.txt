@@ -1,0 +1,56 @@
+shard 1: leader is node 3
+shard 2: leader is node 1
+shard 3: leader is node 2
+shard 4: leader is node 1
+
+--- safe-natural:  stress 
+  seed 1: vanished-reads=0 stale-reads=0 resurrected-reads=0 cas-wrong=0 final-state-mismatch=0 stray-copies-on-old-shards=0
+  seed 2: vanished-reads=0 stale-reads=0 resurrected-reads=0 cas-wrong=0 final-state-mismatch=0 stray-copies-on-old-shards=0
+  seed 3: vanished-reads=0 stale-reads=0 resurrected-reads=0 cas-wrong=0 final-state-mismatch=0 stray-copies-on-old-shards=0
+  seed 4: vanished-reads=0 stale-reads=0 resurrected-reads=0 cas-wrong=0 final-state-mismatch=0 stray-copies-on-old-shards=0
+  seed 5: vanished-reads=0 stale-reads=0 resurrected-reads=0 cas-wrong=0 final-state-mismatch=0 stray-copies-on-old-shards=0
+
+--- safe-hostile:  stress --keys 200 --read-gap-ms 600 --step-delay-ms 300
+  seed 1: vanished-reads=0 stale-reads=0 resurrected-reads=0 cas-wrong=0 final-state-mismatch=0 stray-copies-on-old-shards=0
+  seed 2: vanished-reads=0 stale-reads=0 resurrected-reads=0 cas-wrong=0 final-state-mismatch=0 stray-copies-on-old-shards=0
+  seed 3: vanished-reads=0 stale-reads=0 resurrected-reads=0 cas-wrong=0 final-state-mismatch=0 stray-copies-on-old-shards=0
+  seed 4: vanished-reads=0 stale-reads=0 resurrected-reads=0 cas-wrong=0 final-state-mismatch=0 stray-copies-on-old-shards=0
+  seed 5: vanished-reads=0 stale-reads=0 resurrected-reads=0 cas-wrong=0 final-state-mismatch=0 stray-copies-on-old-shards=0
+
+--- naive:  stress --naive
+  seed 1: vanished-reads=11 stale-reads=9 resurrected-reads=2 cas-wrong=3 final-state-mismatch=0 stray-copies-on-old-shards=0
+  seed 2: vanished-reads=4 stale-reads=7 resurrected-reads=0 cas-wrong=4 final-state-mismatch=0 stray-copies-on-old-shards=0
+  seed 3: vanished-reads=9 stale-reads=6 resurrected-reads=0 cas-wrong=9 final-state-mismatch=0 stray-copies-on-old-shards=0
+  seed 4: vanished-reads=12 stale-reads=4 resurrected-reads=0 cas-wrong=5 final-state-mismatch=0 stray-copies-on-old-shards=0
+  seed 5: vanished-reads=7 stale-reads=5 resurrected-reads=0 cas-wrong=4 final-state-mismatch=0 stray-copies-on-old-shards=0
+
+--- ablate-norecheck:  stress --ablate norecheck --read-gap-ms 600
+  seed 1: vanished-reads=5 stale-reads=0 resurrected-reads=0 cas-wrong=0 final-state-mismatch=0 stray-copies-on-old-shards=0
+  seed 2: vanished-reads=4 stale-reads=0 resurrected-reads=0 cas-wrong=0 final-state-mismatch=0 stray-copies-on-old-shards=0
+  seed 3: vanished-reads=2 stale-reads=0 resurrected-reads=0 cas-wrong=0 final-state-mismatch=0 stray-copies-on-old-shards=0
+  seed 4: vanished-reads=6 stale-reads=0 resurrected-reads=0 cas-wrong=0 final-state-mismatch=0 stray-copies-on-old-shards=0
+  seed 5: vanished-reads=4 stale-reads=0 resurrected-reads=0 cas-wrong=0 final-state-mismatch=0 stray-copies-on-old-shards=0
+
+--- ablate-notombstone:  stress --keys 200 --ablate notombstone --step-delay-ms 300
+  seed 1: vanished-reads=0 stale-reads=0 resurrected-reads=0 cas-wrong=1 final-state-mismatch=0 stray-copies-on-old-shards=0
+  seed 2: vanished-reads=0 stale-reads=0 resurrected-reads=0 cas-wrong=1 final-state-mismatch=0 stray-copies-on-old-shards=0
+  seed 3: vanished-reads=0 stale-reads=0 resurrected-reads=1 cas-wrong=0 final-state-mismatch=0 stray-copies-on-old-shards=0
+  seed 4: vanished-reads=0 stale-reads=0 resurrected-reads=4 cas-wrong=2 final-state-mismatch=0 stray-copies-on-old-shards=0
+  seed 5: vanished-reads=0 stale-reads=0 resurrected-reads=1 cas-wrong=1 final-state-mismatch=0 stray-copies-on-old-shards=0
+
+--- ablate-overwrite:  stress --ablate overwrite --step-delay-ms 200
+  seed 1: vanished-reads=0 stale-reads=2 resurrected-reads=1 cas-wrong=1 final-state-mismatch=0 stray-copies-on-old-shards=0
+  seed 2: vanished-reads=0 stale-reads=2 resurrected-reads=0 cas-wrong=5 final-state-mismatch=0 stray-copies-on-old-shards=0
+  seed 3: vanished-reads=0 stale-reads=3 resurrected-reads=2 cas-wrong=2 final-state-mismatch=0 stray-copies-on-old-shards=0
+  seed 4: vanished-reads=0 stale-reads=12 resurrected-reads=1 cas-wrong=3 final-state-mismatch=0 stray-copies-on-old-shards=0
+  seed 5: vanished-reads=0 stale-reads=6 resurrected-reads=1 cas-wrong=0 final-state-mismatch=0 stray-copies-on-old-shards=0
+
+================ SUMMARY (seeds: 1 2 3 4 5) ================
+safe-natural          0/5  runs with violations | vanished=0   stale=0   resurrected=0   cas-wrong=0   final-mismatch=0 stray=0 | ok
+safe-hostile          0/5  runs with violations | vanished=0   stale=0   resurrected=0   cas-wrong=0   final-mismatch=0 stray=0 | ok
+naive                 5/5  runs with violations | vanished=43  stale=31  resurrected=2   cas-wrong=25  final-mismatch=0 stray=0 | ok
+ablate-norecheck      5/5  runs with violations | vanished=21  stale=0   resurrected=0   cas-wrong=0   final-mismatch=0 stray=0 | ok
+ablate-notombstone    5/5  runs with violations | vanished=0   stale=0   resurrected=6   cas-wrong=5   final-mismatch=0 stray=0 | ok
+ablate-overwrite      5/5  runs with violations | vanished=0   stale=25  resurrected=5   cas-wrong=11  final-mismatch=0 stray=0 | ok
+
+STRESS PASSED: safe protocol clean in every run; every broken variant detected with its expected symptom

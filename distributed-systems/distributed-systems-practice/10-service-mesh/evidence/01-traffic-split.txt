@@ -1,0 +1,25 @@
+=== Traffic split: 200 requests through Envoy's weighted_clusters route (80/20 configured) ===
+v1 (weight 80): 158/200 = 79.0%
+v2 (weight 20): 42/200 = 21.0%
+
+Raw sample (first 20 of 200):
+service-v1
+service-v1
+service-v1
+service-v2
+service-v1
+service-v2
+service-v1
+service-v1
+service-v1
+service-v2
+service-v1
+service-v2
+service-v1
+service-v1
+service-v2
+service-v1
+service-v1
+service-v2
+service-v2
+service-v1

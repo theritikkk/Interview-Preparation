@@ -1,0 +1,40 @@
+Harness bug H4 — captured BEFORE the fix (stress did not reset the keyspace).
+
+Setup: shards 1-4 running; seed 1 was the first run after a fresh start of
+shard 4, so it was clean. Seeds 2..9 were run back-to-back WITHOUT restarting
+shard 4, so shard 4 still held the previous runs' final values.
+
+Safe protocol, seeds 2-9 (every one "failed"):
+  seed 2: stale=14 resurrected=2 cas-wrong=4
+  seed 3: stale=12 resurrected=2 cas-wrong=4
+  seed 4: stale=13 resurrected=1 cas-wrong=5
+  seed 5: stale=6  resurrected=2 cas-wrong=3
+  seed 6: stale=8  resurrected=1 cas-wrong=4 final-state-mismatch=1
+  seed 7: stale=15 resurrected=0 cas-wrong=3 final-state-mismatch=1
+  seed 8: stale=22 resurrected=3 cas-wrong=4
+  seed 9: stale=13 resurrected=2 cas-wrong=1
+
+Forensic log added to the harness, seed 2 (excerpt). The giveaway: the value
+returned by the NEW shard (s4) always carries a LATER op counter than the
+model's last acknowledged write (v4-38 vs v4-9, v10-31 vs v10-13, ...) -
+data the model never wrote in this run:
+
+  violation: STALE key=sk-36 during=GET phase=migrating expected="v4-9" got="v4-38" raw[ s2="v4-9" s4="v4-38" ] newOwner=s4 oldOwner=s2
+  violation: STALE key=sk-42 during=GET phase=migrating expected="v10-13" got="v10-31" raw[ s2="v10-13" s4="v10-31" ] newOwner=s4 oldOwner=s2
+  violation: STALE key=sk-48 during=GET phase=migrating expected="v0-11" got="c0-34" raw[ s2="v0-11" s4="c0-34" ] newOwner=s4 oldOwner=s2
+  violation: STALE key=sk-40 during=GET phase=migrating expected="v8-8" got="v8-39" raw[ s2="v8-8" s4="v8-39" ] newOwner=s4 oldOwner=s2
+  violation: CAS-WRONG key=sk-72 during=CAS(expected="v8-7") phase=migrating expected="v8-7" got="returned MISMATCH (wanted OK)" raw[ s4="v8-44" ] newOwner=s4 oldOwner=s1
+  violations by phase: warmup=0 migrating=18 settle=3
+
+Hypothesis test: `kvctl shards/shard4.conf KEYS` before the run showed 16
+leftover sk-* keys. Restarting shard 4 (empty) and re-running the SAME seed 2:
+  violations by phase: warmup=0 migrating=0 settle=0
+  RESULT: CLEAN (0 violations)
+
+Fix: `shardtool stress` now deletes every sk-* key on every shard before
+preloading and refuses to run (exit 2) if any survive. After the fix, Safe on
+seeds 1-8 back-to-back with NO restarts: 8/8 CLEAN, each run printing
+"reset: removed ~70-80 leftover sk-* keys from earlier runs".
+
+The Naive/ablation numbers collected before the fix were ALSO contaminated and
+were discarded; evidence/05 is the post-fix run.

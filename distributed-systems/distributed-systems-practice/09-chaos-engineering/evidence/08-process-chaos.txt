@@ -1,0 +1,26 @@
+=== baseline: process alive, real request succeeds ===
+$ curl -sS -m 2 http://127.0.0.1:8765/
+chaos-target-ok
+ (http=200 time=0.001176s)
+
+=== CHAOS: real SIGSTOP to PID 404 (process-pause chaos) ===
+$ kill -STOP 404
+$ ps -o pid,stat,cmd -p 404
+  PID STAT CMD
+  404 Tl   python3 -m http.server 8765 --bind 127.0.0.1
+
+=== real request while frozen (expect timeout/hang) ===
+$ curl -sS -m 2 http://127.0.0.1:8765/
+curl: (28) Operation timed out after 2002 milliseconds with 0 bytes received
+ (http=000 time=2.002576s)
+
+=== recovery: real SIGCONT ===
+$ kill -CONT 404
+$ ps -o pid,stat,cmd -p 404
+  PID STAT CMD
+  404 Sl   python3 -m http.server 8765 --bind 127.0.0.1
+
+=== real request after recovery (expect success again) ===
+$ curl -sS -m 2 http://127.0.0.1:8765/
+chaos-target-ok
+ (http=200 time=0.001052s)

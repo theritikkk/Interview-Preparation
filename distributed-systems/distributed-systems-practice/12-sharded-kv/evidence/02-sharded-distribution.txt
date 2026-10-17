@@ -1,0 +1,10 @@
+3 shards x 3 nodes (9 Raft nodes), 1500 keys loaded through the router with 48 threads, then each shard
+was asked DIRECTLY (KEYS) which keys it holds and the result compared with what the ring predicts.
+
+load: wrote 1500 keys with 48 threads in 4.5s, 0 failed
+shard      holds  ring says   misplaced   missing
+1            502        502           0         0
+2            493        493           0         0
+3            505        505           0         0
+distinct keys across all shards: 1500   keys held by more than one shard: 0
+census: PASS (every key on exactly its ring owner, none missing)

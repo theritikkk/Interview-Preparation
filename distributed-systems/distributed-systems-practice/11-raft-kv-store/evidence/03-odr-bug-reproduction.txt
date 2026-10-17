@@ -1,0 +1,20 @@
+Reproduction of the struct-layout (ODR) bug found while verifying partition_demo.sh.
+Captured by re-introducing the original CMakeLists.txt line in a scratch copy:
+
+    target_compile_definitions(raft_core_unsafe PRIVATE RAFT_UNSAFE_READS)   # the bug
+    target_compile_definitions(raft_core_unsafe PUBLIC  RAFT_UNSAFE_READS)   # the fix
+
+--- broken build (PRIVATE): single raft_node_unsafe node, 3s window ---
+[21:06:21.127] [node1 id=1 term=0 follower] starting on port 9001 with 4 peers
+[21:06:21.128] [node1 id=1 term=0 follower] stopped
+exit: 1
+
+--- sizeof(RaftNode), same header compiled two ways ---
+without RAFT_UNSAFE_READS: sizeof(RaftNode)=480
+with    RAFT_UNSAFE_READS: sizeof(RaftNode)=488
+
+--- fixed build (PUBLIC): same single-node test, 3s window ---
+[13:29:37.550] [node1 id=1 term=0 follower] starting on port 9001 with 4 peers
+[13:29:39.160] [node1 id=1 term=1 CANDIDATE] became CANDIDATE, starting election
+[13:29:40.566] [node1 id=1 term=1 CANDIDATE] stopped      <- killed by `timeout 3`, as intended
+exit code: 124

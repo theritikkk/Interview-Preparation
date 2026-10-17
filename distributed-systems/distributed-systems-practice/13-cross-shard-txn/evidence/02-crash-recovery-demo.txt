@@ -1,0 +1,51 @@
+Coordinator-crash recovery demo, run 3 of 3 (all three runs passed; see evidence/01 for the per-run summary)
+
+shard 1: leader is node 2
+shard 2: leader is node 1
+shard 3: leader is node 1
+
+  ok    placement: alice on shard 3  (3)
+  ok    placement: carol on shard 2  (2)
+
+== A. coordinator dies AFTER PREPARE: locks are held, no decision exists
+  ok    coordinator exit status (86 = injected crash)  (86)
+  ok    both shards hold a prepared txn  (2)
+  ok    plain SET at the locked key is refused  (LOCKED)
+  ok    plain GET at the locked key does not return a value  (LOCKED)
+  ok    a competing transaction is aborted (blocked)  (3)
+        (that read blocked for 1254 ms: it waited out the remaining ttl, then ran the resolution)
+  ok    a reader past the ttl resolves it: alice rolled BACK  (100)
+  ok    carol rolled back too  (50)
+  ok    no locks left  (0)
+
+== B. coordinator dies AFTER the decision (COMMITTED) is recorded, before telling any participant
+  ok    coordinator exit status  (86)
+  ok    both shards still hold the txn prepared  (2)
+  ok    a reader resolves it: alice rolled FORWARD  (70)
+  ok    carol rolled forward too  (80)
+  ok    no locks left  (0)
+
+== C. coordinator dies MID-COMMIT: told shard 2 to commit, died before telling shard 3
+  ok    coordinator exit status  (86)
+  ok    carol (shard 2) already shows the new value  (80)
+  ok    alice (shard 3) is still locked  (LOCKED)
+  ok    one prepared txn left  (1)
+  ok    a reader resolves it: alice rolled FORWARD to match carol  (70)
+  ok    money conserved (alice + carol)  (150)
+  ok    no locks left  (0)
+
+== D. ABLATION: the same mid-commit crash, but the resolver has no decision record and guesses ABORT
+  ok    coordinator exit status  (86)
+        alice=100 carol=80  (a correct run ends with 70 and 80)
+  ok    ATOMICITY BROKEN as expected: shard 3 aborted, shard 2 committed  (100/80)
+  ok    money is NOT conserved (150 expected)  (180)
+
+== E. a LIVE coordinator is slow; an impatient resolver aborts it first (premature abort must be safe)
+  ok    the txn is prepared and waiting  (2)
+  ok    the slow coordinator learns it was aborted (fenced out)
+  ok    ...and exits with 'aborted', not 'committed'
+  ok    alice untouched  (100)
+  ok    carol untouched  (50)
+  ok    no locks left  (0)
+
+CRASH RECOVERY DEMO PASSED

@@ -1,0 +1,16 @@
+=== CHAOS: real SIGKILL to PID 404 (process-kill chaos) ===
+$ kill -KILL 404
+$ pgrep -af 'http.server 8765' (expect no match)
+526 /bin/bash -c source /root/.claude/shell-snapshots/snapshot-bash-1791784187408-muru9v.sh 2>/dev/null || true && export BUN_OPTIONS="--smol${BUN_OPTIONS:+ $BUN_OPTIONS}" && shopt -u extglob 2>/dev/null || true && { \builtin unalias -- 'unsetenv'; \builtin unset -f -- 'unsetenv'; } >/dev/null 2>&1 || true && eval 'cd /home/claude/work/09-chaos-mesh OUT=evidence/09-process-kill-chaos.txt { echo "=== CHAOS: real SIGKILL to PID 404 (process-kill chaos) ===" echo "\$ kill -KILL 404" kill -KILL 404 sleep 0.5 echo "\$ pgrep -af '"'"'http.server 8765'"'"' (expect no match)" pgrep -af "http.server 8765"; echo "pgrep exit: $?"  echo echo "=== real request after kill (expect connection refused) ===" echo "\$ curl -sS -m 2 http://127.0.0.1:8765/" curl -sS -m 2 -w " (http=%{http_code})\n" http://127.0.0.1:8765/ 2>&1  echo echo "=== recovery: real process restart ===" } > "$OUT" cd /home/claude/work/09-chaos-mesh/target-server && nohup python3 -m http.server 8765 --bind 127.0.0.1 > server.log 2>&1 & disown sleep 1 NEWPID=$(pgrep -f "http.server 8765" | head -1) { echo "\$ (restarted python3 -m http.server 8765) new PID=$NEWPID" echo "\$ curl -sS -m 2 http://127.0.0.1:8765/" curl -sS -m 2 -w " (http=%{http_code})\n" http://127.0.0.1:8765/ } >> "$OUT" cat "$OUT"' < /dev/null && pwd -P >| /tmp/claude-8da1-cwd
+pgrep exit: 0
+
+=== real request after kill (expect connection refused) ===
+$ curl -sS -m 2 http://127.0.0.1:8765/
+curl: (7) Failed to connect to 127.0.0.1 port 8765 after 0 ms: Couldn't connect to server
+ (http=000)
+
+=== recovery: real process restart ===
+$ (restarted python3 -m http.server 8765) new PID=526
+$ curl -sS -m 2 http://127.0.0.1:8765/
+chaos-target-ok
+ (http=200)

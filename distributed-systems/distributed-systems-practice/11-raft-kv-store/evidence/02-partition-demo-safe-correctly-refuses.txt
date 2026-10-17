@@ -1,0 +1,35 @@
+###############################################
+# Starting 5-node cluster with raft_node
+###############################################
+== waiting for initial leader election ==
+leader is node 3 (pid 27941, port 9003)
+
+###############################################
+# Writing a value via the real leader (before partition)
+###############################################
+OK (committed via leader: node 3)
+OK value="before-partition" (from leader: node 3)
+
+###############################################
+# Partitioning the leader (SIGUSR1)
+# deafened from every peer RPC; client connections untouched
+###############################################
+
+== waiting for the remaining 4 nodes to elect a NEW leader among themselves ==
+new leader elected: node 1 (node 3 has no way to find out — it's deafened)
+
+###############################################
+# Writing a NEW value through the new leader
+###############################################
+OK (committed via leader: node 1)
+confirmed via the new leader:
+OK value="after-partition-new-leader" (from leader: node 1)
+
+###############################################
+# The real test: ask the OLD (partitioned) leader directly
+# node 3 still believes it's the leader — it has no way to
+# know otherwise. What does IT say when asked for k, unfiltered?
+###############################################
+ok=false isLeader=true leaderHint=3 value=""
+
+== healing the partition and shutting the cluster down ==

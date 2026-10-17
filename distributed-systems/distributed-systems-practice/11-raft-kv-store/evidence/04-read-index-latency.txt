@@ -1,0 +1,23 @@
+GET latency through the real KVClient, in-process (no process-spawn noise), loopback,
+5-node cluster on one machine. Microseconds (p50 / p99). n=3000 per row, n=40 for the
+frozen-follower row (those reads are slow in the "before" case).
+Harness asserts every node PID is the intended binary and that kill -9 / SIGSTOP
+actually took effect (see ANALYSIS.md for why: the first harness silently didn't).
+
+Local-only reads (raft_node_unsafe) never contact a peer, so peer health is irrelevant to them.
+
+scenario                                  local-only      read-index v1       read-index (final)
+                                          (unsafe)        joined ALL peers    returns on majority ack
+----------------------------------------  --------------  ------------------  ---------------------
+healthy, 5/5 up                           72 / 265        453 / 1006          370 / 927
+2 followers dead (conn refused), 3/5 up   71 / 206        11105 / 16096       347 / 973
+1 follower FROZEN (SIGSTOP), 4/5 up       76 / 1147       601350 / 603358     323 / 871
+
+"read-index v1" waited for every peer thread: one hung follower made every read wait the
+full 600ms RPC timeout even though 4 of 5 nodes had answered immediately.
+"final" returns as soon as a majority has acked (stragglers finish detached) AND includes the
+own-term-commit precondition added later (ANALYSIS.md bug #7); numbers re-measured on that final build.
+The ~10ms in the 2-dead row of v1 was NOT root-caused; it disappeared once reads stopped
+waiting on the dead-peer threads.
+Cost of read-index when healthy: ~5x local-only (one fresh RPC round to every peer per read),
+still well under 1ms on loopback.

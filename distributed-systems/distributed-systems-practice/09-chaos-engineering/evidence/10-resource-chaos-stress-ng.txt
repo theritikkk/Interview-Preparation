@@ -1,0 +1,27 @@
+=== baseline load average ===
+$ cat /proc/loadavg
+0.04 0.04 0.01 3/101 550
+
+=== CHAOS: real stress-ng, 4 CPU workers, 100% load, for 10s ===
+$ ./stress-ng --cpu 4 --cpu-load 100 --metrics-brief --timeout 10s
+stress-ng: info:  [551] setting to a 10 second run per stressor
+stress-ng: info:  [551] dispatching hogs: 4 cpu
+stress-ng: info:  [551] stressor       bogo ops real time  usr time  sys time   bogo ops/s     bogo ops/s
+stress-ng: info:  [551]                           (secs)    (secs)    (secs)   (real time) (usr+sys time)
+stress-ng: info:  [551] cpu                8050     10.22     20.00     20.00       787.37       40250.00
+stress-ng: info:  [551] successful run completed in 10.28s
+=== load average mid-stress ===
+0.65 0.17 0.05 1/100 557
+
+=== CHAOS: real stress-ng, memory (vm) stressor, 2 workers x 256MB, for 8s ===
+$ free -m
+               total        used        free      shared  buff/cache   available
+Mem:            8029         494        7333          14         420        7534
+Swap:              0           0           0
+$ ./stress-ng --vm 2 --vm-bytes 256M --metrics-brief --timeout 8s
+stress-ng: info:  [563] setting to a 8 second run per stressor
+stress-ng: info:  [563] dispatching hogs: 2 vm
+stress-ng: info:  [563] stressor       bogo ops real time  usr time  sys time   bogo ops/s     bogo ops/s
+stress-ng: info:  [563]                           (secs)    (secs)    (secs)   (real time) (usr+sys time)
+stress-ng: info:  [563] vm              1132385      8.67     12.00     12.00    130631.94     8088464.29
+stress-ng: info:  [563] successful run completed in 8.80s

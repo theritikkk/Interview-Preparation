@@ -1,0 +1,88 @@
+Functional demo + protocol unit checks, run 3 of 3 (all three runs passed; summary of every run below)
+
+txn_demo run 1: exit=0 TXN DEMO PASSED
+crash_recovery_demo run 1: exit=0 CRASH RECOVERY DEMO PASSED
+txn_demo run 2: exit=0 TXN DEMO PASSED
+crash_recovery_demo run 2: exit=0 CRASH RECOVERY DEMO PASSED
+txn_demo run 3: exit=0 TXN DEMO PASSED
+crash_recovery_demo run 3: exit=0 CRASH RECOVERY DEMO PASSED
+
+=================== full output of run 3 ===================
+shard 1: leader is node 3
+shard 2: leader is node 1
+shard 3: leader is node 2
+
+== 1. placement (the test needs keys on three different shards)
+  ok    alice -> shard 3  (3)
+  ok    bob   -> shard 3  (3)
+  ok    carol -> shard 2  (2)
+  ok    dave  -> shard 1  (1)
+
+== 2. one transaction across THREE shards commits atomically (2PC)
+  ok    exit status (0 = committed)  (0)
+  ok    went through 2PC
+  ok    alice  (70)
+  ok    carol  (80)
+  ok    dave  (1)
+
+== 3. a stale compare aborts the WHOLE transaction and leaves no trace
+  ok    exit status (3 = aborted)  (3)
+  ok    reason
+  ok    alice unchanged  (70)
+  ok    carol unchanged  (80)
+  ok    no locks left behind  (0)
+
+== 4. single-shard transactions skip 2PC: one log entry
+  ok    exit status  (0)
+  ok    fast path
+  ok    alice  (63)
+  ok    bob  (7)
+
+== 5. create-if-absent and erase, across shards, in one transaction
+  ok    exit status  (0)
+  ok    erin created  (new)
+  ok    dave erased  ()
+  ok    create-if-absent on an existing key aborts  (3)
+  ok    carol untouched by the aborted txn  (80)
+
+== 6. bad input is refused, not mangled
+  ok    key with a space  (3)
+  ok    reason
+
+== 7. protocol commands are idempotent (raw commands straight at one shard, shard 3)
+  ok    PREPARE  (PREPARED)
+  ok    PREPARE again (retry)  (PREPARED)
+  ok    key is locked while prepared  (LOCKED)
+  ok    plain SET on locked key refused  (LOCKED)
+  ok    a different txn cannot prepare it  (LOCKED)
+  ok    COMMIT  (OK)
+  ok      alice has the committed value  (62)
+  ok    plain SET now allowed (lock released)  (OK)
+  ok    COMMIT again (a retried message)  (OK)
+  ok      NOT re-applied (would have overwritten 99 with 62)  (99)
+  ok    ABORT after COMMIT is an error  (ERR_COMMITTED)
+  ok    COMMIT of unknown txn  (ERR_UNKNOWN)
+  ok    PREPARE #2  (PREPARED)
+  ok    ABORT  (OK)
+  ok    ABORT again  (OK)
+  ok    COMMIT after ABORT is an error  (ERR_ABORTED)
+  ok    abort released the lock  (62)
+  ok    TXBEGIN creates the decision record  (PENDING 2,3)
+  ok      TXBEGIN again (retry)  (PENDING 2,3)
+  ok      first decision wins: COMMIT  (COMMITTED)
+  ok      a later ABORT only reads it back  (COMMITTED)
+  ok      COMMIT without a record  (NOREC)
+  ok      ABORT without a record fences the txn  (ABORTED)
+  ok      ... so the coordinator's COMMIT now fails  (ABORTED)
+  ok    TXONE  (COMMITTED)
+  ok    TXONE retried: not applied twice  (COMMITTED)
+  ok      value  (8)
+
+== 8. the abort FENCE: an abort that arrives before its PREPARE stops the PREPARE
+  ok    TXABORT for a txn never seen  (OK)
+  ok    the late PREPARE is refused  (ABORTED)
+  ok    so alice is not locked  (62)
+
+  ok    no prepared transactions left anywhere  (0)
+
+TXN DEMO PASSED
