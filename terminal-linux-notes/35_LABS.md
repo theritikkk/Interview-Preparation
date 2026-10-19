@@ -228,7 +228,7 @@ Every lab referenced across this handbook, consolidated. Each follows the same f
 ### Lab 28 — Run and extend minimux
 **Objective:** run a working multiplexer, then close one of its documented gaps.
 **Commands:** from `code/`: `python3 test_minimux.py`; then `python3 minimux.py start work` and `python3 minimux.py attach work` (detach with `Ctrl+B d`, reattach from a second terminal).
-**Expected observation:** 37/37 checks pass; the session survives detaching, and a second client sees the same shell.
+**Expected observation:** 53/53 checks pass; the session survives detaching, and a second client sees the same shell. **On a Mac, run `python3 macos_probe.py` first** (file 49).
 **Internally:** file 48 — a PTY owner, a server, a terminal model, snapshot-on-attach, fan-out.
 **Questions:** Pick one of file 48's exercises (alternate screen, divergence detection, backpressure) and make a failing test pass.
 

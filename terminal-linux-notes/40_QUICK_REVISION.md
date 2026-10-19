@@ -187,9 +187,10 @@ No answers here — this is the self-check. If any of these stall you, that's th
 | 46 | `MULTIPLEXER_INTERNALS` | tmux/zellij as terminal emulators, what the server owns, control mode |
 | 47 | `SESSION_VIEW_SEPARATION` | Session-vs-view designs, Rex (reported architecture), replicated state machines |
 | 48 | `MINI_MULTIPLEXER_PROJECT` | A tested, staged build of a persistent multiplexer (code in `code/`) |
+| 49 | `FOLLOWING_THIS_HANDBOOK_ON_A_MAC` | What runs natively on macOS, what needs a Linux VM, Apple Silicon differences, `minimux` on a Mac |
 
 ---
 
 ## This is the end of the handbook
 
-Forty-nine files, `00` through `48` (plus the `code/` folder holding the tested multiplexer and its test suite). Every mechanism is traced to a syscall or a kernel concept, and every syscall is tied back to something you can run and observe yourself. The pressure test in file 00 and the checklist above are the two places to return to, periodically, long after the first read-through.
+Fifty files, `00` through `49` (plus the `code/` folder holding the tested multiplexer, its test suite, and a macOS probe). Every mechanism is traced to a syscall or a kernel concept, and every syscall is tied back to something you can run and observe yourself. The pressure test in file 00 and the checklist above are the two places to return to, periodically, long after the first read-through.

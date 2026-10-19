@@ -112,6 +112,8 @@ Worth stating plainly, since it's the majority of this handbook:
 
 ---
 
+> For a practical, lab-by-lab guide to using this handbook on a Mac — what runs natively, what needs a Linux VM, and how to run `minimux` — see `49_FOLLOWING_THIS_HANDBOOK_ON_A_MAC.md`.
+
 ## What's next
 
 `44_PROCESS_TREE_ZOMBIES_ORPHANS.md` — the last file — covers the process tree itself, and finally gives zombies and orphans the full treatment files 08, 29, and 31 kept deferring.

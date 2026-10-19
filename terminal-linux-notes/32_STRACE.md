@@ -109,6 +109,12 @@ This is the entire handbook's "here's the conceptual model, now here's how to ve
 
 ---
 
+> **What you will actually see — a correction to the trace above**
+> The trace is idealised. On a real Linux system, `fork()` appears as **`clone(...)`** (glibc implements `fork` with `clone`, on x86-64 and arm64 alike); on **arm64** — for example a Linux VM on an Apple Silicon Mac — `dup2(4, 1)` appears as **`dup3(4, 1, 0)`** and `pipe([3, 4])` as **`pipe2([3, 4], 0)`**, because that architecture's syscall table has no `dup2` or `pipe`. The *structure* is unchanged: the pipe is created, each child repoints its stdin or stdout and closes the unused ends, then `execve`s. I could not run `strace` in my sandbox, so this correction comes from the syscall tables and glibc's behaviour, not from a captured trace. Full architecture notes: file 49.
+
+---
+
+
 ## 5. Common misconceptions
 
 | Misconception | Reality |

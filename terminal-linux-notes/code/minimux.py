@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""minimux - a tiny persistent terminal multiplexer (Linux only). One session = one PTY.
+"""minimux - a tiny persistent terminal multiplexer. One session = one PTY.
+Developed and tested on Linux. On macOS, run code/macos_probe.py first (see file 49).
 
   minimux.py start  NAME [cmd...]   start a session server in the background (default: sh -i)
   minimux.py attach NAME            attach; Ctrl+B then d detaches; Ctrl+B Ctrl+B sends a literal Ctrl+B
@@ -32,29 +33,54 @@ class Reader:
 
 # ---- the terminal model: grid + cursor + pen + PARSER STATE (file 45) --------------------------
 class Emu:
+    # Private modes whose state a re-attaching terminal must be told about (number -> default).
+    TRACKED = {1: False, 25: True, 1000: False, 1002: False, 1003: False, 1004: False, 1006: False, 2004: False}
+
     def __init__(self, rows=24, cols=80):
         self.rows, self.cols = rows, cols
-        self.grid = [[(' ', 0)] * cols for _ in range(rows)]
+        self.grid = self.blank_grid()
         self.row = self.col = self.pen = 0
-        self.state, self.params, self.seq = 'G', '', b''   # seq = bytes of the sequence in progress
-        self.alt, self.saved = False, None                 # alternate screen; saved = (main grid, row, col, pen)
-        self.app_cursor = self.bpaste = False              # modes a re-attaching terminal must be told about
+        self.state, self.params, self.seq = 'G', '', b''   # seq = the bytes of the sequence in progress
+        self.top, self.bot = 0, rows - 1                    # scroll region, inclusive, 0-based
+        self.alt, self.saved, self.saved_margins = False, None, None
+        self.pm = dict(self.TRACKED)                        # tracked DEC private modes
+        self.keypad = False                                 # application keypad (ESC =) vs numeric (ESC >)
+        self.cursor_saved = None                            # DECSC (ESC 7): (row, col, pen)
 
-    def lf(self):
-        if self.row == self.rows - 1:
-            self.grid.pop(0); self.grid.append([(' ', 0)] * self.cols)
-        else:
-            self.row += 1
+    @property
+    def app_cursor(self): return self.pm[1]
+    @property
+    def bpaste(self): return self.pm[2004]
+    def blank_line(self): return [(' ', 0)] * self.cols
+    def blank_grid(self): return [self.blank_line() for _ in range(self.rows)]
+
+    # -- scrolling, always confined to the scroll region ------------------------------------------
+    def scroll_up(self, n=1):
+        for _ in range(min(n, self.bot - self.top + 1)):
+            del self.grid[self.top]; self.grid.insert(self.bot, self.blank_line())
+    def scroll_down(self, n=1):
+        for _ in range(min(n, self.bot - self.top + 1)):
+            del self.grid[self.bot]; self.grid.insert(self.top, self.blank_line())
+    def lf(self):                                           # LF, VT, FF, IND
+        if self.row == self.bot: self.scroll_up()
+        elif self.row < self.rows - 1: self.row += 1
+    def ri(self):                                           # reverse index
+        if self.row == self.top: self.scroll_down()
+        elif self.row > 0: self.row -= 1
     def put(self, ch):
-        if self.col >= self.cols: self.col = 0; self.lf()
+        if self.col >= self.cols: self.col = 0; self.lf()   # a pending wrap happens now
         self.grid[self.row][self.col] = (ch, self.pen); self.col += 1
     def ctl(self, b):                                       # C0 controls
         if b == 0x0D: self.col = 0
-        elif b == 0x0A: self.lf()
+        elif b in (0x0A, 0x0B, 0x0C): self.lf()
         elif b == 0x08: self.col = max(0, self.col - 1)
         elif b == 0x09: self.col = min(self.cols - 1, (self.col // 8 + 1) * 8)
     def ground(self): self.state, self.params, self.seq = 'G', '', b''
+    def restore_cursor(self):
+        if self.cursor_saved: self.row, self.col, self.pen = self.cursor_saved
+        else: self.row = self.col = self.pen = 0
 
+    # -- the parser (file 45) -----------------------------------------------------------------------
     def feed(self, data):
         for b in data: self.byte(b)
     def byte(self, b):
@@ -62,71 +88,99 @@ class Emu:
         if b == 0x1B:                                       # ESC cancels anything, anywhere
             self.state, self.params, self.seq = 'E', '', b'\x1b'; return
         if b in (0x18, 0x1A): self.ground(); return         # CAN / SUB
+        if self.state != 'G' and b < 0x20 and self.state != 'S':
+            self.ctl(b); self.seq = self.seq[:-1]; return   # C0 executes mid-sequence and is NOT part of it
         if self.state == 'G':
             if b < 0x20: self.ctl(b)
             elif b < 0x7F: self.put(chr(b))                 # (bytes >= 0x80 not modelled)
         elif self.state == 'E':
             if b == ord('['): self.state = 'C'
             elif b in b'P]X^_': self.state = 'S'            # DCS/OSC/SOS/PM/APC strings
-            else: self.ground()
+            elif 0x20 <= b <= 0x2F: self.state = 'I'        # intermediate, e.g. ESC ( B  or  ESC # 8
+            else:
+                if b == ord('M'): self.ri()
+                elif b == ord('D'): self.lf()
+                elif b == ord('E'): self.col = 0; self.lf()
+                elif b == ord('7'): self.cursor_saved = (self.row, self.col, self.pen)
+                elif b == ord('8'): self.restore_cursor()
+                elif b == ord('='): self.keypad = True
+                elif b == ord('>'): self.keypad = False
+                self.ground()
+        elif self.state == 'I':
+            if 0x30 <= b <= 0x7E or b >= 0x7F: self.ground()   # final byte of an ESC sequence we don't act on
         elif self.state == 'C':
-            if b < 0x20: self.ctl(b)                        # C0 executes mid-sequence
-            elif b <= 0x3F: self.params += chr(b)           # parameters, private markers, intermediates
+            if b <= 0x3F: self.params += chr(b)             # parameters, private markers, intermediates
             elif b <= 0x7E: self.csi(chr(b)); self.ground()
         elif self.state == 'S':                             # swallow until BEL (ESC \ arrives via the ESC rule)
             if b == 0x07: self.ground()
 
+    def nums(self):                                         # the parameters as ints; a blank is 0
+        if not self.params: return []
+        return [int(''.join(c for c in p if c.isdigit()) or 0) for p in self.params.split(';')]
     def args(self, default):
-        if not self.params: return [default]
-        out = []
-        for p in self.params.split(';'):
-            digits = ''.join(c for c in p if c.isdigit())
-            out.append(int(digits) if digits else 0)
-        return [x or default for x in out]
+        return [x or default for x in self.nums()] or [default]
     def csi(self, f):
-        if self.params[:1] == '?': self.private(f); return  # DEC private modes: three are modelled
+        if self.params[:1] == '?': self.private(f); return  # DEC private modes: some are modelled
         if self.params[:1] in ('>', '<', '='): return       # other private-marker sequences: not modelled
+        n = self.args(1)[0]; c0 = min(self.col, self.cols - 1)
         if f == 'm':
             for p in (self.params.split(';') if self.params else ['0']):
-                n = int(p) if p.isdigit() else 0
-                self.pen = n                                # model keeps ONE active SGR code (0 = reset)
+                self.pen = int(p) if p.isdigit() else 0      # model keeps ONE active SGR code (0 = reset)
         elif f in 'Hf':
             a = self.args(1) + [1]
             self.row, self.col = min(a[0], self.rows) - 1, min(a[1], self.cols) - 1
-        elif f in 'ABCD':
-            n = self.args(1)[0]
-            if f == 'A': self.row = max(0, self.row - n)
-            elif f == 'B': self.row = min(self.rows - 1, self.row + n)
-            elif f == 'C': self.col = min(self.cols - 1, self.col + n)
-            else: self.col = max(0, self.col - n)
+        elif f == 'A': self.row = max(0, self.row - n)
+        elif f == 'B': self.row = min(self.rows - 1, self.row + n)
+        elif f == 'C': self.col = min(self.cols - 1, c0 + n)
+        elif f == 'D': self.col = max(0, c0 - n)
+        elif f == 'G': self.col = min(n, self.cols) - 1
+        elif f == 'd': self.row = min(n, self.rows) - 1
         elif f == 'J':
-            n = self.args(0)[0]
-            if n in (2, 3): self.grid = [[(' ', 0)] * self.cols for _ in range(self.rows)]
-            elif n == 0:
-                for c in range(self.col, self.cols): self.grid[self.row][c] = (' ', 0)
-                for r in range(self.row + 1, self.rows): self.grid[r] = [(' ', 0)] * self.cols
-            elif n == 1:
-                for r in range(self.row): self.grid[r] = [(' ', 0)] * self.cols
-                for c in range(self.col + 1): self.grid[self.row][c] = (' ', 0)
+            k = self.args(0)[0]
+            if k in (2, 3): self.grid = self.blank_grid()
+            elif k == 0:
+                for c in range(c0, self.cols): self.grid[self.row][c] = (' ', 0)
+                for r in range(self.row + 1, self.rows): self.grid[r] = self.blank_line()
+            elif k == 1:
+                for r in range(self.row): self.grid[r] = self.blank_line()
+                for c in range(c0 + 1): self.grid[self.row][c] = (' ', 0)
         elif f == 'K':
-            lo, hi = {0: (self.col, self.cols), 1: (0, self.col + 1), 2: (0, self.cols)}.get(self.args(0)[0], (0, 0))
+            lo, hi = {0: (c0, self.cols), 1: (0, c0 + 1), 2: (0, self.cols)}.get(self.args(0)[0], (0, 0))
             for c in range(lo, hi): self.grid[self.row][c] = (' ', 0)
+        elif f == 'r':                                      # set scroll region; homes the cursor
+            v = self.nums(); t = v[0] if len(v) > 0 and v[0] else 1; b = v[1] if len(v) > 1 and v[1] else self.rows
+            if 1 <= t < b <= self.rows: self.top, self.bot = t - 1, b - 1; self.row = self.col = 0
+        elif f == 'L' and self.top <= self.row <= self.bot:  # insert lines
+            for _ in range(min(n, self.bot - self.row + 1)): del self.grid[self.bot]; self.grid.insert(self.row, self.blank_line())
+            self.col = 0
+        elif f == 'M' and self.top <= self.row <= self.bot:  # delete lines
+            for _ in range(min(n, self.bot - self.row + 1)): del self.grid[self.row]; self.grid.insert(self.bot, self.blank_line())
+            self.col = 0
+        elif f == 'S': self.scroll_up(n)
+        elif f == 'T': self.scroll_down(n)
+        elif f == '@':                                      # insert blank characters
+            line = self.grid[self.row]; self.grid[self.row] = (line[:c0] + [(' ', 0)] * n + line[c0:])[:self.cols]
+        elif f == 'P':                                      # delete characters
+            line = self.grid[self.row]; self.grid[self.row] = (line[:c0] + line[c0 + n:] + [(' ', 0)] * n)[:self.cols]
+        elif f == 'X':                                      # erase characters
+            for c in range(c0, min(self.cols, c0 + n)): self.grid[self.row][c] = (' ', 0)
 
     def private(self, f):                                   # CSI ? Pm h  /  CSI ? Pm l
         if f not in 'hl': return
         on = (f == 'h')
         for p in self.params[1:].split(';'):
             n = int(p) if p.isdigit() else 0
-            if n == 1: self.app_cursor = on                 # DECCKM: arrow keys send ESC O A, not ESC [ A
-            elif n == 2004: self.bpaste = on                # bracketed paste
+            if n in self.pm: self.pm[n] = on                # cursor keys, cursor visibility, mouse, bracketed paste
             elif n == 1049 and not NO_ALT: self.set_alt(on) # xterm: save cursor + alternate screen (cleared)
     def set_alt(self, on):
         if on and not self.alt:
-            self.saved = (self.grid, self.row, self.col, self.pen)
-            self.grid = [[(' ', 0)] * self.cols for _ in range(self.rows)]; self.alt = True
+            self.saved, self.saved_margins = (self.grid, self.row, self.col, self.pen), (self.top, self.bot)
+            self.grid, self.top, self.bot, self.alt = self.blank_grid(), 0, self.rows - 1, True
         elif not on and self.alt:
-            self.grid, self.row, self.col, self.pen = self.saved; self.saved = None; self.alt = False
+            self.grid, self.row, self.col, self.pen = self.saved; self.top, self.bot = self.saved_margins
+            self.saved = self.saved_margins = None; self.alt = False
 
+    # -- snapshots ------------------------------------------------------------------------------------
     def rows_bytes(self, grid):                             # bytes that paint one grid onto a cleared screen
         out = b''
         for r, line in enumerate(grid):
@@ -139,21 +193,43 @@ class Emu:
                 out += ch.encode()
             if cur: out += b'\x1b[0m'
         return out
-
+    def cursor_bytes(self, r, c, p, grid):
+        """Place the cursor and pen. A pending wrap (c == cols) can only be re-created by writing the last
+        cell again, so that is what we do."""
+        pen = lambda q: (b'\x1b[%dm' % q) if q else b'\x1b[0m'
+        if c >= self.cols:
+            ch, cp = grid[r][self.cols - 1]
+            return b'\x1b[%d;%dH' % (r + 1, self.cols) + pen(cp) + ch.encode() + pen(p)
+        return b'\x1b[%d;%dH' % (r + 1, c + 1) + pen(p)
     def snapshot(self, with_pending=True):
-        """Bytes that make a fresh terminal show this screen - and, crucially, leave ITS parser in
-        the same state as ours, by replaying any half-received sequence (file 47, Section 6.1)."""
-        out = b'\x1b[0m\x1b[2J\x1b[H'
+        """Bytes that make a fresh terminal show this screen - and, crucially, leave ITS parser in the same
+        state as ours, by replaying any half-received sequence (file 47, Section 6.1)."""
+        full = (0, self.rows - 1)
+        out = b'\x1b[0m\x1b[r\x1b[2J\x1b[H'
         if self.alt:                                        # paint the MAIN screen first, then enter the alternate one,
             g, r, c, p = self.saved                         # so the client's terminal saves the right main screen
-            out += self.rows_bytes(g) + b'\x1b[%d;%dH' % (r + 1, c + 1) + (b'\x1b[%dm' % p if p else b'\x1b[0m')
-            out += b'\x1b[?1049h\x1b[0m\x1b[2J\x1b[H'
+            out += self.rows_bytes(g)
+            if self.saved_margins != full: out += b'\x1b[%d;%dr' % (self.saved_margins[0] + 1, self.saved_margins[1] + 1)
+            out += self.cursor_bytes(r, c, p, g) + b'\x1b[?1049h\x1b[0m\x1b[2J\x1b[H'
         out += self.rows_bytes(self.grid)
-        out += b'\x1b[%d;%dH' % (self.row + 1, self.col + 1)
-        if self.pen: out += b'\x1b[%dm' % self.pen
-        out += b'\x1b[?1h' if self.app_cursor else b'\x1b[?1l'      # say the mode EXPLICITLY, either way
-        out += b'\x1b[?2004h' if self.bpaste else b'\x1b[?2004l'
+        if self.cursor_saved: out += self.cursor_bytes(*self.cursor_saved, self.grid) + b'\x1b7'
+        if (self.top, self.bot) != full: out += b'\x1b[%d;%dr' % (self.top + 1, self.bot + 1)
+        out += self.cursor_bytes(self.row, self.col, self.pen, self.grid)
+        for n, on in self.pm.items(): out += b'\x1b[?%d%s' % (n, b'h' if on else b'l')   # say every mode EXPLICITLY
+        out += b'\x1b=' if self.keypad else b'\x1b>'
         if with_pending and self.state != 'G': out += self.seq
+        return out
+    def undo_bytes(self):
+        """What a client writes to its own terminal on detach, to undo what the program switched on."""
+        out = b''
+        if self.alt: out += b'\x1b[?1049l'
+        for n, on in self.pm.items():
+            if n == 25:
+                if not on: out += b'\x1b[?25h'
+            elif on: out += b'\x1b[?%dl' % n
+        if self.keypad: out += b'\x1b>'
+        if (self.top, self.bot) != (0, self.rows - 1) or self.saved_margins not in (None, (0, self.rows - 1)):
+            out += b'\x1b7\x1b[r\x1b8'                       # reset margins without moving the cursor
         return out
 
     def resized(self, rows, cols):                          # crop or pad; the program then redraws itself
@@ -166,10 +242,12 @@ class Emu:
         e.grid = fit(self.grid)
         e.row, e.col = min(self.row, rows - 1), min(self.col, cols - 1)
         e.pen, e.state, e.params, e.seq = self.pen, self.state, self.params, self.seq
-        e.alt, e.app_cursor, e.bpaste = self.alt, self.app_cursor, self.bpaste
+        e.alt, e.pm, e.keypad = self.alt, dict(self.pm), self.keypad
         if self.saved:
-            g, r, c, p = self.saved; e.saved = (fit(g), min(r, rows - 1), min(c, cols - 1), p)
-        return e
+            g, r, c, p = self.saved; e.saved, e.saved_margins = (fit(g), min(r, rows - 1), min(c, cols - 1), p), (0, rows - 1)
+        if self.cursor_saved:
+            r, c, p = self.cursor_saved; e.cursor_saved = (min(r, rows - 1), min(c, cols - 1), p)
+        return e                                            # (margins reset on resize, as xterm does)
     def text(self):                                         # the screen currently being shown
         return '|'.join(''.join(ch for ch, _ in line).rstrip() for line in self.grid).rstrip('|')
     def main_text(self):                                    # the MAIN screen, even while an alternate one is active
@@ -179,7 +257,8 @@ class Emu:
         def d(g): return tuple(tuple((ch, p if ch != ' ' else 0) for ch, p in line) for line in g)
         saved = None if not self.saved else (d(self.saved[0]),) + self.saved[1:]
         return (d(self.grid), self.row, self.col, self.pen, self.state, self.params,
-                self.alt, self.app_cursor, self.bpaste, saved)
+                self.alt, self.app_cursor, self.bpaste, saved,
+                self.top, self.bot, tuple(sorted(self.pm.items())), self.keypad, self.cursor_saved, self.saved_margins)
 
 # ---- the server ---------------------------------------------------------------------------------
 def set_winsize(fd, rows, cols):                            # TIOCSWINSZ: the kernel then sends SIGWINCH (file 14)
@@ -233,7 +312,7 @@ def serve(name, cmd):
                             rows, cols = struct.unpack('>HH', pl)
                             emu = emu.resized(rows, cols); set_winsize(master, rows, cols)
                         elif typ == b'D': send(s, b'D', repr(emu.dump()).encode())   # debug: dump the model
-                        elif typ == b'M': send(s, b'M', bytes([emu.alt + 2 * emu.app_cursor + 4 * emu.bpaste]))
+                        elif typ == b'M': send(s, b'M', emu.undo_bytes())
     finally:
         for c in list(clients): drop(c)
         try: os.kill(pid, signal.SIGHUP)
@@ -264,15 +343,14 @@ def kill(name):
 def reset_modes(s, reader):
     """On detach, undo whatever the program switched on, so it doesn't leak into YOUR terminal."""
     try:
-        send(s, b'M'); s.settimeout(0.5); flags = None
-        while flags is None:
+        send(s, b'M'); s.settimeout(0.5); undo = None
+        while undo is None:
             data = s.recv(65536)
             if not data: return
             for typ, pl in reader.feed(data):
                 if typ == b'O': os.write(1, pl)               # output that was already in flight
-                elif typ == b'M': flags = pl[0]
-        os.write(1, (b'\x1b[?1049l' if flags & 1 else b'') + (b'\x1b[?1l' if flags & 2 else b'')
-                    + (b'\x1b[?2004l' if flags & 4 else b''))
+                elif typ == b'M': undo = pl                   # the server says exactly what to undo
+        os.write(1, undo)
     except OSError:                                          # includes the socket timeout
         pass
 

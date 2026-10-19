@@ -140,7 +140,24 @@ cd code
 python3 macos_probe.py
 ```
 
-Things it checks that I specifically don't know the macOS answer to: what reading a PTY master does after the child exits (Linux raises an error; BSD-derived systems may return end-of-file — `minimux` handles both); whether `SIGWINCH` arrives when a PTY is resized; the Unix-socket path-length limit (104 on macOS vs 108 on Linux **[N]**); and what `sh -i` prints.
+**What the probe found on a real Mac.** A run on **macOS 26.7.1, Apple Silicon (arm64), Python 3.13.0** gave 10 PASS, 0 FAIL, 3 INFO. That settles several things I had marked unverified:
+
+| Question | Result on that Mac |
+|---|---|
+| Does `pty.fork()` plus `select()` on the master work? | **Yes** |
+| What does reading a PTY master do after the child exits? | Returns **end-of-file** (Linux raises an error instead). `minimux` handles both. |
+| Does resizing a PTY deliver `SIGWINCH` to the program? | **Yes** — the claim in files 14 and 48 holds on macOS too |
+| Is `TIOCSWINSZ` on the master visible on the slave? | **Yes** |
+| Longest Unix-socket path that bound | **103 characters** — the 104-byte `sun_path` limit including the terminator, as expected |
+| Does a double-forked daemon have no controlling terminal? | **Yes** — `ppid=1`, `tty=??` (macOS's spelling of "none") |
+| What is `/bin/sh`? | **Bash 3.2** — its prompt was `sh-3.2$`, not `dash`'s `$` |
+| Do `tty.setraw`, `TIOCSCTTY` and `pgrep -P` exist? | **Yes** |
+
+One result is worth noticing: `sh -i` printed **`ESC [ ? 1034 h`** before its prompt. That is a private mode (xterm's "interpret meta key" setting) emitted by Bash 3.2's readline. It's a real-world instance of file 45's private-marker sequences, and `minimux`'s model ignores it harmlessly, since only modes `1`, `2004` and `1049` are tracked.
+
+*A flaw in my own probe, found by that run:* its `stty size` check originally passed on `0 0`, because a fresh PTY has no size until one is set and I only looked for two numbers. The probe now sets 27×91 and requires exactly that back, so it is a meaningful check. (Run it again if you'd like the stricter version.)
+
+What this does **not** yet tell us is whether the *test suite* and an interactive `attach` behave on macOS — the probe tests the operating-system pieces, not `minimux` itself. That is the next step:
 
 **Step 2 — try it by hand:**
 
@@ -157,10 +174,11 @@ python3 minimux.py kill work
 MINIMUX_TEST_SHELL='bash --noprofile --norc -i' python3 test_minimux.py
 ```
 
-**What I could and couldn't verify.** On Linux the suite passes 38/38 against `dash`, and **also against `bash -i`** — a readline shell, the nearest stand-in for macOS's `sh` I had. (That second run caught a real mistake in one of my own tests: bash's readline turns bracketed paste *on* at every prompt, which `dash` never does, so my "it must be off" assertion was only valid for `dash`. The code was right; the test was wrong.) I could **not** test macOS's actual Bash 3.2, `zsh`, Terminal.app, or Apple's `python3`. Things to watch for:
+**What I could and couldn't verify.** On Linux the suite passes 53/53 against `dash`, and **also against `bash -i`** — a readline shell, the nearest stand-in for macOS's `sh` I had. (That second run caught a real mistake in one of my own tests: bash's readline turns bracketed paste *on* at every prompt, which `dash` never does, so my "it must be off" assertion was only valid for `dash`. The code was right; the test was wrong.) I could **not** test macOS's actual Bash 3.2, `zsh`, Terminal.app, or Apple's `python3`. Things to watch for:
 
 - If you set `MINIMUX_DIR` yourself, **keep the path short** — macOS's `$TMPDIR` paths are long and Unix socket paths have the 104-character limit. The default (`/tmp/minimux-<uid>`) is short.
 - The Apple-provided `python3` is often an older version **[V]**; I tested 3.12, and nothing in the code needs newer than about 3.8, but I haven't run it on anything else.
+- **Real `vim`, `less` and `top` inside `minimux` are untried.** The model now understands scroll regions, insert/delete, saved cursor, cursor visibility, mouse and keypad modes, and the `ESC ( B` that ncurses programs emit — but I verified that with hand-derived expected screens and a randomized self-consistency test, not with the real programs. On your Mac, running `vim` in a session, detaching and reattaching is the experiment that tells us whether it holds up; please tell me exactly what you see.
 - If a test fails, copy the `FAIL` line and the probe's output back to me — that is exactly the information I'm missing.
 
 ---

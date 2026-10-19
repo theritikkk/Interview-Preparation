@@ -60,6 +60,8 @@ return to user mode
 > **Under the hood**
 > Why `r10` for the fourth argument instead of the more conventional `rcx`? Because the `syscall` instruction itself uses `rcx` internally to save the return address for the trip back. Argument 4 had to move somewhere else to avoid being clobbered — a small, very concrete example of hardware-level constraints leaking directly into an ABI convention.
 
+> **On arm64** (Apple Silicon running Linux): the trap instruction is `svc #0`, the syscall number goes in `x8`, arguments in `x0`-`x5`, and the result comes back in `x0`. The *idea* is identical; the registers and the syscall table differ. Details: file 49.
+
 **All of this is hidden behind what looks like an ordinary function call**, because your C library (glibc, or another libc) provides thin wrapper functions — the `read()`, `write()`, `openat()` you actually call — that handle loading the registers and issuing the `syscall` instruction for you.
 
 ---

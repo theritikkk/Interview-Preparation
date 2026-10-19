@@ -230,6 +230,100 @@ check('after Ctrl+B d the client has put the terminal back (alternate screen and
 drv.close()
 subprocess.run([sys.executable, os.path.join(HERE, 'minimux.py'), 'kill', 't9'], stdout=subprocess.DEVNULL)
 
+print('--- 10. the model against VT semantics derived by hand (no server involved) ---------------------')
+def screen(e): return [''.join(ch for ch, _ in line).rstrip() for line in e.grid]
+def labelled(rows=6, cols=10):
+    e = mm.Emu(rows, cols)
+    for i in range(1, rows + 1): e.feed(b'\x1b[%d;1HL%d' % (i, i))
+    return e
+L = ['L1', 'L2', 'L3', 'L4', 'L5', 'L6']
+e = labelled(); e.feed(b'\x1b[2;5r\x1b[5;1H\n')
+check('LF at the BOTTOM margin scrolls only the region', screen(e) == ['L1', 'L3', 'L4', 'L5', '', 'L6'], str(screen(e)))
+e = labelled(); e.feed(b'\x1b[2;4r\x1b[6;1H\n')
+check('LF BELOW the region does not scroll anything', screen(e) == L and e.row == 5, str(screen(e)))
+e = labelled(); e.feed(b'\x1b[2;5r\x1b[2;1H\x1bM')
+check('reverse index at the TOP margin scrolls the region down', screen(e) == ['L1', '', 'L2', 'L3', 'L4', 'L6'], str(screen(e)))
+e = labelled(); e.feed(b'\x1b[3;1H\x1b[2L')
+check('insert 2 lines pushes the rest down (and off the bottom)', screen(e) == ['L1', 'L2', '', '', 'L3', 'L4'], str(screen(e)))
+e = labelled(); e.feed(b'\x1b[2;1H\x1b[2M')
+check('delete 2 lines pulls the rest up and blanks the bottom', screen(e) == ['L1', 'L4', 'L5', 'L6', '', ''], str(screen(e)))
+e = mm.Emu(3, 10); e.feed(b'ABCDEFGH\x1b[1;3H\x1b[2@')
+check('insert 2 characters shifts the line right', screen(e)[0] == 'AB  CDEFGH', repr(screen(e)[0]))
+e = mm.Emu(3, 10); e.feed(b'ABCDEFGH\x1b[1;3H\x1b[2P')
+check('delete 2 characters shifts the line left', screen(e)[0] == 'ABEFGH', repr(screen(e)[0]))
+e = mm.Emu(3, 10); e.feed(b'ABCDEFGH\x1b[1;3H\x1b[2X')
+check('erase 2 characters blanks them in place', screen(e)[0] == 'AB  EFGH', repr(screen(e)[0]))
+e = mm.Emu(3, 10); e.feed(b'x\x1b(By')
+check('ESC ( B (charset select, emitted by ncurses) is swallowed, not printed', screen(e)[0] == 'xy', repr(screen(e)[0]))
+e = mm.Emu(6, 10); e.feed(b'\x1b[3;4H\x1b[31m\x1b7\x1b[1;1H\x1b[0m\x1b8')
+check('ESC 7 / ESC 8 save and restore cursor and pen', (e.row, e.col, e.pen) == (2, 3, 31), str((e.row, e.col, e.pen)))
+e = mm.Emu(6, 10); e.feed(b'\x1b[2\n')
+check('a control character inside a CSI runs once and is NOT part of the pending sequence',
+      e.row == 1 and e.state == 'C' and e.seq == b'\x1b[2', 'row=%d seq=%r' % (e.row, e.seq))
+e = mm.Emu(6, 10); e.feed(b'\x1b[?25l\x1b[?1000h\x1b[?1006h\x1b=')
+snap = e.snapshot(); r = mm.Emu(6, 10); r.feed(snap)
+check('hidden cursor, mouse modes and application keypad are all carried by a snapshot',
+      all(x in snap for x in (b'\x1b[?25l', b'\x1b[?1000h', b'\x1b[?1006h', b'\x1b=')) and r.pm == e.pm and r.keypad)
+undo = e.undo_bytes()
+check('...and undone on detach (cursor shown again, mouse off, keypad numeric)',
+      b'\x1b[?25h' in undo and b'\x1b[?1000l' in undo and b'\x1b[?1006l' in undo and b'\x1b>' in undo, repr(undo))
+e = mm.Emu(6, 10); e.feed(b'0123456789'); r = mm.Emu(6, 10); r.feed(e.snapshot()); r.feed(b'Z'); e.feed(b'Z')
+check('a snapshot taken at a PENDING WRAP (cursor past the last column) still wraps correctly',
+      r.dump() == e.dump() and screen(e)[1] == 'Z', str(screen(e)[:2]))
+
+print('--- 11. property test: a snapshot at ANY offset reproduces the model --------------------------------')
+import random
+def random_stream(rng, n_ops):
+    csi = lambda params, f: b'\x1b[' + params.encode() + f.encode()
+    ops = []
+    for _ in range(n_ops):
+        k = rng.randrange(30)
+        if k < 6: ops.append(''.join(rng.choice('abcdefghij XYZ0123') for _ in range(rng.randrange(1, 14))).encode())
+        elif k == 6: ops.append(b'\r\n')
+        elif k == 7: ops.append(b'\n')
+        elif k == 8: ops.append(b'\r')
+        elif k == 9: ops.append(csi('%d;%d' % (rng.randrange(1, 9), rng.randrange(1, 14)), 'H'))
+        elif k == 10: ops.append(csi(str(rng.randrange(0, 4)), rng.choice('ABCD')))
+        elif k == 11: ops.append(csi(str(rng.randrange(0, 3)), rng.choice('JK')))
+        elif k == 12: ops.append(csi(rng.choice(['0', '31', '32', '1', '']), 'm'))
+        elif k == 13: ops.append(csi('%d;%d' % (rng.randrange(1, 7), rng.randrange(1, 9)), 'r'))
+        elif k == 14: ops.append(b'\x1bM')
+        elif k == 15: ops.append(csi(str(rng.randrange(1, 4)), rng.choice('LMST')))
+        elif k == 16: ops.append(csi(str(rng.randrange(1, 4)), rng.choice('@PX')))
+        elif k == 17: ops.append(rng.choice([b'\x1b7', b'\x1b8', b'\x1bD', b'\x1bE', b'\x1b=', b'\x1b>']))
+        elif k == 18: ops.append(b'\x1b[?%d%s' % (rng.choice([1, 25, 1000, 1006, 2004]), rng.choice([b'h', b'l'])))
+        elif k == 19: ops.append(b'\x1b[?1049' + rng.choice([b'h', b'l']))
+        elif k == 20: ops.append(b'\x1b]0;title\x07')
+        elif k == 21: ops.append(b'\x1b(B')
+        elif k == 22: ops.append(csi(str(rng.randrange(1, 14)), rng.choice('Gd')))
+        elif k == 23: ops.append(b'\x1b[5t')
+        elif k == 24: ops.append(b'\t')
+        elif k == 25: ops.append(b'\b')
+        elif k == 26: ops.append(rng.choice([b'\x1b[2\nC', b'\x1b[\r1;4H', b'\x1b[3\n\nA']))   # control characters INSIDE a CSI
+        elif k == 27: ops.append(b'\x1b\nM')                                                    # ... and inside an ESC sequence
+        elif k == 28: ops.append(b'0123456789ab')                                               # runs to the last column
+        else: ops.append(b'\x1b[?25h')
+    return b''.join(ops)
+
+rng = random.Random(20261017); failure = None; trials = 0
+for _ in range(400):
+    stream = random_stream(rng, rng.randrange(5, 45))
+    full = mm.Emu(6, 12); full.feed(stream)
+    for k in sorted({rng.randrange(0, len(stream) + 1) for _ in range(14)}):
+        server = mm.Emu(6, 12); server.feed(stream[:k])
+        replica = mm.Emu(6, 12); replica.feed(server.snapshot()); replica.feed(stream[k:])
+        trials += 1
+        if replica.dump() != full.dump(): failure = (stream, k); break
+    if failure: break
+detail = '%d trials' % trials
+if failure:
+    s, k = failure
+    srv = mm.Emu(6, 12); srv.feed(s[:k]); rep = mm.Emu(6, 12); rep.feed(srv.snapshot()); rep.feed(s[k:]); ful = mm.Emu(6, 12); ful.feed(s)
+    names = ['grid', 'row', 'col', 'pen', 'state', 'params', 'alt', 'app_cursor', 'bpaste', 'saved', 'top', 'bot', 'pm', 'keypad', 'cursor_saved', 'saved_margins']
+    diff = [n for n, a, b in zip(names, rep.dump(), ful.dump()) if a != b]
+    detail = 'FIRST FAILURE: cut=%d differs in %s | stream=%r' % (k, diff, s)
+check('400 random streams x up to 14 cut points: snapshot + remainder == uninterrupted replay', failure is None, detail)
+
 print()
 print('%d/%d checks passed' % (sum(results), len(results)))
 shutil.rmtree(DIR, ignore_errors=True)
