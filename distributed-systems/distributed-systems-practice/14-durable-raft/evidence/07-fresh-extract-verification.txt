@@ -1,0 +1,75 @@
+# Fresh-extract verification: the delivered zip was unzipped into an empty directory, built with 'cmake -B build -S . && cmake --build build -j2' (18 s), and run there.
+# Step timings and exit codes:
+START cmake_configure 19:47:32
+END   cmake_configure rc=0 secs=0
+START cmake_build 19:47:32
+END   cmake_build rc=0 secs=18
+START persist 19:47:50
+END   persist rc=0 secs=36
+START snapshot 19:48:26
+END   snapshot rc=0 secs=31
+START power 19:48:57
+END   power rc=0 secs=33
+START stress 19:49:30
+END   stress rc=0 secs=413
+START txn_demo 19:56:23
+END   txn_demo rc=0 secs=12
+START crash_recovery 19:56:35
+END   crash_recovery rc=0 secs=18
+START fence 19:56:53
+END   fence rc=0 secs=13
+START bank_stress 19:57:06
+END   bank_stress rc=0 secs=245
+ALL DONE 20:01:11
+
+persist         checks ok=38  PERSIST DEMO PASSED
+snapshot        checks ok=73  SNAPSHOT DEMO PASSED
+power           checks ok=9   POWER LOSS DEMO PASSED
+txn_demo        checks ok=56  TXN DEMO PASSED
+crash_recovery  checks ok=31  CRASH RECOVERY DEMO PASSED
+fence           checks ok=9   FENCE ABLATION PASSED
+
+######## durable_stress.sh 1 2 (reduced: 2 seeds x 4 variants)
+--- safe: nemesis signal=KILL cluster-wide=KILL  server env: RAFT_SNAP_EVERY=25 RAFT_SNAP_KEEP=5 
+  seed 1: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0 unreadable-accounts=0
+          committed=122 fault-felt=756 | nodes-up=9/9 shards-converged=3/3 | s1=4d4ea58c s2=cdd92298 s3=150e9e43 | snapshots=306 installs=4 recoveries=24 torn-tail-cuts=0 FATAL=0
+  seed 2: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0 unreadable-accounts=0
+          committed=153 fault-felt=509 | nodes-up=9/9 shards-converged=3/3 | s1=fa4024ad s2=7663d0f3 s3=db9c89ab | snapshots=328 installs=3 recoveries=24 torn-tail-cuts=0 FATAL=0
+
+--- safe-powerloss: nemesis signal=USR2 cluster-wide=USR2  server env: RAFT_SNAP_EVERY=25 RAFT_SNAP_KEEP=5 
+  seed 1: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0 unreadable-accounts=0
+          committed=124 fault-felt=483 | nodes-up=9/9 shards-converged=3/3 | s1=08df7ab6 s2=82b1e189 s3=044d679d | snapshots=312 installs=4 recoveries=24 torn-tail-cuts=0 FATAL=0
+  seed 2: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0 unreadable-accounts=0
+          committed=142 fault-felt=696 | nodes-up=9/9 shards-converged=3/3 | s1=1abd223a s2=1dd6d267 s3=f35355bb | snapshots=297 installs=4 recoveries=24 torn-tail-cuts=0 FATAL=0
+
+--- nofsync-powerloss: nemesis signal=USR2 cluster-wide=USR2  server env: RAFT_SNAP_EVERY=25 RAFT_SNAP_KEEP=5 RAFT_FSYNC=0
+  seed 1: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0 unreadable-accounts=12
+          committed=47 fault-felt=1423 | nodes-up=9/9 shards-converged=3/3 | s1=a4a7d8b6 s2=b5b74930 s3=06d898bb | snapshots=168 installs=3 recoveries=24 torn-tail-cuts=0 FATAL=0
+  seed 2: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0 unreadable-accounts=12
+          committed=61 fault-felt=1662 | nodes-up=9/9 shards-converged=3/3 | s1=38d5e285 s2=f19d3338 s3=625f4333 | snapshots=181 installs=4 recoveries=24 torn-tail-cuts=0 FATAL=0
+
+--- nopersist: nemesis signal=KILL cluster-wide=KILL  server env: RAFT_SNAP_EVERY=25 RAFT_SNAP_KEEP=5 RAFT_PERSIST=0
+  seed 1: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0 unreadable-accounts=12
+          committed=55 fault-felt=1569 | nodes-up=9/9 shards-converged=3/3 | s1=75558344 s2=bb19c42e s3=3c8a468a | snapshots=0 installs=0 recoveries=0 torn-tail-cuts=0 FATAL=0
+  seed 2: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0 unreadable-accounts=12
+          committed=59 fault-felt=1520 | nodes-up=9/9 shards-converged=3/3 | s1=332fa107 s2=f23bbc02 s3=b50388d8 | snapshots=0 installs=0 recoveries=0 torn-tail-cuts=0 FATAL=0
+
+================ SUMMARY (seeds: 1 2, 45s per run, 12 accounts in 4 groups, 8 workers, 3 shards x 3 nodes) ================
+safe               0/2 runs w/ violations | violations=0    snapshots=634 installs=7   recoveries=48  torn-tail-cuts=0  | ok
+safe-powerloss     0/2 runs w/ violations | violations=0    snapshots=609 installs=8   recoveries=48  torn-tail-cuts=0  | ok
+nofsync-powerloss  2/2 runs w/ violations | violations=24   snapshots=349 installs=7   recoveries=48  torn-tail-cuts=0  | ok
+nopersist          2/2 runs w/ violations | violations=24   snapshots=0   installs=0   recoveries=0   torn-tail-cuts=0  | ok
+
+DURABLE STRESS PASSED: the real protocol is clean in every run (kill -9 and power loss, incl. a cluster-wide outage); both ablations are caught
+
+######## bank_stress.sh 1 2 (Project 13's, unchanged)
+================ SUMMARY (seeds: 1 2, 20s per run, 12 accounts in 4 groups, 8 workers) ================
+safe               0/2 runs w/ violations | audit-skew=0    final-total=0  final-per-account=0   stuck=0 unresolved=0 protocol=0 | ok
+safe-leaderkill    0/2 runs w/ violations | audit-skew=0    final-total=0  final-per-account=0   stuck=0 unresolved=0 protocol=0 | ok
+naive              2/2 runs w/ violations | audit-skew=28   final-total=2  final-per-account=24  stuck=0 unresolved=0 protocol=0 | ok
+plain-audit        2/2 runs w/ violations | audit-skew=14   final-total=0  final-per-account=0   stuck=0 unresolved=0 protocol=0 | ok
+ablate-nolock      2/2 runs w/ violations | audit-skew=125  final-total=2  final-per-account=23  stuck=0 unresolved=0 protocol=0 | ok
+
+BANK STRESS PASSED: real protocol clean in every run (including with a shard leader killed); every broken variant caught with its expected symptom
+
+node processes left running afterwards: 0

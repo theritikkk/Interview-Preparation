@@ -1,0 +1,7 @@
+bank: mode=safe audit=snapshot accounts=12 groups=4 workers=8 seconds=45 seed=4 lock-ttl=3000ms  (accounts per shard: s1=6 s2=3 s3=3)
+transfers: attempted=249 committed=81 (cross-shard 2PC=46, single-shard=35) gave-up-after-8-tries=159  aborted attempts: mismatch=22 conflict=128 other=1  insufficient-funds=0  read-failures=1275
+in doubt after timeouts/failures: 1 resolved via decision record -> committed=0 aborted=1 unresolved=0
+commit latency ms (p50/p95): cross-shard 561/601 (n=46)   single-shard 147/150 (n=35)
+audits: consistent=31 skewed=0 unavailable=155   final: total=0 (expected 12000) unreadable-accounts=12
+VIOLATIONS: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0 unreadable-accounts=12
+RESULT: VIOLATIONS DETECTED (12 violations)

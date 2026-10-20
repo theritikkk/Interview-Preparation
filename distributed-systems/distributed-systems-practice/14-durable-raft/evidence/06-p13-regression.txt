@@ -1,0 +1,184 @@
+# Project 13's scripts, unchanged, on the durable build (persistence + fsync on, snapshots off): txn_demo.sh, crash_recovery_demo.sh, fence_ablation.sh, bank_stress.sh 1 2
+
+######## txn_demo
+shard 1: leader is node 1
+shard 2: leader is node 3
+shard 3: leader is node 1
+
+== 1. placement (the test needs keys on three different shards)
+  ok    alice -> shard 3  (3)
+  ok    bob   -> shard 3  (3)
+  ok    carol -> shard 2  (2)
+  ok    dave  -> shard 1  (1)
+
+== 2. one transaction across THREE shards commits atomically (2PC)
+  ok    exit status (0 = committed)  (0)
+  ok    went through 2PC
+  ok    alice  (70)
+  ok    carol  (80)
+  ok    dave  (1)
+
+== 3. a stale compare aborts the WHOLE transaction and leaves no trace
+  ok    exit status (3 = aborted)  (3)
+  ok    reason
+  ok    alice unchanged  (70)
+  ok    carol unchanged  (80)
+  ok    no locks left behind  (0)
+
+== 4. single-shard transactions skip 2PC: one log entry
+  ok    exit status  (0)
+  ok    fast path
+  ok    alice  (63)
+  ok    bob  (7)
+
+== 5. create-if-absent and erase, across shards, in one transaction
+  ok    exit status  (0)
+  ok    erin created  (new)
+  ok    dave erased  ()
+  ok    create-if-absent on an existing key aborts  (3)
+  ok    carol untouched by the aborted txn  (80)
+
+== 6. bad input is refused, not mangled
+  ok    key with a space  (3)
+  ok    reason
+
+== 7. protocol commands are idempotent (raw commands straight at one shard, shard 3)
+  ok    PREPARE  (PREPARED)
+  ok    PREPARE again (retry)  (PREPARED)
+  ok    key is locked while prepared  (LOCKED)
+  ok    plain SET on locked key refused  (LOCKED)
+  ok    a different txn cannot prepare it  (LOCKED)
+  ok    COMMIT  (OK)
+  ok      alice has the committed value  (62)
+  ok    plain SET now allowed (lock released)  (OK)
+  ok    COMMIT again (a retried message)  (OK)
+  ok      NOT re-applied (would have overwritten 99 with 62)  (99)
+  ok    ABORT after COMMIT is an error  (ERR_COMMITTED)
+  ok    COMMIT of unknown txn  (ERR_UNKNOWN)
+  ok    PREPARE #2  (PREPARED)
+  ok    ABORT  (OK)
+  ok    ABORT again  (OK)
+  ok    COMMIT after ABORT is an error  (ERR_ABORTED)
+  ok    abort released the lock  (62)
+  ok    TXBEGIN creates the decision record  (PENDING 2,3)
+  ok      TXBEGIN again (retry)  (PENDING 2,3)
+  ok      first decision wins: COMMIT  (COMMITTED)
+  ok      a later ABORT only reads it back  (COMMITTED)
+  ok      COMMIT without a record  (NOREC)
+  ok      ABORT without a record fences the txn  (ABORTED)
+  ok      ... so the coordinator's COMMIT now fails  (ABORTED)
+  ok    TXONE  (COMMITTED)
+  ok    TXONE retried: not applied twice  (COMMITTED)
+  ok      value  (8)
+
+== 8. the abort FENCE: an abort that arrives before its PREPARE stops the PREPARE
+  ok    TXABORT for a txn never seen  (OK)
+  ok    the late PREPARE is refused  (ABORTED)
+  ok    so alice is not locked  (62)
+
+  ok    no prepared transactions left anywhere  (0)
+
+TXN DEMO PASSED
+
+######## crash_recovery
+shard 1: leader is node 2
+shard 2: leader is node 1
+shard 3: leader is node 2
+
+  ok    placement: alice on shard 3  (3)
+  ok    placement: carol on shard 2  (2)
+
+== A. coordinator dies AFTER PREPARE: locks are held, no decision exists
+  ok    coordinator exit status (86 = injected crash)  (86)
+  ok    both shards hold a prepared txn  (2)
+  ok    plain SET at the locked key is refused  (LOCKED)
+  ok    plain GET at the locked key does not return a value  (LOCKED)
+  ok    a competing transaction is aborted (blocked)  (3)
+        (that read blocked for 1203 ms: it waited out the remaining ttl, then ran the resolution)
+  ok    a reader past the ttl resolves it: alice rolled BACK  (100)
+  ok    carol rolled back too  (50)
+  ok    no locks left  (0)
+
+== B. coordinator dies AFTER the decision (COMMITTED) is recorded, before telling any participant
+  ok    coordinator exit status  (86)
+  ok    both shards still hold the txn prepared  (2)
+  ok    a reader resolves it: alice rolled FORWARD  (70)
+  ok    carol rolled forward too  (80)
+  ok    no locks left  (0)
+
+== C. coordinator dies MID-COMMIT: told shard 2 to commit, died before telling shard 3
+  ok    coordinator exit status  (86)
+  ok    carol (shard 2) already shows the new value  (80)
+  ok    alice (shard 3) is still locked  (LOCKED)
+  ok    one prepared txn left  (1)
+  ok    a reader resolves it: alice rolled FORWARD to match carol  (70)
+  ok    money conserved (alice + carol)  (150)
+  ok    no locks left  (0)
+
+== D. ABLATION: the same mid-commit crash, but the resolver has no decision record and guesses ABORT
+  ok    coordinator exit status  (86)
+        alice=100 carol=80  (a correct run ends with 70 and 80)
+  ok    ATOMICITY BROKEN as expected: shard 3 aborted, shard 2 committed  (100/80)
+  ok    money is NOT conserved (150 expected)  (180)
+
+== E. a LIVE coordinator is slow; an impatient resolver aborts it first (premature abort must be safe)
+  ok    the txn is prepared and waiting  (2)
+  ok    the slow coordinator learns it was aborted (fenced out)
+  ok    ...and exits with 'aborted', not 'committed'
+  ok    alice untouched  (100)
+  ok    carol untouched  (50)
+  ok    no locks left  (0)
+
+CRASH RECOVERY DEMO PASSED
+
+######## fence
+== fence ON (the real protocol)
+
+  ok    late PREPARE after an abort is refused  (ABORTED)
+  ok    alice is not locked  (0)
+  ok    a client read returns at once (<500 ms)  (yes)
+        (read took 5 ms)
+  ok    no leaked prepared txn  (0)
+
+== fence OFF (RAFT_TXN_ABLATE=nofence)
+
+  ok    ABLATION: the late PREPARE is accepted  (PREPARED)
+  ok    ABLATION: alice is locked for a txn that was already aborted  (1)
+  ok    ABLATION: a client read stalls for ~the ttl until it resolves the leak  (yes)
+        (read took 1500 ms, ttl 1500 ms)
+  ok      ...and then reads the right value  (100)
+  ok      ...and the leak is gone  (0)
+
+FENCE ABLATION PASSED
+
+######## bank_stress.sh 1 2
+--- safe: txntool bank    server-side sabotage: none   kill a shard leader mid-run: no
+  seed 1: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0 unreadable-accounts=0  committed=94 fault-felt=0
+  seed 2: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0 unreadable-accounts=0  committed=74 fault-felt=0
+
+--- safe-leaderkill: txntool bank    server-side sabotage: none   kill a shard leader mid-run: yes
+  seed 1: kill -9 leader of shard 2 (node 3, pid 23479) at t=7s
+  seed 1: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0 unreadable-accounts=0  committed=94 fault-felt=43
+  seed 2: kill -9 leader of shard 3 (node 2, pid 5552) at t=7s
+  seed 2: audit-skew=0 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0 unreadable-accounts=0  committed=101 fault-felt=40
+
+--- naive: txntool bank --naive   server-side sabotage: none   kill a shard leader mid-run: no
+  seed 1: audit-skew=15 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0 unreadable-accounts=0  committed=523 fault-felt=0
+  seed 2: audit-skew=14 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0 unreadable-accounts=0  committed=568 fault-felt=0
+
+--- plain-audit: txntool bank --plain-audit   server-side sabotage: none   kill a shard leader mid-run: no
+  seed 1: audit-skew=18 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0 unreadable-accounts=0  committed=125 fault-felt=0
+  seed 2: audit-skew=7 negative-balance=0 final-total=0 final-per-account=0 stuck-locks=0 unresolved-txns=0 protocol=0 unreadable-accounts=0  committed=121 fault-felt=0
+
+--- ablate-nolock: txntool bank    server-side sabotage: nolock   kill a shard leader mid-run: no
+  seed 1: audit-skew=76 negative-balance=0 final-total=1 final-per-account=11 stuck-locks=0 unresolved-txns=0 protocol=0 unreadable-accounts=0  committed=210 fault-felt=0
+  seed 2: audit-skew=68 negative-balance=0 final-total=1 final-per-account=12 stuck-locks=0 unresolved-txns=0 protocol=0 unreadable-accounts=0  committed=218 fault-felt=0
+
+================ SUMMARY (seeds: 1 2, 20s per run, 12 accounts in 4 groups, 8 workers) ================
+safe               0/2 runs w/ violations | audit-skew=0    final-total=0  final-per-account=0   stuck=0 unresolved=0 protocol=0 | ok
+safe-leaderkill    0/2 runs w/ violations | audit-skew=0    final-total=0  final-per-account=0   stuck=0 unresolved=0 protocol=0 | ok
+naive              2/2 runs w/ violations | audit-skew=29   final-total=2  final-per-account=24  stuck=0 unresolved=0 protocol=0 | ok
+plain-audit        2/2 runs w/ violations | audit-skew=25   final-total=0  final-per-account=0   stuck=0 unresolved=0 protocol=0 | ok
+ablate-nolock      2/2 runs w/ violations | audit-skew=144  final-total=2  final-per-account=23  stuck=0 unresolved=0 protocol=0 | ok
+
+BANK STRESS PASSED: real protocol clean in every run (including with a shard leader killed); every broken variant caught with its expected symptom

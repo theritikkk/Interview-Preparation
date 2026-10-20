@@ -1,0 +1,59 @@
+# power_loss_demo.sh on the final build: 3 consecutive runs, all PASSED (9 checks each). Run 3 in full.
+
+## run 1
+== A. fsync ON, then every node loses power
+  ok    writes acknowledged by the cluster (60 accounts set to 7777)  (yes)
+  ok    they read back before the cut  (60)
+   (shard 3 node 1 has made 4 fsync calls so far)
+  ok    every acknowledged write survived the power loss  (60)
+== B. fsync OFF, then every node loses power
+  ok    writes acknowledged by the cluster (60 accounts set to 7777)  (yes)
+  ok    they read back before the cut  (60)
+   (shard 3 node 1 has made 0 fsync calls so far)
+  ok    ABLATION: acknowledged writes are GONE after the power loss (0 survive)  (0)
+== C. fsync OFF, but the nodes are only kill -9'd
+  ok    writes acknowledged by the cluster (60 accounts set to 7777)  (yes)
+  ok    they read back before the cut  (60)
+   (shard 3 node 1 has made 0 fsync calls so far)
+  ok    (control) kill -9 alone loses nothing, which is why kill -9 cannot test fsync  (60)
+POWER LOSS DEMO PASSED
+
+## run 2
+== A. fsync ON, then every node loses power
+  ok    writes acknowledged by the cluster (60 accounts set to 7777)  (yes)
+  ok    they read back before the cut  (60)
+   (shard 3 node 1 has made 4 fsync calls so far)
+  ok    every acknowledged write survived the power loss  (60)
+== B. fsync OFF, then every node loses power
+  ok    writes acknowledged by the cluster (60 accounts set to 7777)  (yes)
+  ok    they read back before the cut  (60)
+   (shard 3 node 1 has made 0 fsync calls so far)
+  ok    ABLATION: acknowledged writes are GONE after the power loss (0 survive)  (0)
+== C. fsync OFF, but the nodes are only kill -9'd
+  ok    writes acknowledged by the cluster (60 accounts set to 7777)  (yes)
+  ok    they read back before the cut  (60)
+   (shard 3 node 1 has made 0 fsync calls so far)
+  ok    (control) kill -9 alone loses nothing, which is why kill -9 cannot test fsync  (60)
+POWER LOSS DEMO PASSED
+
+## run 3 (full)
+
+== A. fsync ON, then every node loses power
+  ok    writes acknowledged by the cluster (60 accounts set to 7777)  (yes)
+  ok    they read back before the cut  (60)
+   (shard 3 node 1 has made 4 fsync calls so far)
+  ok    every acknowledged write survived the power loss  (60)
+
+== B. fsync OFF, then every node loses power
+  ok    writes acknowledged by the cluster (60 accounts set to 7777)  (yes)
+  ok    they read back before the cut  (60)
+   (shard 3 node 1 has made 0 fsync calls so far)
+  ok    ABLATION: acknowledged writes are GONE after the power loss (0 survive)  (0)
+
+== C. fsync OFF, but the nodes are only kill -9'd
+  ok    writes acknowledged by the cluster (60 accounts set to 7777)  (yes)
+  ok    they read back before the cut  (60)
+   (shard 3 node 1 has made 0 fsync calls so far)
+  ok    (control) kill -9 alone loses nothing, which is why kill -9 cannot test fsync  (60)
+
+POWER LOSS DEMO PASSED

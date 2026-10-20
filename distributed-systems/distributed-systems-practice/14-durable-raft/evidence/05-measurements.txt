@@ -1,0 +1,68 @@
+# scripts/measure.sh. M1 and M3 are from one full run (727 s). M2 is shown twice: 'round A' is the M2 block of that full run (it printed only shard 1 node 1,
+# whichever role it had); 'round B' is a rerun of 'measure.sh m2' after the script was changed to print every node's role. Same code, same box.
+
+== M1. restart cost vs log length (kill -9 the whole cluster, restart on its data, 100-byte values, 1000 keys)
+-- no-snapshots
+   ever-appended retained  WAL-bytes  snap-bytes replayed  WAL-replay-ms  leader-ms    converged-ms
+   9542         9542      1353666    0          9542      21             3145         3201
+   18113        18113     2569605    0          18113     70             3160         3219
+   26723        26723     3791076    0          26723     70             3164         3211
+   35590        35590     5049010    0          35590     141            3196         3250
+   43985        43985     6239948    0          43985     138            3150         3202
+   52247        52247     7412044    0          52247     148            3699         3755
+-- snapshot-every-1000
+   ever-appended retained  WAL-bytes  snap-bytes replayed  WAL-replay-ms  leader-ms    converged-ms
+   9517         447       63460      40111      447       0              3130         3182
+   18121        870       123472     40111      870       1              3123         3182
+   26649        240       34092      40111      240       1              3119         3170
+   36218        638       90550      40111      638       0              2611         2680
+   45696        900       127727     40111      900       0              3120         3171
+   54151        134       19058      40111      134       0              3131         3183
+   (columns are shard 1, node 1 before the kill; replayed / WAL-replay-ms are the max over shard 1's 3 nodes AFTER the restart.
+    leader-ms = until all 3 shards had a leader again; converged-ms = until shard 1's replicas had applied their whole log.)
+
+######## M2, round A
+== M2. cost of fsync: 16 writer threads, 15 s per run, alternating on/off x3
+   fsync on  run 1: threads=16 value-bytes=100 keys=1000  writes-acked=2019 failed=0  throughput=133.5/s  latency ms p50/p95/p99 = 130/187/192
+                    shard 1 node 1: 685 entries, 103 fsync calls, mean fsync 0.76 ms (78394 us total)
+   fsync off run 1: threads=16 value-bytes=100 keys=1000  writes-acked=1796 failed=0  throughput=118.4/s  latency ms p50/p95/p99 = 150/194/201
+   fsync on  run 2: threads=16 value-bytes=100 keys=1000  writes-acked=1660 failed=0  throughput=110.1/s  latency ms p50/p95/p99 = 150/182/196
+                    shard 1 node 1: 570 entries, 102 fsync calls, mean fsync 0.82 ms (83414 us total)
+   fsync off run 2: threads=16 value-bytes=100 keys=1000  writes-acked=1707 failed=0  throughput=112.6/s  latency ms p50/p95/p99 = 150/188/200
+   fsync on  run 3: threads=16 value-bytes=100 keys=1000  writes-acked=1739 failed=0  throughput=114.9/s  latency ms p50/p95/p99 = 150/185/192
+                    shard 1 node 1: 591 entries, 592 fsync calls, mean fsync 0.44 ms (262401 us total)
+   fsync off run 3: threads=16 value-bytes=100 keys=1000  writes-acked=1725 failed=0  throughput=114.0/s  latency ms p50/p95/p99 = 150/195/200
+
+######## M2, round B (rerun, per-node role and fsync counts)
+== M2. cost of fsync: 16 writer threads, 15 s per run, alternating on/off x3
+   fsync on  run 1: threads=16 value-bytes=100 keys=1000  writes-acked=1644 failed=0  throughput=108.9/s  latency ms p50/p95/p99 = 150/183/190
+                    shard 1 node 1 (leader  ): 562 entries,  563 fsync calls, mean fsync 0.48 ms
+                    shard 1 node 2 (follower): 562 entries,  103 fsync calls, mean fsync 0.83 ms
+                    shard 1 node 3 (follower): 562 entries,  103 fsync calls, mean fsync 0.83 ms
+   fsync off run 1: threads=16 value-bytes=100 keys=1000  writes-acked=2017 failed=0  throughput=133.7/s  latency ms p50/p95/p99 = 146/158/181
+   fsync on  run 2: threads=16 value-bytes=100 keys=1000  writes-acked=1604 failed=0  throughput=105.9/s  latency ms p50/p95/p99 = 150/177/195
+                    shard 1 node 1 (leader  ): 546 entries,  547 fsync calls, mean fsync 0.46 ms
+                    shard 1 node 2 (follower): 546 entries,  102 fsync calls, mean fsync 0.85 ms
+                    shard 1 node 3 (follower): 546 entries,  103 fsync calls, mean fsync 0.79 ms
+   fsync off run 2: threads=16 value-bytes=100 keys=1000  writes-acked=1798 failed=0  throughput=119.4/s  latency ms p50/p95/p99 = 150/180/200
+   fsync on  run 3: threads=16 value-bytes=100 keys=1000  writes-acked=1605 failed=0  throughput=105.7/s  latency ms p50/p95/p99 = 150/184/200
+                    shard 1 node 1 (follower): 547 entries,  103 fsync calls, mean fsync 0.99 ms
+                    shard 1 node 2 (leader  ): 547 entries,  548 fsync calls, mean fsync 0.49 ms
+                    shard 1 node 3 (follower): 547 entries,  103 fsync calls, mean fsync 1.02 ms
+   fsync off run 3: threads=16 value-bytes=100 keys=1000  writes-acked=1841 failed=0  throughput=121.9/s  latency ms p50/p95/p99 = 150/180/200
+
+######## M3
+== M3. snapshot size when transaction records are never garbage-collected (bank, 12 accounts, snapshot every 25)
+   after                  committed keys    locks  txns   recs   snap-bytes  WAL-bytes
+   bank run 1, shard 1    173       6       0      732    701    53631       1173
+   bank run 1, shard 2    173       3       0      384    0      14613       611
+   bank run 1, shard 3    173       3       0      357    0      13254       1833
+   bank run 2, shard 1    323       6       0      1461   1408   107391      1167
+   bank run 2, shard 2    323       3       0      761    0      28683       1838
+   bank run 2, shard 3    323       3       0      712    0      26914       1578
+   bank run 3, shard 1    475       6       0      2194   2116   161408      768
+   bank run 3, shard 2    475       3       0      1119   0      42020       2310
+   bank run 3, shard 3    475       3       0      1089   0      41141       1581
+   bank run 4, shard 1    646       6       0      2935   2821   215266      870
+   bank run 4, shard 2    646       3       0      1494   0      56618       655
+   bank run 4, shard 3    646       3       0      1454   0      54876       2386

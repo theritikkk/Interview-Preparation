@@ -1,0 +1,11 @@
+t=04s  kill one node 1.2: signal USR2
+t=08s  node 1.2 restarted
+t=10s  kill the WHOLE of shard 2: signal USR2
+t=13s  shard 2 restarted
+t=18s  kill the LEADER of shard 2 (node 1): signal USR2
+t=21s  node 2.1 restarted
+t=26s  kill ALL NINE nodes at once: signal USR2
+t=29s  all nine restarted
+t=36s  kill the LEADER of shard 2 (node 3): signal USR2
+t=39s  node 2.3 restarted
+t=39s  nemesis done

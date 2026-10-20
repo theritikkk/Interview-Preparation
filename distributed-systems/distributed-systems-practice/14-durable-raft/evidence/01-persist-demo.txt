@@ -1,0 +1,190 @@
+# persist_demo.sh on the final build: 3 consecutive runs, all PASSED (38 checks each). Runs 1-2: headings + checks only; run 3: full output.
+# (history: the first-ever run of an earlier version failed one check, a harness bug in 'fill' - see ANALYSIS 'Bugs and surprises'.)
+
+## run 1
+== 1. one node is killed (kill -9) while the cluster keeps writing, then restarted
+   shard 3: leader node 2, killing follower node 1
+  ok    the restarted follower converged with its peers (same applied index and state digest)  (yes)
+  ok    it rebuilt its log from the WAL (entries recovered > 0)  (yes)
+  ok    no torn tail (it was killed between writes)  (0)
+   ... now the LEADER of shard 3 is killed
+  ok    the restarted old leader rejoined and converged  (yes)
+  ok    all 60 accounts read back as the latest value  (60)
+== 2. a whole shard dies at once (all 3 nodes kill -9), then restarts: nothing is lost
+  ok    shard 2 elected a leader again  (yes)
+  ok    all 60 accounts (every shard) read back as the latest value  (60)
+== 3. the WHOLE cluster is killed with a transaction half-done; its locks and decision survive
+  ok    placement: alice on shard 3, carol on shard 2  (3/2)
+   3a. coordinator dies after PREPARE (no decision yet); then every node is killed and restarted
+  ok    coordinator exit status (86 = injected crash)  (86)
+  ok    both shards still hold the prepared txn after the restart  (2)
+  ok    the lock survived: a plain SET on alice is still refused  (LOCKED)
+  ok    a reader past the ttl resolves it: rolled BACK (alice)  (100)
+  ok    carol rolled back too  (50)
+  ok    no locks left  (0)
+   3b. coordinator dies AFTER the COMMIT decision is recorded; then every node is killed and restarted
+  ok    coordinator exit status  (86)
+  ok    both shards still hold the prepared txn  (2)
+  ok    a reader resolves it from the SURVIVING decision record: rolled FORWARD (alice)  (70)
+  ok    carol rolled forward too  (80)
+  ok    no locks left  (0)
+== 4. damage to a WAL on disk (shard 2, a follower)
+   4a. a crash tears the last record: cut 5 bytes off the end of node 1's WAL
+  ok    node recovered, cut the torn tail (tornTail=1)  (1)
+  ok    the node log says exactly what it cut
+  ok    and the leader re-sent the lost entry: converged  (yes)
+   4b. garbage after the last record (a half-written append): 13 random bytes
+  ok    node recovered, cut the garbage (tornTail=1)  (1)
+  ok    converged  (yes)
+   4c. a byte flipped in the MIDDLE of the log is not a torn tail: the node must refuse to start
+  ok    the node did not come up  (no)
+  ok    and says why
+  ok    the other two nodes of shard 2 still serve (quorum intact)  (yes)
+== 5. a vote must survive a restart (Raft: at most one vote per term)
+   real: first request  (candidate 2): vote GRANTED (node's term now 1000)
+   real: after kill -9 + restart, same term (candidate 3): vote DENIED (node's term now 1000)
+  ok    first request granted
+  ok    after the restart the node still remembers its vote and DENIES candidate 3
+  ok      (denied because of the remembered vote, not because its term moved on)
+  ok    its stored state: term 1000, voted for node 2  (1000/2)
+   ablation: first request  (candidate 2): vote GRANTED (node's term now 1000)
+   ablation: after kill -9 + restart, same term (candidate 3): vote GRANTED (node's term now 1000)
+  ok    ablation: first request granted
+  ok    ABLATION: the restarted node forgot and GRANTS candidate 3 in the same term (a double vote)
+== 6. a failed fsync is fatal, never retried (shard 3, one follower, injected EIO)
+  ok    shard 1 is back (a leader was elected)  (yes)
+   node 1 restarted with RAFT_FAIL_FSYNC_AFTER=2: its 3rd fsync fails with EIO; now writing until it does
+  ok    the node stopped instead of carrying on  (no)
+  ok    and logged why
+  ok    the other two nodes kept shard 3 available: all 60 accounts read back as the latest value  (60)
+  ok    restarted without the fault it rejoined and converged  (yes)
+PERSIST DEMO PASSED
+
+## run 2
+== 1. one node is killed (kill -9) while the cluster keeps writing, then restarted
+   shard 3: leader node 1, killing follower node 2
+  ok    the restarted follower converged with its peers (same applied index and state digest)  (yes)
+  ok    it rebuilt its log from the WAL (entries recovered > 0)  (yes)
+  ok    no torn tail (it was killed between writes)  (0)
+   ... now the LEADER of shard 3 is killed
+  ok    the restarted old leader rejoined and converged  (yes)
+  ok    all 60 accounts read back as the latest value  (60)
+== 2. a whole shard dies at once (all 3 nodes kill -9), then restarts: nothing is lost
+  ok    shard 2 elected a leader again  (yes)
+  ok    all 60 accounts (every shard) read back as the latest value  (60)
+== 3. the WHOLE cluster is killed with a transaction half-done; its locks and decision survive
+  ok    placement: alice on shard 3, carol on shard 2  (3/2)
+   3a. coordinator dies after PREPARE (no decision yet); then every node is killed and restarted
+  ok    coordinator exit status (86 = injected crash)  (86)
+  ok    both shards still hold the prepared txn after the restart  (2)
+  ok    the lock survived: a plain SET on alice is still refused  (LOCKED)
+  ok    a reader past the ttl resolves it: rolled BACK (alice)  (100)
+  ok    carol rolled back too  (50)
+  ok    no locks left  (0)
+   3b. coordinator dies AFTER the COMMIT decision is recorded; then every node is killed and restarted
+  ok    coordinator exit status  (86)
+  ok    both shards still hold the prepared txn  (2)
+  ok    a reader resolves it from the SURVIVING decision record: rolled FORWARD (alice)  (70)
+  ok    carol rolled forward too  (80)
+  ok    no locks left  (0)
+== 4. damage to a WAL on disk (shard 2, a follower)
+   4a. a crash tears the last record: cut 5 bytes off the end of node 1's WAL
+  ok    node recovered, cut the torn tail (tornTail=1)  (1)
+  ok    the node log says exactly what it cut
+  ok    and the leader re-sent the lost entry: converged  (yes)
+   4b. garbage after the last record (a half-written append): 13 random bytes
+  ok    node recovered, cut the garbage (tornTail=1)  (1)
+  ok    converged  (yes)
+   4c. a byte flipped in the MIDDLE of the log is not a torn tail: the node must refuse to start
+  ok    the node did not come up  (no)
+  ok    and says why
+  ok    the other two nodes of shard 2 still serve (quorum intact)  (yes)
+== 5. a vote must survive a restart (Raft: at most one vote per term)
+   real: first request  (candidate 2): vote GRANTED (node's term now 1000)
+   real: after kill -9 + restart, same term (candidate 3): vote DENIED (node's term now 1000)
+  ok    first request granted
+  ok    after the restart the node still remembers its vote and DENIES candidate 3
+  ok      (denied because of the remembered vote, not because its term moved on)
+  ok    its stored state: term 1000, voted for node 2  (1000/2)
+   ablation: first request  (candidate 2): vote GRANTED (node's term now 1000)
+   ablation: after kill -9 + restart, same term (candidate 3): vote GRANTED (node's term now 1000)
+  ok    ablation: first request granted
+  ok    ABLATION: the restarted node forgot and GRANTS candidate 3 in the same term (a double vote)
+== 6. a failed fsync is fatal, never retried (shard 3, one follower, injected EIO)
+  ok    shard 1 is back (a leader was elected)  (yes)
+   node 1 restarted with RAFT_FAIL_FSYNC_AFTER=2: its 3rd fsync fails with EIO; now writing until it does
+  ok    the node stopped instead of carrying on  (no)
+  ok    and logged why
+  ok    the other two nodes kept shard 3 available: all 60 accounts read back as the latest value  (60)
+  ok    restarted without the fault it rejoined and converged  (yes)
+PERSIST DEMO PASSED
+
+## run 3 (full)
+shard 1: leader is node 1
+shard 2: leader is node 3
+shard 3: leader is node 1
+
+== 1. one node is killed (kill -9) while the cluster keeps writing, then restarted
+   shard 3: leader node 1, killing follower node 2
+  ok    the restarted follower converged with its peers (same applied index and state digest)  (yes)
+  ok    it rebuilt its log from the WAL (entries recovered > 0)  (yes)
+  ok    no torn tail (it was killed between writes)  (0)
+   ... now the LEADER of shard 3 is killed
+  ok    the restarted old leader rejoined and converged  (yes)
+  ok    all 60 accounts read back as the latest value  (60)
+
+== 2. a whole shard dies at once (all 3 nodes kill -9), then restarts: nothing is lost
+  ok    shard 2 elected a leader again  (yes)
+  ok    all 60 accounts (every shard) read back as the latest value  (60)
+
+== 3. the WHOLE cluster is killed with a transaction half-done; its locks and decision survive
+  ok    placement: alice on shard 3, carol on shard 2  (3/2)
+   3a. coordinator dies after PREPARE (no decision yet); then every node is killed and restarted
+  ok    coordinator exit status (86 = injected crash)  (86)
+  ok    both shards still hold the prepared txn after the restart  (2)
+  ok    the lock survived: a plain SET on alice is still refused  (LOCKED)
+  ok    a reader past the ttl resolves it: rolled BACK (alice)  (100)
+  ok    carol rolled back too  (50)
+  ok    no locks left  (0)
+   3b. coordinator dies AFTER the COMMIT decision is recorded; then every node is killed and restarted
+  ok    coordinator exit status  (86)
+  ok    both shards still hold the prepared txn  (2)
+  ok    a reader resolves it from the SURVIVING decision record: rolled FORWARD (alice)  (70)
+  ok    carol rolled forward too  (80)
+  ok    no locks left  (0)
+
+== 4. damage to a WAL on disk (shard 2, a follower)
+   4a. a crash tears the last record: cut 5 bytes off the end of node 2's WAL
+  ok    node recovered, cut the torn tail (tornTail=1)  (1)
+  ok    the node log says exactly what it cut
+  ok    and the leader re-sent the lost entry: converged  (yes)
+   4b. garbage after the last record (a half-written append): 13 random bytes
+  ok    node recovered, cut the garbage (tornTail=1)  (1)
+  ok    converged  (yes)
+   4c. a byte flipped in the MIDDLE of the log is not a torn tail: the node must refuse to start
+  ok    the node did not come up  (no)
+  ok    and says why
+  ok    the other two nodes of shard 2 still serve (quorum intact)  (yes)
+
+== 5. a vote must survive a restart (Raft: at most one vote per term)
+   real: first request  (candidate 2): vote GRANTED (node's term now 1000)
+   real: after kill -9 + restart, same term (candidate 3): vote DENIED (node's term now 1000)
+  ok    first request granted
+  ok    after the restart the node still remembers its vote and DENIES candidate 3
+  ok      (denied because of the remembered vote, not because its term moved on)
+  ok    its stored state: term 1000, voted for node 2  (1000/2)
+   ABLATION: same experiment with RAFT_NO_PERSIST_VOTE=1 (term/vote not written to the WAL)
+   ablation: first request  (candidate 2): vote GRANTED (node's term now 1000)
+   ablation: after kill -9 + restart, same term (candidate 3): vote GRANTED (node's term now 1000)
+  ok    ablation: first request granted
+  ok    ABLATION: the restarted node forgot and GRANTS candidate 3 in the same term (a double vote)
+
+== 6. a failed fsync is fatal, never retried (shard 3, one follower, injected EIO)
+  ok    shard 1 is back (a leader was elected)  (yes)
+   node 1 restarted with RAFT_FAIL_FSYNC_AFTER=2: its 3rd fsync fails with EIO; now writing until it does
+  ok    the node stopped instead of carrying on  (no)
+  ok    and logged why
+  ok    the other two nodes kept shard 3 available: all 60 accounts read back as the latest value  (60)
+  ok    restarted without the fault it rejoined and converged  (yes)
+
+PERSIST DEMO PASSED

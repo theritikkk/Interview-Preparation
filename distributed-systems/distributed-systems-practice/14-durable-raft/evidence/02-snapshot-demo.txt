@@ -1,0 +1,315 @@
+# snapshot_demo.sh on the final build: 3 consecutive runs (+ a 4th used to capture the recovery lines below), all PASSED (73 checks each). Runs 1-2: checks only; run 3 full.
+
+## run 1
+== 1. compaction keeps the log and the WAL bounded
+   shard 1 node 1:  343 entries ever appended, 43 retained, snapshots taken 4 (736 bytes), WAL 1979 bytes
+  ok    shard 1 node 1 took snapshots  (yes)
+  ok    shard 1 node 1 retains at most ~50 log entries (40 + 5 kept + in flight)  (yes)
+   shard 1 node 2:  343 entries ever appended, 43 retained, snapshots taken 4 (736 bytes), WAL 1979 bytes
+  ok    shard 1 node 2 took snapshots  (yes)
+  ok    shard 1 node 2 retains at most ~50 log entries (40 + 5 kept + in flight)  (yes)
+   shard 1 node 3:  343 entries ever appended, 43 retained, snapshots taken 4 (736 bytes), WAL 1979 bytes
+  ok    shard 1 node 3 took snapshots  (yes)
+  ok    shard 1 node 3 retains at most ~50 log entries (40 + 5 kept + in flight)  (yes)
+   shard 2 node 1:  370 entries ever appended,  5 retained, snapshots taken 9 (802 bytes), WAL 275 bytes
+  ok    shard 2 node 1 took snapshots  (yes)
+  ok    shard 2 node 1 retains at most ~50 log entries (40 + 5 kept + in flight)  (yes)
+   shard 2 node 2:  370 entries ever appended,  5 retained, snapshots taken 9 (802 bytes), WAL 275 bytes
+  ok    shard 2 node 2 took snapshots  (yes)
+  ok    shard 2 node 2 retains at most ~50 log entries (40 + 5 kept + in flight)  (yes)
+   shard 2 node 3:  370 entries ever appended,  5 retained, snapshots taken 9 (802 bytes), WAL 275 bytes
+  ok    shard 2 node 3 took snapshots  (yes)
+  ok    shard 2 node 3 retains at most ~50 log entries (40 + 5 kept + in flight)  (yes)
+   shard 3 node 1:  370 entries ever appended,  5 retained, snapshots taken 9 (800 bytes), WAL 274 bytes
+  ok    shard 3 node 1 took snapshots  (yes)
+  ok    shard 3 node 1 retains at most ~50 log entries (40 + 5 kept + in flight)  (yes)
+   shard 3 node 2:  370 entries ever appended,  5 retained, snapshots taken 9 (800 bytes), WAL 274 bytes
+  ok    shard 3 node 2 took snapshots  (yes)
+  ok    shard 3 node 2 retains at most ~50 log entries (40 + 5 kept + in flight)  (yes)
+   shard 3 node 3:  370 entries ever appended,  5 retained, snapshots taken 9 (800 bytes), WAL 274 bytes
+  ok    shard 3 node 3 took snapshots  (yes)
+  ok    shard 3 node 3 retains at most ~50 log entries (40 + 5 kept + in flight)  (yes)
+== 2. restart from snapshot + WAL tail: kill -9 all of shard 1
+  ok    the log is at least as long after the restart (the new leader adds a no-op)  (yes)
+  ok    same state digest after the restart (byte-for-byte)  (c757679f7f172764)
+  ok    node 1 recovered from a snapshot, not from index 0
+  ok    node 1 replayed only the WAL tail, not the whole history  (yes)
+  ok    node 2 recovered from a snapshot, not from index 0
+  ok    node 2 replayed only the WAL tail, not the whole history  (yes)
+  ok    node 3 recovered from a snapshot, not from index 0
+  ok    node 3 replayed only the WAL tail, not the whole history  (yes)
+== 3. a follower that fell behind the compacted prefix is caught up with InstallSnapshot
+   follower (node 2) died with log up to index 344; the leader (node 1) has since compacted up to index 529
+  ok    the leader's log base is beyond the follower's last index (AppendEntries cannot catch it up)  (yes)
+  ok    follower converged  (yes)
+  ok    it was brought up by InstallSnapshot  (yes)
+  ok    its log says so
+  ok    all 120 accounts read back as the latest value  (120)
+== 4. a crash at every step INSIDE compaction (shard 2, one follower, restarted without the fault)
+  ok    [snap-tmp-synced/compact] the node crashed exactly there  (1)
+  ok    [snap-tmp-synced/compact] ... and is really dead  (no)
+  ok    [snap-tmp-synced/compact] restarted on the half-written files, converged with its peers  (yes)
+  ok    [snap-tmp-synced/compact] no stale temp files left in its data dir  (0)
+  ok    [snap-tmp-synced/compact] all 120 accounts read back as the latest value  (120)
+  ok    [snap-renamed/compact] the node crashed exactly there  (1)
+  ok    [snap-renamed/compact] ... and is really dead  (no)
+  ok    [snap-renamed/compact] restarted on the half-written files, converged with its peers  (yes)
+  ok    [snap-renamed/compact] no stale temp files left in its data dir  (0)
+  ok    [snap-renamed/compact] all 120 accounts read back as the latest value  (120)
+  ok    [snap-written/compact] the node crashed exactly there  (1)
+  ok    [snap-written/compact] ... and is really dead  (no)
+  ok    [snap-written/compact] restarted on the half-written files, converged with its peers  (yes)
+  ok    [snap-written/compact] no stale temp files left in its data dir  (0)
+  ok    [snap-written/compact] all 120 accounts read back as the latest value  (120)
+  ok    [wal-tmp-synced/compact] the node crashed exactly there  (1)
+  ok    [wal-tmp-synced/compact] ... and is really dead  (no)
+  ok    [wal-tmp-synced/compact] restarted on the half-written files, converged with its peers  (yes)
+  ok    [wal-tmp-synced/compact] no stale temp files left in its data dir  (0)
+  ok    [wal-tmp-synced/compact] all 120 accounts read back as the latest value  (120)
+  ok    [wal-renamed/compact] the node crashed exactly there  (1)
+  ok    [wal-renamed/compact] ... and is really dead  (no)
+  ok    [wal-renamed/compact] restarted on the half-written files, converged with its peers  (yes)
+  ok    [wal-renamed/compact] no stale temp files left in its data dir  (0)
+  ok    [wal-renamed/compact] all 120 accounts read back as the latest value  (120)
+  ok    [compact-done/compact] the node crashed exactly there  (1)
+  ok    [compact-done/compact] ... and is really dead  (no)
+  ok    [compact-done/compact] restarted on the half-written files, converged with its peers  (yes)
+  ok    [compact-done/compact] no stale temp files left in its data dir  (0)
+  ok    [compact-done/compact] all 120 accounts read back as the latest value  (120)
+   ... and inside InstallSnapshot on a follower that is far behind
+  ok    [install-snap-written/install] the node crashed exactly there  (1)
+  ok    [install-snap-written/install] ... and is really dead  (no)
+  ok    [install-snap-written/install] restarted on the half-written files, converged with its peers  (yes)
+  ok    [install-snap-written/install] no stale temp files left in its data dir  (0)
+  ok    [install-snap-written/install] all 120 accounts read back as the latest value  (120)
+  ok    [wal-tmp-synced/install] the node crashed exactly there  (1)
+  ok    [wal-tmp-synced/install] ... and is really dead  (no)
+  ok    [wal-tmp-synced/install] restarted on the half-written files, converged with its peers  (yes)
+  ok    [wal-tmp-synced/install] no stale temp files left in its data dir  (0)
+  ok    [wal-tmp-synced/install] all 120 accounts read back as the latest value  (120)
+== 5. a damaged snapshot is refused, not guessed at (the log it replaced is gone)
+  ok    the node did not come up  (no)
+  ok    and says why
+SNAPSHOT DEMO PASSED
+
+## run 2
+== 1. compaction keeps the log and the WAL bounded
+   shard 1 node 1:  343 entries ever appended, 43 retained, snapshots taken 4 (736 bytes), WAL 1980 bytes
+  ok    shard 1 node 1 took snapshots  (yes)
+  ok    shard 1 node 1 retains at most ~50 log entries (40 + 5 kept + in flight)  (yes)
+   shard 1 node 2:  343 entries ever appended, 43 retained, snapshots taken 4 (736 bytes), WAL 1980 bytes
+  ok    shard 1 node 2 took snapshots  (yes)
+  ok    shard 1 node 2 retains at most ~50 log entries (40 + 5 kept + in flight)  (yes)
+   shard 1 node 3:  343 entries ever appended, 43 retained, snapshots taken 4 (736 bytes), WAL 1980 bytes
+  ok    shard 1 node 3 took snapshots  (yes)
+  ok    shard 1 node 3 retains at most ~50 log entries (40 + 5 kept + in flight)  (yes)
+   shard 2 node 1:  370 entries ever appended,  5 retained, snapshots taken 9 (802 bytes), WAL 272 bytes
+  ok    shard 2 node 1 took snapshots  (yes)
+  ok    shard 2 node 1 retains at most ~50 log entries (40 + 5 kept + in flight)  (yes)
+   shard 2 node 2:  370 entries ever appended,  5 retained, snapshots taken 9 (802 bytes), WAL 272 bytes
+  ok    shard 2 node 2 took snapshots  (yes)
+  ok    shard 2 node 2 retains at most ~50 log entries (40 + 5 kept + in flight)  (yes)
+   shard 2 node 3:  370 entries ever appended,  5 retained, snapshots taken 9 (802 bytes), WAL 272 bytes
+  ok    shard 2 node 3 took snapshots  (yes)
+  ok    shard 2 node 3 retains at most ~50 log entries (40 + 5 kept + in flight)  (yes)
+   shard 3 node 1:  370 entries ever appended,  5 retained, snapshots taken 9 (800 bytes), WAL 273 bytes
+  ok    shard 3 node 1 took snapshots  (yes)
+  ok    shard 3 node 1 retains at most ~50 log entries (40 + 5 kept + in flight)  (yes)
+   shard 3 node 2:  370 entries ever appended,  5 retained, snapshots taken 9 (800 bytes), WAL 273 bytes
+  ok    shard 3 node 2 took snapshots  (yes)
+  ok    shard 3 node 2 retains at most ~50 log entries (40 + 5 kept + in flight)  (yes)
+   shard 3 node 3:  370 entries ever appended,  5 retained, snapshots taken 9 (800 bytes), WAL 273 bytes
+  ok    shard 3 node 3 took snapshots  (yes)
+  ok    shard 3 node 3 retains at most ~50 log entries (40 + 5 kept + in flight)  (yes)
+== 2. restart from snapshot + WAL tail: kill -9 all of shard 1
+  ok    the log is at least as long after the restart (the new leader adds a no-op)  (yes)
+  ok    same state digest after the restart (byte-for-byte)  (c757679f7f172764)
+  ok    node 1 recovered from a snapshot, not from index 0
+  ok    node 1 replayed only the WAL tail, not the whole history  (yes)
+  ok    node 2 recovered from a snapshot, not from index 0
+  ok    node 2 replayed only the WAL tail, not the whole history  (yes)
+  ok    node 3 recovered from a snapshot, not from index 0
+  ok    node 3 replayed only the WAL tail, not the whole history  (yes)
+== 3. a follower that fell behind the compacted prefix is caught up with InstallSnapshot
+   follower (node 1) died with log up to index 344; the leader (node 3) has since compacted up to index 529
+  ok    the leader's log base is beyond the follower's last index (AppendEntries cannot catch it up)  (yes)
+  ok    follower converged  (yes)
+  ok    it was brought up by InstallSnapshot  (yes)
+  ok    its log says so
+  ok    all 120 accounts read back as the latest value  (120)
+== 4. a crash at every step INSIDE compaction (shard 2, one follower, restarted without the fault)
+  ok    [snap-tmp-synced/compact] the node crashed exactly there  (1)
+  ok    [snap-tmp-synced/compact] ... and is really dead  (no)
+  ok    [snap-tmp-synced/compact] restarted on the half-written files, converged with its peers  (yes)
+  ok    [snap-tmp-synced/compact] no stale temp files left in its data dir  (0)
+  ok    [snap-tmp-synced/compact] all 120 accounts read back as the latest value  (120)
+  ok    [snap-renamed/compact] the node crashed exactly there  (1)
+  ok    [snap-renamed/compact] ... and is really dead  (no)
+  ok    [snap-renamed/compact] restarted on the half-written files, converged with its peers  (yes)
+  ok    [snap-renamed/compact] no stale temp files left in its data dir  (0)
+  ok    [snap-renamed/compact] all 120 accounts read back as the latest value  (120)
+  ok    [snap-written/compact] the node crashed exactly there  (1)
+  ok    [snap-written/compact] ... and is really dead  (no)
+  ok    [snap-written/compact] restarted on the half-written files, converged with its peers  (yes)
+  ok    [snap-written/compact] no stale temp files left in its data dir  (0)
+  ok    [snap-written/compact] all 120 accounts read back as the latest value  (120)
+  ok    [wal-tmp-synced/compact] the node crashed exactly there  (1)
+  ok    [wal-tmp-synced/compact] ... and is really dead  (no)
+  ok    [wal-tmp-synced/compact] restarted on the half-written files, converged with its peers  (yes)
+  ok    [wal-tmp-synced/compact] no stale temp files left in its data dir  (0)
+  ok    [wal-tmp-synced/compact] all 120 accounts read back as the latest value  (120)
+  ok    [wal-renamed/compact] the node crashed exactly there  (1)
+  ok    [wal-renamed/compact] ... and is really dead  (no)
+  ok    [wal-renamed/compact] restarted on the half-written files, converged with its peers  (yes)
+  ok    [wal-renamed/compact] no stale temp files left in its data dir  (0)
+  ok    [wal-renamed/compact] all 120 accounts read back as the latest value  (120)
+  ok    [compact-done/compact] the node crashed exactly there  (1)
+  ok    [compact-done/compact] ... and is really dead  (no)
+  ok    [compact-done/compact] restarted on the half-written files, converged with its peers  (yes)
+  ok    [compact-done/compact] no stale temp files left in its data dir  (0)
+  ok    [compact-done/compact] all 120 accounts read back as the latest value  (120)
+   ... and inside InstallSnapshot on a follower that is far behind
+  ok    [install-snap-written/install] the node crashed exactly there  (1)
+  ok    [install-snap-written/install] ... and is really dead  (no)
+  ok    [install-snap-written/install] restarted on the half-written files, converged with its peers  (yes)
+  ok    [install-snap-written/install] no stale temp files left in its data dir  (0)
+  ok    [install-snap-written/install] all 120 accounts read back as the latest value  (120)
+  ok    [wal-tmp-synced/install] the node crashed exactly there  (1)
+  ok    [wal-tmp-synced/install] ... and is really dead  (no)
+  ok    [wal-tmp-synced/install] restarted on the half-written files, converged with its peers  (yes)
+  ok    [wal-tmp-synced/install] no stale temp files left in its data dir  (0)
+  ok    [wal-tmp-synced/install] all 120 accounts read back as the latest value  (120)
+== 5. a damaged snapshot is refused, not guessed at (the log it replaced is gone)
+  ok    the node did not come up  (no)
+  ok    and says why
+SNAPSHOT DEMO PASSED
+
+## run 3 (full)
+shard 1: leader is node 2
+shard 2: leader is node 1
+shard 3: leader is node 1
+
+== 1. compaction keeps the log and the WAL bounded
+   shard 1 node 1:  343 entries ever appended, 43 retained, snapshots taken 4 (736 bytes), WAL 1980 bytes
+  ok    shard 1 node 1 took snapshots  (yes)
+  ok    shard 1 node 1 retains at most ~50 log entries (40 + 5 kept + in flight)  (yes)
+   shard 1 node 2:  343 entries ever appended, 43 retained, snapshots taken 4 (736 bytes), WAL 1980 bytes
+  ok    shard 1 node 2 took snapshots  (yes)
+  ok    shard 1 node 2 retains at most ~50 log entries (40 + 5 kept + in flight)  (yes)
+   shard 1 node 3:  343 entries ever appended, 43 retained, snapshots taken 4 (736 bytes), WAL 1980 bytes
+  ok    shard 1 node 3 took snapshots  (yes)
+  ok    shard 1 node 3 retains at most ~50 log entries (40 + 5 kept + in flight)  (yes)
+   shard 2 node 1:  370 entries ever appended,  5 retained, snapshots taken 9 (802 bytes), WAL 276 bytes
+  ok    shard 2 node 1 took snapshots  (yes)
+  ok    shard 2 node 1 retains at most ~50 log entries (40 + 5 kept + in flight)  (yes)
+   shard 2 node 2:  370 entries ever appended,  5 retained, snapshots taken 9 (802 bytes), WAL 276 bytes
+  ok    shard 2 node 2 took snapshots  (yes)
+  ok    shard 2 node 2 retains at most ~50 log entries (40 + 5 kept + in flight)  (yes)
+   shard 2 node 3:  370 entries ever appended,  5 retained, snapshots taken 9 (802 bytes), WAL 276 bytes
+  ok    shard 2 node 3 took snapshots  (yes)
+  ok    shard 2 node 3 retains at most ~50 log entries (40 + 5 kept + in flight)  (yes)
+   shard 3 node 1:  370 entries ever appended,  5 retained, snapshots taken 9 (800 bytes), WAL 276 bytes
+  ok    shard 3 node 1 took snapshots  (yes)
+  ok    shard 3 node 1 retains at most ~50 log entries (40 + 5 kept + in flight)  (yes)
+   shard 3 node 2:  370 entries ever appended,  5 retained, snapshots taken 9 (800 bytes), WAL 276 bytes
+  ok    shard 3 node 2 took snapshots  (yes)
+  ok    shard 3 node 2 retains at most ~50 log entries (40 + 5 kept + in flight)  (yes)
+   shard 3 node 3:  370 entries ever appended,  5 retained, snapshots taken 9 (800 bytes), WAL 276 bytes
+  ok    shard 3 node 3 took snapshots  (yes)
+  ok    shard 3 node 3 retains at most ~50 log entries (40 + 5 kept + in flight)  (yes)
+
+== 2. restart from snapshot + WAL tail: kill -9 all of shard 1
+  ok    the log is at least as long after the restart (the new leader adds a no-op)  (yes)
+  ok    same state digest after the restart (byte-for-byte)  (c757679f7f172764)
+  ok    node 1 recovered from a snapshot, not from index 0
+  ok    node 1 replayed only the WAL tail, not the whole history  (yes)
+  ok    node 2 recovered from a snapshot, not from index 0
+  ok    node 2 replayed only the WAL tail, not the whole history  (yes)
+  ok    node 3 recovered from a snapshot, not from index 0
+  ok    node 3 replayed only the WAL tail, not the whole history  (yes)
+
+== 3. a follower that fell behind the compacted prefix is caught up with InstallSnapshot
+   follower (node 1) died with log up to index 344; the leader (node 2) has since compacted up to index 524
+  ok    the leader's log base is beyond the follower's last index (AppendEntries cannot catch it up)  (yes)
+  ok    follower converged  (yes)
+  ok    it was brought up by InstallSnapshot  (yes)
+  ok    its log says so
+  ok    all 120 accounts read back as the latest value  (120)
+
+== 4. a crash at every step INSIDE compaction (shard 2, one follower, restarted without the fault)
+  ok    [snap-tmp-synced/compact] the node crashed exactly there  (1)
+  ok    [snap-tmp-synced/compact] ... and is really dead  (no)
+  ok    [snap-tmp-synced/compact] restarted on the half-written files, converged with its peers  (yes)
+  ok    [snap-tmp-synced/compact] no stale temp files left in its data dir  (0)
+  ok    [snap-tmp-synced/compact] all 120 accounts read back as the latest value  (120)
+  ok    [snap-renamed/compact] the node crashed exactly there  (1)
+  ok    [snap-renamed/compact] ... and is really dead  (no)
+  ok    [snap-renamed/compact] restarted on the half-written files, converged with its peers  (yes)
+  ok    [snap-renamed/compact] no stale temp files left in its data dir  (0)
+  ok    [snap-renamed/compact] all 120 accounts read back as the latest value  (120)
+  ok    [snap-written/compact] the node crashed exactly there  (1)
+  ok    [snap-written/compact] ... and is really dead  (no)
+  ok    [snap-written/compact] restarted on the half-written files, converged with its peers  (yes)
+  ok    [snap-written/compact] no stale temp files left in its data dir  (0)
+  ok    [snap-written/compact] all 120 accounts read back as the latest value  (120)
+  ok    [wal-tmp-synced/compact] the node crashed exactly there  (1)
+  ok    [wal-tmp-synced/compact] ... and is really dead  (no)
+  ok    [wal-tmp-synced/compact] restarted on the half-written files, converged with its peers  (yes)
+  ok    [wal-tmp-synced/compact] no stale temp files left in its data dir  (0)
+  ok    [wal-tmp-synced/compact] all 120 accounts read back as the latest value  (120)
+  ok    [wal-renamed/compact] the node crashed exactly there  (1)
+  ok    [wal-renamed/compact] ... and is really dead  (no)
+  ok    [wal-renamed/compact] restarted on the half-written files, converged with its peers  (yes)
+  ok    [wal-renamed/compact] no stale temp files left in its data dir  (0)
+  ok    [wal-renamed/compact] all 120 accounts read back as the latest value  (120)
+  ok    [compact-done/compact] the node crashed exactly there  (1)
+  ok    [compact-done/compact] ... and is really dead  (no)
+  ok    [compact-done/compact] restarted on the half-written files, converged with its peers  (yes)
+  ok    [compact-done/compact] no stale temp files left in its data dir  (0)
+  ok    [compact-done/compact] all 120 accounts read back as the latest value  (120)
+   ... and inside InstallSnapshot on a follower that is far behind
+  ok    [install-snap-written/install] the node crashed exactly there  (1)
+  ok    [install-snap-written/install] ... and is really dead  (no)
+  ok    [install-snap-written/install] restarted on the half-written files, converged with its peers  (yes)
+  ok    [install-snap-written/install] no stale temp files left in its data dir  (0)
+  ok    [install-snap-written/install] all 120 accounts read back as the latest value  (120)
+  ok    [wal-tmp-synced/install] the node crashed exactly there  (1)
+  ok    [wal-tmp-synced/install] ... and is really dead  (no)
+  ok    [wal-tmp-synced/install] restarted on the half-written files, converged with its peers  (yes)
+  ok    [wal-tmp-synced/install] no stale temp files left in its data dir  (0)
+  ok    [wal-tmp-synced/install] all 120 accounts read back as the latest value  (120)
+
+== 5. a damaged snapshot is refused, not guessed at (the log it replaced is gone)
+  ok    the node did not come up  (no)
+  ok    and says why
+
+SNAPSHOT DEMO PASSED
+
+## run 4: PASSED; the RECOVERED lines of shard 2's nodes during its injected crashes (log=(base,last]; base < snapshot index after a crash between snapshot and WAL rewrite; (S,S] after install-snap-written)
+[19:45:44.243] [node1 id=1 term=0 follower] RECOVERED from disk: term=0 votedFor=-1 snapshot@0 log=(0,0] records=0 in 2 ms
+[19:45:56.215] [node1 id=1 term=1 follower] RECOVERED from disk: term=1 votedFor=3 snapshot@575 log=(570,575] records=7 in 0 ms
+[19:45:56.667] [node1 id=1 term=1 follower] CRASH INJECTED at snap-tmp-synced
+[19:45:57.533] [node1 id=1 term=1 follower] RECOVERED from disk: term=1 votedFor=3 snapshot@575 log=(570,616] records=48 in 0 ms
+[19:45:58.203] [node1 id=1 term=1 follower] RECOVERED from disk: term=1 votedFor=3 snapshot@616 log=(611,616] records=7 in 0 ms
+[19:45:58.605] [node1 id=1 term=1 follower] CRASH INJECTED at snap-renamed
+[19:45:59.525] [node1 id=1 term=1 follower] RECOVERED from disk: term=1 votedFor=3 snapshot@657 log=(611,657] records=48 in 0 ms
+[19:46:00.181] [node1 id=1 term=1 follower] RECOVERED from disk: term=1 votedFor=3 snapshot@657 log=(611,657] records=48 in 0 ms
+[19:46:00.585] [node1 id=1 term=1 follower] CRASH INJECTED at snap-written
+[19:46:01.540] [node1 id=1 term=1 follower] RECOVERED from disk: term=1 votedFor=3 snapshot@698 log=(611,698] records=89 in 0 ms
+[19:46:02.192] [node1 id=1 term=1 follower] RECOVERED from disk: term=1 votedFor=3 snapshot@698 log=(611,698] records=89 in 0 ms
+[19:46:02.546] [node1 id=1 term=1 follower] CRASH INJECTED at wal-tmp-synced
+[19:46:03.494] [node1 id=1 term=1 follower] RECOVERED from disk: term=1 votedFor=3 snapshot@739 log=(611,739] records=130 in 0 ms
+[19:46:04.136] [node1 id=1 term=1 follower] RECOVERED from disk: term=1 votedFor=3 snapshot@739 log=(611,739] records=130 in 0 ms
+[19:46:04.490] [node1 id=1 term=1 follower] CRASH INJECTED at wal-renamed
+[19:46:05.460] [node1 id=1 term=1 follower] RECOVERED from disk: term=1 votedFor=3 snapshot@780 log=(775,780] records=7 in 0 ms
+[19:46:06.136] [node1 id=1 term=1 follower] RECOVERED from disk: term=1 votedFor=3 snapshot@780 log=(775,780] records=7 in 0 ms
+[19:46:06.489] [node1 id=1 term=1 follower] CRASH INJECTED at compact-done
+[19:46:07.423] [node1 id=1 term=1 follower] RECOVERED from disk: term=1 votedFor=3 snapshot@821 log=(816,821] records=7 in 0 ms
+[19:46:08.926] [node1 id=1 term=1 follower] RECOVERED from disk: term=1 votedFor=3 snapshot@821 log=(816,821] records=7 in 0 ms
+[19:46:09.026] [node1 id=1 term=1 follower] CRASH INJECTED at install-snap-written
+[19:46:09.059] [node1 id=1 term=1 follower] RECOVERED from disk: term=1 votedFor=3 snapshot@1026 log=(1026,1026] records=7 in 1 ms
+[19:46:10.588] [node1 id=1 term=1 follower] RECOVERED from disk: term=1 votedFor=3 snapshot@1026 log=(1026,1026] records=2 in 0 ms
+[19:46:10.694] [node1 id=1 term=1 follower] CRASH INJECTED at wal-tmp-synced
+[19:46:10.717] [node1 id=1 term=1 follower] RECOVERED from disk: term=1 votedFor=3 snapshot@1231 log=(1231,1231] records=2 in 2 ms
+[19:45:44.242] [node2 id=2 term=0 follower] RECOVERED from disk: term=0 votedFor=-1 snapshot@0 log=(0,0] records=0 in 2 ms
+[19:45:44.244] [node3 id=3 term=0 follower] RECOVERED from disk: term=0 votedFor=-1 snapshot@0 log=(0,0] records=0 in 0 ms
