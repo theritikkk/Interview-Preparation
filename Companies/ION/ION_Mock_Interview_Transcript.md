@@ -478,7 +478,79 @@ Have **one prepared yes per project**, framed as growth: scheduler → transacti
 
 ---
 
+# PART 4 — THE DIALOGUE-LLD ROUND (printing-system pattern) 🔴 NEW INTEL
+
+> **Source [CAND, friend's ION SDE round]:** *No DSA coding questions at all — pure approach. The interviewer stated basic requirements himself, narrated them back, and kept cross-questioning: "how are you supposed to do this? how would you add this? how would you handle this?" Candidate never coded anything except a basic skeleton showing what goes where. Escalation: basic **queue** → real-world scenario forced **LRU** → more data-structure choices.*
+
+If your round looks like this, Part 1's *coding* matters less — but **M1–M5 verbal answers and M5's DS reasoning matter more**. This part trains exactly that format.
+
+## M12. The five rules of the dialogue round
+
+1. **Mirror every requirement before solving it.** He narrates requirements loosely — you restate + label the assumption and get a nod: *"So: multi-user submission, FIFO order by default, one printer to start, and we generalize when you say so. Job state = id, user, pages, priority, submittedAt, status."* (Assuming things yourself and narrating them is **exactly** what he did — it's a scored behaviour.)
+2. **One step per answer, then stop.** Give the change + the DS + the cost, then *let him pick the next probe*. Monologuing kills the format he enjoys.
+3. **Every "how would you add/handle X?" uses the same formula:** *"New requirement → the change is (component / data structure) → cost = complexity → trade-off = what now degrades."* Say it in exactly that shape every time. Repetition reads as discipline, not scriptedness.
+4. **Name the data structure out loud** — that's the keyword he's listening for (queue, heap, LRU, hash map). Then justify with *one* reason.
+5. **End where he ended with your friend: a skeleton, no bodies.** Classes + fields + one-line responsibility each. "Here's what goes in it" is a complete answer.
+
+## M13. The printing system — the full escalation (speak this aloud once)
+
+**Stage 0 — requirements narration.** "Shared office printer service. Multiple users submit; jobs wait their turn; the printer consumes them; users see status. I'll assume: FIFO fairness by default, one printer first, priorities only when you say they exist." *(Now he owns the next constraint — that's the game.)*
+
+**Stage 1 — the base: a QUEUE.** "Submission is **enqueue O(1)**, the print worker pops front — FIFO, arrival-order fairness. Why a queue and not a list I scan: it **decouples submission speed from printing speed** — the queue is the buffer when the printer is slower than the users."
+> *If he stops here, you're done: queue + worker loop + job status machine.*
+
+**Stage 2 — "the director's job must jump the queue."** "That's no longer FIFO — **priority queue (min-heap)** ordered by (priority, submittedAt) — the timestamp tie-breaker preserves FIFO *within* the same priority. Enqueue O(log n). New problem this creates, which I'd raise myself: **starvation** — a low-priority job can wait forever under constant VIP traffic. Fix: **aging** — effective priority = base + k × minutes waited, so old jobs eventually float up."
+
+**Stage 3 — "user double-clicks submit; the server crashed and resubmitted the batch."** "Duplicate detection in the recent window. I keep an **LRU cache of job fingerprints** — hash of (document content + user) — at submission: if the fingerprint was seen in the last N minutes, reject or ask 'did you mean to reprint?'. **LRU = hash map + doubly-linked list, get/put O(1)**; the list keeps recency order, the map gives O(1) lookup, eviction drops the *least recently seen* fingerprint so memory stays bounded. Why LRU and not just a set: duplicates that matter are the *recent* ones, and an unbounded set grows forever — the eviction policy is the memory-bound fix."
+
+**Stage 4 — "printer jams / goes offline mid-job."** "Job gets a status machine: `QUEUED → PRINTING → DONE | FAILED`. The worker marks PRINTING before sending; a **health ping** per printer; on failure, retry N times, then move to a **dead-letter list** and notify the user — never silently drop. If the printer is offline, dispatch **pauses** and jobs hold in the queue — which is exactly the buffering benefit from Stage 1; nothing is lost."
+
+**Stage 5 — "the admin wants usage per user."** "A **ledger** — `map<userId, pagesThisMonth>` updated on completion, quotas checked at submission. Append-only records if they want auditability." *(This is your WebChat refresh-token-ledger thinking — same muscle.)*
+
+**Stage 6 — "now 100 printers, 10,000 users."** "Dispatcher routes by printerId into **per-printer queues** — chosen by least-loaded or nearest; each queue is independent so one jammed printer can't block others. Scale = more dispatcher workers; shard by printerId. The single-queue design was the right *first* version; this is its growth path, not a rewrite."
+
+**The skeleton you'd draw (what your friend did — classes + fields only):**
+
+```cpp
+struct PrintJob { long id; string user; string docHash; int pages;
+                  int priority; long submittedAt; Status st; };
+
+class JobQueue     { deque<PrintJob> fifo; };          // or priority_queue<(priority, submittedAt)>
+class LruDedup     { size_t cap; list<Fingerprint> recency;
+                     unordered_map<Fingerprint, list<Fingerprint>::iterator> lookup;
+                     bool seenRecently(const Fingerprint&); void touch(const Fingerprint&); };
+class Printer      { int id; bool healthy(); bool print(const PrintJob&); };
+class Dispatcher   { void route(const PrintJob&); void onPrinterDown(int id); };
+class UsageLedger  { unordered_map<string, int> pagesPerUser; void charge(user, pages); };
+class PrintService { void submit(PrintJob); void workerLoop(); };   // owns the others
+```
+
+**DS-cheat table for this round (any system, same mapping):**
+
+| When he says… | You name… | Cost | One-line why |
+|---|---|---|---|
+| "in arrival order" | Queue / deque | O(1) ends | arrival fairness + buffering |
+| "VIP / priority / urgent" | Heap (priority queue) | O(log n) | + timestamp tie-break, + aging for starvation |
+| "duplicate / double-submit / retry" | LRU (hash map + DLL) | O(1) | recent-window dedup, bounded memory |
+| "fast lookup by id/user" | Hash map | O(1) avg | |
+| "fairness across groups" | Per-group round-robin | O(1) | weighted RR beats raw FIFO |
+| "it failed / hung" | Status machine + retry + DLQ | — | never silent loss |
+| "track / bill / quota" | Ledger (map) | O(1) | auditability |
+
+**Transfer drill (5 min):** run the same escalation on **parking lot** (queue at entry → levels/priority for VIP → LRU for recent-plate fast re-entry → payment ledger → multiple gates) and **leaderboard** (list → heap/top-K → hash for O(1) user lookup → update aggregation). If the real question is one of these instead, you've already rehearsed the *shape*.
+
+## M14. Tonight's drill for this format (25 min — inside Block 5)
+
+- [ ] Read M12's five rules aloud once (2 min).
+- [ ] Speak the M13 six-stage escalation **without looking**, as if answering his cross-questions (10 min). Reset and repeat once if you stalled anywhere.
+- [ ] Say the DS-cheat table's left column as prompts, answer with the middle column (5 min).
+- [ ] Transfer drill on parking lot once (5 min).
+- [ ] Recite the skeleton out loud: six classes, one line each.
+
+---
+
 ## Final night checklist (from §A.4, compressed)
+- [ ] **Part 4 dialogue-LLD drill (M12–M14): printing-system escalation aloud once + 5 rules + skeleton.** [NEW intel — highest priority with M2]
 - [ ] Type §B1 code once more, clean compile; recite M3.1 (never call base dtor) + M3.3 (slicing).
 - [ ] Kadane + second-largest + reverse + Floyd — once each on paper.
 - [ ] Traffic light: recite the 7 decisions aloud once.

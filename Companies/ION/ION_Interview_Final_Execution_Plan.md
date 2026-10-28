@@ -28,10 +28,11 @@
 - [ ] Read §**C4, C8, C11**.
 - [ ] Do **K2.4** (string compression), **K2.6** (reverse LL), **K2.7** (cycle + entry), **K2.14** (trie phone directory).
 
-### 8:45–9:30 · Block 5 — LLD: traffic light (the flagship design question)
+### 8:45–9:35 · Block 5 — LLD: traffic light + dialogue-LLD drill (the flagship design question)
 - [ ] Read §**D1** fully.
 - [ ] **Speak the 60-second design aloud twice** (IDs-as-keys · conflict matrix · phases · amber+all-red · pedestrian queue · emergency safe-transition · fail-safe).
 - [ ] Do **K3.1**; skim §**D2** (snake & ladder + vanishing snake).
+- [ ] 🔴 **NEW [CAND intel]: Transcript Part 4 (M12–M14)** — the dialogue-LLD format his friend got: no coding, cross-questioning, approach only. Do the 25-min drill: 5 rules → printing-system 6-stage escalation aloud (queue → priority heap + aging → LRU dedup → failure/DLQ → ledger → N printers) → DS-cheat prompts → parking-lot transfer.
 
 ### 9:30–10:00 · WORK BUFFER #1 (spill-over block if any block overran)
 
@@ -79,6 +80,7 @@
 - [ ] 60-second intro aloud once.
 - [ ] **K7 quiz** as recall test (≤20 s each) → check **L7** only on misses.
 - [ ] Traffic-light 60s design — once, aloud.
+- [ ] Printing-system escalation (Transcript M13) — once, aloud: queue → heap+aging → LRU → failure → ledger → scale.
 - [ ] Hourglass steps — once, aloud.
 - [ ] Case 7-step framework — once, aloud.
 
