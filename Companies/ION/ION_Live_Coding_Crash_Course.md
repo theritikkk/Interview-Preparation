@@ -138,9 +138,6 @@ public:
     virtual double farePerKm() {         // runtime polymorphism (M6)
         return 20;
     }
-    double farePerKm(double surge) {     // OVERLOADING — same name, extra param (M7)
-        return farePerKm() * surge;
-    }
     void describe() {                    // shared behaviour
         cout << regNo << " @ Rs." << farePerKm() << "/km" << endl;
     }                                    // note: farePerKm() inside is virtual (M10)
@@ -154,6 +151,9 @@ public:
     }
     double farePerKm() override {        // OVERRIDING + safety keyword (M7)
         return 30 + 5 * seats;
+    }
+    double farePerKm(double surge) {     // OVERLOADING (M7) — lives in Car because a derived
+        return farePerKm() * surge;      // function name HIDES base overloads of the same name
     }
 };
 
