@@ -1,113 +1,137 @@
-# ION Interview — Final Execution Plan (28 Oct, 5:40 PM → 29 Oct, 10:30 AM)
+# ION Interview — Final Execution Plan v2 (folder-complete, start-here edition)
 
-**Commitment:** I follow the blocks in order, say every drill OUT LOUD, and tick every checkbox. If work steals time, I cut from the bottom of the cut-list — never from Blocks 1–5.
+**Hard anchors:** interview **10:30 AM** · arrive **9:30** · leave home **8:45** · sleep **1:30 AM – 6:00 AM** · this plan is duration-based — start the steps whenever you actually begin, keep the anchors.
 
-**Hard facts:** Interview slot **10:30 AM** · arrive college **9:30 AM** · leave home **8:45 AM** (adjust if your commute ≠ ~45 min) · sleep **1:30 AM – 6:00 AM (4.5 h)** · everything below points into `ION_Software_Developer_Interview_Master_Revision_Guide.md` (same folder).
+**Rule 1:** every drill is typed in a real editor and compiled. **Rule 2:** predict the output OUT LOUD before running. **Rule 3:** if a block overruns 10 min, tick it incomplete, move on, and use Buffer 2 later.
 
 ---
 
-## EVENING — 28 Oct
+## WHAT'S IN THIS FOLDER (and where the plan uses it)
 
-### 5:40–6:20 · Block 1 — OOP live-code (the #1 scored skill)
-- [ ] 🔴 **FIRST (if code feels shaky): read `ION_Live_Coding_Crash_Course.md` Part 1 — the 13 micro-lessons** (~30 min). Every construct in the drill is explained there from zero.
-- [ ] Type the §**B1** Vehicle/Car model from memory — **twice** — clean compile (Crash-Course Part 2 has the annotated version + predicted output).
-- [ ] Do **K1.1** (the confirmed ION drill) + write your own 5-bullet narration.
-- [ ] Recite until automatic: overload vs override · virtual destructor · **never** call the base destructor manually.
+| File | What it is | Used in step |
+|---|---|---|
+| `code/README.md` | folder map + universal answer script | 0 (2 min) |
+| `ION_Live_Coding_Crash_Course.md` | 10 micro-lessons + decoder table; the explanation for ALL code | 1, 2 |
+| `code/01_vehicle_car.cpp` | THE OOP drill (simple, verified output) | 1 |
+| `code/02_bank_system.cpp` | write-compile-RUN drill + 5 modifications | 2 |
+| `ION_Mock_Interview_Transcript.md` | every question + full model answer (M0–M14) | 3, 4, 7, 8, 9, 12 |
+| `code/03a…03e .cpp` | DSA: second-largest, Kadane, max-product, compress, linked list | 4 |
+| `code/04_traffic_light.cpp` | LLD flagship + 6 say-lines in header | 5 |
+| `code/05_printing_system.cpp` | dialogue-LLD drill + 6-stage ladder in header | 5 |
+| `code/06,07,08 .cpp` | parking / snake&ladder / leaderboard (header escalations) | 5 (skim if short) |
+| `code/LLD_PATTERNS_HANDBOOK.md` | 19 design patterns + DS cheat table + 8 stock answers + SOLID | 5, 10 |
+| `ION_Software_Developer_Interview_Master_Revision_Guide.md` | the deep reference (2,600 lines) — NOT read cover-to-cover; only § refs below | on demand |
 
-### 6:20–6:50 · Block 2 — OOP traps + live run drill
-- [ ] 🔴 **Type the bank system (Crash-Course Part 3) once → compile → PREDICT the output aloud → run → match.** Then recite the 5 interviewer modifications from memory.
-- [ ] **K1.2** predict-output (both variants) → check **L1.2**.
-- [ ] **K1.3** bug hunt (5 bugs) → check **L1.3**.
-- [ ] Skim §**B2–B4** (only deep-read the virtual-destructor part).
+---
 
-### 6:50–7:30 · Block 3 — DSA core (reported problems)
-- [ ] Read §**C0** tables + §**C1, C2, C3**.
-- [ ] Do **K2.1** (second-largest, all variants), **K2.2** (Kadane + indices), **K2.3** (max product of 3) — code + speak approach.
+# EVENING SEQUENCE (do in this exact order)
 
-### 7:30–8:00 · Dinner (no screens — mentally run the hourglass puzzle)
+## STEP 0 · 3 min — Orientation
+- [ ] Open this folder. Read `code/README.md` once (file table + universal answer script).
+- [ ] Say the universal script aloud once: *"Let me state my assumptions…"* · one step per answer · *"requirement → change → cost → trade-off"* · name the DS · skeleton ends it.
 
-### 8:00–8:45 · Block 4 — DSA round 2
-- [ ] Read §**C4, C8, C11**.
-- [ ] Do **K2.4** (string compression), **K2.6** (reverse LL), **K2.7** (cycle + entry), **K2.14** (trie phone directory).
+## STEP 1 · 45 min — OOP: understand, then type and run ⭐ highest priority
+- [ ] Read Crash Course **Part 1** (10 micro-lessons). Fuzzy on any → re-read only that one.
+- [ ] Type `code/01_vehicle_car.cpp` **from memory** → `g++ -std=c++17 01_vehicle_car.cpp -o v && ./v`.
+- [ ] **Predict the 4 output lines aloud** (50 / 55 / 45 / `50 | 75`) → run → match.
+- [ ] Say the 5-line narration while pointing at code (crash course Part 2 end).
+- [ ] Memorise: overload vs override · virtual destructor why · **never call the base destructor manually** · the name-hiding note in Car.
 
-### 8:45–9:35 · Block 5 — LLD: traffic light + dialogue-LLD drill (the flagship design question)
-- [ ] Read §**D1** fully.
-- [ ] **Speak the 60-second design aloud twice** (IDs-as-keys · conflict matrix · phases · amber+all-red · pedestrian queue · emergency safe-transition · fail-safe).
-- [ ] Do **K3.1**; skim §**D2** (snake & ladder + vanishing snake).
-- [ ] 🔴 **NEW [CAND intel]: Transcript Part 4 (M12–M14)** — the dialogue-LLD format his friend got: no coding, cross-questioning, approach only. Do the 25-min drill: 5 rules → printing-system 6-stage escalation aloud (queue → priority heap + aging → LRU dedup → failure/DLQ → ledger → N printers) → DS-cheat prompts → parking-lot transfer.
+## STEP 2 · 25 min — The live run drill: bank system
+- [ ] Type `code/02_bank_system.cpp` once → compile.
+- [ ] **Predict the full output aloud** (both statements + the REFUSED ₹9,00,000 line) → run → match.
+- [ ] Recite the 5 modifications from memory: FixedDeposit / richest account / two-teller mutex / interest payout / save-to-file.
+- [ ] One-liner ready: "a senior would use `unique_ptr` — RAII, no leaks."
 
-### 9:30–10:00 · WORK BUFFER #1 (spill-over block if any block overran)
+## STEP 3 · 15 min — OOP traps (guide §K/L + transcript M3)
+- [ ] **K1.2** predict-output → check **L1.2**. **K1.3** bug hunt → check **L1.3**.
+- [ ] Recite transcript M3.1–M3.3: base-dtor trap · non-virtual dtor = leak · slicing ("store by pointer, slice by value").
 
-### 10:00–10:30 · Block 6 — Puzzles (graded on approach)
-- [ ] Read §**G1–G5**; **derive on paper**: hourglass (4/7→9) + bike (2p=5q → 65/7 h) + jars + coins + banana method.
-- [ ] Run **K4.1–K4.5**; check **L4**.
+## STEP 4 · 30 min — DSA (type 3, speak the modifications)
+- [ ] Type `03a_second_largest`, `03b_kadane`, `03e_linked_list` → predict → run → match.
+- [ ] Read transcript **M4** aloud once: the variants they'll throw (duplicates, streams, all-negative, negatives in product, k-groups).
+- [ ] If time: type `03c` + `03d` too (headers carry the say-lines).
 
-### 10:30–11:10 · Block 7 — Projects (this is where you're strongest — own it)
-- [ ] §**E1**: 30s + 2min scripts; the 8-step data flow; quote the verified numbers (8,562 peak · 74 msg/s · ~1,600/s burst · 7m46s · p95 160→76).
-- [ ] §**E2**: the race-condition story (dropped = confirm-channel; duplicated = requeue→republish+ack) + the idempotency-key follow-up answer.
-- [ ] §**E3**: outbox honest version; migration ADR story; pipeline-defect mechanism.
-- [ ] Say each 30-second intro **out loud twice**.
-- [ ] §**E7**: recite the 3 strongest why-answers (RabbitMQ≠Kafka · DynamoDB≠Postgres · no sticky sessions) + the 3-part formula.
+## STEP 5 · 30 min — LLD: the flagship designs
+- [ ] Type `code/04_traffic_light.cpp` → while typing, **speak the 6 say-lines** in its header.
+- [ ] Type `code/05_printing_system.cpp` → run → **narrate the 6-stage ladder aloud**: queue → heap+aging → LRU dedup → jam/DLQ → ledger → N printers.
+- [ ] Skim `LLD_PATTERNS_HANDBOOK.md` **B1–B5** (you just typed 2 of them — it clicks now).
 
-### 11:10–11:40 · WORK BUFFER #2
+## 🔶 BUFFER 1 · as needed — displaced work / overrun spillover
 
-### 11:40 PM–12:10 AM · Block 8 — Case study (separate round)
-- [ ] Memorize §**H1** (7 steps) + §**H2** formulas (LTV:CAC≥3, break-even, contribution margin).
-- [ ] **K5.1** with a 20-minute timer → self-grade with the rubric.
-- [ ] Skim §**H6** (AI-tool discipline: ask the rules, verify one number, challenge one AI claim, own the recommendation).
+## STEP 6 · 20 min — Puzzles (grade = approach)
+- [ ] Guide **§G**: derive on paper + speak: hourglass (9 min) · bike (65/7 h) · jars · coins · camel (533, cost/km = 2·loads−1).
+- [ ] Universal opener aloud: *"Let me state my assumptions first…"*
 
-### 12:10–12:30 AM · Block 9 — HR
-- [ ] §**I.1** 60-second intro — **aloud 3×**.
-- [ ] §**K6.3**: your own weakness / pressure / teamwork / hire-me one-liners (each with one real story beat).
+## STEP 7 · 30 min — Project defense (your strongest weapon)
+- [ ] Transcript **M7**: speak each 30-second script (scheduler / WebChat / Hermes) **twice**.
+- [ ] Quote the verified numbers cold: 10,000 tasks · peak 8,562 · 73–74 msg/s · ~1,600/s burst · 7m46s drain · p95 160→76 · zero loss.
+- [ ] Recite the three honest "I'd do differently" answers (outbox · idempotency key · TransactWriteItems) — as **your own audit**.
+- [ ] §**E7**: the 3 strongest whys — RabbitMQ≠Kafka · DynamoDB≠Postgres · no sticky sessions.
 
-### 12:30–12:50 AM · Block 10 — Rapid review
-- [ ] Read §**J** cheat sheets (J1–J7); mark anything shaky for the morning.
+## 🔶 BUFFER 2 · as needed
 
-### 12:50–1:10 AM · Setup (do not skip)
-- [ ] Laptop charged · editor open on empty `.cpp` · `g++ -std=c++17 x.cpp && ./a.out` verified.
-- [ ] **AI tool installed + login working** (case round requirement [EMAIL]).
-- [ ] Bag packed · water · resume copies · college ID.
+## STEP 8 · 30 min — Case study (separate round)
+- [ ] Transcript **Part 2 (M9)**: read the worked FreshBite case WITH the numbers (contribution margin, break-even, LTV:CAC, payback).
+- [ ] Recite the 7-step framework + formulas aloud once.
+- [ ] AI-tool rules line ready: *"May I confirm what use is permitted? I'd use it to organise data, verify one number by hand, and own the recommendation."*
 
-### 1:10–1:30 AM · Lights-out ritual (recite, then phone away)
-- [ ] Overload vs override (one line each) · virtual destructor why · never call base dtor · hourglass steps.
+## STEP 9 · 20 min — HR & stakeholder
+- [ ] 60-second intro ×3 aloud (transcript M0).
+- [ ] Why-ION · why-you · AI-and-jobs · weakness · the **$1M stakeholder pitch** (M10) — once each, aloud.
+- [ ] Two questions to ask ready (M11 end).
+
+## STEP 10 · 15 min — Pattern tables (the recall layer)
+- [ ] Recite handbook **Part C** DS table: read left column, answer with the DS + cost.
+- [ ] Recite **Part D** 8 stock answers once.
+- [ ] SOLID in one breath each (Part E).
+
+## STEP 11 · 10 min — Setup (non-negotiable)
+- [ ] Empty `.cpp` compiles: `g++ -std=c++17 t.cpp -o t && ./t`.
+- [ ] **AI tool installed + logged in** (case round requirement [EMAIL]).
+- [ ] Bag: laptop charged · resume copies · college ID · water.
+
+## STEP 12 · 10 min — Lights-out ritual
+- [ ] Recite: overload/override one-liners · never call base dtor · hourglass steps · printing 6-stage ladder.
+- [ ] Skim transcript **M2 + M13** trap boxes only.
 - [ ] **1:30 AM — SLEEP. Non-negotiable.**
 
 ---
 
-## MORNING — 29 Oct
+# MORNING — 29 Oct
 
-### 6:00 AM — wake (4.5 h sleep). Shower + food. **No new material.**
+## 6:00 AM — wake. Shower + food. No new material.
 
-### 6:20–6:50 · Final checklist (§**A.4** compressed)
-- [ ] 60-second intro aloud once.
-- [ ] **K7 quiz** as recall test (≤20 s each) → check **L7** only on misses.
-- [ ] Traffic-light 60s design — once, aloud.
-- [ ] Printing-system escalation (Transcript M13) — once, aloud: queue → heap+aging → LRU → failure → ledger → scale.
-- [ ] Hourglass steps — once, aloud.
-- [ ] Case 7-step framework — once, aloud.
+## 6:20–6:55 · Final recall (once each, aloud)
+- [ ] 60-second intro.
+- [ ] Re-run `01` in your head: write the 4 output lines on paper BEFORE checking.
+- [ ] Traffic-light 6 say-lines · printing 6-stage ladder — once each.
+- [ ] Hourglass + bike — once each.
+- [ ] Case 7 steps + formulas — once.
+- [ ] **K7 quiz** (guide §K) as recall test; check **L7** only on misses.
 
-### 6:50–7:10 · Killer follow-ups (skim only)
-- [ ] The ⚠️ honesty boxes in §**E1 / E2 / E3** (one per project, with your prepared "I'd do differently" answers).
+## 6:55–7:10 · Killer follow-ups (skim)
+- [ ] Transcript M7 honesty boxes (scheduler gaps · WebChat no-idempotency · Hermes outbox) — you own these as "my audit".
 
-### 7:10–8:30 · Get ready + buffer (light recall only if anxious — no new topics)
+## 7:10–8:30 · Get ready + buffer (light recall only — no new topics)
 
-### 8:30–8:45 · Final setup check → **leave home 8:45 AM** (adjust for actual commute)
+## 8:30–8:45 · Final check → **leave 8:45 AM**
 
-### 9:30–10:25 · Wait-time protocol at college
-- No new topics. Recite the 60s intro once · hourglass once.
-- Two questions ready to ask (§**I.4**).
-- Slow, deep breaths; shoulders down; water.
+## 9:30–10:25 · Wait-time protocol
+- No new topics. Intro once · hourglass once · printing ladder once. Breathe. Water.
 
-### **10:30 — TECHNICAL INTERVIEW.** Speak your approach before coding; state assumptions; it's fine to say "not implemented — here's how I'd do it."
+## **10:30 — TECHNICAL INTERVIEW.** Approach before code; state assumptions; "not implemented — here's how I'd do it" is a pass.
 
 ---
 
-## IF WORK EATS TIME — cut in this order (protect 1–5 always)
-1. ~~Block 10 (§J)~~ → read J in the morning queue instead
-2. ~~K5.1 timed case~~ → framework + formulas only (15 min)
-3. ~~K2.14 trie~~ → know the *why* (prefix search) without coding it
-4. ~~Block 7 project follow-ups~~ → 30s intros only
-5. ~~K1.2/K1.3~~ → keep Block 1 (K1.1) at all costs
+## IF TIME IS LOST — cut in this order (protect Steps 1–5)
+1. ~~Step 10 tables~~ → read in morning queue
+2. ~~Step 8 timed case~~ → framework + formulas only (10 min)
+3. ~~Step 4: 03c/03d~~ → headers carry the say-lines
+4. ~~Step 7 follow-ups~~ → 30s intros only
+5. ~~Step 3 K1.2/K1.3~~ → keep Step 1 at all costs
 
-## DO-NOT-DO list
-- No new DSA topics · no §F deep read (the K7 quiz covers it) · no full E follow-up lists · no inventing NetSight facts · no all-nighter — a rested brain beats one more problem.
+## DO-NOT-DO
+- No cover-to-cover reading of the Master Guide tonight (it's the on-demand reference — § refs are in every step).
+- No new DSA topics · no §F deep read · no inventing NetSight facts · no all-nighter.
+- A rested brain that *talks through* problems beats a tired brain that knows more.
