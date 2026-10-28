@@ -56,7 +56,9 @@
 
 **Interviewer:** "Open an editor. Implement classes showing **both** compile-time and runtime polymorphism. Model real entities, not Class A/B. Write destructors too."
 
-**Model answer (type this from memory):**
+> 🔴 **Type the SIMPLE version from Crash-Course Part 2** (`ION_Live_Coding_Crash_Course.md`) — no `explicit`, no `move`, no smart pointers. The block below is the same drill in professional dress (`const`, `std::move`, `unique_ptr`): **don't type it** — just know the words from the crash course's decoder table and mention them only if asked *"how would you improve it?"*
+
+**Model answer (professional version — for reading, not typing):**
 
 ```cpp
 #include <iostream>
@@ -551,7 +553,7 @@ class PrintService { void submit(PrintJob); void workerLoop(); };   // owns the 
 
 ## Final night checklist (from §A.4, compressed)
 - [ ] **Part 4 dialogue-LLD drill (M12–M14): printing-system escalation aloud once + 5 rules + skeleton.** [NEW intel — highest priority with M2]
-- [ ] Type §B1 code once more, clean compile; recite M3.1 (never call base dtor) + M3.3 (slicing).
+- [ ] Type the **SIMPLE** Vehicle/Car (Crash-Course Part 2) once more, clean compile; recite M3.1 (never call base dtor) + M3.3 (slicing) + the advanced-words decoder table.
 - [ ] Kadane + second-largest + reverse + Floyd — once each on paper.
 - [ ] Traffic light: recite the 7 decisions aloud once.
 - [ ] Hourglass + bike derivations aloud once.
