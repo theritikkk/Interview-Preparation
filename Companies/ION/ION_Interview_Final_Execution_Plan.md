@@ -9,11 +9,13 @@
 ## EVENING — 28 Oct
 
 ### 5:40–6:20 · Block 1 — OOP live-code (the #1 scored skill)
-- [ ] Type the §**B1** Vehicle/Car model from memory — **twice** — clean compile.
+- [ ] 🔴 **FIRST (if code feels shaky): read `ION_Live_Coding_Crash_Course.md` Part 1 — the 13 micro-lessons** (~30 min). Every construct in the drill is explained there from zero.
+- [ ] Type the §**B1** Vehicle/Car model from memory — **twice** — clean compile (Crash-Course Part 2 has the annotated version + predicted output).
 - [ ] Do **K1.1** (the confirmed ION drill) + write your own 5-bullet narration.
 - [ ] Recite until automatic: overload vs override · virtual destructor · **never** call the base destructor manually.
 
-### 6:20–6:50 · Block 2 — OOP traps
+### 6:20–6:50 · Block 2 — OOP traps + live run drill
+- [ ] 🔴 **Type the bank system (Crash-Course Part 3) once → compile → PREDICT the output aloud → run → match.** Then recite the 5 interviewer modifications from memory.
 - [ ] **K1.2** predict-output (both variants) → check **L1.2**.
 - [ ] **K1.3** bug hunt (5 bugs) → check **L1.3**.
 - [ ] Skim §**B2–B4** (only deep-read the virtual-destructor part).
