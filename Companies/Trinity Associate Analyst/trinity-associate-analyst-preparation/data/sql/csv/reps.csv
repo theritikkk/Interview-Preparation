@@ -1,0 +1,13 @@
+rep_id,rep_name,region_id,hire_date
+R-101,Aarav Mehta,N,2019-06-10
+R-102,Diya Nair,N,2021-02-15
+R-103,Kabir Singh,N,2023-08-01
+R-201,Ananya Rao,S,2018-01-22
+R-202,Vikram Reddy,S,2020-11-05
+R-203,Sneha Pillai,S,2022-07-18
+R-301,Rohan Das,E,2019-09-30
+R-302,Ishita Bose,E,2021-05-12
+R-303,Arjun Ghosh,E,2024-01-08
+R-401,Neha Kulkarni,W,2017-03-14
+R-402,Sahil Patel,W,2020-06-25
+R-403,Priya Shah,W,2023-02-20

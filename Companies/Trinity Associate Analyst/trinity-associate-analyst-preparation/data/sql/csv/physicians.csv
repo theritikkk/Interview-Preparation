@@ -1,0 +1,43 @@
+physician_id,physician_name,specialty,region_id,years_in_practice,channel,practice_type
+P-001,Dr. Aarav Agarwal,Cardiologist,N,5,Email,Solo
+P-002,Dr. Aditi Gupta,Neurologist,S,12,Phone,Group
+P-003,Dr. Akash Mehta,Oncologist,E,19,In-person,Hospital
+P-004,Dr. Ananya Roy,Primary Care,W,26,Email,Solo
+P-005,Dr. Arjun Vora,Cardiologist,N,8,Phone,Group
+P-006,Dr. Bhavna Desai,Neurologist,S,15,In-person,Hospital
+P-007,Dr. Chirag Kulkarni,Oncologist,E,22,Email,Solo
+P-008,Dr. Dev Rao,Primary Care,W,29,Phone,Group
+P-009,Dr. Diya Sinha,Cardiologist,N,11,In-person,Hospital
+P-010,Dr. Farhan Chandra,Neurologist,S,18,Email,Solo
+P-011,Dr. Gauri Kapoor,Oncologist,E,25,Phone,Group
+P-012,Dr. Ishaan Patel,Primary Care,W,7,In-person,Hospital
+P-013,Dr. Isha Sharma,Cardiologist,N,14,Email,Solo
+P-014,Dr. Kabir Bansal,Neurologist,S,21,Phone,Group
+P-015,Dr. Kavya Iyer,Oncologist,E,28,In-person,Hospital
+P-016,Dr. Kiran Menon,Primary Care,W,10,Email,Solo
+P-017,Dr. Meera Saxena,Cardiologist,N,17,Phone,Group
+P-018,Dr. Mohit Yadav,Neurologist,S,24,In-person,Hospital
+P-019,Dr. Naina Ghosh,Oncologist,E,6,Email,Solo
+P-020,Dr. Neel Malhotra,Primary Care,W,13,Phone,Group
+P-021,Dr. Nisha Reddy,Cardiologist,N,20,In-person,Hospital
+P-022,Dr. Om Verma,Neurologist,N,27,Email,Solo
+P-023,Dr. Pooja Das,Oncologist,E,9,Phone,Group
+P-024,Dr. Priya Khan,Primary Care,N,16,In-person,Hospital
+P-025,Dr. Rahul Pillai,Cardiologist,N,23,Email,Solo
+P-026,Dr. Ravi Singh,Neurologist,S,5,Phone,Group
+P-027,Dr. Riya Bose,Oncologist ,E,12,In-person,Hospital
+P-028,Dr. Rohan Jain,Primary Care,W,19,Email,Solo
+P-029,Dr. Sahil Nair,Cardiologist,N,26,Phone,Group
+P-030,Dr. Sakshi Shah,Neurologist,S,8,In-person,Hospital
+P-031,Dr. Sameer Agarwal,Oncologist,E,15,Email,Solo
+P-032,Dr. Sara Gupta,Primary Care,W,22,Phone,Group
+P-033,Dr. Shreya Mehta,Cardiologist,N,29,In-person,Hospital
+P-034,Dr. Siddharth Roy,Neurologist,S,11,Email,Solo
+P-035,Dr. Sneha Vora,Oncologist,E,18,Phone,Group
+P-036,Dr. Tanvi Desai,Primary Care,W,25,In-person,Hospital
+P-037,Dr. Varun Kulkarni,Cardiologist,N,7,Email,Solo
+P-038,Dr. Vikram Rao,Neurologist,S,14,Phone,Group
+P-039,Dr. Yash Sinha,Oncologist,E,21,In-person,Hospital
+P-040,Dr. Zoya Chandra,Primary Care,W,28,Email,Solo
+P-041,Dr. Dev Malhotra,Cardiologist,W,18,In-person,Group
+P-042,Dr. Ritu Bansal,Neurologist,N,11,Email,Solo

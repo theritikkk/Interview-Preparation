@@ -89,17 +89,21 @@ Every factual claim in this pack is labelled with one of four tags:
 | `19-errors-mistakes-and-traps.md` | Catalogue of the most common calculation and reasoning errors, with the exact trap and the correct pattern | Error review |
 | `20-power-bi-complete-practical-guide.md` | **NEW (extension):** Power BI fundamentals, Power Query, data modelling, DAX, dashboard development, two practical projects, timed assessment | Dashboard building + technical interview |
 | `22-advanced-excel-for-analyst-assessments.md` | **NEW (extension):** advanced lookups, multi-condition aggregation, dynamic arrays, advanced PivotTables, reconciliation, what-if/sensitivity, survey analysis, 45-minute assessment with key | Excel assessment + technical interview |
+| `23-sql-for-business-and-survey-analytics.md` | **NEW (extension):** SQL from SELECT to window functions, joins/CTEs, data quality, survey weighting/NPS, commercial analytics, 45-minute assessment with key | Technical interview + analytics work |
 | `28-weakness-based-practice-and-error-log.md` | **NEW (extension):** categorized mistake log, worked examples, review protocol, category-specific drills | Error tracking + final revision |
 
-The `data/` folder contains the original seven synthetic CSV datasets plus the extension datasets added for modules 20 and 22. All are fictional and were created for practice only. New files:
+The `data/` folder contains the original seven synthetic CSV datasets plus the extension datasets added for modules 20, 22, and 23. All are fictional and were created for practice only. New files:
 
 - `excel_advanced_sales.csv`, `excel_product_master.csv`, `excel_region_master.csv` — module 22 lookups, aggregation, PivotTables, what-if.
 - `excel_advanced_survey.csv` — module 22 survey cleaning, weighting, cross-tabs, NPS.
 - `excel_recon_ledger.csv`, `excel_recon_finance.csv` — module 22 reconciliation.
 - `excel_assessment_raw.csv` — module 22 timed assessment.
 - `pharma_sales_dashboard.csv` — module 20 dashboard project.
+- `data/sql/trinity_sql_practice.db` — module 23 ready-to-query SQLite database.
+- `data/sql/trinity_sql_practice.sql` — module 23 SQLite dump (schema + data).
+- `data/sql/csv/` — one CSV per SQL table, for inspection or another database engine.
 
-> **Extension status:** modules `21` and `23`–`27`, plus `29-integrated-study-roadmap.md`, are planned. The full study sequence, coverage matrix, priority list, and final revision roadmap will be completed with those files. The rows above are the modules that currently exist.
+> **Extension status:** modules `21`, `24`–`27`, plus `29-integrated-study-roadmap.md`, are planned. The full study sequence, coverage matrix, priority list, and final revision roadmap will be completed with those files. The rows above are the modules that currently exist.
 
 ---
 
@@ -132,7 +136,7 @@ The `data/` folder contains the original seven synthetic CSV datasets plus the e
 ### Where the extension modules fit
 
 - **After `05` and `15`:** do `22` (advanced Excel), then re-take `15` under 45 minutes. `22` assumes you already know the basics in `04`/`05` and does not repeat them.
-- **After `06` and `07`:** do `20` (Power BI) and build both dashboard projects on the practice datasets.
+- **After `06` and `07`:** do `23` (SQL) with `data/sql/trinity_sql_practice.db`, then `20` (Power BI) and build both dashboard projects on the practice datasets.
 - **After every mock or drill:** log the mistake in `28` and schedule the retry interval.
 - The complete prioritized sequence, coverage matrix, and final revision roadmap will be in `29-integrated-study-roadmap.md` when it is added. Until then, the module descriptions above are the guide.
 
@@ -172,6 +176,7 @@ Copy this into a note and tick items off:
 - [ ] `19` errors/traps reviewed
 - [ ] `20` Power BI guide — built both dashboard projects
 - [ ] `22` advanced Excel — completed the 45-minute assessment
+- [ ] `23` SQL — completed the 45-minute assessment and all four drills
 - [ ] `28` error log — logged and reviewed mistakes
 
 ---
