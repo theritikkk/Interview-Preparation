@@ -87,8 +87,19 @@ Every factual claim in this pack is labelled with one of four tags:
 | `17-mock-interview-evaluation-rubric.md` | Scoring rubric for all rounds; how to self-evaluate and track improvement | Self-evaluation |
 | `18-final-revision-cheatsheet.md` | One-page-per-topic rapid revision: formulas, metrics, domain terms, interview one-liners | Last 24 hours |
 | `19-errors-mistakes-and-traps.md` | Catalogue of the most common calculation and reasoning errors, with the exact trap and the correct pattern | Error review |
+| `20-power-bi-complete-practical-guide.md` | **NEW (extension):** Power BI fundamentals, Power Query, data modelling, DAX, dashboard development, two practical projects, timed assessment | Dashboard building + technical interview |
+| `22-advanced-excel-for-analyst-assessments.md` | **NEW (extension):** advanced lookups, multi-condition aggregation, dynamic arrays, advanced PivotTables, reconciliation, what-if/sensitivity, survey analysis, 45-minute assessment with key | Excel assessment + technical interview |
+| `28-weakness-based-practice-and-error-log.md` | **NEW (extension):** categorized mistake log, worked examples, review protocol, category-specific drills | Error tracking + final revision |
 
-The `data/` folder contains seven synthetic CSV datasets (region sales, product sales, awareness funnel, market share, market by region, survey Likert, physician awareness/adoption). All datasets are fictional and were created for practice only. All arithmetic in the solutions has been independently verified.
+The `data/` folder contains the original seven synthetic CSV datasets plus the extension datasets added for modules 20 and 22. All are fictional and were created for practice only. New files:
+
+- `excel_advanced_sales.csv`, `excel_product_master.csv`, `excel_region_master.csv` — module 22 lookups, aggregation, PivotTables, what-if.
+- `excel_advanced_survey.csv` — module 22 survey cleaning, weighting, cross-tabs, NPS.
+- `excel_recon_ledger.csv`, `excel_recon_finance.csv` — module 22 reconciliation.
+- `excel_assessment_raw.csv` — module 22 timed assessment.
+- `pharma_sales_dashboard.csv` — module 20 dashboard project.
+
+> **Extension status:** modules `21` and `23`–`27`, plus `29-integrated-study-roadmap.md`, are planned. The full study sequence, coverage matrix, priority list, and final revision roadmap will be completed with those files. The rows above are the modules that currently exist.
 
 ---
 
@@ -117,6 +128,13 @@ The `data/` folder contains seven synthetic CSV datasets (region sales, product 
 - **Afternoon (2 h):** `14` timed mock → grade with `17`.
 - **Evening (2 h):** `11` skim model answers, `12` spoken STAR practice, `19` read all traps.
 - **Skip if very short on time:** `06`, `07`, `08` deep reading — use only the one-page summaries in `18`.
+
+### Where the extension modules fit
+
+- **After `05` and `15`:** do `22` (advanced Excel), then re-take `15` under 45 minutes. `22` assumes you already know the basics in `04`/`05` and does not repeat them.
+- **After `06` and `07`:** do `20` (Power BI) and build both dashboard projects on the practice datasets.
+- **After every mock or drill:** log the mistake in `28` and schedule the retry interval.
+- The complete prioritized sequence, coverage matrix, and final revision roadmap will be in `29-integrated-study-roadmap.md` when it is added. Until then, the module descriptions above are the guide.
 
 ---
 
@@ -152,6 +170,9 @@ Copy this into a note and tick items off:
 - [ ] `17` rubric used to grade one full loop
 - [ ] `18` cheatsheet reviewed
 - [ ] `19` errors/traps reviewed
+- [ ] `20` Power BI guide — built both dashboard projects
+- [ ] `22` advanced Excel — completed the 45-minute assessment
+- [ ] `28` error log — logged and reviewed mistakes
 
 ---
 

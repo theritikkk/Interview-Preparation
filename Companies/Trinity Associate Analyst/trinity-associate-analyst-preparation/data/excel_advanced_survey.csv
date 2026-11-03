@@ -1,0 +1,43 @@
+RespondentID,Specialty,Region,PracticeType,AwarenessStage,TrialStatus,TRxMonthly,Likert_Intent,Likert_Access,Likert_Efficacy,RecommendScore,YearsInPractice,Weight,ResponseDate,Channel
+RS-001,Cardiologist,North,Solo,Unaided awareness,No,0,1,2,4,4,5,0.8,2026-02-01,Email
+RS-002,Neurologist,South,Group,Unaided awareness,No,0,2,3,2,5,12,0.9,2026-02-02,Phone
+RS-003,Oncologist,East,Hospital,Unaided awareness,No,0,3,1,3,6,19,1.0,2026-02-03,In-person
+RS-004,Primary Care,West,Solo,Unaided awareness,No,0,1,2,4,4,26,1.1,2026-02-04,Email
+RS-005,Cardiologist,North,Group,Unaided awareness,No,0,2,3,2,5,8,1.2,2026-02-05,Phone
+RS-006,Neurologist,South,Hospital,Unaided awareness,No,0,3,1,3,6,15,1.3,2026-02-06,In-person
+RS-007,Oncologist,East,Solo,Unaided awareness,No,0,1,2,4,4,22,1.4,2026-02-07,Email
+RS-007,Oncologist,East,Solo,Unaided awareness,No,0,1,2,4,4,22,1.4,2026-02-07,Email
+RS-008,Primary Care,West,Group,Unaided awareness,No,0,2,3,2,5,29,0.8,2026-02-08,Phone
+RS-009,Cardiologist,North,Hospital,Aided awareness,No,0,4,1,3,7,11,0.9,2026-02-09,In-person
+RS-010,Neurologist,South,Solo,Aided awareness,No,0,2,2,4,5,18,1.0,2026-02-10,Email
+RS-011,Oncologist,East,Group,Aided awareness,No,0,3,3,2,6,25,1.1,2026-02-11,Phone
+RS-012,Primary Care,West,Hospital,Aided awareness,No,0,4,1,3,7,7,1.2,2026-02-12,In-person
+RS-013,Cardiologist,North,Solo,Aided awareness,No,0,2,2,4,5,14,1.3,2026-02-13,Email
+RS-014,Neurologist,South,Group,Aided awareness,No,0,3,3,2,6,21,1.4,2026-02-14,Phone
+RS-015,Oncologist,East,Hospital,Aided awareness,No,0,4,1,3,7,28,0.8,2026-02-15,In-person
+RS-016,Primary Care,West,Solo,Aided awareness,No,0,2,2,4,5,10,0.9,2026-02-16,Email
+RS-017,Cardiologist,North,Group,Consideration,No,0,3,4,2,7,17,1.0,2026-02-17,Phone
+RS-018,Neurologist,South,Hospital,Consideration,No,0,4,2,3,8,24,1.1,2026-02-18,In-person
+RS-019,Oncologist,East,Solo,Consideration,No,0,2,7,4,6,6,1.2,2026-02-19,Email
+RS-020,Primary Care,West,Group,Consideration,No,0,3,4,N/A,7,13,1.3,2026-02-20,Phone
+RS-021,Cardiologist,North,Hospital,Consideration,No,0,3,3,3,8,20,1.4,2026-02-21,In-person
+RS-022,Neurologist,north ,Solo,Consideration,No,0,2,3,4,6,27,0.8,2026-02-22,Email
+RS-023,Oncologist,East,Group,Consideration,No,0,3,4,2,7,9,0.9,2026-02-23,Phone
+RS-023,Oncologist,East,Group,Consideration,No,0,3,4,2,7,9,0.9,2026-02-23,Phone
+RS-024,Primary Care,N,Hospital,Consideration,No,0,4,2,3,8,16,1.0,2026-02-24,In-person
+RS-025,Cardiologist,North,Solo,Trial prescribed,Yes (trial),8,3,4,5,8,23,1.1,2026-02-25,Email
+RS-026,Neurologist,South,Group,Trial prescribed,Yes (trial),11,4,5,3,9,5,1.2,2026-02-26,Phone
+RS-027,Oncologist ,East,Hospital,Trial prescribed,Yes (trial),14,5,3,4,10,12,1.3,2026-02-27,In-person
+RS-028,Primary Care,West,Solo,Trial prescribed,Yes (trial),,3,4,5,8,19,1.4,2026-02-28,Email
+RS-029,Cardiologist,North,Group,Trial prescribed,Yes (trial),8,4,5,3,9,26,0.8,2026-03-01,Phone
+RS-030,Neurologist,South,Hospital,Trial prescribed,Yes (trial),11,5,3,4,10,8,0.9,2025-12-15,In-person
+RS-031,Oncologist,East,Solo,Trial prescribed,Yes (trial),14,3,4,5,8,15,1.0,2026-03-03,Email
+RS-032,Primary Care,West,Group,Trial prescribed,Yes (trial),17,4,5,3,9,22,1.1,2026-03-04,Phone
+RS-033,Cardiologist,North,Hospital,Regular prescriber,Yes (regular),20,5,3,4,10,29,1.2,2026-03-05,In-person
+RS-034,Neurologist,South,Solo,Regular prescriber,Yes (regular),24,3,4,5,9,11,1.3,2026-03-06,Email
+RS-035,Oncologist,East,Group,Regular prescriber,Yes (regular),28,4,5,3,10,18,1.4,2026-03-07,Phone
+RS-036,Primary Care,West,Hospital,Regular prescriber,Yes (regular),32,5,3,4,10,25,0.8,2026-03-08,In-person
+RS-037,Cardiologist,North,Solo,Regular prescriber,Yes (regular),36,3,4,5,9,7,0.9,2026-03-09,Email
+RS-038,Neurologist,South,Group,Regular prescriber,Yes (regular),40,4,5,3,10,14,1.0,2026-03-10,Phone
+RS-039,Oncologist,East,Hospital,Regular prescriber,Yes (regular),44,5,3,4,10,21,1.1,2026-03-11,In-person
+RS-040,Primary Care,West,Solo,Regular prescriber,Yes (regular),48,3,4,5,9,28,1.2,2026-03-12,Email

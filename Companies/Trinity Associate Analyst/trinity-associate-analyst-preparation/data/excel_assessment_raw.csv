@@ -1,0 +1,38 @@
+TerritoryID,Region,RepName,Product,Month,Units,UnitPrice,Revenue,TargetRevenue,Calls
+N-01,North,Ananya Rao,CardioX,Apr-26,281,120,33720,35433,99
+N-01,North,Ananya Rao,NeuroY,Apr-26,116,210,24360,27149,99
+N-01,North,Ananya Rao,OncoZ,Apr-26,62,480,29760,28535,99
+S-01,south,Vikram Shetty,CardioX,Apr-26,234,120,28080,29802,89
+S-01,South,Vikram Shetty,NeuroY,Apr-26,99,210,20790,21619,89
+S-01,South,Vikram Shetty,OncoZ,Apr-26,52,480,24960,25920,89
+E-01,East,Priya Nair,CardioX,Apr-26,160,120,19200,18035,74
+E-01,East,Priya Nair,NeuroY,Apr-26,70,210,14700,15130,74
+E-01,East,Priya Nair,OncoZ,Apr-26,31,480,14880,13992,74
+W-01,West,Rahul Menon,CardioX,Apr-26,201,120,24120,25594,82
+W-01,West,Rahul Menon,NeuroY,Apr-26,87,210,18270,18619,82
+W-01,West,Rahul Menon,OncoZ,Apr-26,41,480,19680,,82
+N-01,north ,Ananya Rao,CardioX,May-26,278,120,33360,33680,96
+N-01,North,Ananya Rao,NeuroY,May 2026,119,210,24990,26759,96
+N-01,North,Ananya Rao,OncoZ,May-26,72,480,34560,31838,96
+S-01,South,Vikram Shetty,CardioX,May-26,232,120,27840,28388,86
+S-01,South,Vikram Shetty,NeuroY,May-26,101,210,21210,21191,86
+S-01,South,Vikram Shetty,OncoZ,May-26,60,480,28800,28734,86
+E-01,East,Priya Nair,CardioX,May-26,159,120,19080,17220,71
+E-01,East,Priya Nair,NeuroY,May-26,71,210,14910,14745,71
+E-01,East,Priya Nair,OncoZ ,May-26,36,480,17280,15612,71
+W-01,West,Rahul Menon ,CardioX,May-26,199,120,23880,24346,79
+W-01,West,Rahul Menon,NeuroY,May-26,89,210,18690,18300,79
+W-01,West,Rahul Menon,OncoZ,May-26,48,480,23040,22110,79
+N-01,North,Ananya Rao,CardioX,Jun-26,316,120,37920,41018,100
+N-01,North,Ananya Rao,NeuroY,Jun-26,111,210,23310,26743,100
+N-01,N,Ananya Rao,OncoZ,Jun-26,87,480,41760,41219,100
+S-01,South,Vikram Shetty,CardioX,Jun-26,263,120,"31,560",34480,90
+S-01,South,Vikram Shetty,NeuroY,Jun-26,94,210,19740,21131,90
+S-01,South,Vikram Shetty,OncoZ,2026-06,73,480,35040,37457,90
+E-01,East,Priya Nair,CardioX,Jun-26,,120,21600,20886,75
+E-01,East,Priya Nair,NeuroY,Jun-26,66,210,13860,14685,75
+E-01,East,Priya Nair,OncoZ,Jun-26,44,480,21120,20444,75
+W-01,West,Rahul Menon,CardioX,Jun-26,225,120,27000,29493,83
+W-01,West,Rahul Menon,NeuroY,Jun-26,-12,210,-2520,18285,83
+W-01,West,Rahul Menon,OncoZ,Jun-26,58,480,27840,28624,83
+S-01,South,Vikram Shetty,OncoZ,May-26,60,480,28800,28734,86
