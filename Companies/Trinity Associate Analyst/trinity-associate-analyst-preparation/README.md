@@ -88,22 +88,32 @@ Every factual claim in this pack is labelled with one of four tags:
 | `18-final-revision-cheatsheet.md` | One-page-per-topic rapid revision: formulas, metrics, domain terms, interview one-liners | Last 24 hours |
 | `19-errors-mistakes-and-traps.md` | Catalogue of the most common calculation and reasoning errors, with the exact trap and the correct pattern | Error review |
 | `20-power-bi-complete-practical-guide.md` | **NEW (extension):** Power BI fundamentals, Power Query, data modelling, DAX, dashboard development, two practical projects, timed assessment | Dashboard building + technical interview |
-| `22-advanced-excel-for-analyst-assessments.md` | **NEW (extension):** advanced lookups, multi-condition aggregation, dynamic arrays, advanced PivotTables, reconciliation, what-if/sensitivity, survey analysis, 45-minute assessment with key | Excel assessment + technical interview |
+| `21-case-study-problem-solving-masterclass.md` | **NEW (extension):** Problem structuring, MECE issue trees, quantitative business toolkit (PVM, market share, funnels), root-cause analysis (5-Whys, Fishbone), EAR-KPI recommendations, case communication at 60s/3m/5m/10m, and 12 complete cases with separate answer keys | **HIGHEST PRIORITY** — Case interviews & technical round |
+| `22-advanced-excel-for-analyst-assessments.md` | **NEW (extension):** Advanced lookups, multi-condition aggregation, dynamic arrays, advanced PivotTables, reconciliation, what-if/sensitivity, survey analysis, 45-minute assessment with key | Excel assessment + technical interview |
 | `23-sql-for-business-and-survey-analytics.md` | **NEW (extension):** SQL from SELECT to window functions, joins/CTEs, data quality, survey weighting/NPS, commercial analytics, 45-minute assessment with key | Technical interview + analytics work |
-| `28-weakness-based-practice-and-error-log.md` | **NEW (extension):** categorized mistake log, worked examples, review protocol, category-specific drills | Error tracking + final revision |
+| `24-python-for-practical-business-analytics.md` | **NEW (extension):** Python foundations, pandas, cleaning/joins/groupby/pivots, survey weighting/NPS, commercial analytics, automation script, 45-minute assessment with key | Technical interview + analytics work |
+| `25-pharmaceutical-survey-and-market-research-deep-dive.md` | **NEW (extension):** HCP segmentation, AT&U funnels, survey questionnaire design, unbiased wording, sampling/quotas, post-stratification weighting math, banner tables, stated vs derived importance, patient journey mapping | Survey analytics + advisory work |
+| `26-client-communication-and-insight-storytelling.md` | **NEW (extension):** Barbara Minto's Pyramid Principle, SCR narrative framing, insight-led slide titles, chart selection matrix, avoiding misleading visuals, communicating uncertainty/bad news, stakeholder Q&A defense, 7-slide turnaround deck with speaker notes | Executive presentation & interview communication |
+| `27-full-length-analyst-case-and-assessment.md` | **NEW (extension):** 90-minute full-dress capstone simulation combining Excel data hygiene, analytical SQL window functions, survey z-test statistics, Power BI star schema & DAX, and boardroom pitch with 100-point rubric | Capstone practice simulation |
+| `28-weakness-based-practice-and-error-log.md` | **NEW (extension):** Categorized mistake log, worked examples, review protocol, category-specific drills | Error tracking + targeted revision |
+| `29-integrated-study-roadmap.md` | **NEW (extension):** Personalized 4-week, 7-day, and 3-day study execution roadmaps tailored for B.Tech IT candidates, daily checklists, revision intervals, and on-the-day tactical guides | **Master Study Guide** |
 
-The `data/` folder contains the original seven synthetic CSV datasets plus the extension datasets added for modules 20, 22, and 23. All are fictional and were created for practice only. New files:
+The `data/` folder contains the original seven synthetic CSV datasets plus the extension datasets added for modules 20, 22, 23, 24, and 27. All are fictional and were created for practice only. Practice files:
 
 - `excel_advanced_sales.csv`, `excel_product_master.csv`, `excel_region_master.csv` — module 22 lookups, aggregation, PivotTables, what-if.
 - `excel_advanced_survey.csv` — module 22 survey cleaning, weighting, cross-tabs, NPS.
 - `excel_recon_ledger.csv`, `excel_recon_finance.csv` — module 22 reconciliation.
 - `excel_assessment_raw.csv` — module 22 timed assessment.
 - `pharma_sales_dashboard.csv` — module 20 dashboard project.
+- `mock_capstone_sales.csv`, `mock_capstone_survey.csv`, `mock_capstone_access.csv` — module 27 full-length capstone simulation.
 - `data/sql/trinity_sql_practice.db` — module 23 ready-to-query SQLite database.
 - `data/sql/trinity_sql_practice.sql` — module 23 SQLite dump (schema + data).
 - `data/sql/csv/` — one CSV per SQL table, for inspection or another database engine.
+- `data/python/requirements.txt` — module 24 environment (pandas, NumPy, matplotlib, openpyxl, JupyterLab).
+- `data/python/build_report.py` — module 24 ready-to-run commercial + survey report with validation checks.
+- `data/python/README.md` — module 24 setup notes, data map, and deliberate data-quality issues.
 
-> **Extension status:** modules `21`, `24`–`27`, plus `29-integrated-study-roadmap.md`, are planned. The full study sequence, coverage matrix, priority list, and final revision roadmap will be completed with those files. The rows above are the modules that currently exist.
+> **Extension status: COMPLETE.** All extension modules (`20` through `29`) are fully implemented and integrated. The repository now constitutes an end-to-end 30-module preparation masterpack with dedicated datasets, practical assessments, and verified answer keys.
 
 ---
 
@@ -136,7 +146,8 @@ The `data/` folder contains the original seven synthetic CSV datasets plus the e
 ### Where the extension modules fit
 
 - **After `05` and `15`:** do `22` (advanced Excel), then re-take `15` under 45 minutes. `22` assumes you already know the basics in `04`/`05` and does not repeat them.
-- **After `06` and `07`:** do `23` (SQL) with `data/sql/trinity_sql_practice.db`, then `20` (Power BI) and build both dashboard projects on the practice datasets.
+- **After `06` and `07`:** do `23` (SQL) with `data/sql/trinity_sql_practice.db`, then `24` (Python/pandas) on the shared CSVs, then `20` (Power BI) and build both dashboard projects on the practice datasets.
+- **After `24`:** run `data/python/build_report.py` once, then re-run the 45-minute assessment with a fresh notebook. Use the `24.27` checklist to grade your own code.
 - **After every mock or drill:** log the mistake in `28` and schedule the retry interval.
 - The complete prioritized sequence, coverage matrix, and final revision roadmap will be in `29-integrated-study-roadmap.md` when it is added. Until then, the module descriptions above are the guide.
 
@@ -147,6 +158,7 @@ The `data/` folder contains the original seven synthetic CSV datasets plus the e
 1. **Online assessment mock (`14`):** No calculator apps if the real test disallows them (check your test rules). Set a 60-minute timer. Answer all 30 questions in one sitting. Score with the key; target ≥ 75% before you consider yourself ready.
 2. **Excel mock (`15`):** Open `data/trinity_excel_mock.csv` in Excel/LibreOffice/Google Sheets. 45-minute timer. Do the tasks in the file, save your workbook, then compare against the verified expected answers and grading notes.
 3. **Case mock (`16`):** Read the case, spend 3 minutes structuring, then talk through your analysis out loud as if to an interviewer. Compare with the worked solution only afterwards.
+4. **Python assessment (`24`):** Set up the environment from `data/python/README.md`, start a fresh notebook, and use the nine tasks in `24.25`. Set a 45-minute timer. Do not open `24.26` until the timer ends. Then run `python data/python/build_report.py` and compare its QA log with your own checks.
 
 ---
 
@@ -177,7 +189,17 @@ Copy this into a note and tick items off:
 - [ ] `20` Power BI guide — built both dashboard projects
 - [ ] `22` advanced Excel — completed the 45-minute assessment
 - [ ] `23` SQL — completed the 45-minute assessment and all four drills
-- [ ] `28` error log — logged and reviewed mistakes
+- [ ] `24` Python — ran `build_report.py`, completed the 45-minute assessment, and scored ≥ 23/30
+- [ ] `20` Power BI guide — built both dashboard projects & completed 60-min assessment
+- [ ] `21` Case masterclass — solved all 12 cases independently and verified calculations
+- [ ] `22` Advanced Excel — completed the 45-minute assessment and sensitivity analysis
+- [ ] `23` SQL analytics — completed the 45-minute assessment and window function drills
+- [ ] `24` Python analytics — ran `build_report.py` and completed the 45-minute assessment
+- [ ] `25` Survey deep dive — calculated post-stratification survey weights and banner tables
+- [ ] `26` Executive communication — rehearsed 90-second boardroom pitch using EAR framework
+- [ ] `27` Full capstone — scored ≥ 77/100 on the 90-minute integrated simulation
+- [ ] `28` Error log — logged, categorized, and re-tested all practice mistakes
+- [ ] `29` Study roadmap — completed personal 4-week / 7-day milestone checklist
 
 ---
 
@@ -189,7 +211,8 @@ Copy this into a note and tick items off:
 4. **The 2022 document** reflects an older process (case interviews, ₹17.4 LPA). Treat it as background only.
 5. **Candidate-reported interview experiences** are unverified; they informed question-bank topics but no specific reported questions are reproduced as fact.
 6. **No `.xlsx` practice workbook is included** — the Excel guidance is formula- and workflow-based, and you build the workbook yourself from the CSVs in `data/`. This is intentional: typing the formulas yourself is the practice.
-7. **This pack does not guarantee selection** and cannot replace the PPT notes or official instructions your placement cell distributes.
+7. **Python is a confirmed JD tool, not a confirmed interview round.** The current JD mentions Python for process improvement (CONFIRMED). A dedicated Python coding round is **PRACTICE INFERENCE**; module 24 prepares the skill without claiming a format.
+8. **This pack does not guarantee selection** and cannot replace the PPT notes or official instructions your placement cell distributes.
 
 ---
 

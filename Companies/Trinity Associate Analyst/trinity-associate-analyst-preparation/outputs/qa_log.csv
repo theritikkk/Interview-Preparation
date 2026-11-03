@@ -1,0 +1,12 @@
+check,actual,expected,passed
+sales_rows,72,72,True
+sales_revenue,2683320,2683320,True
+revenue_reconciliation,0,0,True
+survey_raw_rows,42,42,True
+survey_unique_physicians,40,40,True
+survey_clean_rows,39,39,True
+survey_duplicate_rows,2,2,True
+invalid_survey_items,2,2,True
+rx_rows,276,276,True
+rx_total,1699,1699,True
+june_trx,344,344,True
